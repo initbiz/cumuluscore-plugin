@@ -1,0 +1,43 @@
+<?php namespace {{author}}\{{name}}\Updates;
+
+
+
+use {{author}}\{{name}}\Plugin;
+use October\Rain\Database\Updates\Migration;
+use InitBiz\CumulusCore\Models\Module;
+
+class RegisterInitBizCumulusModule extends Migration
+{
+    private $name;
+    private $plugin;
+
+    public function __construct()
+    {
+        $this->plugin = new Plugin(app());
+        $this->name = \Lang::get($this->plugin->pluginDetails()['name']);
+    }
+
+
+    private function getSlug() {
+        return str_slug($this->name);
+    }
+
+    public function up()
+    {
+
+        if (\Schema::hasTable('initbiz_cumuluscore_modules')) {
+            Module::create([
+                'name' => $this->name,
+                'slug' => $this->getSlug()
+            ]);
+        }
+    }
+
+    public function down()
+    {
+        if (\Schema::hasTable('initbiz_cumuluscore_modules')) {
+            Module::whereSlug($this->getSlug())->delete();
+        }
+
+    }
+}

@@ -1,0 +1,21 @@
+plugin:
+    name: 'initbiz.cumuluscore::lang.plugin.name'
+    description: 'initbiz.cumuluscore::lang.plugin.description'
+    author: InITbiz
+    icon: oc-icon-soundcloud
+    homepage: ''
+navigation:
+    cumulus-main-menu:
+        label: Cumulus
+        url: initbiz/cumuluscore/companies
+        icon: icon-soundcloud
+        order: '700'
+        sideMenu:
+            cumulus-side-menu-users:
+                label: Users
+                url: rainlab/user/users
+                icon: icon-users
+            cumulus-side-menu-companies:
+                label: Companies
+                url: initbiz/cumuluscore/companies
+                icon: icon-yelp

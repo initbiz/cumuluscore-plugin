@@ -1,0 +1,11 @@
+title: Companies
+modelClass: InitBiz\CumulusCore\Models\Company
+list: $/initbiz/cumuluscore/models/company/columns.yaml
+recordUrl: 'initbiz/cumuluscore/companies/update/:company_id'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

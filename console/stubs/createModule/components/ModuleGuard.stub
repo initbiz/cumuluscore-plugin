@@ -1,0 +1,36 @@
+<?php namespace {{author}}\{{name}}\Components;
+
+use Cms\Classes\ComponentBase;
+use {{author}}\{{name}}\Classes\Guard;
+
+class {{name}}Guard extends ComponentBase
+{
+
+    protected $guard;
+
+    public function componentDetails()
+    {
+        return [
+            'name'        => '{{name}}Guard Component',
+            'description' => 'Guard component that allows company enter the module'
+        ];
+    }
+
+    public function defineProperties()
+    {
+        return [];
+    }
+
+    public function onRun()
+    {
+        $this->guard = new Guard();
+
+        if (!$this->guard->canEnterModule($this->param('company'))) {
+            $this->setStatusCode(403);
+            return $this->controller->run('403');
+        }
+
+
+    }
+
+}

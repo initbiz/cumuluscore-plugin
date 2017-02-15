@@ -1,0 +1,20 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Module
+
+# Model Form Field configuration
+form: $/initbiz/cumuluscore/models/module/fields.yaml
+
+# Model Class name
+modelClass: InitBiz\CumulusCore\Models\Module
+
+# Default redirect location
+defaultRedirect: initbiz/cumuluscore/modules
+
+
+# Preview page
+preview:
+    title: Preview Module

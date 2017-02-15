@@ -1,0 +1,42 @@
+<div class="list-widget list-scrollable-container " id="lista">
+    <table>
+        <tr>
+            <?php foreach ($data['head'] as $key => $column): ?>
+            <th
+                    class="<?= $data['viewData']['sortColumn'] == $key?'active':'' ?>"
+            >
+                <a
+                        href="javascript:;"
+                        data-request="<?= $this->alias; ?>::onSort"
+                        data-stripe-load-indicator
+                        data-request-data="sortColumn: '<?= $key; ?>',
+                            previousSortColumn: '<?= $data['viewData']['sortColumn'] ?>',
+                            sortOrder: '<?= $data['viewData']['sortOrder'] ?>'
+                            ">
+
+                    <?= $column ?>
+                    <i class="<?php
+                                if($data['viewData']['sortColumn'] == $key) {
+                                    if($data['viewData']['sortOrder']=='asc') {
+                                        echo 'glyphicon glyphicon-chevron-up';
+                                    } else {
+                                        echo 'glyphicon glyphicon-chevron-down';
+                                    }
+                                }
+                                ?>
+                                "></i>
+                </a>
+            </th>
+            <?php endforeach ?>
+        </tr>
+        <?php foreach ($data['body'] as $row): ?>
+        <tr>
+            <?php foreach ($row as $cell): ?>
+            <td>
+                <?= $cell ?>
+            </td>
+            <?php endforeach ?>
+        </tr>
+        <?php endforeach ?>
+    </table>
+</div>

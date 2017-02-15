@@ -1,0 +1,30 @@
+<?php namespace {{author}}\{{name}};
+
+use System\Classes\PluginBase;
+use Lang;
+use InitBiz\CumulusCore\Classes\Connector as CumulusConnector;
+
+class Plugin extends PluginBase
+{
+    private $menu = [];
+
+    public $require = ['InitBiz.CumulusCore'];
+
+    public function register()
+    {
+
+    }
+
+    public function boot()
+    {
+        CumulusConnector::registerNavigation($this->menu,
+            Lang::get(str_slug($this->pluginDetails()['name'])));
+    }
+
+    public function registerComponents()
+    {
+        return [
+            '{{author}}\{{name}}\Components\{{name}}Guard'      =>  '{{componentAlias}}Guard',
+        ];
+    }
+}

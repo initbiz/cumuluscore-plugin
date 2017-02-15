@@ -1,0 +1,11 @@
+columns:
+    full_name:
+        label: 'Full name'
+        type: text
+        searchable: true
+        sortable: true
+    slug:
+        label: Slug
+        type: text
+        searchable: true
+        sortable: true

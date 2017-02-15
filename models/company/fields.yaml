@@ -1,0 +1,27 @@
+fields:
+    full_name:
+        label: 'Full name'
+        oc.commentPosition: ''
+        span: left
+        required: 1
+        type: text
+    logo:
+        label: Logo
+        type: fileupload
+        span: right
+        mode: image
+        imageWidth: 300
+        imageHeight: 300
+    slug:
+        label: Slug
+        oc.commentPosition: ''
+        span: left
+        required: 1
+        preset:
+            field: full_name
+            type: slug
+        type: text
+    modules:
+        label: 'Moduły'
+        span: left
+        type: relation

@@ -1,0 +1,15 @@
+<h1>{{ list }}</h1>
+
+{% for userCompany in userCompanies %}
+<div class="col-md-3">
+    <a href="{{ companyPage|page({ company: userCompany.slug }) }}">
+        <div class="panel panel-default text-center">
+            <div class="panel-body">
+                <img src="{{   userCompany.logo.path   }}" alt="" class="img-responsive">
+                <hr>
+                <h2>{{ userCompany.full_name }}</h2>
+            </div>
+        </div>
+    </a>
+</div>
+{% endfor %}

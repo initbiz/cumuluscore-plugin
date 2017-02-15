@@ -1,0 +1,9 @@
+# ===================================
+#  Extended Profile Field Definitions
+# ===================================
+
+companies:
+    label: "Companies"
+    tab: "Companies"
+    type: relation
+    nameFrom: full_name

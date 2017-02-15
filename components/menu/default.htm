@@ -1,0 +1,6 @@
+<h3 class="well text-center">Menu</h3>
+<div class="list-group">
+    {% for component, url in componentsWithUrls %}
+        <a href="{{ url|page }}" class="list-group-item">{{ component }}</a>
+    {% endfor %}
+</div>

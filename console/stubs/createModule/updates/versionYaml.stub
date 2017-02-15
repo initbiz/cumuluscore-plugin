@@ -1,0 +1,5 @@
+1.0.0:
+    - Initialize plugin.
+    - register_initbiz_cumulus_module.php
+1.0.1:
+    - Module registered
