@@ -10,7 +10,9 @@ trait ExtendedComponentBase
 
     public $model;
     public $title;
-    public $columns;
+
+    /* param for company id that will be used in all components that need filtering */
+    public $companyRestricted = true;
 
     /* method that sets config */
     public function setConfig()
@@ -22,7 +24,7 @@ trait ExtendedComponentBase
     public function makeConfig()
     {
         $viewPath = $this->guessViewPath();
-        return Yaml::parseFile($viewPath . '/' . $this->listConfig);
+        return Yaml::parseFile($viewPath . '/' . $this->yamlConfig);
     }
 
     /**

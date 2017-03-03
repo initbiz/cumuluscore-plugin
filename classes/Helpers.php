@@ -16,4 +16,7 @@ class Helpers
             }
         }
     }
+    public static function getPagesFilenames() {
+        return CmsPage::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
+    }
 }

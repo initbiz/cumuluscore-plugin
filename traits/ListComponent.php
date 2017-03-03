@@ -1,13 +1,16 @@
 <?php namespace InitBiz\CumulusCore\Traits;
 
 use InitBiz\CumulusCore\Behaviors\ListComponent as ListComponentBehavior;
+use Cms\Classes\Page;
+use InitBiz\CumulusCore\Classes\Helpers;
 
 trait ListComponent
 {
 
     use ExtendedComponentBase;
 
-    public $listConfig = 'config_list.yaml';
+    public $yamlConfig = 'config_list.yaml';
+    public $columns;
 
     protected $listElements;
     protected $renderedList;
@@ -20,25 +23,66 @@ trait ListComponent
 
         $columns = array_keys($this->columns);
         $viewData = [];
+        $viewData['updatePageUrl'] = $this->property('updatePage');
+        $viewData['createPageUrl'] = $this->property('createPage');
         $viewData['sortColumn'] = null;
         $viewData['sortOrder'] = null;
 
-        $data = $this->model->select($columns);
+        $data = $this->model;
+        $relations = [];
+
+        //Eager loading definition for model
+        foreach ($this->columns as $columnName => $column) {
+            if (array_key_exists('relation',$column)) {
+                //$data = $data->with(array_values($column));
+                $relations[$column['relation']] = $columnName;
+            }
+        }
+        $columns = array_diff($columns, array_values($relations));
+
+        // select all columns except those in relations
+        $data = $data->select($columns);
+
+        //Company restrictions by company slug in URL
+        if ($this->companyRestricted) {
+            $companySlug = $this->param('company');
+            $data = $data->whereHas('company', function ($query) use ($companySlug) {
+                $query->where('slug', $companySlug);
+            });
+        }
+
+        $data = $data->get();
+
+        // adding relations to data
+        $relationData = [];
+        foreach ($data as $model) {
+            foreach ($relations as $relationName => $columnName) {
+                $relationData[] = [$columnName => $model->$relationName()->first()->$columnName];
+            }
+        }
+        $data = $data->toArray();
+
+        foreach ($data as &$row) {
+            $row += array_shift($relationData);
+        }
+
+        $columnLabels = [];
+        $columns += $relations;
+        foreach ($columns as $column) {
+            $columnLabels[$column] = $this->columns[$column]['label'];
+        }
+
+        //var_dump($data);
+        //sorting order
         if ($sortColumn) {
             $viewData['sortColumn'] = $sortColumn;
             if ($sortOrder == 'desc') {
-                $data = $data->orderBy($sortColumn, 'desc');
+                $this->array_sort_by_column($data, $sortColumn, SORT_DESC);
                 $viewData['sortOrder'] = 'desc';
             } else {
-                $data = $data->orderBy($sortColumn);
+                $this->array_sort_by_column($data, $sortColumn);
                 $viewData['sortOrder'] = 'asc';
             }
-        }
-        $data = $data->get()->toArray();
-
-        $columnLabels = [];
-        foreach ($columns as $column) {
-            $columnLabels[$column] = $this->columns[$column]['label'];
         }
 
         return ['head' => $columnLabels, 'body' => $data, 'viewData' => $viewData];
@@ -48,7 +92,6 @@ trait ListComponent
     public function renderList()
     {
         $viewPath = $this->guessViewPathFrom(ListComponentBehavior::class);
-
         return $this->makePartial($viewPath . '/default.htm', ['data' => $this->listElements]);
     }
 
@@ -57,13 +100,42 @@ trait ListComponent
         $this->page['listElements'] = $this->listElements;
         $this->page['renderedList'] = $this->renderedList;
         $this->page['title'] = $this->title;
+        $this->page['updatePageFileName'] = Page::all()[$this->property('updatePage').'.htm']
+                                        ->getAttributes()['fileName'];
     }
 
-    protected function buildList()
+    public function buildList()
     {
         $this->listElements = $this->makeList();
         $this->renderedList = $this->renderList();
     }
+
+    protected function listProperties()
+    {
+        return [
+            'updatePage' => [
+                'page'        => 'Page to update record',
+                'description' => 'Pick the page where records update component is embedded',
+                'type'        => 'dropdown'
+            ],
+            'createPage' => [
+                'page'        => 'Page to create record',
+                'description' => 'Pick the page where records create component is embedded',
+                'type'        => 'dropdown'
+            ]
+        ];
+    }
+
+    public function getUpdatePageOptions()
+    {
+        return Helpers::getPagesFilenames();
+        //return Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
+    }
+
+    public function getCreatePageOptions(){
+        return Helpers::getPagesFilenames();
+    }
+
 
     /* AJAX handlers for list */
 
@@ -99,6 +171,15 @@ trait ListComponent
         $this->prepareVariables();
         return ['#lista' => $this->makePartial($viewPath . '/default.htm',
             ['data' => $this->listElements])];
+    }
+
+    private function array_sort_by_column(&$arr, $col, $dir = SORT_ASC) {
+        $sort_col = array();
+        foreach ($arr as $key=> $row) {
+            $sort_col[$key] = $row[$col];
+        }
+
+        array_multisort($sort_col, $dir, $arr);
     }
 
 }

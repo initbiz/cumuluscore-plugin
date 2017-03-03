@@ -29,12 +29,6 @@ class UserCompaniesList extends ComponentBase
                 'description' => 'Company page',
                 'type' => 'dropdown',
                 'group' => 'Links',
-            ],
-            'companyPage' => [
-                'title' => 'Company page',
-                'description' => 'Company page',
-                'type' => 'dropdown',
-                'group' => 'Links',
             ]
         ];
     }
@@ -49,12 +43,15 @@ class UserCompaniesList extends ComponentBase
         $this->companyPage = $this->page['companyPage'] = $this->property('companyPage');
         $this->companiesList = $this->page['userCompanies'] = $this->companiesList();
 
+        if (isset($this->companiesList) && $this->companiesList->count() === 1) {
+            return redirect($this->controller->pageUrl($this->companyPage, ['company' => $this->companiesList->first()->slug]));
+        }
+
     }
 
 
     public function companiesList()
     {
-
         return $this->user()->companies()->get();
     }
 

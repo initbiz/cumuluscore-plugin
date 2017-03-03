@@ -1,6 +1,15 @@
-<div class="list-widget list-scrollable-container " id="lista">
-    <table>
-        <tr>
+<div class="list-widget list-scrollable-container" id="lista">
+    <div class="text-right">
+        <a href="<?= $this->pageUrl($data['viewData']['createPageUrl'])?> ">
+            <i class="glyphicon glyphicon-plus"></i> Add item
+        </a>
+    </div>
+    <table style="
+        width:100%;
+        ">
+        <tr style="
+            background-color:#ddd;
+            ">
             <?php foreach ($data['head'] as $key => $column): ?>
             <th
                     class="<?= $data['viewData']['sortColumn'] == $key?'active':'' ?>"
@@ -28,6 +37,9 @@
                 </a>
             </th>
             <?php endforeach ?>
+            <th>
+                Actions
+            </th>
         </tr>
         <?php foreach ($data['body'] as $row): ?>
         <tr>
@@ -36,6 +48,12 @@
                 <?= $cell ?>
             </td>
             <?php endforeach ?>
+            <td>
+                <a href="<?= $this->pageUrl($data['viewData']['updatePageUrl'],
+                    ['id' => $row['product_id']]) //TODO: Fail with productID ?> ">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </a>
+            </td>
         </tr>
         <?php endforeach ?>
     </table>
