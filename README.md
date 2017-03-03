@@ -9,7 +9,7 @@
 
 <a name="introduction"></a>
 ## Introduction
-The plugin is a skeleton for building B2B SaaS applications using OctoberCMS.
+The plugin is a skeleton for building SaaS applications using OctoberCMS.
 
 Its main purpose is to ease companies (developers) creating modules and manage permissions to frontend pages.
 
@@ -60,6 +60,6 @@ It is still experimental plugin but we hope it has potential. We decided to publ
 
 The most important future plans:
 * Complete this documentation (some features are not described here)
-* Building menu is not beautiful but we have an idea how to make it better :)
-* Provide example module that will help understand workflow with Cumulus
+* Change registering menu items to component menuItem to be set on page where menu entry will be shown
+* Change moduleGuards to one moduleGuard in CumulusCore with dropdown in Inspector
 * Provide theme in marketplace that will singleclick-install whole base environment with example module and Cumulus Core ready to create new modules
