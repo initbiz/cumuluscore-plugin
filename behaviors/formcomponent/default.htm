@@ -1,0 +1,20 @@
+<?= Form::open() ?>
+<?php foreach ($data as $fieldName => $content): ?>
+    <div class="form-group">
+        <label class="control-label" for="<?= $fieldName ?>"><?= $content['label'] ?></label>
+        <input class="form-control" id="<?= $fieldName ?>" name ="<?= $fieldName ?>" type="text">
+    </div>
+
+<?php endforeach ?>
+        <div class="form-buttons">
+            <div class="loading-indicator-container">
+                <button
+                    type="submit"
+                    data-request="onSave"
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                    class="btn btn-primary">
+                    <?= e(trans('backend::lang.form.create')) ?>
+                </button>
+            </div>
+        </div>
+<?= Form::close() ?>
