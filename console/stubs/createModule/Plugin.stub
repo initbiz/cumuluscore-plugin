@@ -18,7 +18,7 @@ class Plugin extends PluginBase
     public function boot()
     {
         CumulusConnector::registerNavigation($this->menu,
-            Lang::get(str_slug($this->pluginDetails()['name'])));
+            str_slug(Lang::get($this->pluginDetails()['name'])));
     }
 
     public function registerComponents()

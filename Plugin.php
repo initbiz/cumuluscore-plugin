@@ -10,8 +10,8 @@ class Plugin extends PluginBase
     public $require = ['RainLab.UserPlus'];
 
     private $menu = [
-        'companiesList' => 'Ekran wyboru firmy',   //TODO: do wzięcia z langa
-        'companyDashboard' => 'Strona startowa firmy'   //TODO: do wzięcia z langa
+        'companiesList' => 'Choose company page',   //TODO: take it from lang
+        'companyDashboard' => 'Company dashboard page'   //TODO: take it from lang
     ];
 
     public function registerComponents()

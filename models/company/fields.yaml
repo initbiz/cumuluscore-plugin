@@ -1,7 +1,6 @@
 fields:
     full_name:
         label: 'Full name'
-        oc.commentPosition: ''
         span: left
         required: 1
         type: text
@@ -14,7 +13,6 @@ fields:
         imageHeight: 300
     slug:
         label: Slug
-        oc.commentPosition: ''
         span: left
         required: 1
         preset:
@@ -22,6 +20,6 @@ fields:
             type: slug
         type: text
     modules:
-        label: 'Moduły'
+        label: 'Modules'
         span: left
         type: relation

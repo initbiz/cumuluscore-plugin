@@ -62,8 +62,11 @@ trait ListComponent
         }
         $data = $data->toArray();
 
-        foreach ($data as &$row) {
-            $row += array_shift($relationData);
+        if(!empty($relationData)) {
+            foreach ($data as &$row) {
+                dd($relationData);
+                $row += array_shift($relationData);
+            }
         }
 
         $columnLabels = [];
