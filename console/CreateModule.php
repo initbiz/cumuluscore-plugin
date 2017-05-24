@@ -24,8 +24,6 @@ class CreateModule extends GeneratorCommand
      */
     protected $stubs = [
         'stubs/createModule/lang/en/lang.stub' => 'lang/en/lang.php',
-        'stubs/createModule/classes/Guard.stub' => 'classes/Guard.php',
-        'stubs/createModule/components/ModuleGuard.stub' => 'components/{{name}}Guard.php',
         'stubs/createModule/Plugin.stub' => 'Plugin.php',
         'stubs/createModule/PluginYaml.stub' => 'plugin.yaml',
         'stubs/createModule/updates/register_initbiz_cumulus_module.stub' => 'updates/register_initbiz_cumulus_module.php',

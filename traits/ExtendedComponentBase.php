@@ -50,4 +50,16 @@ trait ExtendedComponentBase
         }
     }
 
+    public function cumulusProperties()
+    {
+        return [
+            'companySlug' => [
+                'title'       => 'Company slug',
+                'description' => 'Slug of company that dashboard is going to be shown',
+                'type' => 'string',
+                'default' => '{{ :company }}'
+            ]
+        ];
+    }
+
 }

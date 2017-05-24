@@ -7,7 +7,7 @@ plugin:
 navigation:
     cumulus-main-menu:
         label: Cumulus
-        url: initbiz/cumuluscore/companies
+        url: rainlab/user/users
         icon: icon-soundcloud
         order: '700'
         sideMenu:
@@ -19,3 +19,8 @@ navigation:
                 label: Companies
                 url: initbiz/cumuluscore/companies
                 icon: icon-yelp
+            # Future plan for grouping companies
+            # cumulus-side-menu-plans:
+            #     label: Plans
+            #     url: initbiz/cumuluscore/plans
+            #     icon: icon-cube

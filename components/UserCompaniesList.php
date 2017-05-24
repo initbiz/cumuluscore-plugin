@@ -17,7 +17,7 @@ class UserCompaniesList extends ComponentBase
     {
         return [
             'name' => 'Companies list',
-            'description' => ''
+            'description' => 'Component showing all companies that user is assigned to'
         ];
     }
 
@@ -25,10 +25,9 @@ class UserCompaniesList extends ComponentBase
     {
         return [
             'companyPage' => [
-                'title' => 'Company page',
-                'description' => 'Company page',
-                'type' => 'dropdown',
-                'group' => 'Links',
+                'title' => 'Company dashboard page',
+                'description' => 'Company dashboard page',
+                'type' => 'dropdown'
             ]
         ];
     }
@@ -40,30 +39,33 @@ class UserCompaniesList extends ComponentBase
 
     public function onRun()
     {
-        $this->companyPage = $this->page['companyPage'] = $this->property('companyPage');
-        $this->companiesList = $this->page['userCompanies'] = $this->companiesList();
+        $this->property('companyPage');
+        $this->companiesList = $this->page['userCompanies'] = $this->companiesListWithUrl();
 
-        if (isset($this->companiesList) && $this->companiesList->count() === 1) {
-            return redirect($this->controller->pageUrl($this->companyPage, ['company' => $this->companiesList->first()->slug]));
+        if (isset($this->companiesList) && count($this->companiesList) === 1) {
+            return redirect($this->companiesList[0]['attributes']['pageUrl']);
         }
 
     }
 
-
-    public function companiesList()
+    public function companiesListWithUrl()
     {
-        return $this->user()->companies()->get();
+        $userCompaniesList = $this->user()->companies()->get();
+        $companies = [];
+        foreach ($userCompaniesList as $company) {
+            $company['pageUrl'] = $this->controller->pageUrl($this->property('companyPage'),
+                ['company' => $company['attributes']['slug']]);
+            $companies[] = $company;
+        }
+        return $companies;
     }
 
     public function user()
     {
-
         if (!$user = \Auth::getUser()) {
             return null;
         }
-
         $user->touchLastSeen();
-
         return $user;
     }
 

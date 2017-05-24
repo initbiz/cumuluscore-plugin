@@ -10,13 +10,20 @@ class CumulusGuard extends ComponentBase
     {
         return [
             'name'        => 'Cumulus guard',
-            'description' => ''
+            'description' => 'Component checking if user can enter company'
         ];
     }
 
     public function defineProperties()
     {
-        return [];
+        return [
+            'companySlug' => [
+                'title'       => 'Company slug',
+                'description' => 'Slug of company that dashboard is going to be shown',
+                'type' => 'string',
+                'default' => '{{ :company }}'
+            ]
+        ];
     }
 
     public function onRun()
@@ -25,13 +32,13 @@ class CumulusGuard extends ComponentBase
             $this->setStatusCode(403);
             return $this->controller->run('403');
         }
-        $this->page['company'] = $this->param('company');
+        $this->page['company'] = $this->property('companySlug');
     }
 
     protected function canEnterCompany()
     {
         //TODO: move to model scope
-        return $this->user()->companies()->whereSlug($this->param('company'))->first()? true : false;
+        return $this->user()->companies()->whereSlug($this->property('companySlug'))->first()? true : false;
     }
 
     protected function user()

@@ -45,7 +45,7 @@ trait ListComponent
 
         //Company restrictions by company slug in URL
         if ($this->companyRestricted) {
-            $companySlug = $this->param('company');
+            $companySlug = $this->property('companySlug');
             $data = $data->whereHas('company', function ($query) use ($companySlug) {
                 $query->where('slug', $companySlug);
             });
@@ -115,18 +115,19 @@ trait ListComponent
 
     protected function listProperties()
     {
-        return [
-            'updatePage' => [
-                'page'        => 'Page to update record',
-                'description' => 'Pick the page where records update component is embedded',
-                'type'        => 'dropdown'
-            ],
-            'createPage' => [
-                'page'        => 'Page to create record',
-                'description' => 'Pick the page where records create component is embedded',
-                'type'        => 'dropdown'
-            ]
-        ];
+        return $this->cumulusProperties() +
+            [
+                'updatePage' => [
+                    'page'        => 'Page to update record',
+                    'description' => 'Pick the page where records update component is embedded',
+                    'type'        => 'dropdown'
+                ],
+                'createPage' => [
+                    'page'        => 'Page to create record',
+                    'description' => 'Pick the page where records create component is embedded',
+                    'type'        => 'dropdown'
+                ]
+            ];
     }
 
     public function getUpdatePageOptions()

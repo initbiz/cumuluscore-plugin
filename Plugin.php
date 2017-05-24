@@ -1,6 +1,6 @@
 <?php namespace InitBiz\CumulusCore;
 
-use InitBiz\CumulusCore\Classes\Connector as CumulusConnector;
+// use InitBiz\CumulusCore\Classes\Connector as CumulusConnector;
 use InitBiz\CumulusCore\Classes\Helpers;
 use System\Classes\PluginBase;
 
@@ -18,8 +18,10 @@ class Plugin extends PluginBase
     {
         return [
             'InitBiz\CumulusCore\Components\CumulusGuard'       =>  'cumulusGuard',
+            'InitBiz\CumulusCore\Components\ModuleGuard'       =>  'moduleGuard',
             'InitBiz\CumulusCore\Components\UserCompaniesList'  =>  'companiesList',
             'InitBiz\CumulusCore\Components\Menu'               =>  'menu',
+            'InitBiz\CumulusCore\Components\MenuItem'               =>  'menuItem',
             'InitBiz\CumulusCore\Components\CompanyDashboard'   =>  'companyDashboard'
         ];
     }
@@ -41,7 +43,6 @@ class Plugin extends PluginBase
 
     public function boot()
     {
-        CumulusConnector::registerNavigation($this->menu);
     }
 
     public function register()

@@ -19,4 +19,20 @@ class ListComponent extends ComponentBehavior
     {
         return [];
     }
+
+    public function listProperties()
+    {
+        return [
+            'updatePage' => [
+                'page'        => 'Page to update record',
+                'description' => 'Pick the page where records update component is embedded',
+                'type'        => 'dropdown'
+            ],
+            'createPage' => [
+                'page'        => 'Page to create record',
+                'description' => 'Pick the page where records create component is embedded',
+                'type'        => 'dropdown'
+            ]
+        ];
+    }
 }

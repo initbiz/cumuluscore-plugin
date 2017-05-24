@@ -4,6 +4,7 @@ use Event;
 use InitBiz\CumulusCore\Models\Company;
 use RainLab\User\Controllers\Users as UserController;
 use RainLab\User\Models\User as UserModel;
+use RainLab\User\Models\UserGroup;
 use BackendMenu;
 use Yaml;
 use File;
@@ -48,4 +49,18 @@ Event::listen('backend.menu.extendItems', function($manager)
     $manager->removeMainMenuItem('RainLab.User', 'user');
 });
 
+//TODO: Add "plan" abstraction to manage permissions
+Event::listen('rainlab.user.register', function($user, $data)
+{
+    //TODO: Future: move plans to external table, do not keep them in companies table
+    $company = $plan = Company::where('slug',$data['plan'])->first();
+    if ($plan) {
+        $user->companies()->add($plan);
+    }
+    //TODO: If this one is really necessary?
 
+    $group = UserGroup::where('code','registered')->first();
+    if ($group) {
+        $user->groups()->add($group);
+    }
+});

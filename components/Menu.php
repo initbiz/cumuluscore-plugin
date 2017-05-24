@@ -4,6 +4,8 @@ use Cms\Classes\ComponentBase;
 use Event;
 use InitBiz\CumulusCore\Classes\Helpers;
 use InitBiz\CumulusCore\Models\Company;
+use Cms\Classes\Page as CmsPage;
+use Cms\Classes\Theme;
 
 class Menu extends ComponentBase
 {
@@ -12,20 +14,15 @@ class Menu extends ComponentBase
     {
         return [
             'name' => 'Menu Component',
-            'description' => 'Component that gives all menu entries'
+            'description' => 'Component that renders menu based on menuItems component'
         ];
     }
 
     public function onRun()
     {
         //Building navigation
-
-        $moduleComponents = [];
-        Event::fire('initbiz.cumuluscore.menuItems', [&$moduleComponents]);
-
-        //TODO we are currently working on better solution
         $current_company_modules = Company::with('modules')
-            ->where('slug', $this->param('company'))
+            ->where('slug', $this->property('companySlug'))
             ->first()
             ->modules()
             ->get()
@@ -36,21 +33,39 @@ class Menu extends ComponentBase
             })
             ->toArray();
 
-        $cmsPages = [];
-        foreach ($moduleComponents as $component) {
-            if ($component['componentModule'] === null
-                || in_array($component['componentModule'], $current_company_modules, true)
-            ) {
-                $cmsPages[$component['componentTitle']] =
-                    Helpers::findComponentPage($component['componentAlias'])['fileName'];
+        $menuEntries= [];
+        $theme = Theme::getActiveTheme();
+        $pages = CmsPage::listInTheme($theme, true);
+
+        foreach ($pages as $page) {
+            if ($page->hasComponent('menuItem')) {
+                $component = '';
+                foreach ($page['settings']['components'] as $componentName => $componentProperties) {
+                    $exp_key = explode(' ', $componentName);
+                    if ($exp_key[0] === 'menuItem') {
+                        $component = $page['settings']['components'][$componentName];
+                    }
+                }
+                if ($component['cumulusModule'] === "none"
+                    || in_array($component['cumulusModule'],$current_company_modules, true))
+                {
+                    $menuEntries[$component['menuItemTitle']] = CmsPage::url($page['fileName']);
+                }
             }
         }
-        $this->page['componentsWithUrls'] = $cmsPages;
+        $this->page['menuEntries'] =$menuEntries;
     }
 
     public function defineProperties()
     {
-        return [];
+        return [
+            'companySlug' => [
+                'title'       => 'Company slug',
+                'description' => 'Slug of company that dashboard is going to be shown',
+                'type' => 'string',
+                'default' => '{{ :company }}'
+            ]
+        ];
     }
 
 }

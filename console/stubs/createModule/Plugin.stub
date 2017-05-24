@@ -17,14 +17,10 @@ class Plugin extends PluginBase
 
     public function boot()
     {
-        CumulusConnector::registerNavigation($this->menu,
-            str_slug(Lang::get($this->pluginDetails()['name'])));
     }
 
     public function registerComponents()
     {
-        return [
-            '{{author}}\{{name}}\Components\{{name}}Guard'      =>  '{{componentAlias}}Guard',
-        ];
+        return [];
     }
 }
