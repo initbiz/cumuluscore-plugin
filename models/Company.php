@@ -29,18 +29,22 @@ class Company extends Model
      */
     public $table = 'initbiz_cumuluscore_companies';
     public $primaryKey = 'company_id';
-
+    protected $fillable = ['full_name', 'slug'];
     public $belongsToMany = [
         'modules' => [
             Module::class,
-            'table' => 'initbiz_cumuluscore_company_module'
+            'table' => 'initbiz_cumuluscore_company_module',
+            'key'      => 'company_id',
+            'otherKey' => 'module_id'
         ]
     ];
 
     public $hasMany = [
         'users' => [
             UserModel::class,
-            'table' => 'users'
+            'table' => 'users',
+            'key'      => 'company_id',
+            'otherKey' => 'user_id'
         ]
     ];
 
@@ -48,7 +52,7 @@ class Company extends Model
         'logo' => ['System\Models\File']
     ];
 
-    public static function getMenuTypeInfo($type)
+    public static function getMenuTypeInfo()
     {
         //TODO To consider extending automatic static menu generating
         $result = ['dynamicItems' => true];
@@ -57,6 +61,7 @@ class Company extends Model
 
         $pages = CmsPage::listInTheme($theme, true);
         $cmsPages = [];
+        dd($pages);
         foreach ($pages as $page) {
             if (!$page->hasComponent('cumulusGuard')) {
                 continue;
@@ -64,7 +69,6 @@ class Company extends Model
 
             $cmsPages[] = $page;
         }
-
         $result['cmsPages'] = $cmsPages;
         return $result;
     }
