@@ -13,7 +13,9 @@ UserModel::extend(function ($model) {
     $model->belongsToMany['companies'] = [
         Company::class,
         'table' => 'initbiz_cumuluscore_company_user',
-        'order' => 'full_name'
+        'order' => 'full_name',
+        'key'      => 'company_id',
+        'otherKey' => 'user_id'
     ];
 });
 
