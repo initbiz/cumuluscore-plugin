@@ -43,7 +43,7 @@ class UserCompaniesList extends ComponentBase
         $this->companiesList = $this->page['userCompanies'] = $this->companiesListWithUrl();
 
         if (isset($this->companiesList) && count($this->companiesList) === 1) {
-            return redirect($this->companiesList[0]['attributes']['pageUrl']);
+            return redirect($this->companiesList[0]->pageUrl);
         }
 
     }
@@ -54,11 +54,12 @@ class UserCompaniesList extends ComponentBase
         $companies = [];
         foreach ($userCompaniesList as $company) {
             $company['pageUrl'] = $this->controller->pageUrl($this->property('companyPage'),
-                ['company' => $company['attributes']['slug']]);
+               ['company' => $company->slug]);
             $companies[] = $company;
         }
         return $companies;
     }
+
 
     public function user()
     {

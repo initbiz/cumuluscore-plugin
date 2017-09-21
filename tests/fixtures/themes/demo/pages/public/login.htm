@@ -1,0 +1,11 @@
+title = "Login"
+url = "/"
+layout = "public/default"
+is_hidden = 0
+
+[account]
+redirect = "session-guarded/choose-company"
+paramCode = "code"
+forceSecure = 0
+==
+{% component 'account' %}

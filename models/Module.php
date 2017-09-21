@@ -32,7 +32,9 @@ class Module extends Model
     public $belongsToMany = [
         'companies' => [
             Company::class,
-            'table' => 'initbiz_cumuluscore_company_module'
+            'table' => 'initbiz_cumuluscore_company_module',
+            'key'      => 'company_id',
+            'otherKey' => 'module_id'
         ]
     ];
 }
