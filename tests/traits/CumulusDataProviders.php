@@ -26,7 +26,7 @@ trait CumulusDataProviders
             'terms_acceptance' => 'on',
         ];
         return [
-            ["data" => $data]
+            ["userData" => $data]
         ];
     }
     public function providerCompanyData() {
@@ -35,7 +35,17 @@ trait CumulusDataProviders
             'company' => $faker->company
         ];
         return [
-            ["data" => $data]
+            ["companyData" => $data]
+        ];
+    }
+
+    public function providerUserWithCompanyData()
+    {
+        $company = $this->providerCompanyData();
+        $user  = $this->providerUserData();
+        return [
+            ["userData" => $user[0]['userData'],
+                "companyData" => $company[0]['companyData']]
         ];
     }
 }

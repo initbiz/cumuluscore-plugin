@@ -15,9 +15,8 @@ class CreateCompanyTest extends Ui2TestCase {
      */
     public function admin_can_create_company($data)
     {
-        $this->createCompany($data)
-             ->waitForElementsWithClass('flash-message')
-             ->hold(1)
+        $this->signInToBackend()
+             ->createCompany($data)
              ->see('Companies created');
     }
 }
