@@ -1,0 +1,11 @@
+title = "register"
+url = "/register"
+layout = "public/default"
+is_hidden = 0
+
+[account registerForm]
+redirect = "public/login"
+paramCode = "code"
+forceSecure = 0
+==
+{% component 'registerForm' %}
