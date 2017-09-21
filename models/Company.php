@@ -52,7 +52,7 @@ class Company extends Model
         'logo' => ['System\Models\File']
     ];
 
-    public static function getMenuTypeInfo()
+    public static function getMenuTypeInfo($type)
     {
         //TODO To consider extending automatic static menu generating
         $result = ['dynamicItems' => true];
@@ -61,7 +61,6 @@ class Company extends Model
 
         $pages = CmsPage::listInTheme($theme, true);
         $cmsPages = [];
-        dd($pages);
         foreach ($pages as $page) {
             if (!$page->hasComponent('cumulusGuard')) {
                 continue;
