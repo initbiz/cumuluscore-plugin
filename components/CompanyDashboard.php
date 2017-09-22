@@ -1,7 +1,6 @@
 <?php namespace InitBiz\Cumuluscore\Components;
 
 use Cms\Classes\ComponentBase;
-use InitBiz\CumulusCore\Models\Company;
 use RainLab\User\Models\User as Users;
 
 class CompanyDashboard extends ComponentBase
