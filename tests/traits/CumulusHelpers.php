@@ -26,31 +26,44 @@ trait CumulusHelpers {
 
     public function activateUser($email)
     {
-//        $this->visit('/panel/rainlab/user/users')
-//        $this->hold(1)
-//            ->findElement('user', '/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[3]/div/table/tbody/tr[1]')
-//            ->click();
-//        $this->findElement('active user', '/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/form/div/div[1]/div/div[2]/div/div[1]/div/div/p/a')
-//            ->click();
-//        $this->waitForElementsWithClass('sweet-alert')
-//            ->hold(3)
-//            ->findElement('ok button', '/html/body/div[5]/div[2]/p[2]/button[2]')
-//            ->click();
-//        $this->hold(3)
-//            ->see('User has been activated');
-    }
-
-    public function createUserWithCompany($userData, $companyData)
-    {
-        $this->visit('/panel/rainlab/user/users/create')
-            ->type($data['name'], 'Form-field-User-name')
-            ->type($data['surname'], 'Form-field-User-surname')
-            ->type($data['email'], 'Form-field-User-email')
-            ->type($data['password'], 'Form-field-User-password')
-            ->type($data['password'], 'Form-field-User-password_confirmation')
-            ->press('Create')
-            ->waitForElementsWithClass('flash-message');
-
+        $this->visit('/panel/rainlab/user/users')
+             ->clickRowInBackendList($email)
+             ->clickLink('Activate this user manually')
+             ->waitForElementsWithClass('sweet-alert')
+             ->hold(1)
+             ->press('OK')
+             ->waitForFlashMessage();
         return $this;
     }
+
+
+    public function singIn($data)
+    {
+        $this->visit('/')
+             ->type($data['email'], 'login')
+             ->type($data['password'], 'password')
+             ->findElement("Login button", "//button[@type='submit']")
+             ->click();
+        $this->hold(2);
+        return $this;
+    }
+
+    public function addCompanyToUser($userEmail, $company)
+    {
+        $userId = $this->getRecordID($userEmail, '/panel/rainlab/user/users');
+        $companyId = $this->getRecordID($company, '/panel/initbiz/cumuluscore/companies');
+
+        $this->visit('/panel/rainlab/user/users/preview/' . $userId)
+             ->clickLink('Update details')
+             ->hold(1)
+             ->findElement('companies', '//a[@title="Companies"]')
+             ->click();
+        $this->hold(2);
+        $this->findElement($companyId, "//label[@for='checkbox_Form-field-User-companies_{$companyId}']")
+             ->click();
+        $this->hold(2);
+        return $this;
+    }
+
+
 }
