@@ -1,0 +1,9 @@
+title = "company dashboard"
+url = "/system/:company/dashboard"
+layout = "cumulus-guarded/default"
+is_hidden = 0
+
+[companyDashboard]
+companySlug = "{{ :company }}"
+==
+{% component 'companyDashboard' %}

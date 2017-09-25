@@ -29,18 +29,22 @@ class Company extends Model
      */
     public $table = 'initbiz_cumuluscore_companies';
     public $primaryKey = 'company_id';
-
+    protected $fillable = ['full_name', 'slug'];
     public $belongsToMany = [
         'modules' => [
             Module::class,
-            'table' => 'initbiz_cumuluscore_company_module'
+            'table' => 'initbiz_cumuluscore_company_module',
+            'key'      => 'company_id',
+            'otherKey' => 'module_id'
         ]
     ];
 
     public $hasMany = [
         'users' => [
             UserModel::class,
-            'table' => 'users'
+            'table' => 'users',
+            'key'      => 'company_id',
+            'otherKey' => 'user_id'
         ]
     ];
 
@@ -64,7 +68,6 @@ class Company extends Model
 
             $cmsPages[] = $page;
         }
-
         $result['cmsPages'] = $cmsPages;
         return $result;
     }

@@ -19,6 +19,7 @@ class CompanyDashboard extends ComponentBase
         $this->page['workersNumber'] = Users::whereHas('companies', function ($query) {
             $query->where('slug', $this->property('companySlug'));
         })->count();
+
     }
 
     public function defineProperties()
