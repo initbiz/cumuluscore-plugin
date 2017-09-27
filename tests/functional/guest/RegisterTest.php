@@ -16,6 +16,8 @@ class RegisterTest extends Ui2TestCase {
              ->type($data['name'], 'name')
              ->type($data['email'], 'email')
              ->type($data['password'], 'password')
+             ->press('Register')
+             ->hold(1)
              ->seePageIs('/');
     }
 }

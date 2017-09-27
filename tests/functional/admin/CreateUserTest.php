@@ -31,8 +31,9 @@ class CreateUserTest extends Ui2TestCase {
         //still not green
         $this->signInToBackend()
              ->createCompany($companyData)
-             ->createUser($userData, $companyData)
-             ->addCompanyToUser($userData['email'], $companyData['company']);
-
+             ->createUser($userData)
+             ->addUserToCompany($userData['email'], $companyData['name'])
+             ->hold(1)
+             ->see('User updated');
     }
 }

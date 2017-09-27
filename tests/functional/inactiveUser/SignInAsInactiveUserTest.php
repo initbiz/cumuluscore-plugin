@@ -2,7 +2,7 @@
 
 use InitBiz\Selenium2Tests\Classes\Ui2TestCase;
 
-class SignInTest extends Ui2TestCase {
+class SignInAsInactiveUserTest extends Ui2TestCase {
 
     use CumulusDataProviders,
         CumulusHelpers;
@@ -16,8 +16,7 @@ class SignInTest extends Ui2TestCase {
         $this->signInToBackend()
              ->createUser($data)
              ->visit('/')
-             ->singIn($data);
-        //TODO: see if inactive user cannot login
-
+             ->singInToFrontend($data)
+             ->see('Something bad happened, mate, here it is: ');
     }
 }

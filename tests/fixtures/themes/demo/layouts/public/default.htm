@@ -15,7 +15,7 @@
         {% styles %}
     </head>
     <body>
-
+   
         <!-- Header -->
         <header id="layout-header">
             {% partial 'site/header' %}
@@ -37,6 +37,7 @@
         <script src="{{ 'assets/javascript/app.js'|theme }}"></script>
         {% framework extras %}
         {% scripts %}
+        {% partial 'html/footer-scripts' %}
 
     </body>
 </html>

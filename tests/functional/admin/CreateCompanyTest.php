@@ -17,6 +17,6 @@ class CreateCompanyTest extends Ui2TestCase {
     {
         $this->signInToBackend()
              ->createCompany($data);
-             $this->see('Companies created');
+        $this->see('Companies created');
     }
 }

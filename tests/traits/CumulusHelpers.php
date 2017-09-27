@@ -2,6 +2,7 @@
 
 trait CumulusHelpers {
 
+
     public function createUser($data)
     {
         $this->visit('/panel/rainlab/user/users/create')
@@ -10,17 +11,19 @@ trait CumulusHelpers {
              ->type($data['email'], 'Form-field-User-email')
              ->type($data['password'], 'Form-field-User-password')
              ->type($data['password'], 'Form-field-User-password_confirmation')
-             ->press('Create')
-             ->waitForElementsWithClass('flash-message');
+             ->findElement("email Checkbox", "//label[contains(., 'Send invitation by email')]")
+             ->click();
+             $this->press('Create')
+             ->waitForFlashMessage();
         return $this;
     }
 
     public function createCompany($data)
     {
         $this->visit('/panel/initbiz/cumuluscore/companies/create')
-             ->type($data['company'], 'Form-field-Company-full_name')
+             ->type($data['name'], 'Form-field-Company-full_name')
              ->press('Create')
-             ->waitForElementsWithClass('flash-message');
+             ->waitForFlashMessage();
         return $this;
     }
 
@@ -37,7 +40,7 @@ trait CumulusHelpers {
     }
 
 
-    public function singIn($data)
+    public function singInToFrontend($data)
     {
         $this->visit('/')
              ->type($data['email'], 'login')
@@ -48,20 +51,20 @@ trait CumulusHelpers {
         return $this;
     }
 
-    public function addCompanyToUser($userEmail, $company)
+    public function addUserToCompany($userEmail, $company)
     {
         $userId = $this->getRecordID($userEmail, '/panel/rainlab/user/users');
-        $companyId = $this->getRecordID($company, '/panel/initbiz/cumuluscore/companies');
-
         $this->visit('/panel/rainlab/user/users/preview/' . $userId)
              ->clickLink('Update details')
              ->hold(1)
              ->findElement('companies', '//a[@title="Companies"]')
              ->click();
         $this->hold(2);
-        $this->findElement($companyId, "//label[@for='checkbox_Form-field-User-companies_{$companyId}']")
+        $this->findElement($company, "//label[contains(., '{$company}')]")
              ->click();
-        $this->hold(2);
+        $this->hold(2)
+             ->press('Save')
+             ->waitForFlashMessage();
         return $this;
     }
 
