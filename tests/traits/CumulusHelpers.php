@@ -68,5 +68,17 @@ trait CumulusHelpers {
         return $this;
     }
 
+    public function addModuleToCompany($module, $company)
+    {
+        $companyId = $this->getRecordID($company, 'panel/initbiz/cumuluscore/companies');
+        $this->visit('/panel/initbiz/cumuluscore/companies/update/' . $companyId)
+             ->findElement($module, "//label[contains(., '{$module}')]")
+             ->click();
+        $this->hold(1)
+             ->press('Save')
+             ->waitForFlashMessage();
+        return $this;
+    }
+
 
 }

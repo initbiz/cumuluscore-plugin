@@ -5,5 +5,8 @@ is_hidden = 0
 
 [companyDashboard]
 companySlug = "{{ :company }}"
+
+[menu]
+companySlug = "{{ :company }}"
 ==
-{% component 'companyDashboard' %}
+{% component 'companyDashboard' %}{% component 'menu' %}
