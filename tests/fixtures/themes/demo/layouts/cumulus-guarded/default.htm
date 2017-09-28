@@ -1,9 +1,9 @@
-[cumulusGuard]
-companySlug = "{{ :company }}"
-
 [session]
 security = "user"
-redirect = "error"
+redirect = "forbidden"
+
+[cumulusGuard]
+companySlug = "{{ :company }}"
 ==
 <!DOCTYPE html>
 <html>
@@ -21,12 +21,12 @@ redirect = "error"
         {% styles %}
     </head>
     <body>
-
+{% component 'session' %}
         <!-- Header -->
         <header id="layout-header">
             {% partial 'site/header' %}
         </header>
-{% component 'cumulusGuard' %}{% component 'session' %}
+
         <!-- Content -->
         <section id="layout-content">
             {% page %}

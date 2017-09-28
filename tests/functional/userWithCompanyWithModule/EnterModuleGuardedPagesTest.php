@@ -20,7 +20,7 @@ class EnterModuleGuardedPagesTest extends Ui2TestCase {
             ->addUserToCompany($userData['email'], $companyData['name'])
             ->hold(2)
             ->addModuleToCompany('CumulusProducts', $companyData['name'])
-            ->singInToFrontend($userData)
+            ->signInToFrontend($userData)
             ->clickLink('Products')
             ->see('List Products');
     }
@@ -38,11 +38,14 @@ class EnterModuleGuardedPagesTest extends Ui2TestCase {
             ->activateUser($userData['email'])
             ->addUserToCompany($userData['email'], $companyData['name'])
             ->hold(2)
-            ->singInToFrontend($userData)
+            ->signInToFrontend($userData)
             ->notSee('Products');
+    }
+
+    protected function afterTest()
+    {
+        $this->hold(2)
+            ->clearCumulus();
     }
 }
 
-
-//user z jedna firma nie moze wejsc do drugiej
-//dwa moduły, do jegodnego ma wjazd do drugiego

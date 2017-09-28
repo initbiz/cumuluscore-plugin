@@ -21,7 +21,7 @@ class EnterCompanyDashboardPageTest extends Ui2TestCase
             ->activateUser($userData['email'])
             ->addUserToCompany($userData['email'], $companyData['name'])
             ->hold(2)
-            ->singInToFrontend($userData)
+            ->signInToFrontend($userData)
             ->hold(2)
             ->see('Dashboard');
     }
@@ -45,7 +45,7 @@ class EnterCompanyDashboardPageTest extends Ui2TestCase
             ->addUserToCompany($user['email'], $secondCompany['name'])
             ->hold(2)
             ->signOutFromBackend()
-            ->singInToFrontend($user)
+            ->signInToFrontend($user)
             ->seePageIs('/system/choose-company')
             ->findAndClickElement($firstCompany['name'], "//h2[contains(., '{$firstCompany['name']}')]")
             ->hold(1)
@@ -56,4 +56,9 @@ class EnterCompanyDashboardPageTest extends Ui2TestCase
             ->see('Dashboard');
     }
 
+    protected function afterTest()
+    {
+        $this->hold(2)
+            ->clearCumulus();
+    }
 }

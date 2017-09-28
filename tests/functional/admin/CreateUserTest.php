@@ -36,4 +36,10 @@ class CreateUserTest extends Ui2TestCase {
              ->hold(1)
              ->see('User updated');
     }
+
+    protected function afterTest()
+    {
+        $this->hold(2)
+            ->clearCumulus();
+    }
 }

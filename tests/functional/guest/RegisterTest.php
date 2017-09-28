@@ -3,7 +3,8 @@ use Initbiz\Selenium2tests\Classes\Ui2TestCase;
 
 class RegisterTest extends Ui2TestCase {
 
-    use CustomDataProviders;
+    use CustomDataProviders,
+        CumulusHelpers;
     /**
      * @test *
      * * @return void
@@ -19,5 +20,12 @@ class RegisterTest extends Ui2TestCase {
              ->press('Register')
              ->hold(1)
              ->seePageIs('/');
+    }
+
+    protected function afterTest()
+    {
+        $this->hold(2)
+             ->signInToBackend()
+             ->clearCumulus();
     }
 }

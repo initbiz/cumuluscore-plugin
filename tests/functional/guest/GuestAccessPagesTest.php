@@ -4,6 +4,8 @@ use InitBiz\Selenium2Tests\Classes\Ui2TestCase;
 
 class GuestAccessPagesTest extends Ui2TestCase {
 
+    use CumulusHelpers,
+        CumulusDataProviders;
     /**
      * @test *
      * * @return void
@@ -16,29 +18,42 @@ class GuestAccessPagesTest extends Ui2TestCase {
 
     /**
      * @test *
+     * @dataProvider providerCompanyData
      * * @return void
      */
-    public function guest_cannot_enter_company_dashboard_page()
+    public function guest_cannot_enter_company_dashboard_page($companyData)
     {
-
+        $companySlug = $this->slugify($companyData['name']);
+        $this->signInToBackend()
+             ->createCompany($companyData)
+             ->signOutFromBackend()
+             ->visit('/system/'. $companySlug .'/dashboard')
+             ->see('Forbidden');
     }
 
     /**
      * @test *
+     * @dataProvider providerCompanyData
      * * @return void
      */
-    public function guest_cannot_enter_module_guarded_page()
+    public function guest_cannot_enter_module_guarded_page($companyData)
     {
-
+        $companySlug = $this->slugify($companyData['name']);
+        $this->signInToBackend()
+             ->createCompany($companyData)
+             ->hold(2)
+             ->signOutFromBackend()
+             ->hold(2)
+             ->visit('/system/'. $companySlug .'/products')
+             ->see('Forbidden');
     }
 
-    /**
-     * @test *
-     * * @return void
-     */
-    public function guest_can_enter_public_pages()
-    {
 
+    protected function afterTest()
+    {
+        $this->hold(2)
+             ->signInToBackend()
+             ->clearCumulus();
     }
 
 }

@@ -16,7 +16,7 @@ class ActiveUserAccessPagesTest extends Ui2TestCase {
         $this->signInToBackend()
              ->createUser($userData)
              ->activateUser($userData['email'])
-             ->singInToFrontend($userData)
+             ->signInToFrontend($userData)
              ->visit('/system/choose-company')
              ->notSee('Forbidden');
     }
@@ -33,7 +33,7 @@ class ActiveUserAccessPagesTest extends Ui2TestCase {
             ->createUser($userData)
             ->activateUser($userData['email'])
             ->createCompany($companyData)
-            ->singInToFrontend($userData)
+            ->signInToFrontend($userData)
             ->visit('/system/' . $companySlug . '/dashboard')
             ->hold(1)
             ->see('Forbidden');
@@ -52,7 +52,7 @@ class ActiveUserAccessPagesTest extends Ui2TestCase {
             ->activateUser($userData['email'])
             ->createCompany($companyData)
             ->addModuleToCompany('CumulusProducts', $companyData['name'])
-            ->singInToFrontend($userData)
+            ->signInToFrontend($userData)
             ->visit('/system/' . $companySlug . '/products')
             ->hold(1)
             ->see('Forbidden');
@@ -75,5 +75,10 @@ class ActiveUserAccessPagesTest extends Ui2TestCase {
              ->waitForFlashMessage()
              ->hold(2)
              ->see('A user was not found with the given credentials');
+    }
+
+    protected function afterTest()
+    {
+        $this->clearCumulus();
     }
 }
