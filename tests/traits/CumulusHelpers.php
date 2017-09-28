@@ -11,9 +11,8 @@ trait CumulusHelpers {
              ->type($data['email'], 'Form-field-User-email')
              ->type($data['password'], 'Form-field-User-password')
              ->type($data['password'], 'Form-field-User-password_confirmation')
-             ->findElement("email Checkbox", "//label[contains(., 'Send invitation by email')]")
-             ->click();
-             $this->press('Create')
+             ->clickLabel('Send invitation by email')
+             ->press('Create')
              ->waitForFlashMessage();
         return $this;
     }
@@ -45,24 +44,19 @@ trait CumulusHelpers {
         $this->visit('/')
              ->type($data['email'], 'login')
              ->type($data['password'], 'password')
-             ->findElement("Login button", "//button[@type='submit']")
-             ->click();
-        $this->hold(2);
+             ->findAndClickElement("Login button", "//button[@type='submit']")
+             ->hold(2);
         return $this;
     }
 
     public function addUserToCompany($userEmail, $company)
     {
         $userId = $this->getRecordID($userEmail, '/panel/rainlab/user/users');
-        $this->visit('/panel/rainlab/user/users/preview/' . $userId)
-             ->clickLink('Update details')
-             ->hold(1)
-             ->findElement('companies', '//a[@title="Companies"]')
-             ->click();
-        $this->hold(2);
-        $this->findElement($company, "//label[contains(., '{$company}')]")
-             ->click();
-        $this->hold(2)
+        $this->visit('/panel/rainlab/user/users/update/' . $userId)
+             ->findAndClickElement('companies', '//a[@title="Companies"]')
+             ->hold(2)
+             ->clickLabel($company)
+             ->hold(2)
              ->press('Save')
              ->waitForFlashMessage();
         return $this;
@@ -72,13 +66,38 @@ trait CumulusHelpers {
     {
         $companyId = $this->getRecordID($company, 'panel/initbiz/cumuluscore/companies');
         $this->visit('/panel/initbiz/cumuluscore/companies/update/' . $companyId)
-             ->findElement($module, "//label[contains(., '{$module}')]")
-             ->click();
+             ->clickLabel($module);
         $this->hold(1)
              ->press('Save')
              ->waitForFlashMessage();
         return $this;
     }
 
+    public function slugify($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // remove duplicate -
+        $text = preg_replace('~-+~', '-', $text);
+
+        // lowercase
+        $text = strtolower($text);
+
+        if (empty($text)) {
+            return 'n-a';
+        }
+
+        return $text;
+    }
 
 }

@@ -42,3 +42,7 @@ class EnterModuleGuardedPagesTest extends Ui2TestCase {
             ->notSee('Products');
     }
 }
+
+
+//user z jedna firma nie moze wejsc do drugiej
+//dwa moduły, do jegodnego ma wjazd do drugiego

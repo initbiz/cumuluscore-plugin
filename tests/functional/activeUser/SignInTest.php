@@ -7,6 +7,7 @@ class SignInTest extends Ui2TestCase {
     use CumulusDataProviders,
         CumulusHelpers,
         OctoberSeleniumHelpers;
+
     /**
      * @test *
      * @dataProvider providerUserData
@@ -20,5 +21,9 @@ class SignInTest extends Ui2TestCase {
             ->singInToFrontend($data)
             ->seePageIs('/system/choose-company');
 
+    }
+
+    protected function afterTest()
+    {
     }
 }
