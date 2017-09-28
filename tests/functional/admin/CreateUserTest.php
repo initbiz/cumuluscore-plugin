@@ -28,10 +28,12 @@ class CreateUserTest extends Ui2TestCase {
      */
     public function admin_can_create_user_with_one_company($userData, $companyData)
     {
-//        $this->signInToBackend()
-//             ->createCompany($companyData)
-//             ->createUserWithCompany($userData, $companyData)
-//             ->hold(1);
-
+        //still not green
+        $this->signInToBackend()
+             ->createCompany($companyData)
+             ->createUser($userData)
+             ->addUserToCompany($userData['email'], $companyData['name'])
+             ->hold(1)
+             ->see('User updated');
     }
 }

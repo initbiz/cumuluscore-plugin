@@ -1,0 +1,24 @@
+{
+  "name": "Initbiz/CumulusCore",
+  "type": "october-plugin",
+  "description": "Cumulus core plugin for October CMS",
+  "homepage": "http://cumulus.init.biz",
+  "keywords": ["october", "octobercms", "cumulus", "saas", "php"],
+  "license": "BSD 3-clause",
+  "authors": [
+    {
+      "name": "Tomasz Strojny",
+      "email": "tomasz@init.biz"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9",
+    "composer/installers": "~1.0"
+  },
+  "autoload": {
+    "files": [
+      "./tests/traits/CumulusDataProviders.php",
+      "./tests/traits/CumulusHelpers.php"
+    ]
+  }
+}

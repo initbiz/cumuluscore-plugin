@@ -1,0 +1,13 @@
+==
+<div id="flashmessage"></div>
+<script>
+   $(window).on('ajaxErrorMessage', function(event, message){
+
+       // This can be any custom JavaScript you want
+       $('#flashmessage').text('Something bad happened, mate, here it is: ' + message);
+
+       // This will stop the default alert() message
+       event.preventDefault();
+
+   })
+</script>

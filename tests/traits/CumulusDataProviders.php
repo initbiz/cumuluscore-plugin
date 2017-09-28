@@ -3,11 +3,11 @@
 use \Faker\Factory as Faker;
 
 /**
- * CustomDataProviders is a trait with data providers for Testing
+ * CumulusDataProviders is a trait with data providers for Testing
  */
 trait CumulusDataProviders
 {
-    public function providerUserData()
+    public function fakeUserData()
     {
         $faker = Faker::create();
         $data = [
@@ -25,15 +25,28 @@ trait CumulusDataProviders
             'account_no' => $faker->iban($faker->countryCode),
             'terms_acceptance' => 'on',
         ];
+        return $data;
+    }
+
+    public function fakeCompanyData()
+    {
+        $faker = Faker::create();
+        $data = [
+            'name' => $faker->company
+        ];
+        return $data;
+    }
+
+    public function providerUserData()
+    {
+        $data = $this->fakeUserData();
         return [
             ["userData" => $data]
         ];
     }
     public function providerCompanyData() {
-        $faker = Faker::create();
-        $data = [
-            'company' => $faker->company
-        ];
+
+        $data = $this->fakeCompanyData();
         return [
             ["companyData" => $data]
         ];
