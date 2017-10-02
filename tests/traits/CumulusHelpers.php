@@ -39,7 +39,7 @@ trait CumulusHelpers {
     }
 
 
-    public function singInToFrontend($data)
+    public function signInToFrontend($data)
     {
         $this->visit('/')
              ->type($data['email'], 'login')
@@ -49,13 +49,13 @@ trait CumulusHelpers {
         return $this;
     }
 
-    public function addUserToCompany($userEmail, $company)
+    public function addUserToCompany($userEmail, $companyName)
     {
         $userId = $this->getRecordID($userEmail, '/panel/rainlab/user/users');
         $this->visit('/panel/rainlab/user/users/update/' . $userId)
              ->findAndClickElement('companies', '//a[@title="Companies"]')
              ->hold(2)
-             ->clickLabel($company)
+             ->clickLabel($companyName)
              ->hold(2)
              ->press('Save')
              ->waitForFlashMessage();
@@ -75,29 +75,52 @@ trait CumulusHelpers {
 
     public function slugify($text)
     {
-        // replace non letter or digits by -
         $text = preg_replace('~[^\pL\d]+~u', '-', $text);
-
-        // transliterate
         $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-
-        // remove unwanted characters
         $text = preg_replace('~[^-\w]+~', '', $text);
-
-        // trim
         $text = trim($text, '-');
-
-        // remove duplicate -
         $text = preg_replace('~-+~', '-', $text);
-
-        // lowercase
         $text = strtolower($text);
-
         if (empty($text)) {
             return 'n-a';
         }
-
         return $text;
     }
 
+    public function clearCumulus()
+    {
+        $this->deleteAllUsers()
+             ->deleteAllCompany();
+        return $this;
+    }
+
+    public function deleteAllUsers()
+    {
+        $this->visit('/panel/rainlab/user/users')
+             ->hold(2)
+             ->typeInBackendSearch('', true)
+             ->hold(1)
+             ->findAndClickElement('check all', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[3]/div/table/thead/tr/th[1]")
+             ->press('Delete selected')
+             ->waitForElementsWithClass('sweet-alert')
+             ->hold(1)
+             ->press('OK')
+             ->waitForFlashMessage()
+             ->hold(2);
+        return $this;
+    }
+
+    public function deleteAllCompany()
+    {
+        $this->visit('/panel/initbiz/cumuluscore/companies')
+             ->hold(2)
+             ->findAndClickElement('check all company', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[2]/div/table/thead/tr/th[1]")
+             ->press('Delete selected')
+             ->waitForElementsWithClass('sweet-alert')
+             ->hold(2)
+             ->press('OK')
+             ->waitForFlashMessage()
+             ->hold(2);
+        return $this;
+    }
 }

@@ -16,7 +16,12 @@ class SignInAsInactiveUserTest extends Ui2TestCase {
         $this->signInToBackend()
              ->createUser($data)
              ->visit('/')
-             ->singInToFrontend($data)
+             ->signInToFrontend($data)
              ->see('Something bad happened, mate, here it is: ');
+    }
+    protected function afterTest()
+    {
+        $this->hold(2)
+            ->clearCumulus();
     }
 }

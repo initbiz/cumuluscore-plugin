@@ -19,4 +19,10 @@ class CreateCompanyTest extends Ui2TestCase {
              ->createCompany($data);
         $this->see('Companies created');
     }
+
+    protected function afterTest()
+    {
+        $this->hold(2)
+            ->clearCumulus();
+    }
 }

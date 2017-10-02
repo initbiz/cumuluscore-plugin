@@ -18,12 +18,14 @@ class SignInTest extends Ui2TestCase {
         $this->signInToBackend()
             ->createUser($data)
             ->activateUser($data['email'])
-            ->singInToFrontend($data)
+            ->hold(2)
+            ->signInToFrontend($data)
             ->seePageIs('/system/choose-company');
-
     }
 
     protected function afterTest()
     {
+        $this->hold(2)
+             ->clearCumulus();
     }
 }

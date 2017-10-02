@@ -21,4 +21,10 @@ class AddModuleToCompanyTest extends Ui2TestCase {
             ->addModuleToCompany('CumulusProducts', $companyData['name'])
             ->see('Companies updated');
     }
+
+    protected function afterTest()
+    {
+        $this->hold(2)
+            ->clearCumulus();
+    }
 }

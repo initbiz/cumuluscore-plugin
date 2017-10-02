@@ -21,4 +21,10 @@ class AddUserToCompanyTest extends Ui2TestCase {
             ->see('User updated');
     }
 
+    protected function afterTest()
+    {
+        $this->hold(2)
+            ->clearCumulus();
+    }
+
 }

@@ -21,4 +21,10 @@ class ActivateUserTest extends Ui2TestCase {
             ->hold(1)
             ->see('User has been activated');
     }
+
+    protected function afterTest()
+    {
+        $this->hold(2)
+            ->clearCumulus();
+    }
 }
