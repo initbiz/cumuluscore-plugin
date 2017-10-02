@@ -36,8 +36,7 @@ class LoginWithWrongCredentialsTest extends Ui2TestCase {
              ->type($data['password'], 'password')
              ->findAndClickElement("Login button", "//button[@type='submit']")
              ->waitForFlashMessage()
-             ->hold(1)
-             ->see('Pole login jest wymagane');
+             ->seeFlash();
     }
 
     /**
