@@ -75,6 +75,8 @@ class ActiveUserAccessPagesTest extends Ui2TestCase {
              ->waitForFlashMessage()
              ->hold(2)
              ->see('A user was not found with the given credentials');
+        //sign in to backed for clearCumulus
+        $this->signInToBackend();
     }
 
     protected function afterTest()

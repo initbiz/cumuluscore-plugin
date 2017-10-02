@@ -43,18 +43,20 @@ class EnterCompanyDashboardPageTest extends Ui2TestCase
             ->addUserToCompany($user['email'], $firstCompany['name'])
             ->hold(2)
             ->addUserToCompany($user['email'], $secondCompany['name'])
-            ->hold(2)
-            ->signOutFromBackend()
+            ->hold(1)
             ->signInToFrontend($user)
             ->seePageIs('/system/choose-company')
             ->findAndClickElement($firstCompany['name'], "//h2[contains(., '{$firstCompany['name']}')]")
             ->hold(1)
             ->see('Dashboard')
+            ->seePageIs('/system/' . $this->slugify($firstCompany['name']) . '/dashboard')
             ->visit('/system/choose-company')
             ->findAndClickElement($secondCompany['name'], "//h2[contains(., '{$secondCompany['name']}')]")
             ->hold(1)
-            ->see('Dashboard');
+            ->see('Dashboard')
+            ->seePageIs('/system/' . $this->slugify($secondCompany['name']) . '/dashboard');
     }
+
 
     protected function afterTest()
     {

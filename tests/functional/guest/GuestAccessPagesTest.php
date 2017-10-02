@@ -14,6 +14,8 @@ class GuestAccessPagesTest extends Ui2TestCase {
     {
         $this->visit('/system/choose-company')
         ->see('Forbidden');
+        //sign in to backed for clearCumulus
+        $this->signInToBackend();
     }
 
     /**
@@ -26,9 +28,11 @@ class GuestAccessPagesTest extends Ui2TestCase {
         $companySlug = $this->slugify($companyData['name']);
         $this->signInToBackend()
              ->createCompany($companyData)
-             ->signOutFromBackend()
+             ->visit('panel/backend/auth/signout')
              ->visit('/system/'. $companySlug .'/dashboard')
              ->see('Forbidden');
+        //sign in to backed for clearCumulus
+        $this->signInToBackend();
     }
 
     /**
@@ -42,17 +46,18 @@ class GuestAccessPagesTest extends Ui2TestCase {
         $this->signInToBackend()
              ->createCompany($companyData)
              ->hold(2)
-             ->signOutFromBackend()
+             ->visit('panel/backend/auth/signout')
              ->hold(2)
              ->visit('/system/'. $companySlug .'/products')
              ->see('Forbidden');
+        //sign in to backed for clearCumulus
+        $this->signInToBackend();
     }
 
 
     protected function afterTest()
     {
         $this->hold(2)
-             ->signInToBackend()
              ->clearCumulus();
     }
 

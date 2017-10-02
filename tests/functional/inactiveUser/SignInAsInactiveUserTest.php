@@ -19,7 +19,6 @@ class SignInAsInactiveUserTest extends Ui2TestCase {
              ->signInToFrontend($data)
              ->see('Something bad happened, mate, here it is: ');
     }
-
     protected function afterTest()
     {
         $this->hold(2)

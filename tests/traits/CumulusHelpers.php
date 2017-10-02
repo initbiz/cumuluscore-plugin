@@ -98,6 +98,8 @@ trait CumulusHelpers {
     {
         $this->visit('/panel/rainlab/user/users')
              ->hold(2)
+             ->typeInBackendSearch('', true)
+             ->hold(1)
              ->findAndClickElement('check all', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[3]/div/table/thead/tr/th[1]")
              ->press('Delete selected')
              ->waitForElementsWithClass('sweet-alert')
