@@ -6,8 +6,6 @@ use InitBiz\CumulusCore\Classes\Connector as CumulusConnector;
 
 class Plugin extends PluginBase
 {
-    private $menu = [];
-
     public $require = ['InitBiz.CumulusCore'];
 
     public function register()

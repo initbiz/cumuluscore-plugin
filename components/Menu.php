@@ -12,8 +12,8 @@ class Menu extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name' => 'Menu Component',
-            'description' => 'Component that renders menu based on menuItems component'
+            'name' => 'initbiz.cumuluscore::lang.menu.name',
+            'description' => 'initbiz.cumuluscore::lang.menu.description'
         ];
     }
 
@@ -58,8 +58,8 @@ class Menu extends ComponentBase
     {
         return [
             'clusterSlug' => [
-                'title'       => 'Cluster slug',
-                'description' => 'Slug of cluster that dashboard is going to be shown',
+                'title' => 'initbiz.cumuluscore::lang.menu.cluster_slug',
+                'description' => 'initbiz.cumuluscore::lang.menu.cluster_slug_desc',
                 'type' => 'string',
                 'default' => '{{ :cluster }}'
             ]

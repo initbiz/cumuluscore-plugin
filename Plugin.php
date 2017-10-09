@@ -8,11 +8,6 @@ class Plugin extends PluginBase
 {
     public $require = ['RainLab.UserPlus'];
 
-    private $menu = [
-        'clustersList' => 'Choose cluster page',   //TODO: take it from lang
-        'clusterDashboard' => 'Cluster dashboard page'   //TODO: take it from lang
-    ];
-
     public function registerComponents()
     {
         return [
@@ -29,9 +24,9 @@ class Plugin extends PluginBase
     {
         return [
             'modules' => [
-                'label' => 'Modules',
-                'description' => '',
-                'category' => 'Cumulus',
+                'label'       => 'initbiz.cumuluscore::lang.settings.menu_label',
+                'description'       => 'initbiz.cumuluscore::lang.settings.menu_description',
+                'category'       => 'initbiz.cumuluscore::lang.settings.menu_category',
                 'icon' => 'icon-cubes',
                 'url' => \Backend::url('initbiz/cumuluscore/modules'),
                 'permissions' => [],
