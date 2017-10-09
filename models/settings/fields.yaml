@@ -1,7 +1,3 @@
-# ===================================
-#  Form Field Definitions
-# ===================================
-
 fields:
     content:
         type: text

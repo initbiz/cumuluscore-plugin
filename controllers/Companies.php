@@ -19,4 +19,5 @@ class Companies extends Controller
         parent::__construct();
         BackendMenu::setContext('InitBiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-companies');
     }
+
 }

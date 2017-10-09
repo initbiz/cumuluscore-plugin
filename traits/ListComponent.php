@@ -155,10 +155,12 @@ trait ListComponent
             if ($column == $previousColumn) {
                 if ($sortOrder == 'asc') {
                     $this->listElements = $this->makeList($column, 'desc');
-                } else {
+                }
+                else {
                     $this->listElements = $this->makeList($column, 'asc');
                 }
-            } else {
+            }
+            else {
                 $this->listElements = $this->makeList($column);
             }
             $this->renderedList = $this->renderList();

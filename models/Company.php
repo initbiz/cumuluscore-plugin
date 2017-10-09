@@ -30,12 +30,11 @@ class Company extends Model
     public $table = 'initbiz_cumuluscore_companies';
     public $primaryKey = 'company_id';
     protected $fillable = ['full_name', 'slug'];
-    public $belongsToMany = [
-        'modules' => [
-            Module::class,
-            'table' => 'initbiz_cumuluscore_company_module',
-            'key'      => 'company_id',
-            'otherKey' => 'module_id'
+    public $belongsTo = [
+        'plan' => [
+            Plan::class,
+            'table' => 'initbiz_cumuluscore_plans',
+            'otherKey' => 'plan_id'
         ]
     ];
 
@@ -51,6 +50,7 @@ class Company extends Model
     public $attachOne = [
         'logo' => ['System\Models\File']
     ];
+
 
     public static function getMenuTypeInfo($type)
     {

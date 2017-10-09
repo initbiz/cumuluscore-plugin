@@ -1,28 +1,20 @@
 fields:
-    full_name:
-        label: 'Full name'
+    name:
+        label: Name
         span: left
         required: 1
         type: text
-    logo:
-        label: Logo
-        type: fileupload
-        span: right
-        mode: image
-        imageWidth: 300
-        imageHeight: 300
     slug:
         label: Slug
         span: left
         required: 1
         preset:
-            field: full_name
+            field: name
             type: slug
         type: text
-    plan:
-        label: Plan
+    modules:
+        label: Modules
         nameFrom: name
         descriptionFrom: description
         span: left
         type: relation
-        emptyOption: none
