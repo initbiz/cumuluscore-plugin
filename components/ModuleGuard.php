@@ -47,7 +47,7 @@ class ModuleGuard extends ComponentBase
 
     public function canEnterModule($clusterSlug, $moduleSlug)
     {
-        return Cluster::whereSlug($companySlug)
+        return Cluster::whereSlug($clusterSlug)
                         ->first()
                         ->plan()
                         ->first()
