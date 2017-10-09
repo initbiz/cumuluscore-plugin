@@ -1,4 +1,4 @@
-<?php namespace InitBiz\CumulusCore\Behaviors;
+<?php namespace Initbiz\CumulusCore\Behaviors;
 
 
 use ApplicationException;

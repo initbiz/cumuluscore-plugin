@@ -1,8 +1,8 @@
-<?php namespace InitBiz\CumulusCore\Traits;
+<?php namespace Initbiz\CumulusCore\Traits;
 
-use InitBiz\CumulusCore\Behaviors\ListComponent as ListComponentBehavior;
+use Initbiz\CumulusCore\Behaviors\ListComponent as ListComponentBehavior;
 use Cms\Classes\Page;
-use InitBiz\CumulusCore\Classes\Helpers;
+use Initbiz\CumulusCore\Classes\Helpers;
 
 trait ListComponent
 {

@@ -1,4 +1,4 @@
-<?php namespace InitBiz\CumulusCore\Updates;
+<?php namespace Initbiz\CumulusCore\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;

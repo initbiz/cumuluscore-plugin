@@ -6,7 +6,7 @@
 list: $/initbiz/cumuluscore/models/module/columns.yaml
 
 # Model Class name
-modelClass: InitBiz\CumulusCore\Models\Module
+modelClass: Initbiz\CumulusCore\Models\Module
 
 # List Title
 title: Manage Modules

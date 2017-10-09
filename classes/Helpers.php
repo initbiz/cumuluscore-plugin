@@ -1,8 +1,8 @@
-<?php namespace InitBiz\CumulusCore\Classes;
+<?php namespace Initbiz\CumulusCore\Classes;
 
 use Cms\Classes\Page as CmsPage;
 use Cms\Classes\Theme;
-use InitBiz\CumulusCore\Models\Module;
+use Initbiz\CumulusCore\Models\Module;
 
 class Helpers
 {

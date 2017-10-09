@@ -1,16 +1,16 @@
-<?php namespace InitBiz\Cumuluscore\Components;
+<?php namespace Initbiz\Cumuluscore\Components;
 
+use Lang;
 use Cms\Classes\ComponentBase;
-use InitBiz\CumulusCore\Classes\Helpers;
+use Initbiz\CumulusCore\Classes\Helpers;
 
 class MenuItem extends ComponentBase
 {
-
     public function componentDetails()
     {
         return [
-            'name'        => 'Menu item',
-            'description' => 'Component that is going to be used on pages that we want to show in navigation'
+            'name' => 'initbiz.cumuluscore::lang.menu_item.name',
+            'description' => 'initbiz.cumuluscore::lang.menu_item.description'
         ];
     }
 
@@ -18,19 +18,21 @@ class MenuItem extends ComponentBase
     {
         return [
             'menuItemTitle' => [
-                'description' => 'User friendly title to be shown on button to this page', //TODO: from lang?
+                'title' => 'initbiz.cumuluscore::lang.menu_item.menu_item_title',
+                'description' => 'initbiz.cumuluscore::lang.menu_item.menu_item_title_desc',
                 'type' => 'string'
             ],
             'cumulusModule' => [
-                'description' => 'Pick module to restrict user access',
+                'title' => 'initbiz.cumuluscore::lang.menu_item.cumulus_module',
+                'description' => 'initbiz.cumuluscore::lang.menu_item.cumulus_module_desc',
                 'type'        => 'dropdown'
             ]
         ];
     }
 
-    public function getCumulusModuleOptions(){
+    public function getCumulusModuleOptions()
+    {
         //TODO: get title from lang
-        return ['none' => 'Bez uprawnień'] + Helpers::getModulesList();
+        return ['none' => Lang::get('initbiz.cumuluscore::lang.menu_item.cumulus_module_none')] + Helpers::getModulesList();
     }
-
 }

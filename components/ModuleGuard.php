@@ -1,17 +1,17 @@
 <?php namespace Initbiz\Cumuluscore\Components;
 
 use Cms\Classes\ComponentBase;
-use InitBiz\CumulusCore\Classes\Helpers;
-use InitBiz\CumulusCore\Models\Cluster;
-use InitBiz\CumulusCore\Models\Module;
+use Initbiz\CumulusCore\Classes\Helpers;
+use Initbiz\CumulusCore\Models\Cluster;
+use Initbiz\CumulusCore\Models\Module;
 
 class ModuleGuard extends ComponentBase
 {
     public function componentDetails()
     {
         return [
-            'name'        => 'Module Guard',
-            'description' => 'Guard component that allows cluster enter the module'
+            'name' => 'initbiz.cumuluscore::lang.module_guard.name',
+            'description' => 'initbiz.cumuluscore::lang.module_guard.description'
         ];
     }
 
@@ -19,13 +19,14 @@ class ModuleGuard extends ComponentBase
     {
         return [
             'clusterSlug' => [
-                'title'       => 'Cluster slug',
-                'description' => 'Slug of cluster that dashboard is going to be shown',
+                'title' => 'initbiz.cumuluscore::lang.module_guard.cluster_slug',
+                'description' => 'initbiz.cumuluscore::lang.module_guard.cluster_slug_desc',
                 'type' => 'string',
                 'default' => '{{ :cluster }}'
             ],
             'cumulusModule' => [
-                'description' => 'Pick module to restrict user access',
+                'title' => 'initbiz.cumuluscore::lang.module_guard.cumulus_module',
+                'description' => 'initbiz.cumuluscore::lang.module_guard.cumulus_module_desc',
                 'type'        => 'dropdown'
             ]
         ];

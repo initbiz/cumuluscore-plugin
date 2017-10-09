@@ -1,6 +1,6 @@
 name: Plans
 form: $/initbiz/cumuluscore/models/plan/fields.yaml
-modelClass: InitBiz\CumulusCore\Models\Plan
+modelClass: Initbiz\CumulusCore\Models\Plan
 defaultRedirect: initbiz/cumuluscore/plans
 create:
     redirect: 'initbiz/cumuluscore/plans/update/:plan_id'

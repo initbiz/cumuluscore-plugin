@@ -1,27 +1,22 @@
-<?php namespace InitBiz\CumulusCore;
+<?php namespace Initbiz\CumulusCore;
 
-// use InitBiz\CumulusCore\Classes\Connector as CumulusConnector;
-use InitBiz\CumulusCore\Classes\Helpers;
+// use Initbiz\CumulusCore\Classes\Connector as CumulusConnector;
+use Initbiz\CumulusCore\Classes\Helpers;
 use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
 {
     public $require = ['RainLab.UserPlus'];
 
-    private $menu = [
-        'clustersList' => 'Choose cluster page',   //TODO: take it from lang
-        'clusterDashboard' => 'Cluster dashboard page'   //TODO: take it from lang
-    ];
-
     public function registerComponents()
     {
         return [
-            'InitBiz\CumulusCore\Components\CumulusGuard'       =>  'cumulusGuard',
-            'InitBiz\CumulusCore\Components\ModuleGuard'       =>  'moduleGuard',
-            'InitBiz\CumulusCore\Components\UserClustersList'  =>  'clustersList',
-            'InitBiz\CumulusCore\Components\Menu'               =>  'menu',
-            'InitBiz\CumulusCore\Components\MenuItem'               =>  'menuItem',
-            'InitBiz\CumulusCore\Components\ClusterDashboard'   =>  'clusterDashboard'
+            'Initbiz\CumulusCore\Components\CumulusGuard'       =>  'cumulusGuard',
+            'Initbiz\CumulusCore\Components\ModuleGuard'       =>  'moduleGuard',
+            'Initbiz\CumulusCore\Components\UserClustersList'  =>  'clustersList',
+            'Initbiz\CumulusCore\Components\Menu'               =>  'menu',
+            'Initbiz\CumulusCore\Components\MenuItem'               =>  'menuItem',
+            'Initbiz\CumulusCore\Components\ClusterDashboard'   =>  'clusterDashboard'
         ];
     }
 
@@ -29,9 +24,9 @@ class Plugin extends PluginBase
     {
         return [
             'modules' => [
-                'label' => 'Modules',
-                'description' => '',
-                'category' => 'Cumulus',
+                'label'       => 'initbiz.cumuluscore::lang.settings.menu_label',
+                'description'       => 'initbiz.cumuluscore::lang.settings.menu_description',
+                'category'       => 'initbiz.cumuluscore::lang.settings.menu_category',
                 'icon' => 'icon-cubes',
                 'url' => \Backend::url('initbiz/cumuluscore/modules'),
                 'permissions' => [],
@@ -46,7 +41,7 @@ class Plugin extends PluginBase
 
     public function register()
     {
-        $this->registerConsoleCommand('cumulus.createmodule', 'InitBiz\CumulusCore\Console\CreateModule');
+        $this->registerConsoleCommand('cumulus.createmodule', 'Initbiz\CumulusCore\Console\CreateModule');
     }
 
     public function registerMarkupTags()

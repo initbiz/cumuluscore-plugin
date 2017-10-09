@@ -1,4 +1,4 @@
-<?php namespace InitBiz\Cumuluscore\Components;
+<?php namespace Initbiz\Cumuluscore\Components;
 
 use Cms\Classes\ComponentBase;
 use RainLab\User\Models\User as Users;
@@ -8,8 +8,8 @@ class ClusterDashboard extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name' => 'Cluster dashboard',
-            'description' => 'Show cluster dashboard'
+            'name' => 'initbiz.cumuluscore::lang.cluster_dashboard.name',
+            'description' => 'initbiz.cumuluscore::lang.cluster_dashboard.description'
         ];
     }
 
@@ -24,8 +24,8 @@ class ClusterDashboard extends ComponentBase
     {
         return [
             'clusterSlug' => [
-                'title'       => 'Cluster slug',
-                'description' => 'Slug of cluster that dashboard is going to be shown',
+                'title' => 'initbiz.cumuluscore::lang.cluster_dashboar.cluster_slug',
+                'description' => 'initbiz.cumuluscore::lang.cluster_dashboar.cluster_slug_desc',
                 'type' => 'string',
                 'default' => '{{ :cluster }}'
             ]

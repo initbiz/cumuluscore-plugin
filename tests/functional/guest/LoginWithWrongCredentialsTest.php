@@ -1,6 +1,6 @@
 <?php
 
-use InitBiz\Selenium2Tests\Classes\Ui2TestCase;
+use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
 class LoginWithWrongCredentialsTest extends Ui2TestCase {
 

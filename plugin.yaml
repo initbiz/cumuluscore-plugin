@@ -6,20 +6,20 @@ plugin:
     homepage: ''
 navigation:
     cumulus-main-menu:
-        label: Cumulus
+        label: 'initbiz.cumuluscore::lang.navigation.main'
         url: rainlab/user/users
         icon: icon-soundcloud
         order: '700'
         sideMenu:
             cumulus-side-menu-users:
-                label: Users
+                label: 'initbiz.cumuluscore::lang.navigation.users'
                 url: rainlab/user/users
                 icon: icon-users
             cumulus-side-menu-clusters:
-                label: Clusters
+                label: 'initbiz.cumuluscore::lang.navigation.clusters'
                 url: initbiz/cumuluscore/clusters
                 icon: icon-yelp
             cumulus-side-menu-plan:
-                label: Plans
+                label: 'initbiz.cumuluscore::lang.navigation.plans'
                 url: initbiz/cumuluscore/plans
                 icon: icon-codepen

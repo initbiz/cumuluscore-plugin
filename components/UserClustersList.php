@@ -1,4 +1,4 @@
-<?php namespace InitBiz\CumulusCore\Components;
+<?php namespace Initbiz\CumulusCore\Components;
 
 use Cms\Classes\ComponentBase;
 use Cms\Classes\Page;
@@ -9,14 +9,14 @@ class UserClustersList extends ComponentBase
     public $clustersList;
 
     public $implement = [
-        'InitBiz.CumulusCore.Behaviors.ComponentBehavior'
+        'Initbiz.CumulusCore.Behaviors.ComponentBehavior'
     ];
 
     public function componentDetails()
     {
         return [
-            'name' => 'Clusters list',
-            'description' => 'Component showing all clusters that user is assigned to'
+            'name' => 'initbiz.cumuluscore::lang.user_clusters_list.name',
+            'description' => 'initbiz.cumuluscore::lang.user_clusters_list.description'
         ];
     }
 
@@ -24,7 +24,8 @@ class UserClustersList extends ComponentBase
     {
         return [
             'clusterDashboardPage' => [
-                'title' => 'Cluster dashboard page',
+                'title' => 'initbiz.cumuluscore::lang.user_clusters_list.cluster_dashboard_page',
+                'description' => 'initbiz.cumuluscore::lang.user_clusters_list.cluster_dashboard_page_desc',
                 'type' => 'dropdown'
             ]
         ];

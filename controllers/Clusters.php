@@ -1,4 +1,4 @@
-<?php namespace InitBiz\CumulusCore\Controllers;
+<?php namespace Initbiz\CumulusCore\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
@@ -17,6 +17,6 @@ class Clusters extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('InitBiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-clusters');
+        BackendMenu::setContext('Initbiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-clusters');
     }
 }

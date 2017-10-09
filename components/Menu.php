@@ -1,9 +1,9 @@
-<?php namespace InitBiz\Cumuluscore\Components;
+<?php namespace Initbiz\Cumuluscore\Components;
 
 use Cms\Classes\ComponentBase;
 use Event;
-use InitBiz\CumulusCore\Classes\Helpers;
-use InitBiz\CumulusCore\Models\Cluster;
+use Initbiz\CumulusCore\Classes\Helpers;
+use Initbiz\CumulusCore\Models\Cluster;
 use Cms\Classes\Page as CmsPage;
 use Cms\Classes\Theme;
 
@@ -12,8 +12,8 @@ class Menu extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name' => 'Menu Component',
-            'description' => 'Component that renders menu based on menuItems component'
+            'name' => 'initbiz.cumuluscore::lang.menu.name',
+            'description' => 'initbiz.cumuluscore::lang.menu.description'
         ];
     }
 
@@ -58,8 +58,8 @@ class Menu extends ComponentBase
     {
         return [
             'clusterSlug' => [
-                'title'       => 'Cluster slug',
-                'description' => 'Slug of cluster that dashboard is going to be shown',
+                'title' => 'initbiz.cumuluscore::lang.menu.cluster_slug',
+                'description' => 'initbiz.cumuluscore::lang.menu.cluster_slug_desc',
                 'type' => 'string',
                 'default' => '{{ :cluster }}'
             ]

@@ -1,4 +1,4 @@
-<?php namespace InitBiz\CumulusCore\Components;
+<?php namespace Initbiz\CumulusCore\Components;
 
 use Cms\Classes\ComponentBase;
 use Auth;
@@ -8,8 +8,8 @@ class CumulusGuard extends ComponentBase
     public function componentDetails()
     {
         return [
-            'name'        => 'Cumulus guard',
-            'description' => 'Component checking if user can enter cluster page'
+            'name' => 'initbiz.cumuluscore::lang.cumulus_guard.name',
+            'description' => 'initbiz.cumuluscore::lang.cumulus_guard.description'
         ];
     }
 
@@ -17,8 +17,8 @@ class CumulusGuard extends ComponentBase
     {
         return [
             'clusterSlug' => [
-                'title'       => 'Cluster slug',
-                'description' => 'Slug of cluster that dashboard is going to be shown',
+                'title' => 'initbiz.cumuluscore::lang.cumulus_guard.cluster_slug',
+                'description' => 'initbiz.cumuluscore::lang.cumulus_guard.cluster_slug_desc',
                 'type' => 'string',
                 'default' => '{{ :cluster }}'
             ]

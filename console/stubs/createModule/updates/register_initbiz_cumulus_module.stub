@@ -4,9 +4,9 @@
 
 use {{author}}\{{name}}\Plugin;
 use October\Rain\Database\Updates\Migration;
-use InitBiz\CumulusCore\Models\Module;
+use Initbiz\CumulusCore\Models\Module;
 
-class RegisterInitBizCumulusModule extends Migration
+class RegisterInitbizCumulusModule extends Migration
 {
     private $name;
     private $plugin;
