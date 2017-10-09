@@ -17,10 +17,10 @@ trait CumulusHelpers {
         return $this;
     }
 
-    public function createCompany($data)
+    public function createCluster($data)
     {
-        $this->visit('/panel/initbiz/cumuluscore/companies/create')
-             ->type($data['name'], 'Form-field-Company-full_name')
+        $this->visit('/panel/initbiz/cumuluscore/clusters/create')
+             ->type($data['name'], 'Form-field-Cluster-full_name')
              ->press('Create')
              ->waitForFlashMessage();
         return $this;
@@ -43,6 +43,7 @@ trait CumulusHelpers {
              ->waitForElementsWithClass('sweet-alert')
              ->hold(1)
              ->press('OK')
+             ->hold(2)
              ->waitForFlashMessage();
         return $this;
     }
@@ -58,28 +59,42 @@ trait CumulusHelpers {
         return $this;
     }
 
-    public function addUserToCompany($userEmail, $companyName)
+    public function addUserToCluster($userEmail, $clusterName)
     {
         $userId = $this->getRecordID($userEmail, '/panel/rainlab/user/users');
         $this->visit('/panel/rainlab/user/users/update/' . $userId)
-             ->findAndClickElement('companies', '//a[@title="Companies"]')
+             ->findAndClickElement('clusters', '//a[@title="Clusters"]')
              ->hold(2)
-             ->clickLabel($companyName)
+             ->clickLabel($clusterName)
              ->hold(2)
              ->press('Save')
              ->waitForFlashMessage();
         return $this;
     }
 
-    public function addModuleToCompany($module, $company)
+    public function addPlanToCluster($plan, $cluster)
     {
-        $companyId = $this->getRecordID($company, 'panel/initbiz/cumuluscore/companies');
-        $this->visit('/panel/initbiz/cumuluscore/companies/update/' . $companyId)
-             ->clickLabel($module);
-        $this->hold(1)
+        $clusterId = $this->getRecordID($cluster, 'panel/initbiz/cumuluscore/clusters');
+        $this->visit('/panel/initbiz/cumuluscore/clusters/update/' . $clusterId)
+             ->findAndClickElement('plans', '//div[@id="Relation-formPlan-plan"]')
+             ->hold(2)
+             ->findAndClickElement('plan', "//li[contains(., '{$plan}')]")
+             ->hold(2)
              ->press('Save')
              ->waitForFlashMessage();
         return $this;
+    }
+
+    public function addModuleToPlan($module, $plan)
+    {
+        $planId = $this->getRecordID($plan, 'panel/initbiz/cumuluscore/plans');
+        $this->visit('/panel/initbiz/cumuluscore/plans/update/' . $planId)
+             ->clickLabel($module)
+             ->press('Save')
+             ->hold(1)
+             ->waitForFlashMessage();
+        return $this;
+
     }
 
     public function slugify($text)
@@ -99,7 +114,8 @@ trait CumulusHelpers {
     public function clearCumulus()
     {
         $this->deleteAllUsers()
-             ->deleteAllCompany();
+             ->deleteAllClusters()
+             ->deleteAllPlans();
         return $this;
     }
 
@@ -119,17 +135,31 @@ trait CumulusHelpers {
         return $this;
     }
 
-    public function deleteAllCompany()
+    public function deleteAllClusters()
     {
-        $this->visit('/panel/initbiz/cumuluscore/companies')
+        $this->visit('/panel/initbiz/cumuluscore/clusters')
              ->hold(2)
-             ->findAndClickElement('check all company', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[2]/div/table/thead/tr/th[1]")
+             ->findAndClickElement('check all clusters', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[2]/div/table/thead/tr/th[1]")
              ->press('Delete selected')
              ->waitForElementsWithClass('sweet-alert')
              ->hold(2)
              ->press('OK')
              ->waitForFlashMessage()
              ->hold(2);
+        return $this;
+    }
+
+    public function deleteAllPlans()
+    {
+        $this->visit('/panel/initbiz/cumuluscore/plans')
+            ->hold(2)
+            ->findAndClickElement('check all plans', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[2]/div/table/thead/tr/th[1]")
+            ->press('Delete selected')
+            ->waitForElementsWithClass('sweet-alert')
+            ->hold(2)
+            ->press('OK')
+            ->waitForFlashMessage()
+            ->hold(2);
         return $this;
     }
 

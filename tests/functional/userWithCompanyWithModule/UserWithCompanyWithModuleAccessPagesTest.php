@@ -28,26 +28,26 @@ class UserWithCompanyWithModuleAccessPagesTest extends Ui2TestCase {
 
     /**
      * @test *
-     * @dataProvider providerUserWithCompanyData
+     * @dataProvider providerUserWithClusterData
      * * @return void
      */
-    public function user_with_company_with_module_cannot_enter_another_module_page($userData, $FirstCompanyData)
+    public function user_with_cluster_with_module_cannot_enter_another_module_page($userData, $FirstClusterData)
     {
-        $secondCompanyData = $this->fakeCompanyData();
-        $secondCompanySlug = $this->slugify($secondCompanyData['name']);
+        $secondClusterData = $this->fakeClusterData();
+        $secondClusterSlug = $this->slugify($secondClusterData['name']);
         $this->signInToBackend()
             ->createUser($userData)
-            ->createCompany($FirstCompanyData)
-            ->createCompany($secondCompanyData)
+            ->createCluster($FirstClusterData)
+            ->createCluster($secondClusterData)
             ->activateUser($userData['email'])
-            ->addUserToCompany($userData['email'], $FirstCompanyData['name'])
+            ->addUserToCluster($userData['email'], $FirstClusterData['name'])
             ->hold(1)
-            ->addModuleToCompany('CumulusProducts', $FirstCompanyData['name'])
+            ->addModuleToCluster('CumulusProducts', $FirstClusterData['name'])
             ->hold(1)
-            ->addModuleToCompany('CumulusElearning', $secondCompanyData['name'])
+            ->addModuleToCluster('CumulusElearning', $secondClusterData['name'])
             ->hold(2)
             ->signInToFrontend($userData)
-            ->visit('system/' . $secondCompanySlug . '/products')
+            ->visit('system/' . $secondClusterSlug . '/products')
             ->hold(2)
             ->see('Forbidden');
     }

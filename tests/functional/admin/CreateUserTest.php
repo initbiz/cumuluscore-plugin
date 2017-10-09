@@ -23,16 +23,16 @@ class CreateUserTest extends Ui2TestCase {
 
     /**
      * @test *
-     * @dataProvider providerUserWithCompanyData
+     * @dataProvider providerUserWithClusterData
      * * @return void
      */
-    public function admin_can_create_user_with_one_company($userData, $companyData)
+    public function admin_can_create_user_with_one_cluster($userData, $clusterData)
     {
         //still not green
         $this->signInToBackend()
-             ->createCompany($companyData)
+             ->createCluster($clusterData)
              ->createUser($userData)
-             ->addUserToCompany($userData['email'], $companyData['name'])
+             ->addUserToCluster($userData['email'], $clusterData['name'])
              ->hold(1)
              ->see('User updated');
     }

@@ -15,4 +15,10 @@ class CreatePlanTest extends Ui2TestCase {
              ->see('Plans created');
 
     }
+
+    protected function afterTest()
+    {
+        $this->hold(2)
+            ->clearCumulus();
+    }
 }
