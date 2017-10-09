@@ -1,0 +1,15 @@
+<h1>{{ list }}</h1>
+
+{% for userCluster in userClusters %}
+<div class="col-md-3">
+    <a href="{{ userCluster.pageUrl }}">
+        <div class="panel panel-default text-center">
+            <div class="panel-body">
+                <img src="{{ userCluster.logo.path   }}" alt="" class="img-responsive">
+                <hr>
+                <h2>{{ userCluster.full_name }}</h2>
+            </div>
+        </div>
+    </a>
+</div>
+{% endfor %}

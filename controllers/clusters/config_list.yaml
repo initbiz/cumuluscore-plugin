@@ -1,7 +1,7 @@
-title: Companies
-modelClass: InitBiz\CumulusCore\Models\Company
-list: $/initbiz/cumuluscore/models/company/columns.yaml
-recordUrl: 'initbiz/cumuluscore/companies/update/:company_id'
+title: Clusters
+modelClass: InitBiz\CumulusCore\Models\Cluster
+list: $/initbiz/cumuluscore/models/cluster/columns.yaml
+recordUrl: 'initbiz/cumuluscore/clusters/update/:cluster_id'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

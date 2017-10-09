@@ -6,7 +6,6 @@ use InitBiz\CumulusCore\Classes\Helpers;
 
 trait ListComponent
 {
-
     use ExtendedComponentBase;
 
     public $yamlConfig = 'config_list.yaml';
@@ -33,7 +32,7 @@ trait ListComponent
 
         //Eager loading definition for model
         foreach ($this->columns as $columnName => $column) {
-            if (array_key_exists('relation',$column)) {
+            if (array_key_exists('relation', $column)) {
                 //$data = $data->with(array_values($column));
                 $relations[$column['relation']] = $columnName;
             }
@@ -43,11 +42,11 @@ trait ListComponent
         // select all columns except those in relations
         $data = $data->select($columns);
 
-        //Company restrictions by company slug in URL
-        if ($this->companyRestricted) {
-            $companySlug = $this->property('companySlug');
-            $data = $data->whereHas('company', function ($query) use ($companySlug) {
-                $query->where('slug', $companySlug);
+        //Cluster restrictions by cluster slug in URL
+        if ($this->clusterRestricted) {
+            $clusterSlug = $this->property('clusterSlug');
+            $data = $data->whereHas('cluster', function ($query) use ($clusterSlug) {
+                $query->where('slug', $clusterSlug);
             });
         }
 
@@ -62,7 +61,7 @@ trait ListComponent
         }
         $data = $data->toArray();
 
-        if(!empty($relationData)) {
+        if (!empty($relationData)) {
             foreach ($data as &$row) {
                 dd($relationData);
                 $row += array_shift($relationData);
@@ -136,7 +135,8 @@ trait ListComponent
         //return Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
     }
 
-    public function getCreatePageOptions(){
+    public function getCreatePageOptions()
+    {
         return Helpers::getPagesFilenames();
     }
 
@@ -175,11 +175,14 @@ trait ListComponent
     {
         $viewPath = $this->guessViewPathFrom(ListComponentBehavior::class);
         $this->prepareVariables();
-        return ['#lista' => $this->makePartial($viewPath . '/default.htm',
-            ['data' => $this->listElements])];
+        return ['#lista' => $this->makePartial(
+            $viewPath . '/default.htm',
+            ['data' => $this->listElements]
+        )];
     }
 
-    private function array_sort_by_column(&$arr, $col, $dir = SORT_ASC) {
+    private function array_sort_by_column(&$arr, $col, $dir = SORT_ASC)
+    {
         $sort_col = array();
         foreach ($arr as $key=> $row) {
             $sort_col[$key] = $row[$col];
@@ -187,5 +190,4 @@ trait ListComponent
 
         array_multisort($sort_col, $dir, $arr);
     }
-
 }

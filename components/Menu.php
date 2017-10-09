@@ -3,13 +3,12 @@
 use Cms\Classes\ComponentBase;
 use Event;
 use InitBiz\CumulusCore\Classes\Helpers;
-use InitBiz\CumulusCore\Models\Company;
+use InitBiz\CumulusCore\Models\Cluster;
 use Cms\Classes\Page as CmsPage;
 use Cms\Classes\Theme;
 
 class Menu extends ComponentBase
 {
-
     public function componentDetails()
     {
         return [
@@ -21,8 +20,8 @@ class Menu extends ComponentBase
     public function onRun()
     {
         //Building navigation
-        $current_company_modules = Company::with('modules')
-            ->where('slug', $this->property('companySlug'))
+        $current_cluster_modules = Cluster::with('modules')
+            ->where('slug', $this->property('clusterSlug'))
             ->first()
             ->modules()
             ->get()
@@ -47,8 +46,7 @@ class Menu extends ComponentBase
                     }
                 }
                 if ($component['cumulusModule'] === "none"
-                    || in_array($component['cumulusModule'],$current_company_modules, true))
-                {
+                    || in_array($component['cumulusModule'], $current_cluster_modules, true)) {
                     $menuEntries[$component['menuItemTitle']] = CmsPage::url($page['fileName']);
                 }
             }
@@ -59,13 +57,12 @@ class Menu extends ComponentBase
     public function defineProperties()
     {
         return [
-            'companySlug' => [
-                'title'       => 'Company slug',
-                'description' => 'Slug of company that dashboard is going to be shown',
+            'clusterSlug' => [
+                'title'       => 'Cluster slug',
+                'description' => 'Slug of cluster that dashboard is going to be shown',
                 'type' => 'string',
-                'default' => '{{ :company }}'
+                'default' => '{{ :cluster }}'
             ]
         ];
     }
-
 }

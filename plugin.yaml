@@ -15,9 +15,9 @@ navigation:
                 label: Users
                 url: rainlab/user/users
                 icon: icon-users
-            cumulus-side-menu-companies:
-                label: Companies
-                url: initbiz/cumuluscore/companies
+            cumulus-side-menu-clusters:
+                label: Clusters
+                url: initbiz/cumuluscore/clusters
                 icon: icon-yelp
             cumulus-side-menu-plan:
                 label: Plans

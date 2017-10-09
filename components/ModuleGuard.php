@@ -2,7 +2,7 @@
 
 use Cms\Classes\ComponentBase;
 use InitBiz\CumulusCore\Classes\Helpers;
-use InitBiz\CumulusCore\Models\Company;
+use InitBiz\CumulusCore\Models\Cluster;
 use InitBiz\CumulusCore\Models\Module;
 
 class ModuleGuard extends ComponentBase
@@ -11,18 +11,18 @@ class ModuleGuard extends ComponentBase
     {
         return [
             'name'        => 'Module Guard',
-            'description' => 'Guard component that allows company enter the module'
+            'description' => 'Guard component that allows cluster enter the module'
         ];
     }
 
     public function defineProperties()
     {
         return [
-            'companySlug' => [
-                'title'       => 'Company slug',
-                'description' => 'Slug of company that dashboard is going to be shown',
+            'clusterSlug' => [
+                'title'       => 'Cluster slug',
+                'description' => 'Slug of cluster that dashboard is going to be shown',
                 'type' => 'string',
-                'default' => '{{ :company }}'
+                'default' => '{{ :cluster }}'
             ],
             'cumulusModule' => [
                 'description' => 'Pick module to restrict user access',
@@ -33,19 +33,27 @@ class ModuleGuard extends ComponentBase
 
     public function onRun()
     {
-        if (!$this->canEnterModule($this->property('companySlug'), $this->property('cumulusModule'))) {
+        if (!$this->canEnterModule($this->property('clusterSlug'), $this->property('cumulusModule'))) {
             $this->setStatusCode(403);
             return $this->controller->run('403');
         }
     }
 
-    public function getCumulusModuleOptions(){
+    public function getCumulusModuleOptions()
+    {
         //TODO: get title from lang
         return Helpers::getModulesList();
     }
 
-    public function canEnterModule($companySlug, $moduleSlug)
+    public function canEnterModule($clusterSlug, $moduleSlug)
     {
-        return Company::whereSlug($companySlug)->first()->plan()->first()->modules()->whereSlug($moduleSlug)->first() ? true : false;
+        return Cluster::whereSlug($companySlug)
+                        ->first()
+                        ->plan()
+                        ->first()
+                        ->modules()
+                        ->whereSlug($moduleSlug)
+                        ->first()
+            ? true : false;
     }
 }

@@ -8,7 +8,7 @@ use RainLab\User\Models\User as UserModel;
 /**
  * Model
  */
-class Company extends Model
+class Cluster extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
@@ -27,8 +27,8 @@ class Company extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'initbiz_cumuluscore_companies';
-    public $primaryKey = 'company_id';
+    public $table = 'initbiz_cumuluscore_clusters';
+    public $primaryKey = 'cluster_id';
     protected $fillable = ['full_name', 'slug'];
     public $belongsTo = [
         'plan' => [
@@ -42,7 +42,7 @@ class Company extends Model
         'users' => [
             UserModel::class,
             'table' => 'users',
-            'key'      => 'company_id',
+            'key'      => 'cluster_id',
             'otherKey' => 'user_id'
         ]
     ];
@@ -50,7 +50,6 @@ class Company extends Model
     public $attachOne = [
         'logo' => ['System\Models\File']
     ];
-
 
     public static function getMenuTypeInfo($type)
     {
@@ -85,8 +84,9 @@ class Company extends Model
             $cumulusPages[] = $page;
         }
         $result = null;
-        if (!$item->reference || !$item->cmsPage)
+        if (!$item->reference || !$item->cmsPage) {
             return;
+        }
 
         $result = [
             'items' => []
@@ -98,4 +98,3 @@ class Company extends Model
         return $result;
     }
 }
-

@@ -1,0 +1,11 @@
+name: Clusters
+modelClass: InitBiz\CumulusCore\Models\Cluster
+form: $/initbiz/cumuluscore/models/cluster/fields.yaml
+defaultRedirect: initbiz/cumuluscore/clusters
+create:
+    redirect: 'initbiz/cumuluscore/clusters/update/:cluster_id'
+    redirectClose: initbiz/cumuluscore/clusters
+update:
+    redirect: initbiz/cumuluscore/clusters
+    redirectClose: initbiz/cumuluscore/clusters
+preview: {  }

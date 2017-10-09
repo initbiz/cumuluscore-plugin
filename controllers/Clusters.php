@@ -3,7 +3,7 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 
-class Companies extends Controller
+class Clusters extends Controller
 {
     public $implement = [
         'Backend\Behaviors\ListController',
@@ -17,7 +17,6 @@ class Companies extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('InitBiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-companies');
+        BackendMenu::setContext('InitBiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-clusters');
     }
-
 }

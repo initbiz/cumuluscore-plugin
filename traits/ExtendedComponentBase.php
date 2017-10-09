@@ -11,8 +11,8 @@ trait ExtendedComponentBase
     public $model;
     public $title;
 
-    /* param for company id that will be used in all components that need filtering */
-    public $companyRestricted = true;
+    /* param for cluster id that will be used in all components that need filtering */
+    public $clusterRestricted = true;
 
     /* method that sets config */
     public function setConfig()
@@ -53,13 +53,12 @@ trait ExtendedComponentBase
     public function cumulusProperties()
     {
         return [
-            'companySlug' => [
-                'title'       => 'Company slug',
-                'description' => 'Slug of company that dashboard is going to be shown',
+            'clusterSlug' => [
+                'title'       => 'Cluster slug',
+                'description' => 'Slug of cluster that dashboard is going to be shown',
                 'type' => 'string',
-                'default' => '{{ :company }}'
+                'default' => '{{ :cluster }}'
             ]
         ];
     }
-
 }

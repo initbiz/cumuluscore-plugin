@@ -1,13 +1,13 @@
-title = "Choose comapny"
+title = "Choose company"
 url = "/system/choose-company"
 layout = "session-guarded/default"
 is_hidden = 0
 
-[companiesList]
-companyPage = "cumulus-guarded/company-dashboard"
-
 [menuItem]
 menuItemTitle = "Chose Company"
 cumulusModule = "none"
+
+[clustersList]
+clusterDashboardPage = "cumulus-guarded/cluster-dashboard"
 ==
-{% component 'companiesList' %}
+{% component 'clustersList' %}

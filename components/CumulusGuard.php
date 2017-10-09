@@ -5,40 +5,39 @@ use Auth;
 
 class CumulusGuard extends ComponentBase
 {
-
     public function componentDetails()
     {
         return [
             'name'        => 'Cumulus guard',
-            'description' => 'Component checking if user can enter company'
+            'description' => 'Component checking if user can enter cluster page'
         ];
     }
 
     public function defineProperties()
     {
         return [
-            'companySlug' => [
-                'title'       => 'Company slug',
-                'description' => 'Slug of company that dashboard is going to be shown',
+            'clusterSlug' => [
+                'title'       => 'Cluster slug',
+                'description' => 'Slug of cluster that dashboard is going to be shown',
                 'type' => 'string',
-                'default' => '{{ :company }}'
+                'default' => '{{ :cluster }}'
             ]
         ];
     }
 
     public function onRun()
     {
-        if (!$this->canEnterCompany()) {
+        if (!$this->canEnterCluster()) {
             $this->setStatusCode(403);
             return $this->controller->run('403');
         }
-        $this->page['company'] = $this->property('companySlug');
+        $this->page['cluster'] = $this->property('clusterSlug');
     }
 
-    protected function canEnterCompany()
+    protected function canEnterCluster()
     {
         //TODO: move to model scope
-        return $this->user()->companies()->whereSlug($this->property('companySlug'))->first()? true : false;
+        return $this->user()->clusters()->whereSlug($this->property('clusterSlug'))->first()? true : false;
     }
 
     protected function user()
@@ -51,5 +50,4 @@ class CumulusGuard extends ComponentBase
 
         return $user;
     }
-
 }

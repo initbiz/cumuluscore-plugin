@@ -1,11 +1,11 @@
 1.0.1:
     - 'Initialize plugin.'
 1.0.2:
-    - 'Created table initbiz_cumuluscore_companies'
-    - builder_table_create_initbiz_cumuluscore_companies.php
+    - 'Created table initbiz_cumuluscore_clusters'
+    - builder_table_create_initbiz_cumuluscore_clusters.php
 1.0.3:
-    - 'Created table initbiz_cumuluscore_company_user'
-    - builder_table_create_initbiz_cumuluscore_company_user.php
+    - 'Created table initbiz_cumuluscore_cluster_user'
+    - builder_table_create_initbiz_cumuluscore_cluster_user.php
 1.0.4:
     - 'Created table initbiz_cumuluscore_modules'
     - builder_table_create_initbiz_cumuluscore_modules.php

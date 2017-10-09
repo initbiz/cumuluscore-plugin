@@ -4,14 +4,13 @@
 use InitBiz\CumulusCore\Classes\Helpers;
 use System\Classes\PluginBase;
 
-
 class Plugin extends PluginBase
 {
     public $require = ['RainLab.UserPlus'];
 
     private $menu = [
-        'companiesList' => 'Choose company page',   //TODO: take it from lang
-        'companyDashboard' => 'Company dashboard page'   //TODO: take it from lang
+        'clustersList' => 'Choose cluster page',   //TODO: take it from lang
+        'clusterDashboard' => 'Cluster dashboard page'   //TODO: take it from lang
     ];
 
     public function registerComponents()
@@ -19,10 +18,10 @@ class Plugin extends PluginBase
         return [
             'InitBiz\CumulusCore\Components\CumulusGuard'       =>  'cumulusGuard',
             'InitBiz\CumulusCore\Components\ModuleGuard'       =>  'moduleGuard',
-            'InitBiz\CumulusCore\Components\UserCompaniesList'  =>  'companiesList',
+            'InitBiz\CumulusCore\Components\UserClustersList'  =>  'clustersList',
             'InitBiz\CumulusCore\Components\Menu'               =>  'menu',
             'InitBiz\CumulusCore\Components\MenuItem'               =>  'menuItem',
-            'InitBiz\CumulusCore\Components\CompanyDashboard'   =>  'companyDashboard'
+            'InitBiz\CumulusCore\Components\ClusterDashboard'   =>  'clusterDashboard'
         ];
     }
 

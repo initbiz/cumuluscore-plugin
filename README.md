@@ -7,31 +7,31 @@
 
 <a name="introduction"></a>
 ## Introduction
-The plugin is a skeleton for building SaaS applications using OctoberCMS. Cumulus is alpha version so please do not use it in production but rather suggest features and solutions.
+The plugin is a skeleton for building SaaS applications using OctoberCMS.
 
-Its main purpose is to help developers with creating modules embedded on CMS pages and manage permissions to frontend pages. To understand the concept go ahead and watch the video series here: <a href="http://cumulus.init.biz/videos">http://cumulus.init.biz/videos</a>
-
-The name origins from puffy clouds as it is used to build cloud-environment applications.
+Its main purpose is to help developers with managing permissions to frontend pages and boost the development of SaaS applications.
 
 <a name="howto"></a>
 ## How-to
-### Installation
-The plugin requires `RainLab.UserPlus` and extends its features. For more information check the first video here: <a href="http://cumulus.init.biz/videos"> http://cumulus.init.biz/videos</a>.
 
 ### Concept
-Working with pages in Cumulus is based on three levels of testing user privileges.
 
-1. User is logged in (using mechanism from Rainlab.Users)
-1. User can access to company's page (using Cumulus Guard)
-1. Company has access to the module (using Module Guard)
+To fully understand the concept it is a good idea to watch the videos here: <a href="http://cumulus.init.biz/videos">http://cumulus.init.biz/videos</a>
 
-The best approach is to create the following layouts:
-* one with session component from `RainLab.UserPlus`
-* second with above component and `CumulusGuard` component
-* Third, 4th and so on with both above components and a `ModuleGuard` component.
+Working with pages in Cumulus is based on three levels of testing user privileges:
+
+1. User is logged in (using component from Rainlab.Users)
+1. User can access to cluster's page (using Cumulus Guard)
+1. Cluster has access to the module (using Module Guard)
+
+You can use the Guards on pages, but the best approach is to create the following layouts:
+* first one for public pages
+* second one with `Session` component from `RainLab.UserPlus` for all pages that requires a user to be signed in
+* third one with `Session` component and `CumulusGuard` component for all pages that requires a user to be signed in and to be assigned to a cluster
+* Fourth, fifth and so on with `Session` component, `CumulusGuard` component and a `ModuleGuard` component for all pages that requires a user to be signed in, assigned to a cluster and the privilege for a cluster to access the module.
 
 ### Modules
-Cumulus is using modules to separate functionality and access for front-end users. Cumulus core provides managing privileges, companies and users while modules provide functionality. Modules are almost normal OctoberCMS plugins with extra functionality that helps communicating with Cumulus Core.
+Cumulus is using modules to separate functionality and access for front-end users. Cumulus core provides managing privileges, clusters and users while modules provide functionality. Cumulus modules are normal OctoberCMS plugins with extra functionality that helps communicating with Cumulus Core.
 
 After installing Cumulus Core you can run command:
 
@@ -39,7 +39,7 @@ After installing Cumulus Core you can run command:
 
 For example:
 
-```php artisan cumulus:createmodule InitBiz.CumulusProducts```
+```php artisan cumulus:createmodule Initbiz.CumulusProducts```
 
 After creating such module (witch basically is OctoberCMS plugin), you will have to run
 
@@ -49,8 +49,6 @@ in order to register module in Cumulus Core.
 
 <a name="futureplans"></a>
 ## Future plans
-It is still experimental plugin but we hope it has potential.
 
 The most important future plans:
-* Complete the documentation (a lot of features are still not documented)
-* Provide theme in marketplace that will singleclick-install whole base environment with example module and Cumulus Core ready to create new modules
+* Provide behaviors instead of traits for components to work similar to backend.
