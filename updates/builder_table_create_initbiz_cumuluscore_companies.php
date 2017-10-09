@@ -12,6 +12,7 @@ class BuilderTableCreateInitbizCumuluscoreCompanies extends Migration
             $table->increments('company_id')->unsigned();
             $table->text('full_name');
             $table->text('slug');
+            $table->integer('plan_id')->nullable();
         });
     }
     

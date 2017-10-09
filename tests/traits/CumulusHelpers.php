@@ -26,6 +26,15 @@ trait CumulusHelpers {
         return $this;
     }
 
+    public function createPlan($name)
+    {
+        $this->visit('/panel/initbiz/cumuluscore/plans/create')
+             ->type($name, 'Form-field-Plan-name')
+             ->press('Create')
+             ->waitForFlashMessage();
+        return $this;
+    }
+
     public function activateUser($email)
     {
         $this->visit('/panel/rainlab/user/users')
@@ -123,4 +132,6 @@ trait CumulusHelpers {
              ->hold(2);
         return $this;
     }
+
+
 }

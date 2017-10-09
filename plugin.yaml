@@ -19,8 +19,7 @@ navigation:
                 label: Companies
                 url: initbiz/cumuluscore/companies
                 icon: icon-yelp
-            # Future plan for grouping companies
-            # cumulus-side-menu-plans:
-            #     label: Plans
-            #     url: initbiz/cumuluscore/plans
-            #     icon: icon-cube
+            cumulus-side-menu-plan:
+                label: Plans
+                url: initbiz/cumuluscore/plans
+                icon: icon-codepen

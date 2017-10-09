@@ -30,10 +30,10 @@ class Module extends Model
     public $primaryKey = 'module_id';
 
     public $belongsToMany = [
-        'companies' => [
-            Company::class,
-            'table' => 'initbiz_cumuluscore_company_module',
-            'key'      => 'company_id',
+        'plans' => [
+            Plan::class,
+            'table' => 'initbiz_cumuluscore_plan_module',
+            'key'      => 'plan_id',
             'otherKey' => 'module_id'
         ]
     ];

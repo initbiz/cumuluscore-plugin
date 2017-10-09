@@ -1,7 +1,7 @@
 <?php
 use InitBiz\Selenium2Tests\Classes\Ui2TestCase;
 
-class AddModuleToCompanyTest extends Ui2TestCase {
+class AddModuleToPlanTest extends Ui2TestCase {
 
     use CumulusDataProviders,
         CumulusHelpers;
@@ -18,8 +18,9 @@ class AddModuleToCompanyTest extends Ui2TestCase {
             ->activateUser($userData['email'])
             ->addUserToCompany($userData['email'], $companyData['name'])
             ->hold(2)
-            ->addModuleToCompany('CumulusProducts', $companyData['name'])
-            ->see('Companies updated');
+            ->createPlan('Example plan')
+            ->addModuleToPlan('CumulusProducts', $companyData['name'])
+            ->see('Plans updated');
     }
 
     protected function afterTest()

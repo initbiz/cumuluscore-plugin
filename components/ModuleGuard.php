@@ -3,6 +3,7 @@
 use Cms\Classes\ComponentBase;
 use InitBiz\CumulusCore\Classes\Helpers;
 use InitBiz\CumulusCore\Models\Company;
+use InitBiz\CumulusCore\Models\Module;
 
 class ModuleGuard extends ComponentBase
 {
@@ -45,6 +46,6 @@ class ModuleGuard extends ComponentBase
 
     public function canEnterModule($companySlug, $moduleSlug)
     {
-        return Company::whereSlug($companySlug)->first()->modules()->whereSlug($moduleSlug)->first() ? true : false;
+        return Company::whereSlug($companySlug)->first()->plan()->first()->modules()->whereSlug($moduleSlug)->first() ? true : false;
     }
 }

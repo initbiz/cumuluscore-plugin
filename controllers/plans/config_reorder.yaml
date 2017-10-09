@@ -1,0 +1,4 @@
+title: Plans
+modelClass: InitBiz\CumulusCore\Models\Plan
+toolbar:
+    buttons: reorder_toolbar
