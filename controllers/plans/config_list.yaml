@@ -1,5 +1,5 @@
 list: $/initbiz/cumuluscore/models/plan/columns.yaml
-modelClass: InitBiz\CumulusCore\Models\Plan
+modelClass: Initbiz\CumulusCore\Models\Plan
 title: Plans
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true

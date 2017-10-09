@@ -1,9 +1,9 @@
 <?php namespace Initbiz\Cumuluscore\Components;
 
 use Cms\Classes\ComponentBase;
-use InitBiz\CumulusCore\Classes\Helpers;
-use InitBiz\CumulusCore\Models\Cluster;
-use InitBiz\CumulusCore\Models\Module;
+use Initbiz\CumulusCore\Classes\Helpers;
+use Initbiz\CumulusCore\Models\Cluster;
+use Initbiz\CumulusCore\Models\Module;
 
 class ModuleGuard extends ComponentBase
 {

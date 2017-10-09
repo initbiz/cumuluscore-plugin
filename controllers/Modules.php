@@ -1,4 +1,4 @@
-<?php namespace InitBiz\CumulusCore\Controllers;
+<?php namespace Initbiz\CumulusCore\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
@@ -21,6 +21,6 @@ class Modules extends Controller
     {
         parent::__construct();
         BackendMenu::setContext('October.System', 'system', 'settings');
-        SettingsManager::setContext('InitBiz.CumulusCore', 'modules');
+        SettingsManager::setContext('Initbiz.CumulusCore', 'modules');
     }
 }

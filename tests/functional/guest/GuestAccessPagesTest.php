@@ -1,6 +1,6 @@
 <?php
 
-use InitBiz\Selenium2Tests\Classes\Ui2TestCase;
+use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
 class GuestAccessPagesTest extends Ui2TestCase {
 

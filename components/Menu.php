@@ -1,9 +1,9 @@
-<?php namespace InitBiz\Cumuluscore\Components;
+<?php namespace Initbiz\Cumuluscore\Components;
 
 use Cms\Classes\ComponentBase;
 use Event;
-use InitBiz\CumulusCore\Classes\Helpers;
-use InitBiz\CumulusCore\Models\Cluster;
+use Initbiz\CumulusCore\Classes\Helpers;
+use Initbiz\CumulusCore\Models\Cluster;
 use Cms\Classes\Page as CmsPage;
 use Cms\Classes\Theme;
 

@@ -1,7 +1,7 @@
-<?php namespace InitBiz\CumulusCore;
+<?php namespace Initbiz\CumulusCore;
 
 use Event;
-use InitBiz\CumulusCore\Models\Cluster;
+use Initbiz\CumulusCore\Models\Cluster;
 use RainLab\User\Controllers\Users as UserController;
 use RainLab\User\Models\User as UserModel;
 use RainLab\User\Models\UserGroup;
@@ -45,7 +45,7 @@ Event::listen('backend.list.extendColumns', function ($widget) {
 Event::listen('backend.menu.extendItems', function ($manager) {
     if ($manager->getContext()->owner === "RainLab.User"
         && $manager->getContext()->mainMenuCode === "user") {
-        BackendMenu::setContext('InitBiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-users');
+        BackendMenu::setContext('Initbiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-users');
     }
     $manager->removeMainMenuItem('RainLab.User', 'user');
 });

@@ -1,4 +1,4 @@
-<?php namespace InitBiz\Cumuluscore\Components;
+<?php namespace Initbiz\Cumuluscore\Components;
 
 use Cms\Classes\ComponentBase;
 use RainLab\User\Models\User as Users;

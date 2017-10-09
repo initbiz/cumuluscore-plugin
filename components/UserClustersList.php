@@ -1,4 +1,4 @@
-<?php namespace InitBiz\CumulusCore\Components;
+<?php namespace Initbiz\CumulusCore\Components;
 
 use Cms\Classes\ComponentBase;
 use Cms\Classes\Page;
@@ -9,7 +9,7 @@ class UserClustersList extends ComponentBase
     public $clustersList;
 
     public $implement = [
-        'InitBiz.CumulusCore.Behaviors.ComponentBehavior'
+        'Initbiz.CumulusCore.Behaviors.ComponentBehavior'
     ];
 
     public function componentDetails()

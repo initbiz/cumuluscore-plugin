@@ -1,4 +1,4 @@
-<?php namespace InitBiz\CumulusCore\Console;
+<?php namespace Initbiz\CumulusCore\Console;
 
 use October\Rain\Scaffold\GeneratorCommand;
 use Symfony\Component\Console\Input\InputArgument;

@@ -1,4 +1,4 @@
-<?php namespace InitBiz\CumulusCore\Models;
+<?php namespace Initbiz\CumulusCore\Models;
 
 use Cms\Classes\Page as CmsPage;
 use Cms\Classes\Theme;

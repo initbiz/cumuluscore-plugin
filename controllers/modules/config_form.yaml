@@ -9,7 +9,7 @@ name: Module
 form: $/initbiz/cumuluscore/models/module/fields.yaml
 
 # Model Class name
-modelClass: InitBiz\CumulusCore\Models\Module
+modelClass: Initbiz\CumulusCore\Models\Module
 
 # Default redirect location
 defaultRedirect: initbiz/cumuluscore/modules

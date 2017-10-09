@@ -1,8 +1,8 @@
-<?php namespace InitBiz\Cumuluscore\Components;
+<?php namespace Initbiz\Cumuluscore\Components;
 
 use Lang;
 use Cms\Classes\ComponentBase;
-use InitBiz\CumulusCore\Classes\Helpers;
+use Initbiz\CumulusCore\Classes\Helpers;
 
 class MenuItem extends ComponentBase
 {

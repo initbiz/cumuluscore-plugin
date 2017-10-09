@@ -2,11 +2,11 @@
 
 use System\Classes\PluginBase;
 use Lang;
-use InitBiz\CumulusCore\Classes\Connector as CumulusConnector;
+use Initbiz\CumulusCore\Classes\Connector as CumulusConnector;
 
 class Plugin extends PluginBase
 {
-    public $require = ['InitBiz.CumulusCore'];
+    public $require = ['Initbiz.CumulusCore'];
 
     public function register()
     {

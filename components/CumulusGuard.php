@@ -1,4 +1,4 @@
-<?php namespace InitBiz\CumulusCore\Components;
+<?php namespace Initbiz\CumulusCore\Components;
 
 use Cms\Classes\ComponentBase;
 use Auth;

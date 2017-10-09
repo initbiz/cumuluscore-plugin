@@ -1,6 +1,6 @@
-<?php namespace InitBiz\CumulusCore\Traits;
+<?php namespace Initbiz\CumulusCore\Traits;
 
-use InitBiz\CumulusCore\Behaviors\FormComponent as FormComponentBehavior;
+use Initbiz\CumulusCore\Behaviors\FormComponent as FormComponentBehavior;
 use Cms\Classes\Page;
 
 trait FormComponent

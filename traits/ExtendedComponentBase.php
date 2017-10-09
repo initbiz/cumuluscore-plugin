@@ -1,4 +1,4 @@
-<?php namespace InitBiz\CumulusCore\Traits;
+<?php namespace Initbiz\CumulusCore\Traits;
 
 use Yaml;
 
