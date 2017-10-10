@@ -46,15 +46,5 @@ class Plugin extends PluginBase
 
     public function registerMarkupTags()
     {
-        return [
-            'filters' => [
-                'componentPage' => [$this, 'findComponentPageUrl']
-            ]
-        ];
-    }
-
-    public function findComponentPageUrl($text)
-    {
-        return Helpers::findComponentPage($text)->url;
     }
 }
