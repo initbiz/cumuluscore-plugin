@@ -1,9 +1,9 @@
 plugin:
     name: 'initbiz.cumuluscore::lang.plugin.name'
     description: 'initbiz.cumuluscore::lang.plugin.description'
-    author: InITbiz
+    author: Initbiz
     icon: oc-icon-soundcloud
-    homepage: ''
+    homepage: 'http://cumulus.init.biz'
 navigation:
     cumulus-main-menu:
         label: 'initbiz.cumuluscore::lang.navigation.main'
