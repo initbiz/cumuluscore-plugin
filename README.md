@@ -3,6 +3,7 @@
 # Cumulus plugin
 - [Introduction](#introduction)
 - [How-to (guards)](#howto)
+- [Testing](#testing)
 - [Future plans](#futureplans)
 
 <a name="introduction"></a>
@@ -46,6 +47,10 @@ After creating such module (witch basically is OctoberCMS plugin), you will have
 ```php artisan plugin:refresh <namespace>.<modulename>```
 
 in order to register module in Cumulus Core.
+
+<a name="testing"></a>
+## Testing Cumulus
+Cumulus tests are written using Selenium 2 - Initbiz.selenium2tests plugin. If you want to test Cumulus then in `tests/` directory you have a `fixtures/themes` directory where theme for testing is stored. Contribution is very welcomed :)
 
 <a name="futureplans"></a>
 ## Future plans
