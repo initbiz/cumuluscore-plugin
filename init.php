@@ -51,19 +51,19 @@ Event::listen('backend.menu.extendItems', function ($manager) {
 });
 
 Event::listen('rainlab.user.register', function ($user, $data) {
-    // Uncomment following lines to automatically add a user to first cluster
+    // Add user to cluster automatically based on cluster variable from $data (need validation)
     /*
-        $plan = Cluster::where('slug', $data['plan'])->first();
-        if ($plan) {
-            $user->clusters()->add($plan);
-        }
+    $cluster = Cluster::where('slug', $data['cluster'])->first();
+    if ($cluster) {
+        $user->clusters()->add($cluster);
+    }
     */
 
     // Uncomment following lines to automatically add a user to "registered" group
     /*
-        $group = UserGroup::where('code', 'registered')->first();
-        if ($group) {
-            $user->groups()->add($group);
-        }
+    $group = UserGroup::where('code', 'registered')->first();
+    if ($group) {
+        $user->groups()->add($group);
+    }
     */
 });
