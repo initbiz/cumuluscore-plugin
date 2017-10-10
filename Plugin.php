@@ -1,6 +1,5 @@
 <?php namespace Initbiz\CumulusCore;
 
-// use Initbiz\CumulusCore\Classes\Connector as CumulusConnector;
 use Initbiz\CumulusCore\Classes\Helpers;
 use System\Classes\PluginBase;
 
