@@ -71,7 +71,7 @@ class CreateModule extends GeneratorCommand
     protected function getArguments()
     {
         return [
-            ['plugin', InputArgument::REQUIRED, 'The name of the module to create. Eg: InITbiz.CumulusProducts'],
+            ['plugin', InputArgument::REQUIRED, 'The name of the module to create. Eg: Initbiz.CumulusProducts'],
         ];
     }
 
@@ -85,5 +85,4 @@ class CreateModule extends GeneratorCommand
             ['force', null, InputOption::VALUE_NONE, 'Overwrite existing files with generated ones.'],
         ];
     }
-
 }
