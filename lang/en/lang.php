@@ -59,5 +59,5 @@
         'description' => 'Component showing all clusters that user is assigned to',
         'cluster_dashboard_page' => 'Cluster dashboard page',
         'cluster_dashboard_page_desc' => 'Page where users are going to be redirected after clicking cluster url'
-    ],
+    ]
 ];
