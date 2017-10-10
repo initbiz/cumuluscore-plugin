@@ -52,3 +52,4 @@ in order to register module in Cumulus Core.
 
 The most important future plans:
 * Provide behaviors instead of traits for components to work similar to backend.
+* Add settings to manage automatically adding users to clusters and groups
