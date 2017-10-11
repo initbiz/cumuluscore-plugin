@@ -26,4 +26,10 @@ class UserWithClusterWithPlanWithoutModuleAccessPagesTest extends Ui2TestCase {
             ->notSee('List Products');
     }
 
+    protected function afterTest()
+    {
+        $this->hold(2)
+            ->clearCumulus();
+    }
+
 }

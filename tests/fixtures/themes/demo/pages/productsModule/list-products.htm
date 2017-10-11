@@ -5,12 +5,11 @@ is_hidden = 0
 
 [menuItem]
 menuItemTitle = "Products"
-cumulusModule = "cumulusproducts"
+cumulusModule = "none"
 
-[menuItem products]
-menuItemTitle = "Products"
-cumulusModule = "cumulusproducts"
+[menu]
+clusterSlug = "{{ :cluster }}"
 ==
 {% component 'menuItem' %}
-
+{% component 'menu' %}
 <h2>List Products</h2>

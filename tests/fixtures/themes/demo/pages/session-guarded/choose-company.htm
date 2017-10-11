@@ -3,15 +3,12 @@ url = "/system/choose-cluster"
 layout = "session-guarded/default"
 is_hidden = 0
 
-[menuItem]
-menuItemTitle = "Chose Company"
-cumulusModule = "none"
-
 [clustersList]
 clusterDashboardPage = "cumulus-guarded/cluster-dashboard"
 
-[menuItem chooseCluster]
+[menuItem]
 menuItemTitle = "Choose Cluster"
 cumulusModule = "none"
 ==
 {% component 'clustersList' %}
+{% component 'menuItem' %}
