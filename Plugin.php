@@ -1,6 +1,5 @@
 <?php namespace Initbiz\CumulusCore;
 
-// use Initbiz\CumulusCore\Classes\Connector as CumulusConnector;
 use Initbiz\CumulusCore\Classes\Helpers;
 use System\Classes\PluginBase;
 
@@ -46,15 +45,5 @@ class Plugin extends PluginBase
 
     public function registerMarkupTags()
     {
-        return [
-            'filters' => [
-                'componentPage' => [$this, 'findComponentPageUrl']
-            ]
-        ];
-    }
-
-    public function findComponentPageUrl($text)
-    {
-        return Helpers::findComponentPage($text)->url;
     }
 }

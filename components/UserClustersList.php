@@ -8,10 +8,6 @@ class UserClustersList extends ComponentBase
     public $clusterDashboardPage;
     public $clustersList;
 
-    public $implement = [
-        'Initbiz.CumulusCore.Behaviors.ComponentBehavior'
-    ];
-
     public function componentDetails()
     {
         return [

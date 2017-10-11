@@ -2,7 +2,6 @@
 
 use System\Classes\PluginBase;
 use Lang;
-use Initbiz\CumulusCore\Classes\Connector as CumulusConnector;
 
 class Plugin extends PluginBase
 {

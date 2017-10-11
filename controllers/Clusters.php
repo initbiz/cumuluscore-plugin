@@ -9,7 +9,7 @@ class Clusters extends Controller
         'Backend\Behaviors\ListController',
         'Backend\Behaviors\FormController'
     ];
-
+    
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
 
