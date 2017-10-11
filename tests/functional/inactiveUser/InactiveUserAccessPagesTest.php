@@ -7,17 +7,16 @@ class InactiveUserAccessPagesTest extends Ui2TestCase {
         CumulusHelpers;
     /**
      * @test *
-     *  @dataProvider providerUserWithCompanyData
+     *  @dataProvider providerUserWithClusterData
      * * @return void
      */
-    public function inactive_user_cannot_enter_choose_company_page($userData, $companyData)
+    public function inactive_user_cannot_enter_choose_cluster_page($userData, $clusterData)
     {
-        $companySlug = $this->slugify($companyData['name']);
+        $clusterSlug = $this->slugify($clusterData['name']);
         $this->signInToBackend()
             ->createUser($userData)
-            ->createCompany($companyData)
             ->signInToFrontend($userData)
-            ->visit('/system/' . $companySlug . '/dashboard')
+            ->visit('/system/' . $clusterSlug . '/dashboard')
             ->hold(1)
             ->see('Forbidden');
 
@@ -26,35 +25,37 @@ class InactiveUserAccessPagesTest extends Ui2TestCase {
 
     /**
      * @test *
-     * @dataProvider providerUserWithCompanyData
+     * @dataProvider providerUserWithClusterData
      * * @return void
      */
-    public function inactive_user_cannot_enter_company_dashboard_page($userData, $companyData)
+    public function inactive_user_cannot_enter_cluster_dashboard_page($userData, $clusterData)
     {
-        $companySlug = $this->slugify($companyData['name']);
+        $clusterSlug = $this->slugify($clusterData['name']);
         $this->signInToBackend()
              ->createUser($userData)
-             ->createCompany($companyData)
+             ->createCluster($clusterData)
              ->signInToFrontend($userData)
-             ->visit('/system/' . $companySlug . '/dashboard')
+             ->visit('/system/' . $clusterSlug . '/dashboard')
              ->hold(1)
              ->see('Forbidden');
     }
 
     /**
      * @test *
-     * @dataProvider providerUserWithCompanyData
+     * @dataProvider providerUserWithClusterData
      * * @return void
      */
-    public function inactive_user_cannot_enter_module_page($userData, $companyData)
+    public function inactive_user_cannot_enter_module_guarded_page($userData, $clusterData)
     {
-        $companySlug = $this->slugify($companyData['name']);
+        $clusterSlug = $this->slugify($clusterData['name']);
         $this->signInToBackend()
             ->createUser($userData)
-            ->createCompany($companyData)
-            ->addModuleToCompany('CumulusProducts', $companyData['name'])
+            ->createCluster($clusterData)
+            ->createPlan('Example plan')
+            ->addModuleToPlan('CumulusProducts', 'Example plan')
+            ->addPlanToCluster('Example plan', $clusterData['name'])
             ->signInToFrontend($userData)
-            ->visit('/system/' . $companySlug . '/products')
+            ->visit('/system/' . $clusterSlug . '/products')
             ->hold(1)
             ->see('Forbidden');
     }
