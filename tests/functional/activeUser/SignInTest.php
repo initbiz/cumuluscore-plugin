@@ -20,7 +20,7 @@ class SignInTest extends Ui2TestCase {
             ->activateUser($data['email'])
             ->hold(2)
             ->signInToFrontend($data)
-            ->seePageIs('/system/choose-company');
+            ->seePageIs('/system/choose-cluster');
     }
 
     protected function afterTest()
