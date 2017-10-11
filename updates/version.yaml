@@ -15,3 +15,5 @@
 1.0.6:
     - 'Created table initbiz_cumuluscore_plan_module'
     - builder_table_create_initbiz_cumuluscore_plan_module.php
+1.0.7:
+    - 'After clean up, Cumulus is ready to be published on Marketplace'
