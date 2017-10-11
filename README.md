@@ -2,7 +2,7 @@
 
 # Cumulus plugin
 - [Introduction](#introduction)
-- [How-to (guards)](#howto)
+- [How-to](#howto)
 - [Testing](#testing)
 - [Future plans](#futureplans)
 
@@ -17,11 +17,12 @@ Its main purpose is to help developers with managing permissions to frontend pag
 
 ### Concept
 
-To fully understand the concept it is a good idea to watch the videos here: <a href="http://cumulus.init.biz/videos">http://cumulus.init.biz/videos</a>
+To fully understand the concept it is a good idea to watch the video here: <a href="http://cumulus.init.biz">http://cumulus.init.biz</a>
 
-Working with pages in Cumulus is based on three levels of testing user privileges:
+Working with pages in Cumulus is based on four levels of testing user privileges:
 
-1. User is logged in (using component from Rainlab.Users)
+1. Public pages
+1. User is logged in (using `Session` component from Rainlab.Users)
 1. User can access to cluster's page (using Cumulus Guard)
 1. Cluster has access to the module (using Module Guard)
 
@@ -36,26 +37,26 @@ Cumulus is using modules to separate functionality and access for front-end user
 
 After installing Cumulus Core you can run command:
 
-```php artisan cumulus:createmodule <namespace>.<modulename>```
+```php artisan cumulus:createmodule namespace.modulename```
 
 For example:
 
 ```php artisan cumulus:createmodule Initbiz.CumulusProducts```
 
-After creating such module (witch basically is OctoberCMS plugin), you will have to run
+After creating such module (which basically is OctoberCMS plugin), you will have to run
 
-```php artisan plugin:refresh <namespace>.<modulename>```
+```php artisan plugin:refresh namespace.modulename```
 
 in order to register module in Cumulus Core.
 
 <a name="testing"></a>
 ## Testing Cumulus
-Cumulus tests are written using Selenium 2 - Initbiz.selenium2tests plugin. If you want to test Cumulus then in `tests/` directory you have a `fixtures/themes` directory where theme for testing is stored. Contribution is very welcomed :)
+Cumulus tests are written using Selenium 2, using `Initbiz.selenium2tests` plugin. If you want to test Cumulus then in `tests/` directory you have a `fixtures/themes` directory where theme for testing is stored. Contribution is very welcomed :)
 
 <a name="futureplans"></a>
 ## Future plans
 
 The most important future plans:
-* Provide behaviors instead of traits for components to work similar to backend
 * Add settings to manage automatically adding users to clusters and groups
 * Integrate menu with `RainLab.Pages` menu builder
+* Cleanup the code. We know it's not a poem. We are still working on it.
