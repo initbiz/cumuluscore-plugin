@@ -17,7 +17,7 @@ Its main purpose is to help developers with managing permissions to frontend pag
 
 ### Concept
 
-To fully understand the concept it is a good idea to watch the video here: <a href="http://cumulus.init.biz">http://cumulus.init.biz</a>
+To fully understand the concept it is a good idea to watch the video here: <a href="http://cumulus.init.biz/videos">http://cumulus.init.biz/videos</a>
 
 Working with pages in Cumulus is based on four levels of testing user privileges:
 
