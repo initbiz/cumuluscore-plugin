@@ -34,7 +34,7 @@ class LoginWithWrongCredentialsTest extends Ui2TestCase {
         $this->visit(TEST_SELENIUM_BACKEND_URL)
              ->type($data['email'], 'login')
              ->type($data['password'], 'password')
-//             ->findAndClickElement("Login button", "//button[@type='submit']")
+             ->findAndClickElement("Login button", "//button[@type='submit']")
              ->hold(1)
              ->seeFlash();
     }
