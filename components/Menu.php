@@ -20,10 +20,13 @@ class Menu extends ComponentBase
     public function onRun()
     {
         //Building navigation
-        $current_cluster_modules = Cluster::with('modules')
-            ->where('slug', $this->property('clusterSlug'))
+        $current_cluster_modules = Cluster::where('slug', $this->property('clusterSlug'))
             ->first()
-            ->modules()
+            ->plan()
+            ->first();
+
+        if ($current_cluster_modules !== null) {
+            $current_cluster_modules = $current_cluster_modules->modules()
             ->get()
             ->pluck('name')
             ->values()
@@ -31,6 +34,9 @@ class Menu extends ComponentBase
                 return str_slug($item);
             })
             ->toArray();
+        } else {
+            $current_cluster_modules = [];
+        }
 
         $menuEntries= [];
         $theme = Theme::getActiveTheme();
