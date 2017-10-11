@@ -11,7 +11,7 @@ class MenuTest extends Ui2TestCase {
      * @dataProvider providerUserWithClusterData
      * * @return void
      */
-    public function user_with_two_modules_can_enter_both_module_guarded_pages($userData, $clusterData)
+    public function user_with_two_modules_can_enter_both_module_guarded_pages_by_menu($userData, $clusterData)
     {
         $this->signInToBackend()
              ->createUser($userData)
@@ -37,7 +37,7 @@ class MenuTest extends Ui2TestCase {
      * @dataProvider providerUserWithClusterData
      * * @return void
      */
-    public function user_with_one_module_cannot_enter_another_module_page($userData, $clusterData)
+    public function user_with_one_module_cannot_enter_another_module_page_by_menu($userData, $clusterData)
     {
         $this->signInToBackend()
             ->createUser($userData)
@@ -51,6 +51,24 @@ class MenuTest extends Ui2TestCase {
             ->see('Products')
             ->notSee('E-Learning');
 
+    }
+
+    /**
+     * @test *
+     * @dataProvider providerUserWithClusterData
+     * * @return void
+     */
+    public function user_without_module_cannot_enter_module_pages_by_menu($userData, $clusterData)
+    {
+        $this->signInToBackend()
+            ->createUser($userData)
+            ->activateUser($userData['email'])
+            ->createCluster($clusterData)
+            ->addUserToCluster($userData['email'], $clusterData['name'])
+            ->signInToFrontend($userData)
+            ->hold(2)
+            ->notSee('Products');
+            $this->notSee('E-Learning');
     }
 
     protected function afterTest()
