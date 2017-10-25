@@ -44,6 +44,7 @@ class UserClustersList extends ComponentBase
 
     public function clustersListWithUrl()
     {
+
         $userClustersList = $this->user()->clusters()->get();
         $clusters = [];
         foreach ($userClustersList as $cluster) {

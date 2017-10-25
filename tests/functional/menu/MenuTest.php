@@ -66,7 +66,6 @@ class MenuTest extends Ui2TestCase {
             ->createCluster($clusterData)
             ->addUserToCluster($userData['email'], $clusterData['name'])
             ->signInToFrontend($userData)
-            ->hold(2)
             ->notSee('Products');
             $this->notSee('E-Learning');
     }
