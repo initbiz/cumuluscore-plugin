@@ -40,7 +40,8 @@ class Plan extends Model
     ];
     public $hasMany = [
         'clusters' => [
-            Cluster::class
+            Cluster::class,
+            'key' => 'plan_id'
         ]
     ];
 }
