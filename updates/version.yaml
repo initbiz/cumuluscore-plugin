@@ -19,3 +19,5 @@
     - 'After clean up, Cumulus is ready to be published on Marketplace'
 1.0.8:
     - 'Fixed one to many relation between Plan and Cluster'
+1.0.9:
+    - 'Added dynamic method onRedirectMe for building login pages'

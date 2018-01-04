@@ -9,6 +9,14 @@ use BackendMenu;
 use Yaml;
 use File;
 use Lang;
+use Redirect;
+use RainLab\User\Components\Account;
+
+Account::extend(function($component) {
+    $component->addDynamicMethod('onRedirectMe', function() use ($component) {
+        return Redirect::to($component->pageUrl($component->property('redirect')));
+    });
+});
 
 UserModel::extend(function ($model) {
     $model->belongsToMany['clusters'] = [
