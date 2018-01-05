@@ -7,19 +7,13 @@ class AddModuleToPlanTest extends Ui2TestCase {
         CumulusHelpers;
     /**
      * @test *
-     * @dataProvider providerUserWithCompanyData
      * * @return void
      */
-    public function admin_can_add_module_to_company($userData, $companyData)
+    public function admin_can_add_module_to_plan()
     {
         $this->signInToBackend()
-            ->createUser($userData)
-            ->createCompany($companyData)
-            ->activateUser($userData['email'])
-            ->addUserToCompany($userData['email'], $companyData['name'])
-            ->hold(2)
             ->createPlan('Example plan')
-            ->addModuleToPlan('CumulusProducts', $companyData['name'])
+            ->addModuleToPlan('CumulusProducts', 'Example plan')
             ->see('Plans updated');
     }
 

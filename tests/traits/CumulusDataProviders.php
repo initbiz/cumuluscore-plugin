@@ -28,7 +28,7 @@ trait CumulusDataProviders
         return $data;
     }
 
-    public function fakeCompanyData()
+    public function fakeClusterData()
     {
         $faker = Faker::create();
         $data = [
@@ -44,21 +44,21 @@ trait CumulusDataProviders
             ["userData" => $data]
         ];
     }
-    public function providerCompanyData() {
+    public function providerClusterData() {
 
-        $data = $this->fakeCompanyData();
+        $data = $this->fakeClusterData();
         return [
-            ["companyData" => $data]
+            ["clusterData" => $data]
         ];
     }
 
-    public function providerUserWithCompanyData()
+    public function providerUserWithClusterData()
     {
-        $company = $this->providerCompanyData();
+        $cluster = $this->providerClusterData();
         $user  = $this->providerUserData();
         return [
             ["userData" => $user[0]['userData'],
-                "companyData" => $company[0]['companyData']]
+                "clusterData" => $cluster[0]['clusterData']]
         ];
     }
 }

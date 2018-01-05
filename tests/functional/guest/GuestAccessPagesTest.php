@@ -10,9 +10,9 @@ class GuestAccessPagesTest extends Ui2TestCase {
      * @test *
      * * @return void
      */
-    public function guest_cannot_enter_choose_company_page()
+    public function guest_cannot_enter_choose_cluster_page()
     {
-        $this->visit('/system/choose-company')
+        $this->visit('/system/choose-cluster')
         ->see('Forbidden');
         //sign in to backed for clearCumulus
         $this->signInToBackend();
@@ -20,16 +20,16 @@ class GuestAccessPagesTest extends Ui2TestCase {
 
     /**
      * @test *
-     * @dataProvider providerCompanyData
+     * @dataProvider providerClusterData
      * * @return void
      */
-    public function guest_cannot_enter_company_dashboard_page($companyData)
+    public function guest_cannot_enter_cluster_dashboard_page($clusterData)
     {
-        $companySlug = $this->slugify($companyData['name']);
+        $clusterSlug = $this->slugify($clusterData['name']);
         $this->signInToBackend()
-             ->createCompany($companyData)
+             ->createCluster($clusterData)
              ->visit('panel/backend/auth/signout')
-             ->visit('/system/'. $companySlug .'/dashboard')
+             ->visit('/system/'. $clusterSlug .'/dashboard')
              ->see('Forbidden');
         //sign in to backed for clearCumulus
         $this->signInToBackend();
@@ -37,18 +37,21 @@ class GuestAccessPagesTest extends Ui2TestCase {
 
     /**
      * @test *
-     * @dataProvider providerCompanyData
+     * @dataProvider providerClusterData
      * * @return void
      */
-    public function guest_cannot_enter_module_guarded_page($companyData)
+    public function guest_cannot_enter_module_guarded_page($clusterData)
     {
-        $companySlug = $this->slugify($companyData['name']);
+        $clusterSlug = $this->slugify($clusterData['name']);
         $this->signInToBackend()
-             ->createCompany($companyData)
+             ->createCluster($clusterData)
+             ->createPlan('Example plan')
+             ->addModuleToPlan('CumulusProducts', 'Example plan')
+             ->addPlanToCluster('Example plan', $clusterData['name'])
              ->hold(2)
              ->visit('panel/backend/auth/signout')
              ->hold(2)
-             ->visit('/system/'. $companySlug .'/products')
+             ->visit('/system/'. $clusterSlug .'/products')
              ->see('Forbidden');
         //sign in to backed for clearCumulus
         $this->signInToBackend();

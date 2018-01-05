@@ -11,49 +11,51 @@ class ActiveUserAccessPagesTest extends Ui2TestCase {
      * @dataProvider providerUserData
      * * @return void
      */
-    public function active_user_can_enter_choose_company_page($userData)
+    public function active_user_can_enter_choose_cluster_page($userData)
     {
         $this->signInToBackend()
              ->createUser($userData)
              ->activateUser($userData['email'])
              ->signInToFrontend($userData)
-             ->visit('/system/choose-company')
+             ->visit('/system/choose-cluster')
              ->notSee('Forbidden');
     }
 
     /**
      * @test *
-     * @dataProvider providerUserWithCompanyData
+     * @dataProvider providerUserWithClusterData
      * * @return void
      */
-    public function active_user_cannot_enter_company_dashboard_page($userData, $companyData)
+    public function active_user_cannot_enter_cluster_dashboard_page($userData, $clusterData)
     {
-        $companySlug = $this->slugify($companyData['name']);
+        $clusterSlug = $this->slugify($clusterData['name']);
         $this->signInToBackend()
             ->createUser($userData)
             ->activateUser($userData['email'])
-            ->createCompany($companyData)
+            ->createCluster($clusterData)
             ->signInToFrontend($userData)
-            ->visit('/system/' . $companySlug . '/dashboard')
+            ->visit('/system/' . $clusterSlug . '/dashboard')
             ->hold(1)
             ->see('Forbidden');
     }
 
     /**
      * @test *
-     * @dataProvider providerUserWithCompanyData
+     * @dataProvider providerUserWithClusterData
      * * @return void
      */
-    public function active_user_cannot_enter_module_guarded_pages($userData, $companyData)
+    public function active_user_cannot_enter_module_guarded_pages($userData, $clusterData)
     {
-        $companySlug = $this->slugify($companyData['name']);
+        $clusterSlug = $this->slugify($clusterData['name']);
         $this->signInToBackend()
             ->createUser($userData)
             ->activateUser($userData['email'])
-            ->createCompany($companyData)
-            ->addModuleToCompany('CumulusProducts', $companyData['name'])
+            ->createCluster($clusterData)
+            ->createPlan('Example plan')
+            ->addPlanToCluster('Example plan', $clusterData['name'])
+            ->addModuleToPlan('CumulusProducts', 'Example plan')
             ->signInToFrontend($userData)
-            ->visit('/system/' . $companySlug . '/products')
+            ->visit('/system/' . $clusterSlug . '/products')
             ->hold(1)
             ->see('Forbidden');
     }
@@ -67,6 +69,7 @@ class ActiveUserAccessPagesTest extends Ui2TestCase {
     {
         $this->signInToBackend()
              ->createUser($userData)
+             ->activateUser($userData['email'])
              ->visit('panel/backend/auth/signout')
              ->visit('/panel')
              ->type($userData['email'], 'login')

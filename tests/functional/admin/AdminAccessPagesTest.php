@@ -9,13 +9,13 @@ class AdminAccessPagesTest extends Ui2TestCase {
      * @test *
      * * @return void
      */
-    public function admin_cannot_enter_choose_company_page()
+    public function admin_cannot_enter_choose_cluster_page()
     {
             $this->signInToFrontend([
                 'email' => TEST_SELENIUM_USER,
                 'password' => TEST_SELENIUM_PASS,
             ])
-            ->visit('/system/choose-company')
+            ->visit('/system/choose-cluster')
             ->hold(1)
             ->see('Forbidden');
         //sign in to backed for clearCumulus
@@ -24,39 +24,41 @@ class AdminAccessPagesTest extends Ui2TestCase {
 
     /**
      * @test *
-     * @dataProvider providerCompanyData
+     * @dataProvider providerClusterData
      * * @return void
      */
-    public function admin_cannot_enter_company_dashboard_page($companyData)
+    public function admin_cannot_enter_cluster_dashboard_page($clusterData)
     {
-        $companySlug = $this->slugify($companyData['name']);
+        $clusterSlug = $this->slugify($clusterData['name']);
         $this->signInToBackend()
-            ->createCompany($companyData)
+            ->createCluster($clusterData)
             ->signInToFrontend([
                 'email' => TEST_SELENIUM_USER,
                 'password' => TEST_SELENIUM_PASS,
             ])
-            ->visit('/system/' . $companySlug . '/dashboard')
+            ->visit('/system/' . $clusterSlug . '/dashboard')
             ->hold(1)
             ->see('Forbidden');
     }
 
     /**
      * @test *
-     * @dataProvider providerCompanyData
+     * @dataProvider providerClusterData
      * * @return void
      */
-    public function admin_cannot_enter_module_guarded_page($companyData)
+    public function admin_cannot_enter_module_guarded_page($clusterData)
     {
-        $companySlug = $this->slugify($companyData['name']);
+        $clusterSlug = $this->slugify($clusterData['name']);
         $this->signInToBackend()
-            ->createCompany($companyData)
-            ->addModuleToCompany('CumulusProducts', $companyData['name'])
+            ->createCluster($clusterData)
+            ->createPlan('Example plan')
+            ->addModuleToPlan('CumulusProducts', 'Example plan')
+            ->addPlanToCluster('Example plan', $clusterData['name'])
             ->signInToFrontend([
                 'email' => TEST_SELENIUM_USER,
                 'password' => TEST_SELENIUM_PASS,
             ])
-            ->visit('/system/' . $companySlug . '/products')
+            ->visit('/system/' . $clusterSlug . '/products')
             ->hold(1)
             ->see('Forbidden');
     }

@@ -2,22 +2,22 @@
 
 use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
-class AddUserToCompanyTest extends Ui2TestCase {
+class AddUserToClusterTest extends Ui2TestCase {
 
     use CumulusDataProviders,
         CumulusHelpers;
     /**
      * @test *
-     * @dataProvider providerUserWithCompanyData
+     * @dataProvider providerUserWithClusterData
      * * @return void
      */
-    public function admin_can_add_user_to_company($userData, $companyData)
+    public function admin_can_add_user_to_cluster($userData, $clusterData)
     {
         $this->signInToBackend()
             ->createUser($userData)
-            ->createCompany($companyData)
+            ->createCluster($clusterData)
             ->activateUser($userData['email'])
-            ->addUserToCompany($userData['email'], $companyData['name'])
+            ->addUserToCluster($userData['email'], $clusterData['name'])
             ->see('User updated');
     }
 
