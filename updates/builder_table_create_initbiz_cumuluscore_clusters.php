@@ -10,7 +10,7 @@ class BuilderTableCreateInitbizCumuluscoreClusters extends Migration
         Schema::create('initbiz_cumuluscore_clusters', function ($table) {
             $table->increments('cluster_id')->unsigned();
             $table->text('full_name');
-            $table->text('slug')->unique();
+            $table->text('slug');
             $table->integer('plan_id')->nullable();
         });
     }

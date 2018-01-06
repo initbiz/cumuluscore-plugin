@@ -20,25 +20,24 @@ class Menu extends ComponentBase
     public function onRun()
     {
         //Building navigation
+        $current_cluster_modules = Cluster::where('slug', $this->property('clusterSlug'))
+            ->first()
+            ->plan()
+            ->first();
 
-        $this->page['menuEntries'] =$this->getMenuEntries();
-    }
+        if ($current_cluster_modules !== null) {
+            $current_cluster_modules = $current_cluster_modules->modules()
+            ->get()
+            ->pluck('name')
+            ->values()
+            ->map(function ($item, $key) {
+                return str_slug($item);
+            })
+            ->toArray();
+        } else {
+            $current_cluster_modules = [];
+        }
 
-    public function defineProperties()
-    {
-        return [
-            'clusterSlug' => [
-                'title' => 'initbiz.cumuluscore::lang.menu.cluster_slug',
-                'description' => 'initbiz.cumuluscore::lang.menu.cluster_slug_desc',
-                'type' => 'string',
-                'default' => '{{ :cluster }}'
-            ]
-        ];
-    }
-
-    public function getMenuEntries()
-    {
-        $current_cluster_modules = $this->getModulesName();
         $menuEntries= [];
         $theme = Theme::getActiveTheme();
         $pages = CmsPage::listInTheme($theme, true);
@@ -58,33 +57,18 @@ class Menu extends ComponentBase
                 }
             }
         }
-        return $menuEntries;
+        $this->page['menuEntries'] =$menuEntries;
     }
 
-
-    public function getClusterModules()
+    public function defineProperties()
     {
-        return Cluster::where('slug', $this->property('clusterSlug'))
-            ->first()
-            ->plan()
-            ->first();
-    }
-
-    public function getModulesName()
-    {
-        $current_cluster_modules = $this->getClusterModules();
-        if ($current_cluster_modules !== null) {
-            $current_cluster_modules = $current_cluster_modules->modules()
-                ->get()
-                ->pluck('name')
-                ->values()
-                ->map(function ($item, $key) {
-                    return str_slug($item);
-                })
-                ->toArray();
-        } else {
-            $current_cluster_modules = [];
-        }
-        return $current_cluster_modules;
+        return [
+            'clusterSlug' => [
+                'title' => 'initbiz.cumuluscore::lang.menu.cluster_slug',
+                'description' => 'initbiz.cumuluscore::lang.menu.cluster_slug_desc',
+                'type' => 'string',
+                'default' => '{{ :cluster }}'
+            ]
+        ];
     }
 }

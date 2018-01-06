@@ -15,8 +15,9 @@ class InactiveUserAccessPagesTest extends Ui2TestCase {
         $clusterSlug = $this->slugify($clusterData['name']);
         $this->signInToBackend()
             ->createUser($userData)
+            ->createCluster($clusterData)
             ->signInToFrontend($userData)
-            ->visit('/system/' . $clusterSlug . '/dashboard')
+            ->visit('/system/choose-cluster')
             ->hold(1)
             ->see('Forbidden');
 
@@ -45,7 +46,7 @@ class InactiveUserAccessPagesTest extends Ui2TestCase {
      * @dataProvider providerUserWithClusterData
      * * @return void
      */
-    public function inactive_user_cannot_enter_module_guarded_page($userData, $clusterData)
+    public function inactive_user_cannot_enter_module_page($userData, $clusterData)
     {
         $clusterSlug = $this->slugify($clusterData['name']);
         $this->signInToBackend()
@@ -53,7 +54,7 @@ class InactiveUserAccessPagesTest extends Ui2TestCase {
             ->createCluster($clusterData)
             ->createPlan('Example plan')
             ->addModuleToPlan('CumulusProducts', 'Example plan')
-            ->addPlanToCluster('Example plan', $clusterData['name'])
+            ->attachClusterToPlan('Example plan', $clusterData['name'])
             ->signInToFrontend($userData)
             ->visit('/system/' . $clusterSlug . '/products')
             ->hold(1)

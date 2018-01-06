@@ -12,7 +12,7 @@ class BuilderTableCreateInitbizCumuluscorePlans extends Migration
             $table->engine = 'InnoDB';
             $table->increments('plan_id');
             $table->string('name');
-            $table->text('slug')->unique();
+            $table->text('slug');
         });
     }
     

@@ -43,7 +43,6 @@ trait CumulusHelpers {
              ->waitForElementsWithClass('sweet-alert')
              ->hold(1)
              ->press('OK')
-             ->hold(2)
              ->waitForFlashMessage();
         return $this;
     }
@@ -59,26 +58,25 @@ trait CumulusHelpers {
         return $this;
     }
 
-    public function addUserToCluster($userEmail, $clusterName)
+    public function attachClusterToPlan($plan, $clusterName)
     {
-        $userId = $this->getRecordID($userEmail, '/panel/rainlab/user/users');
-        $this->visit('/panel/rainlab/user/users/update/' . $userId)
-             ->findAndClickElement('clusters', '//a[@title="Clusters"]')
-             ->hold(2)
-             ->clickLabel($clusterName)
-             ->hold(2)
+        $clusterId = $this->getRecordID($clusterName, 'panel/initbiz/cumuluscore/clusters');
+        $this->visit('panel/initbiz/cumuluscore/clusters/update/' . $clusterId)
+             ->findAndClickElement('Relation-formPlan-plan')
+             ->hold(3)
+             ->findAndClickElement($plan, "//li[contains(., '{$plan}')]")
              ->press('Save')
              ->waitForFlashMessage();
         return $this;
     }
 
-    public function addPlanToCluster($plan, $cluster)
+    public function addUserToCluster($userEmail, $clusterName)
     {
-        $clusterId = $this->getRecordID($cluster, 'panel/initbiz/cumuluscore/clusters');
-        $this->visit('/panel/initbiz/cumuluscore/clusters/update/' . $clusterId)
-             ->findAndClickElement('plans', '//div[@id="Relation-formPlan-plan"]')
+        $userId = $this->getRecordID($userEmail, '/panel/rainlab/user/users');
+        $this->visit('/panel/rainlab/user/users/update/' . $userId)
+             ->findAndClickElement('Clusters', '//a[@title="Clusters"]')
              ->hold(2)
-             ->findAndClickElement('plan', "//li[contains(., '{$plan}')]")
+             ->clickLabel($clusterName)
              ->hold(2)
              ->press('Save')
              ->waitForFlashMessage();
@@ -89,12 +87,11 @@ trait CumulusHelpers {
     {
         $planId = $this->getRecordID($plan, 'panel/initbiz/cumuluscore/plans');
         $this->visit('/panel/initbiz/cumuluscore/plans/update/' . $planId)
-             ->clickLabel($module)
+             ->clickLabel($module);
+        $this->hold(1)
              ->press('Save')
-             ->hold(1)
              ->waitForFlashMessage();
         return $this;
-
     }
 
     public function slugify($text)
@@ -114,7 +111,7 @@ trait CumulusHelpers {
     public function clearCumulus()
     {
         $this->deleteAllUsers()
-             ->deleteAllClusters()
+             ->deleteAllCluster()
              ->deleteAllPlans();
         return $this;
     }
@@ -135,7 +132,7 @@ trait CumulusHelpers {
         return $this;
     }
 
-    public function deleteAllClusters()
+    public function deleteAllCluster()
     {
         $this->visit('/panel/initbiz/cumuluscore/clusters')
              ->hold(2)
@@ -149,8 +146,7 @@ trait CumulusHelpers {
         return $this;
     }
 
-    public function deleteAllPlans()
-    {
+    public function deleteAllPlans(){
         $this->visit('/panel/initbiz/cumuluscore/plans')
             ->hold(2)
             ->findAndClickElement('check all plans', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[2]/div/table/thead/tr/th[1]")
@@ -160,7 +156,7 @@ trait CumulusHelpers {
             ->press('OK')
             ->waitForFlashMessage()
             ->hold(2);
-        return $this;
+
     }
 
 
