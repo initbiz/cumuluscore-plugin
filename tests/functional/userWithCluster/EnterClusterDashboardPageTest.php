@@ -23,7 +23,7 @@ class EnterClusterDashboardPageTest extends Ui2TestCase
             ->hold(2)
             ->signInToFrontend($userData)
             ->hold(2)
-            ->see('Dashboard');
+            ->see('Menu');
     }
 
     /**
@@ -41,19 +41,19 @@ class EnterClusterDashboardPageTest extends Ui2TestCase
             ->createCluster($secondCluster)
             ->activateUser($user['email'])
             ->addUserToCluster($user['email'], $firstCluster['name'])
-            ->hold(2)
+            ->hold(1)
             ->addUserToCluster($user['email'], $secondCluster['name'])
             ->hold(1)
             ->signInToFrontend($user)
             ->seePageIs('/system/choose-cluster')
             ->findAndClickElement($firstCluster['name'], "//h2[contains(., '{$firstCluster['name']}')]")
             ->hold(1)
-            ->see('Dashboard')
+            ->see('Menu')
             ->seePageIs('/system/' . $this->slugify($firstCluster['name']) . '/dashboard')
             ->visit('/system/choose-cluster')
             ->findAndClickElement($secondCluster['name'], "//h2[contains(., '{$secondCluster['name']}')]")
             ->hold(1)
-            ->see('Dashboard')
+            ->see('Menu')
             ->seePageIs('/system/' . $this->slugify($secondCluster['name']) . '/dashboard');
     }
 

@@ -21,3 +21,6 @@
     - 'Fixed one to many relation between Plan and Cluster'
 1.0.9:
     - 'Added dynamic method onRedirectMe for building login pages'
+1.1.0:
+    - 'Added unique at slug in Modules table'
+    - upadte_table_initbiz_cumuluscore_modules.php

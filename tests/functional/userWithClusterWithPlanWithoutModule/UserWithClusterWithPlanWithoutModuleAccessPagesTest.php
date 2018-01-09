@@ -19,7 +19,7 @@ class UserWithClusterWithPlanWithoutModuleAccessPagesTest extends Ui2TestCase {
             ->activateUser($userData['email'])
             ->addUserToCluster($userData['email'], $clusterData['name'])
             ->createPlan('Example plan')
-            ->addPlanToCluster('Example plan', $clusterData['name'])
+            ->attachClusterToPlan('Example plan', $clusterData['name'])
             ->hold(2)
             ->signInToFrontend($userData)
             ->visit('system/' . $this->slugify($clusterData['name']) . '/products')

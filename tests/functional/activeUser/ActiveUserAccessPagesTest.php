@@ -5,7 +5,8 @@ use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 class ActiveUserAccessPagesTest extends Ui2TestCase {
 
     use CumulusDataProviders,
-        CumulusHelpers;
+        CumulusHelpers,
+        SeleniumHelpers;
     /**
      * @test *
      * @dataProvider providerUserData
@@ -51,9 +52,9 @@ class ActiveUserAccessPagesTest extends Ui2TestCase {
             ->createUser($userData)
             ->activateUser($userData['email'])
             ->createCluster($clusterData)
-            ->createPlan('Example plan')
-            ->addPlanToCluster('Example plan', $clusterData['name'])
-            ->addModuleToPlan('CumulusProducts', 'Example plan')
+            ->createPlan('Example Plan Products')
+            ->addModuleToPlan('CumulusProducts', 'Example Plan Products')
+            ->attachClusterToPlan('Example Plan Products', $clusterData['name'])
             ->signInToFrontend($userData)
             ->visit('/system/' . $clusterSlug . '/products')
             ->hold(1)
@@ -69,7 +70,6 @@ class ActiveUserAccessPagesTest extends Ui2TestCase {
     {
         $this->signInToBackend()
              ->createUser($userData)
-             ->activateUser($userData['email'])
              ->visit('panel/backend/auth/signout')
              ->visit('/panel')
              ->type($userData['email'], 'login')
