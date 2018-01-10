@@ -47,7 +47,7 @@ class GuestAccessPagesTest extends Ui2TestCase {
              ->createCluster($clusterData)
              ->createPlan('Example plan')
              ->addModuleToPlan('CumulusProducts', 'Example plan')
-             ->addPlanToCluster('Example plan', $clusterData['name'])
+             ->attachClusterToPlan('Example plan', $clusterData['name'])
              ->hold(2)
              ->visit('panel/backend/auth/signout')
              ->hold(2)

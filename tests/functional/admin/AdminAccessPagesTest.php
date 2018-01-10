@@ -18,7 +18,7 @@ class AdminAccessPagesTest extends Ui2TestCase {
             ->visit('/system/choose-cluster')
             ->hold(1)
             ->see('Forbidden');
-        //sign in to backed for clearCumulus
+        //sign in to backend for clearCumulus
         $this->signInToBackend();
     }
 
@@ -53,7 +53,7 @@ class AdminAccessPagesTest extends Ui2TestCase {
             ->createCluster($clusterData)
             ->createPlan('Example plan')
             ->addModuleToPlan('CumulusProducts', 'Example plan')
-            ->addPlanToCluster('Example plan', $clusterData['name'])
+            ->attachClusterToPlan('Example plan', $clusterData['name'])
             ->signInToFrontend([
                 'email' => TEST_SELENIUM_USER,
                 'password' => TEST_SELENIUM_PASS,

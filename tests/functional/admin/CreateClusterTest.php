@@ -19,19 +19,6 @@ class CreateClusterTest extends Ui2TestCase {
         $this->see('Clusters created');
     }
 
-    /**
-     * @test *\
-     * @dataProvider providerClusterData
-     * * @return void
-     */
-    public function admin_can_create_cluster_with_plan($data)
-    {
-        $this->signInToBackend()
-            ->createCluster($data)
-            ->createPlan('Example plan')
-            ->addPlanToCluster($data['name'], 'Example plan')
-            ->see('Clusters updated');
-    }
 
     protected function afterTest()
     {

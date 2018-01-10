@@ -21,7 +21,7 @@ class MenuTest extends Ui2TestCase {
              ->addUserToCluster($userData['email'], $clusterData['name'])
              ->addModuleToPlan('CumulusProducts', 'Example plan')
              ->addModuleToPlan('CumulusElearning', 'Example plan')
-             ->addPlanToCluster('Example plan', $clusterData['name'])
+             ->attachClusterToPlan('Example plan', $clusterData['name'])
              ->signInToFrontend($userData)
              ->hold(5)
              ->clickLink('Products')
@@ -46,7 +46,7 @@ class MenuTest extends Ui2TestCase {
             ->createPlan('Example plan')
             ->addUserToCluster($userData['email'], $clusterData['name'])
             ->addModuleToPlan('CumulusProducts', 'Example plan')
-            ->addPlanToCluster('Example plan', $clusterData['name'])
+            ->attachClusterToPlan('Example plan', $clusterData['name'])
             ->signInToFrontend($userData)
             ->see('Products')
             ->notSee('E-Learning');

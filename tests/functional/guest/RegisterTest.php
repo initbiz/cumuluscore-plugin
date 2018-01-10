@@ -24,4 +24,9 @@ class RegisterTest extends Ui2TestCase {
         $this->signInToBackend();
     }
 
+    protected function afterTest()
+    {
+        $this->hold(2)
+             ->clearCumulus();
+    }
 }
