@@ -2,6 +2,7 @@
 
 use Cms\Classes\ComponentBase;
 use Cms\Classes\Page;
+use Initbiz\CumulusCore\Classes\Helpers;
 
 class UserClustersList extends ComponentBase
 {
@@ -35,7 +36,7 @@ class UserClustersList extends ComponentBase
     public function onRun()
     {
         $this->property('clusterDashboardPage');
-        $this->clustersList= $this->page['userClusters'] = $this->clustersListWithUrl();
+        $this->clustersList = $this->page['userClusters'] = $this->clustersListWithUrl();
 
         if (isset($this->clustersList) && count($this->clustersList) === 1) {
             return redirect($this->clustersList[0]->pageUrl);
@@ -44,25 +45,16 @@ class UserClustersList extends ComponentBase
 
     public function clustersListWithUrl()
     {
-        $userClustersList = $this->user()->clusters()->get();
+        $userClustersList = Helpers::getUser()->clusters()->get();
         $clusters = [];
         foreach ($userClustersList as $cluster) {
             $cluster['pageUrl'] = $this->controller->pageUrl(
                 $this->property('clusterDashboardPage'),
-               ['cluster' => $cluster->slug]
+                ['cluster' => $cluster->slug]
             );
             $clusters[] = $cluster;
         }
         return $clusters;
     }
-
-
-    public function user()
-    {
-        if (!$user = \Auth::getUser()) {
-            return null;
-        }
-        $user->touchLastSeen();
-        return $user;
-    }
 }
+

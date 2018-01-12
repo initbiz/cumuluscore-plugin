@@ -1,7 +1,7 @@
 <?php namespace Initbiz\CumulusCore\Components;
 
+use Initbiz\CumulusCore\Classes\Helpers;
 use Cms\Classes\ComponentBase;
-use Auth;
 
 class CumulusGuard extends ComponentBase
 {
@@ -37,17 +37,7 @@ class CumulusGuard extends ComponentBase
     protected function canEnterCluster()
     {
         //TODO: move to model scope
-        return $this->user()->clusters()->whereSlug($this->property('clusterSlug'))->first()? true : false;
+        return Helpers::getUser()->clusters()->whereSlug($this->property('clusterSlug'))->first()? true : false;
     }
 
-    protected function user()
-    {
-        if (!$user = Auth::getUser()) {
-            return null;
-        }
-
-        $user->touchLastSeen();
-
-        return $user;
-    }
 }
