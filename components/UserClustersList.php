@@ -2,11 +2,13 @@
 
 use Cms\Classes\ComponentBase;
 use Cms\Classes\Page;
+use Initbiz\CumulusCore\Classes\Helpers;
+use Initbiz\Cumuluscore\Repositories\UserRepository;
 
 class UserClustersList extends ComponentBase
 {
-    public $clusterDashboardPage;
     public $clustersList;
+    public $userRepository;
 
     public function componentDetails()
     {
@@ -34,8 +36,8 @@ class UserClustersList extends ComponentBase
 
     public function onRun()
     {
-        $this->property('clusterDashboardPage');
-        $this->clustersList= $this->page['userClusters'] = $this->clustersListWithUrl();
+        $this->userRepository = new UserRepository;
+        $this->clustersList = $this->page['userClusters'] = $this->clustersListWithUrl();
 
         if (isset($this->clustersList) && count($this->clustersList) === 1) {
             return redirect($this->clustersList[0]->pageUrl);
@@ -44,25 +46,16 @@ class UserClustersList extends ComponentBase
 
     public function clustersListWithUrl()
     {
-        $userClustersList = $this->user()->clusters()->get();
+        $userClustersList = $this->userRepository->getUserClusterList(Helpers::getUser()->id);
         $clusters = [];
         foreach ($userClustersList as $cluster) {
             $cluster['pageUrl'] = $this->controller->pageUrl(
                 $this->property('clusterDashboardPage'),
-               ['cluster' => $cluster->slug]
+                ['cluster' => $cluster->slug]
             );
             $clusters[] = $cluster;
         }
         return $clusters;
     }
-
-
-    public function user()
-    {
-        if (!$user = \Auth::getUser()) {
-            return null;
-        }
-        $user->touchLastSeen();
-        return $user;
-    }
 }
+

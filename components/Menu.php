@@ -5,8 +5,11 @@ use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Models\Cluster;
 use Cms\Classes\Page as CmsPage;
 use Cms\Classes\Theme;
+use Initbiz\Cumuluscore\Repositories\ClusterRepository;
+
 class Menu extends ComponentBase
 {
+    public $clusterRepository;
     public function componentDetails()
     {
         return [
@@ -16,6 +19,7 @@ class Menu extends ComponentBase
     }
     public function onRun()
     {
+        $this->clusterRepository = new ClusterRepository;
         //Building navigation
         $this->page['menuEntries'] =$this->getMenuEntries();
     }
@@ -32,49 +36,46 @@ class Menu extends ComponentBase
     }
     public function getMenuEntries()
     {
-        $current_cluster_modules = $this->getModulesName();
+        //TODO: Refactor spaghetti code
+        $current_cluster_modules = $this->clusterRepository->getClusterModulesName($this->property('clusterSlug'));
+//        dd($current_cluster_modules);
         $menuEntries= [];
-        $theme = Theme::getActiveTheme();
-        $pages = CmsPage::listInTheme($theme, true);
-        foreach ($pages as $page) {
-            if ($page->hasComponent('menuItem')) {
-                $component = '';
-                foreach ($page['settings']['components'] as $componentName => $componentProperties) {
-                    $exp_key = explode(' ', $componentName);
-                    if ($exp_key[0] === 'menuItem') {
-                        $component = $page['settings']['components'][$componentName];
-                    }
-                }
-                if ($component['cumulusModule'] === "none"
-                    || in_array($component['cumulusModule'], $current_cluster_modules, true)) {
-                    $menuEntries[$component['menuItemTitle']] = CmsPage::url($page['fileName']);
-                }
+        $pagesWithMenuItem = $this->getPagesWithComponent('menuItem');
+        foreach ($pagesWithMenuItem as $page) {
+            $component = $this->getComponentPropertiesFromPage($page, 'menuItem');
+            if ($component['cumulusModule'] === "none"
+                || in_array($component['cumulusModule'], $current_cluster_modules, true)) {
+                $menuEntries[$component['menuItemTitle']] = CmsPage::url($page['fileName']);
             }
+
         }
+
+//            dd($menuEntries);
         return $menuEntries;
     }
-    public function getClusterModules()
+
+
+    public function getPagesWithComponent($componentName)
     {
-        return Cluster::where('slug', $this->property('clusterSlug'))
-            ->first()
-            ->plan()
-            ->first();
-    }
-    public function getModulesName()
-    {
-        $current_cluster_modules = $this->getClusterModules();
-        if ($current_cluster_modules !== null) {
-            $current_cluster_modules = $current_cluster_modules->modules()
-                ->get()
-                ->pluck('name')
-                ->values()
-                ->map(function ($item, $key) {
-                    return str_slug($item);
-                })
-                ->toArray();
-        } else {
-            $current_cluster_modules = [];
+        $theme = Theme::getActiveTheme();
+        $pages = CmsPage::listInTheme($theme, true);
+        $pagesWithComponent = [];
+        foreach ($pages as $page) {
+            if ($page->hasComponent($componentName)) {
+                $pagesWithComponent[] = $page;
+            }
         }
-        return $current_cluster_modules;
+//        dd($pagesWithComponent);
+        return $pagesWithComponent;
+    }
+
+    public function getComponentPropertiesFromPage($page, $componentName)
+    {
+        foreach ($page['settings']['components'] as $tmpComponentName => $componentProperties) {
+            $exp_key = explode(' ', $tmpComponentName);
+            if ($exp_key[0] === $componentName) {
+               return $page['settings']['components'][$tmpComponentName];
+            }
+        }
     }
 }

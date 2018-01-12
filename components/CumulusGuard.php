@@ -1,10 +1,13 @@
 <?php namespace Initbiz\CumulusCore\Components;
 
+use Initbiz\CumulusCore\Classes\Helpers;
 use Cms\Classes\ComponentBase;
-use Auth;
+use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 class CumulusGuard extends ComponentBase
 {
+    public $clusterRepository;
+
     public function componentDetails()
     {
         return [
@@ -27,27 +30,12 @@ class CumulusGuard extends ComponentBase
 
     public function onRun()
     {
-        if (!$this->canEnterCluster()) {
+        $this->clusterRepository = new ClusterRepository;
+        if (!$this->clusterRepository->canEnterCluster(Helpers::getUser()->id,
+            $this->property('clusterSlug'))) {
             $this->setStatusCode(403);
             return $this->controller->run('403');
         }
         $this->page['cluster'] = $this->property('clusterSlug');
-    }
-
-    protected function canEnterCluster()
-    {
-        //TODO: move to model scope
-        return $this->user()->clusters()->whereSlug($this->property('clusterSlug'))->first()? true : false;
-    }
-
-    protected function user()
-    {
-        if (!$user = Auth::getUser()) {
-            return null;
-        }
-
-        $user->touchLastSeen();
-
-        return $user;
     }
 }

@@ -4,9 +4,11 @@ use Cms\Classes\ComponentBase;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Models\Module;
+use Initbiz\Cumuluscore\Repositories\ClusterRepository;
 
 class ModuleGuard extends ComponentBase
 {
+    public $clusterRepository;
     public function componentDetails()
     {
         return [
@@ -34,7 +36,8 @@ class ModuleGuard extends ComponentBase
 
     public function onRun()
     {
-        if (!$this->canEnterModule($this->property('clusterSlug'), $this->property('cumulusModule'))) {
+        $this->clusterRepository = new ClusterRepository;
+        if (!$this->clusterRepository->canEnterModule($this->property('clusterSlug'), $this->property('cumulusModule'))) {
             $this->setStatusCode(403);
             return $this->controller->run('403');
         }
@@ -46,15 +49,5 @@ class ModuleGuard extends ComponentBase
         return Helpers::getModulesList();
     }
 
-    public function canEnterModule($clusterSlug, $moduleSlug)
-    {
-        return Cluster::whereSlug($clusterSlug)
-                        ->first()
-                        ->plan()
-                        ->first()
-                        ->modules()
-                        ->whereSlug($moduleSlug)
-                        ->first()
-            ? true : false;
-    }
+
 }

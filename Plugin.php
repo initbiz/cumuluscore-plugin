@@ -43,7 +43,4 @@ class Plugin extends PluginBase
         $this->registerConsoleCommand('cumulus.createmodule', 'Initbiz\CumulusCore\Console\CreateModule');
     }
 
-    public function registerMarkupTags()
-    {
-    }
 }
