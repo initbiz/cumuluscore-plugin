@@ -11,6 +11,7 @@ use RainLab\User\Models\User as UserModel;
 class Cluster extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\Sluggable;
 
     /*
      * Validation
@@ -23,6 +24,11 @@ class Cluster extends Model
      * Remove this line if timestamps are defined in the database table.
      */
     public $timestamps = false;
+
+    /**
+     * @var array Generate slugs for these attributes.
+     */
+    protected $slugs = ['slug' => 'full_name'];
 
     /**
      * @var string The database table used by the model.
