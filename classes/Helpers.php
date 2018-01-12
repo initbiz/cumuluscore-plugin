@@ -7,11 +7,6 @@ use Auth;
 
 class Helpers
 {
-    public static function getPagesFilenames()
-    {
-        return CmsPage::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
-    }
-
     public static function getModulesList()
     {
         return Module::all()->lists('name', 'slug');
