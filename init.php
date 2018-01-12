@@ -57,22 +57,47 @@ Event::listen('backend.menu.extendItems', function ($manager) {
         BackendMenu::setContext('Initbiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-users');
     }
     $manager->removeMainMenuItem('RainLab.User', 'user');
+    // dd( CumulusSettings::get('enable_auto_assign_user') );
 });
 
 Event::listen('rainlab.user.register', function ($user, $data) {
-    // Add user to cluster automatically based on cluster variable from $data (need validation)
-    /*
-    $cluster = Cluster::where('slug', $data['cluster'])->first();
-    if ($cluster) {
-        $user->clusters()->add($cluster);
+    if (!CumulusSettings::get('enable_auto_assign_user')) {
+        return true;
     }
-    */
 
-    // Uncomment following lines to automatically add a user to "registered" group
-    /*
-    $group = UserGroup::where('code', 'registered')->first();
+    $clusterRepository = new ClusterRepository;
+
+    if (CumulusSettings::get('auto_assign_user') === 'concrete_cluster') {
+        $clusterRepository->addUserToCluster($user->id, CumulusSettings::get('auto_assign_user_concrete_cluster'));
+    }
+
+    if (CumulusSettings::get('auto_assign_user') === 'get_cluster') {
+        $clusterSlug = $data[CumulusSettings::get('auto_assign_user_get_cluster')];
+
+        $clusterRepository->addUserToCluster($user->id, $clusterSlug);
+
+    }
+
+    if (CumulusSettings::get('auto_assign_user') === 'new_cluster') {
+        $clusterName = $data[CumulusSettings::get('auto_assign_user_new_cluster')];
+
+        $cluster = $this->clusterRepository->create(['full_name' => $clusterName]);
+
+        $clusterRepository->addUserToCluster($user->id, $cluster->slug);
+    }
+
+});
+
+
+Event::listen('rainlab.user.register', function ($user, $data) {
+
+    if (!CumulusSettings::get('enable_auto_assign_user_to_group')) {
+        return true;
+    }
+
+    //TODO: move to repository, but what to do with those UserModel and UserController at the top of this file?
+    $group = UserGroup::where('code', CumulusSettings::get('group_to_auto_assign_user'))->first();
     if ($group) {
         $user->groups()->add($group);
     }
-    */
 });

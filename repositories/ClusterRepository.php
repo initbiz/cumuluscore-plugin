@@ -85,5 +85,13 @@ class ClusterRepository implements ClusterInterface {
         return $current_cluster_modules;
     }
 
-}
 
+    public function addUserToCluster(int $userId, string $clusterSlug) {
+        $cluster = $this->clusterModel->where('slug', $clusterSlug)->first();
+        if ($cluster) {
+            $this->userRepository->find($userId)->clusters()->add($cluster);
+        }
+    }
+
+
+}

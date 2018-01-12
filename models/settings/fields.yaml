@@ -32,7 +32,7 @@ tabs:
             span: right
             label: initbiz.cumuluscore::lang.settings.new_cluster_variable
             tab: initbiz.cumuluscore::lang.settings.tab_auto_assign_user
-            default: "cluster"
+            default: "clustername"
             trigger:
                 action: show
                 field: auto_assign_user
