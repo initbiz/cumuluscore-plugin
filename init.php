@@ -1,16 +1,17 @@
 <?php namespace Initbiz\CumulusCore;
 
-use Event;
-use Initbiz\CumulusCore\Models\Cluster;
-use RainLab\User\Controllers\Users as UserController;
-use RainLab\User\Models\User as UserModel;
-use RainLab\User\Models\UserGroup;
-use BackendMenu;
 use Yaml;
 use File;
 use Lang;
+use Event;
 use Redirect;
+use BackendMenu;
+use RainLab\User\Models\UserGroup;
 use RainLab\User\Components\Account;
+use Initbiz\CumulusCore\Models\Cluster;
+use RainLab\User\Models\User as UserModel;
+use RainLab\User\Controllers\Users as UserController;
+use Initbiz\CumulusCore\Models\Settings as CumulusSettings;
 
 Account::extend(function($component) {
     $component->addDynamicMethod('onRedirectMe', function() use ($component) {

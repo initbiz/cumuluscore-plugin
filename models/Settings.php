@@ -1,6 +1,9 @@
 <?php namespace Initbiz\CumulusCore\Models;
 
 use Model;
+use RainLab\User\Models\UserGroup;
+use Initbiz\CumulusCore\Models\Cluster;
+use Initbiz\CumulusCore\Models\Plan;
 
 class Settings extends Model
 {
@@ -13,8 +16,18 @@ class Settings extends Model
 
     public $settingsFields = 'fields.yaml';
 
-    public $attachOne = [
-        'background' => 'System\Models\File'
-    ];
+    public function getAutoAssignUserConcreteClusterOptions()
+    {
+        return Cluster::all()->pluck('full_name', 'slug')->toArray();
+    }
 
+    public function getGroupToAutoAssignUserOptions()
+    {
+        return UserGroup::all()->pluck('name', 'code')->toArray();
+    }
+
+    public function getAutoAssignClusterConcretePlanOptions()
+    {
+        return Plan::all()->pluck('name', 'plan_id')->toArray();
+    }
 }

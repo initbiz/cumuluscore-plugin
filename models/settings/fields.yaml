@@ -1,3 +1,102 @@
-fields:
-    content:
-        type: text
+tabs:
+    fields:
+        #Auto assigning user to cluster or group
+        enable_auto_assign_user:
+            span: left
+            label: initbiz.cumuluscore::lang.settings.enable_auto_assign_user
+            comment: initbiz.cumuluscore::lang.settings.enable_auto_assign_user_comment
+            type: switch
+            tab: initbiz.cumuluscore::lang.settings.tab_auto_assign_user
+
+        auto_assign_user:
+            span: left
+            label: initbiz.cumuluscore::lang.settings.auto_assign_user_label
+            tab: initbiz.cumuluscore::lang.settings.tab_auto_assign_user
+            type: dropdown
+            options:
+                new_cluster: initbiz.cumuluscore::lang.settings.new_cluster
+                concrete_cluster: initbiz.cumuluscore::lang.settings.concrete_cluster
+                get_cluster: initbiz.cumuluscore::lang.settings.get_cluster
+
+        auto_assign_user_get_cluster:
+            span: right
+            label: initbiz.cumuluscore::lang.settings.get_cluster_label
+            tab: initbiz.cumuluscore::lang.settings.tab_auto_assign_user
+            default: "cluster"
+            trigger:
+                action: show
+                field: auto_assign_user
+                condition: value[get_cluster]
+
+        auto_assign_user_new_cluster:
+            span: right
+            label: initbiz.cumuluscore::lang.settings.new_cluster_variable
+            tab: initbiz.cumuluscore::lang.settings.tab_auto_assign_user
+            default: "cluster"
+            trigger:
+                action: show
+                field: auto_assign_user
+                condition: value[new_cluster]
+
+        auto_assign_user_concrete_cluster:
+            span: right
+            label: initbiz.cumuluscore::lang.settings.concrete_cluster_label
+            tab: initbiz.cumuluscore::lang.settings.tab_auto_assign_user
+            type: dropdown
+            trigger:
+                action: show
+                field: auto_assign_user
+                condition: value[concrete_cluster]
+
+        enable_auto_assign_user_to_group:
+            span: left
+            label: initbiz.cumuluscore::lang.settings.enable_auto_assign_user_to_group
+            comment: initbiz.cumuluscore::lang.settings.enable_auto_assign_user_to_group_comment
+            type: switch
+            tab: initbiz.cumuluscore::lang.settings.tab_auto_assign_user
+
+        group_to_auto_assign_user:
+            span: left
+            label: initbiz.cumuluscore::lang.settings.group_to_auto_assign_user
+            tab: initbiz.cumuluscore::lang.settings.tab_auto_assign_user
+            type: dropdown
+            trigger:
+                action: show
+                field: enable_auto_assign_user_to_group
+                condition: checked
+
+        #Auto assigning cluster to plan
+        enable_auto_assign_cluster:
+            span: left
+            label: initbiz.cumuluscore::lang.settings.enable_auto_assign_cluster
+            type: switch
+            tab: initbiz.cumuluscore::lang.settings.tab_cluster_assign_plan
+
+        auto_assign_cluster:
+            span: left
+            label: initbiz.cumuluscore::lang.settings.auto_assign_cluster_label
+            tab: initbiz.cumuluscore::lang.settings.tab_cluster_assign_plan
+            type: dropdown
+            options:
+                concrete_plan: initbiz.cumuluscore::lang.settings.concrete_plan
+                get_plan: initbiz.cumuluscore::lang.settings.get_plan
+
+        auto_assign_cluster_concrete_plan:
+            span: right
+            label: initbiz.cumuluscore::lang.settings.get_plan_label
+            tab: initbiz.cumuluscore::lang.settings.tab_cluster_assign_plan
+            type: dropdown
+            trigger:
+                action: show
+                field: auto_assign_cluster
+                condition: value[concrete_plan]
+
+        auto_assign_cluster_get_plan:
+            span: right
+            label: initbiz.cumuluscore::lang.settings.get_plan_label
+            tab: initbiz.cumuluscore::lang.settings.tab_cluster_assign_plan
+            default: "plan"
+            trigger:
+                action: show
+                field: auto_assign_cluster
+                condition: value[get_plan]

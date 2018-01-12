@@ -22,9 +22,18 @@ class Plugin extends PluginBase
     public function registerSettings()
     {
         return [
+            'auto_assign' => [
+                'label'       => 'initbiz.cumuluscore::lang.settings.menu_auto_assign_label',
+                'description'       => 'initbiz.cumuluscore::lang.settings.menu_auto_assign_description',
+                'category'       => 'initbiz.cumuluscore::lang.settings.menu_category',
+                'icon' => 'icon-sitemap',
+                'class' => 'Initbiz\CumulusCore\Models\Settings',
+                'permissions' => [],
+                'order' => 100
+            ],
             'modules' => [
-                'label'       => 'initbiz.cumuluscore::lang.settings.menu_label',
-                'description'       => 'initbiz.cumuluscore::lang.settings.menu_description',
+                'label'       => 'initbiz.cumuluscore::lang.settings.menu_modules_label',
+                'description'       => 'initbiz.cumuluscore::lang.settings.menu_modules_description',
                 'category'       => 'initbiz.cumuluscore::lang.settings.menu_category',
                 'icon' => 'icon-cubes',
                 'url' => \Backend::url('initbiz/cumuluscore/modules'),
