@@ -23,6 +23,7 @@ trait CumulusDataProviders
             'city' => $faker->city,
             'country_code' => $faker->countryCode,
             'account_no' => $faker->iban($faker->countryCode),
+            'username' => $faker->userName,
             'terms_acceptance' => 'on',
         ];
         return $data;

@@ -9,6 +9,7 @@ use BackendMenu;
 use RainLab\User\Models\UserGroup;
 use RainLab\User\Components\Account;
 use Initbiz\CumulusCore\Models\Cluster;
+use Initbiz\CumulusCore\Repositories\ClusterRepository;
 use RainLab\User\Models\User as UserModel;
 use RainLab\User\Controllers\Users as UserController;
 use Initbiz\CumulusCore\Models\Settings as CumulusSettings;
@@ -76,12 +77,10 @@ Event::listen('rainlab.user.register', function ($user, $data) {
         $clusterRepository->addUserToCluster($user->id, $clusterSlug);
 
     }
-
     if (CumulusSettings::get('auto_assign_user') === 'new_cluster') {
         $clusterName = $data[CumulusSettings::get('auto_assign_user_new_cluster')];
 
-        $cluster = $this->clusterRepository->create(['full_name' => $clusterName]);
-
+        $cluster = $clusterRepository->create(['full_name' => $clusterName]);
         $clusterRepository->addUserToCluster($user->id, $cluster->slug);
     }
 

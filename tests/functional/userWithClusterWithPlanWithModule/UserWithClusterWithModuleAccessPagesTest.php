@@ -6,36 +6,36 @@ class UserWithClusterWithPlanWithModuleAccessPagesTest extends Ui2TestCase {
 
     use CumulusHelpers,
         CumulusDataProviders;
-//
-//    /**
-//     * @test *
-//     * @dataProvider providerUserWithClusterData
-//     * * @return void
-//     */
-//    public function user_with_cluster_with_plan_with_module_cannot_enter_another_module_page($userData, $FirstClusterData)
-//    {
-//        $secondClusterData = $this->fakeClusterData();
-//        $secondClusterSlug = $this->slugify($secondClusterData['name']);
-//        $this->signInToBackend()
-//            ->createUser($userData)
-//            ->createCluster($FirstClusterData)
-//            ->createCluster($secondClusterData)
-//            ->activateUser($userData['email'])
-//            ->createPlan('Example plan products')
-//            ->createPlan('Example plan elearning')
-//            ->addUserToCluster($userData['email'], $FirstClusterData['name'])
-//            ->hold(1)
-//            ->addModuleToPlan('CumulusProducts', 'Example plan products')
-//            ->hold(1)
-//            ->addModuleToPlan('CumulusElearning', 'Example plan elearning')
-//            ->hold(2)
-//            ->attachClusterToPlan('Example plan products', $FirstClusterData['name'])
-//            ->attachClusterToPlan('Example plan elearning', $secondClusterData['name'])
-//            ->signInToFrontend($userData)
-//            ->visit('system/' . $secondClusterSlug . '/elearning')
-//            ->hold(2)
-//            ->see('Forbidden');
-//    }
+
+    /**
+     * @test *
+     * @dataProvider providerUserWithClusterData
+     * * @return void
+     */
+    public function user_with_cluster_with_plan_with_module_cannot_enter_another_module_page($userData, $FirstClusterData)
+    {
+        $secondClusterData = $this->fakeClusterData();
+        $secondClusterSlug = $this->slugify($secondClusterData['name']);
+        $this->signInToBackend()
+            ->createUser($userData)
+            ->createCluster($FirstClusterData)
+            ->createCluster($secondClusterData)
+            ->activateUser($userData['email'])
+            ->createPlan('Example plan products')
+            ->createPlan('Example plan elearning')
+            ->addUserToCluster($userData['email'], $FirstClusterData['name'])
+            ->hold(1)
+            ->addModuleToPlan('CumulusProducts', 'Example plan products')
+            ->hold(1)
+            ->addModuleToPlan('CumulusElearning', 'Example plan elearning')
+            ->hold(2)
+            ->attachClusterToPlan('Example plan products', $FirstClusterData['name'])
+            ->attachClusterToPlan('Example plan elearning', $secondClusterData['name'])
+            ->signInToFrontend($userData)
+            ->visit('system/' . $secondClusterSlug . '/elearning')
+            ->hold(2)
+            ->see('Forbidden');
+    }
 
     /**
      * @test *

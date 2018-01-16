@@ -159,5 +159,27 @@ trait CumulusHelpers {
 
     }
 
+    public function checkSwitchOn($switchId)
+    {
+        $value = $this->findElement($switchId)->attribute('checked');
+        if($value !== "true") {
+            $this->toggleSwitch($switchId);
+        }
+        return $this;
+    }
 
+    public function checkSwitchOff($switchId)
+    {
+        $value = $this->findElement($switchId)->attribute('checked');
+        if($value === "true") {
+            $this->toggleSwitch($switchId);
+        }
+        return $this;
+    }
+
+    public function toggleSwitch($switchId)
+    {
+        $this->findAndClickElement($switchId);
+        return $this;
+    }
 }
