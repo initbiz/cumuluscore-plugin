@@ -8,6 +8,7 @@ use Model;
 class Plan extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\Sluggable;
 
     /*
      * Disable timestamps by default.
@@ -18,12 +19,13 @@ class Plan extends Model
     /*
      * Validation
      */
-    public $rules = [
-    ];
+    public $rules = [ ];
 
     public $fillable = ['plan_id', 'name', 'slug'];
 
     public $primaryKey = 'plan_id';
+
+    protected $slugs = ['slug' => 'name'];
 
     /**
      * @var string The database table used by the model.

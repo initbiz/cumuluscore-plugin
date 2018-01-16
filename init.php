@@ -68,20 +68,51 @@ Event::listen('rainlab.user.register', function ($user, $data) {
     $clusterRepository = new ClusterRepository;
 
     if (CumulusSettings::get('auto_assign_user') === 'concrete_cluster') {
-        $clusterRepository->addUserToCluster($user->id, CumulusSettings::get('auto_assign_user_concrete_cluster'));
+        try {
+            $clusterRepository->addUserToCluster($user->id, CumulusSettings::get('auto_assign_user_concrete_cluster'));
+        } catch (\Exception $e) {
+            throw new \Exception("Error Assigning user to concrete cluster", 1);
+        }
     }
 
     if (CumulusSettings::get('auto_assign_user') === 'get_cluster') {
         $clusterSlug = $data[CumulusSettings::get('auto_assign_user_get_cluster')];
 
-        $clusterRepository->addUserToCluster($user->id, $clusterSlug);
-
+        try {
+            $clusterRepository->addUserToCluster($user->id, $clusterSlug);
+        } catch (\Exception $e) {
+            throw new \Exception("Error Assigning user to existing cluster with slug get from variable", 1);
+        }
     }
     if (CumulusSettings::get('auto_assign_user') === 'new_cluster') {
         $clusterName = $data[CumulusSettings::get('auto_assign_user_new_cluster')];
 
         $cluster = $clusterRepository->create(['full_name' => $clusterName]);
-        $clusterRepository->addUserToCluster($user->id, $cluster->slug);
+
+        try {
+            $clusterRepository->addUserToCluster($user->id, $cluster->slug);
+        } catch (\Exception $e) {
+            throw new \Exception("Error Assigning user to new cluster", 1);
+        }
+
+        //TODO move this to other methods, add some try catches
+        if (CumulusSettings::get('enable_auto_assign_cluster')) {
+            $planSlug = "";
+
+            if (CumulusSettings::get('auto_assign_cluster') === 'get_plan') {
+                $planSlug = $data[CumulusSettings::get('auto_assign_cluster_get_plan')];
+            }
+
+            if (CumulusSettings::get('auto_assign_cluster') === 'concrete_plan') {
+                $planSlug = CumulusSettings::get('auto_assign_cluster_concrete_plan');
+            }
+
+            try {
+                $clusterRepository->addClusterToPlan($cluster->slug, $planSlug);
+            } catch (\Exception $e) {
+                throw new \Exception("Error Assigning cluster to plan", 1);
+            }
+        }
     }
 
 });

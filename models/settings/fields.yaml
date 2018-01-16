@@ -2,7 +2,6 @@ tabs:
     fields:
         #Auto assigning user to cluster or group
         enable_auto_assign_user:
-            span: left
             label: initbiz.cumuluscore::lang.settings.enable_auto_assign_user
             comment: initbiz.cumuluscore::lang.settings.enable_auto_assign_user_comment
             type: switch
@@ -49,7 +48,6 @@ tabs:
                 condition: value[concrete_cluster]
 
         enable_auto_assign_user_to_group:
-            span: left
             label: initbiz.cumuluscore::lang.settings.enable_auto_assign_user_to_group
             comment: initbiz.cumuluscore::lang.settings.enable_auto_assign_user_to_group_comment
             type: switch
@@ -67,8 +65,8 @@ tabs:
 
         #Auto assigning cluster to plan
         enable_auto_assign_cluster:
-            span: left
             label: initbiz.cumuluscore::lang.settings.enable_auto_assign_cluster
+            comment: initbiz.cumuluscore::lang.settings.enable_auto_assign_cluster_comment
             type: switch
             tab: initbiz.cumuluscore::lang.settings.tab_cluster_assign_plan
 
