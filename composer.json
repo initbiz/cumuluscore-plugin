@@ -4,15 +4,21 @@
   "description": "Cumulus core plugin for October CMS",
   "homepage": "http://cumulus.init.biz",
   "keywords": ["october", "octobercms", "cumulus", "saas", "php"],
-  "license": "BSD 3-clause",
+  "license": "MIT",
   "authors": [
     {
       "name": "Tomasz Strojny",
-      "email": "tomasz@init.biz"
+      "email": "tomasz@init.biz",
+      "role": "Founder"
+  },
+    {
+      "name": "Piotr Rogowski",
+      "email": "piotr@init.biz",
+      "role": "Developer"
     }
   ],
   "require": {
-    "php": ">=5.5.9",
+    "php": ">=7.0",
     "composer/installers": "~1.0"
   },
   "autoload": {
