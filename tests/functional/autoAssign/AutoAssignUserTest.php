@@ -134,12 +134,51 @@ class AutoAssignUserTest extends Ui2TestCase
             ->hold(2)
             ->findAndClickElement('CreateNewCluster', "//li[contains(.,'Create new cluster')]")
             ->hold(3)
-            ->findAndClickElement('Clustersi tab', '//a[@title="Auto assign clusters"]')
+            ->findAndClickElement('Clusters tab', '//a[@title="Auto assign clusters"]')
             ->checkSwitchOn('Form-field-Settings-enable_auto_assign_cluster')
             ->findAndClickElement('select2-Form-field-Settings-auto_assign_cluster-container')
-            ->findAndClickElement('ChoosePlan', "//li[contains(.,'Choose concrete plan to assign new clusters to')]")
+            ->findAndClickElement('Choose plan option', "//li[contains(.,'Choose concrete plan to assign new')]")
             ->findAndClickElement('select2-Form-field-Settings-auto_assign_cluster_concrete_plan-container')
-            ->findAndClickElement('ChoosePlan', "//li[contains(.,'Free plan')]")
+            ->findAndClickElement('Free plan', "//li[contains(.,'Free plan')]")
+            ->press('Save')
+            ->visit('/register')
+            ->type($userData['username'], 'name')
+            ->type($userData['email'], 'email')
+            ->type($userData['password'], 'password')
+            ->type($clusterData['name'], 'clustername')
+            ->press('Register');
+        $userId = $this->getRecordID($userData['email'], TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users');
+        $this->visit(TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users/preview/' . $userId)
+            ->hold(2)
+            ->findAndClickElement('Clusters', '//a[@title="Clusters"]')
+            ->see($clusterData['name']);
+        $clusterId = $this->getRecordID($clusterData['name'], TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/clusters/');
+        $this->visit(TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/clusters/preview/' . $clusterId)
+            ->see('Free plan');
+
+    }
+
+
+    /**
+     * @test *
+     * @dataProvider providerUserWithClusterData
+     * * @return void
+     */
+    public function cluster_auto_assign_to_plan_from_variable($userData, $clusterData)
+    {
+
+        $this->signInToBackend()
+            ->visit( TEST_SELENIUM_BACKEND_URL.'/system/settings/update/initbiz/cumuluscore/auto_assign')
+            ->hold(2)
+            ->checkSwitchOn('Form-field-Settings-enable_auto_assign_user')
+            ->findAndClickElement('select2-Form-field-Settings-auto_assign_user-container')
+            ->hold(2)
+            ->findAndClickElement('CreateNewCluster', "//li[contains(.,'Create new cluster')]")
+            ->hold(3)
+            ->findAndClickElement('Clusters tab', '//a[@title="Auto assign clusters"]')
+            ->checkSwitchOn('Form-field-Settings-enable_auto_assign_cluster')
+            ->findAndClickElement('select2-Form-field-Settings-auto_assign_cluster-container')
+            ->findAndClickElement('Choose plan option', "//li[contains(.,'Get plan from a variable')]")
             ->press('Save')
             ->visit('/register')
             ->type($userData['username'], 'name')
