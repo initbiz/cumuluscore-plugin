@@ -98,7 +98,9 @@ class ClusterRepository implements ClusterInterface {
     public function addClusterToPlan(string $clusterSlug, string $planSlug) {
         $plan = $this->planModel->where('slug', $planSlug)->first();
         if ($plan) {
-            $this->clusterModel->where('slug', $clusterSlug)->plans()->add($plan);
+            $cluster = $this->clusterModel->where('slug', $clusterSlug)->first();
+
+            return $cluster->plan()->associate($plan)->save();
         }
     }
 

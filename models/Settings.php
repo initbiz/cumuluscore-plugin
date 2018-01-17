@@ -28,6 +28,6 @@ class Settings extends Model
 
     public function getAutoAssignClusterConcretePlanOptions()
     {
-        return Plan::all()->pluck('name', 'plan_id')->toArray();
+        return Plan::all()->pluck('name', 'slug')->toArray();
     }
 }

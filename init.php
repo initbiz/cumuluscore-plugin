@@ -58,6 +58,7 @@ Event::listen('backend.menu.extendItems', function ($manager) {
         BackendMenu::setContext('Initbiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-users');
     }
     $manager->removeMainMenuItem('RainLab.User', 'user');
+
 });
 
 Event::listen('rainlab.user.register', function ($user, $data) {

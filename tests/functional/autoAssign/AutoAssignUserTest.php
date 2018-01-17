@@ -137,7 +137,7 @@ class AutoAssignUserTest extends Ui2TestCase
             ->findAndClickElement('Clustersi tab', '//a[@title="Auto assign clusters"]')
             ->checkSwitchOn('Form-field-Settings-enable_auto_assign_cluster')
             ->findAndClickElement('select2-Form-field-Settings-auto_assign_cluster-container')
-            ->findAndClickElement('ChoosePlan', "//li[contains(.,'Choose plan')]")
+            ->findAndClickElement('ChoosePlan', "//li[contains(.,'Choose concrete plan to assign new clusters to')]")
             ->findAndClickElement('select2-Form-field-Settings-auto_assign_cluster_concrete_plan-container')
             ->findAndClickElement('ChoosePlan', "//li[contains(.,'Free plan')]")
             ->press('Save')
@@ -153,7 +153,7 @@ class AutoAssignUserTest extends Ui2TestCase
             ->findAndClickElement('Clusters', '//a[@title="Clusters"]')
             ->see($clusterData['name']);
         $clusterId = $this->getRecordID($clusterData['name'], TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/clusters/');
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users/preview/' . $clusterId)
+        $this->visit(TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/clusters/preview/' . $clusterId)
             ->see('Free plan');
 
     }
