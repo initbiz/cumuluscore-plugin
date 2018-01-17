@@ -3,11 +3,11 @@ use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
 class ActivateUserTest extends Ui2TestCase {
 
+    use Initbiz\Selenium2tests\Traits\CustomDataProviders;
+    use Initbiz\Selenium2tests\Traits\OctoberSeleniumHelpers;
+    use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
+    use Initbiz\Selenium2tests\Traits\SeleniumHelpers;
 
-    use CustomDataProviders,
-        OctoberSeleniumHelpers,
-        CumulusHelpers,
-        SeleniumHelpers;
     /**
      * @test *
      * @dataProvider providerUserData

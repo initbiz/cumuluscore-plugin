@@ -4,10 +4,10 @@ use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
 class CreateUserTest extends Ui2TestCase {
 
-    use CumulusDataProviders,
-        CumulusHelpers,
-        OctoberSeleniumHelpers;
-        
+    use Initbiz\Selenium2tests\Traits\OctoberSeleniumHelpers;
+    use Initbiz\CumulusCore\Traits\CumulusDataProviders;
+    use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
+
     /**
      * @test *
      * @dataProvider providerUserData

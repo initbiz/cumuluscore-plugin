@@ -3,8 +3,9 @@ use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
 class AddModuleToPlanTest extends Ui2TestCase {
 
-    use CumulusDataProviders,
-        CumulusHelpers;
+    use Initbiz\CumulusCore\Traits\CumulusDataProviders;
+    use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
+
     /**
      * @test *
      * * @return void

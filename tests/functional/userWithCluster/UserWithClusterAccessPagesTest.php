@@ -3,9 +3,9 @@
 use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
 class UserWithClusterAccessPagesTest extends Ui2TestCase {
-    
-    use CumulusDataProviders,
-        CumulusHelpers;
+
+    use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
+    use Initbiz\CumulusCore\Traits\CumulusDataProviders;
 
     /**
      * @test *

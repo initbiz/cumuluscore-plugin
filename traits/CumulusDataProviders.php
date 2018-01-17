@@ -1,4 +1,4 @@
-<?php
+<?php namespace Initbiz\CumulusCore\Traits;
 
 use \Faker\Factory as Faker;
 

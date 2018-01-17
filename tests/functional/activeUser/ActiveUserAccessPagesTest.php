@@ -4,9 +4,10 @@ use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
 class ActiveUserAccessPagesTest extends Ui2TestCase {
 
-    use CumulusDataProviders,
-        CumulusHelpers,
-        SeleniumHelpers;
+    use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
+    use Initbiz\CumulusCore\Traits\CumulusDataProviders;
+    use Initbiz\Selenium2tests\Traits\SeleniumHelpers;
+
     /**
      * @test *
      * @dataProvider providerUserData

@@ -4,8 +4,9 @@ use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
 class GuestAccessPagesTest extends Ui2TestCase {
 
-    use CumulusHelpers,
-        CumulusDataProviders;
+    use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
+    use Initbiz\CumulusCore\Traits\CumulusDataProviders;
+
     /**
      * @test *
      * * @return void

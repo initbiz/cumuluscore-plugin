@@ -4,9 +4,9 @@ use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
 class SignInTest extends Ui2TestCase {
 
-    use CumulusDataProviders,
-        CumulusHelpers,
-        OctoberSeleniumHelpers;
+    use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
+    use Initbiz\CumulusCore\Traits\CumulusDataProviders;
+    use Initbiz\Selenium2tests\Traits\OctoberSeleniumHelpers;
 
     /**
      * @test *

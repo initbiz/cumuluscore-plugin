@@ -3,8 +3,9 @@ use Initbiz\Selenium2tests\Classes\Ui2TestCase;
 
 class RegisterTest extends Ui2TestCase {
 
-    use CustomDataProviders,
-        CumulusHelpers;
+    use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
+    use Initbiz\CumulusCore\Traits\CumulusDataProviders;
+
     /**
      * @test *
      * * @return void

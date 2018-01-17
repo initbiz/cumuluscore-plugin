@@ -3,8 +3,9 @@ use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
 class AttachPlanToClusterTest extends Ui2TestCase {
 
-    use CumulusHelpers,
-        CumulusDataProviders;
+    use Initbiz\CumulusCore\Traits\CumulusDataProviders;
+    use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
+
     /**
      * @test *
      * @dataProvider providerClusterData

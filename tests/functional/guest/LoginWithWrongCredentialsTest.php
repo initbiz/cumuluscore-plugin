@@ -4,8 +4,8 @@ use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
 class LoginWithWrongCredentialsTest extends Ui2TestCase {
 
-    use CumulusHelpers,
-        CumulusDataProviders;
+    use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
+    use Initbiz\CumulusCore\Traits\CumulusDataProviders;
 
     /**
      * @test *

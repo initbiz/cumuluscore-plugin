@@ -20,11 +20,5 @@
   "require": {
     "php": ">=7.0",
     "composer/installers": "~1.0"
-  },
-  "autoload": {
-    "files": [
-      "./tests/traits/CumulusDataProviders.php",
-      "./tests/traits/CumulusHelpers.php"
-    ]
   }
 }

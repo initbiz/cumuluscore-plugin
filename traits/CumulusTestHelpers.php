@@ -1,6 +1,6 @@
-<?php
+<?php namespace Initbiz\CumulusCore\Traits;
 
-trait CumulusHelpers {
+trait CumulusTestHelpers {
 
 
     public function createUser($data)

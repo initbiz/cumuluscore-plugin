@@ -3,7 +3,8 @@ use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
 class CreatePlanTest extends Ui2TestCase {
 
-    use CumulusHelpers;
+    use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
+
     /**
      * @test *
      * * @return void
