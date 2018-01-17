@@ -26,3 +26,5 @@
     - update_table_initbiz_cumuluscore_modules.php
 1.1.1:
     - 'Managing automatically adding users and clusters from settings view + cleanup and small fixes'
+1.1.2:
+    - 'Fixed auto assigning with tests'

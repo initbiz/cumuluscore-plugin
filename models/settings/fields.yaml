@@ -81,7 +81,7 @@ tabs:
 
         auto_assign_cluster_concrete_plan:
             span: right
-            label: initbiz.cumuluscore::lang.settings.get_plan_label
+            label: initbiz.cumuluscore::lang.settings.concrete_plan_label
             tab: initbiz.cumuluscore::lang.settings.tab_cluster_assign_plan
             type: dropdown
             trigger:

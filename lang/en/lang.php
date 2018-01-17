@@ -39,7 +39,8 @@
         'tab_cluster_assign_plan' => 'Auto assign clusters',
         'concrete_plan' => 'Choose concrete plan to assign new clusters to',
         'get_plan' => 'Get plan from a variable',
-        'get_plan_label' => 'Choose plan',
+        'concrete_plan_label' => 'Choose plan',
+        'get_plan_label' => 'Variable name',
         'concrete_cluster_label' => 'Choose the plan to automatically assign clusters to',
     ],
     'cluster_dashboard' => [
