@@ -4,7 +4,6 @@
 - [Introduction](#introduction)
 - [How-to](#howto)
 - [Testing](#testing)
-- [Future plans](#futureplans)
 
 <a name="introduction"></a>
 ## Introduction
@@ -52,11 +51,3 @@ in order to register module in Cumulus Core.
 <a name="testing"></a>
 ## Testing Cumulus
 Cumulus tests are written using Selenium 2, using `Initbiz.selenium2tests` plugin. If you want to test Cumulus then in `tests/` directory you have a `fixtures/themes` directory where theme for testing is stored. Contribution is very welcomed :)
-
-<a name="futureplans"></a>
-## Future plans
-
-The most important future plans:
-* Add settings to manage automatically adding users to clusters and groups
-* Integrate menu with `RainLab.Pages` menu builder
-* Cleanup the code. We know it's not a poem. We are still working on it.
