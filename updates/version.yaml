@@ -28,3 +28,8 @@
     - 'Managing automatically adding users and clusters from settings view + cleanup and small fixes'
 1.1.2:
     - 'Fixed auto assigning with tests'
+1.1.3:
+    - 'Changed texts to strings, extended cluster table '
+    - builder_table_update_initbiz_cumuluscore_clusters.php
+    - builder_table_update_initbiz_cumuluscore_plans.php
+    - builder_table_update_initbiz_cumuluscore_clusters_2.php
