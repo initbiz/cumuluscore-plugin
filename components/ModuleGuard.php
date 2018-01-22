@@ -8,7 +8,10 @@ use Initbiz\Cumuluscore\Repositories\ClusterRepository;
 
 class ModuleGuard extends ComponentBase
 {
+    use \Initbiz\Cumuluscore\Traits\CumulusComponentProperties;
+
     public $clusterRepository;
+
     public function componentDetails()
     {
         return [
@@ -19,13 +22,8 @@ class ModuleGuard extends ComponentBase
 
     public function defineProperties()
     {
-        return [
-            'clusterSlug' => [
-                'title' => 'initbiz.cumuluscore::lang.module_guard.cluster_slug',
-                'description' => 'initbiz.cumuluscore::lang.module_guard.cluster_slug_desc',
-                'type' => 'string',
-                'default' => '{{ :cluster }}'
-            ],
+        return $this->defineClusterSlug() +
+        [
             'cumulusModule' => [
                 'title' => 'initbiz.cumuluscore::lang.module_guard.cumulus_module',
                 'description' => 'initbiz.cumuluscore::lang.module_guard.cumulus_module_desc',

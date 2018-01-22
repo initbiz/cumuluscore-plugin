@@ -33,3 +33,5 @@
     - builder_table_update_initbiz_cumuluscore_clusters.php
     - builder_table_update_initbiz_cumuluscore_plans.php
     - builder_table_update_initbiz_cumuluscore_clusters_2.php
+1.1.4:
+    - 'Moved Cluster slug property from all components to CumulusComponentProperties trait'

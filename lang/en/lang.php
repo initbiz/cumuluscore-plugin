@@ -46,14 +46,10 @@
     'cluster_dashboard' => [
         'name' => 'Cluster dashboard',
         'description' => 'Show cluster dashboard',
-        'cluster_slug' => 'Cluster slug',
-        'cluster_slug_desc' => 'Slug of cluster that dashboard is going to be shown',
     ],
     'menu' => [
         'name' => 'Menu Component',
         'description' => 'Component that renders menu based on menuItems component',
-        'cluster_slug' => 'Cluster slug',
-        'cluster_slug_desc' => 'Cluster slug defining for which cluster menu should be shown',
     ],
     'menu_item' => [
         'name' => 'Menu item',
@@ -65,17 +61,17 @@
         'cumulus_module_none' => 'No special privileges'
 
     ],
+    'component_properties' => [
+        'cluster_slug' => 'Cluster slug',
+        'cluster_slug_desc' => 'Variable from URL with slug of the current cluster',
+    ],
     'cumulus_guard' => [
         'name' => 'Cumulus guard',
         'description' => 'Component checking if user can enter cluster page',
-        'cluster_slug' => 'Cluster slug',
-        'cluster_slug_desc' => 'Slug of a cluster where user assignment is tested',
     ],
     'module_guard' => [
         'name' => 'Module Guard',
         'description' => 'Guard component that allows cluster enter the module',
-        'cluster_slug' => 'Cluster slug',
-        'cluster_slug_desc' => 'Slug of a cluster that is going to be tested in module privileges',
         'cumulus_module' => 'Cumulus Module',
         'cumulus_module_desc' => 'Pick module to restrict user access'
     ],

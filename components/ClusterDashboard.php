@@ -5,6 +5,8 @@ use RainLab\User\Models\User as Users;
 
 class ClusterDashboard extends ComponentBase
 {
+    use \Initbiz\Cumuluscore\Traits\CumulusComponentProperties;
+
     public function componentDetails()
     {
         return [
@@ -20,15 +22,4 @@ class ClusterDashboard extends ComponentBase
         })->count();
     }
 
-    public function defineProperties()
-    {
-        return [
-            'clusterSlug' => [
-                'title' => 'initbiz.cumuluscore::lang.cluster_dashboar.cluster_slug',
-                'description' => 'initbiz.cumuluscore::lang.cluster_dashboar.cluster_slug_desc',
-                'type' => 'string',
-                'default' => '{{ :cluster }}'
-            ]
-        ];
-    }
 }

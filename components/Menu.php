@@ -9,7 +9,10 @@ use Initbiz\Cumuluscore\Repositories\ClusterRepository;
 
 class Menu extends ComponentBase
 {
+    use \Initbiz\Cumuluscore\Traits\CumulusComponentProperties;
+
     public $clusterRepository;
+
     public function componentDetails()
     {
         return [
@@ -17,28 +20,18 @@ class Menu extends ComponentBase
             'description' => 'initbiz.cumuluscore::lang.menu.description'
         ];
     }
+
     public function onRun()
     {
         $this->clusterRepository = new ClusterRepository;
         //Building navigation
         $this->page['menuEntries'] =$this->getMenuEntries();
     }
-    public function defineProperties()
-    {
-        return [
-            'clusterSlug' => [
-                'title' => 'initbiz.cumuluscore::lang.menu.cluster_slug',
-                'description' => 'initbiz.cumuluscore::lang.menu.cluster_slug_desc',
-                'type' => 'string',
-                'default' => '{{ :cluster }}'
-            ]
-        ];
-    }
+
     public function getMenuEntries()
     {
         //TODO: Refactor spaghetti code
         $current_cluster_modules = $this->clusterRepository->getClusterModulesName($this->property('clusterSlug'));
-//        dd($current_cluster_modules);
         $menuEntries= [];
         $pagesWithMenuItem = $this->getPagesWithComponent('menuItem');
         foreach ($pagesWithMenuItem as $page) {
@@ -50,7 +43,6 @@ class Menu extends ComponentBase
 
         }
 
-//            dd($menuEntries);
         return $menuEntries;
     }
 
@@ -65,7 +57,6 @@ class Menu extends ComponentBase
                 $pagesWithComponent[] = $page;
             }
         }
-//        dd($pagesWithComponent);
         return $pagesWithComponent;
     }
 

@@ -6,6 +6,8 @@ use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 class CumulusGuard extends ComponentBase
 {
+    use \Initbiz\Cumuluscore\Traits\CumulusComponentProperties;
+
     public $clusterRepository;
 
     public function componentDetails()
@@ -13,18 +15,6 @@ class CumulusGuard extends ComponentBase
         return [
             'name' => 'initbiz.cumuluscore::lang.cumulus_guard.name',
             'description' => 'initbiz.cumuluscore::lang.cumulus_guard.description'
-        ];
-    }
-
-    public function defineProperties()
-    {
-        return [
-            'clusterSlug' => [
-                'title' => 'initbiz.cumuluscore::lang.cumulus_guard.cluster_slug',
-                'description' => 'initbiz.cumuluscore::lang.cumulus_guard.cluster_slug_desc',
-                'type' => 'string',
-                'default' => '{{ :cluster }}'
-            ]
         ];
     }
 
