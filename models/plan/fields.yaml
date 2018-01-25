@@ -1,11 +1,13 @@
 fields:
     name:
-        label: Name
+        label: 'initbiz.cumuluscore::lang.plan.name'
+        oc.commentPosition: ''
         span: left
         required: 1
         type: text
     slug:
-        label: Slug
+        label: 'initbiz.cumuluscore::lang.plan.slug'
+        oc.commentPosition: ''
         span: left
         required: 1
         preset:
@@ -13,7 +15,8 @@ fields:
             type: slug
         type: text
     modules:
-        label: Modules
+        label: 'initbiz.cumuluscore::lang.plan.modules'
+        oc.commentPosition: ''
         nameFrom: name
         descriptionFrom: description
         span: left

@@ -1,16 +1,16 @@
 <?php return [
     'plugin' => [
         'name' => 'CumulusCore',
-        'description' => 'Plugin that helps with writing SaaS applications'
+        'description' => 'Plugin that helps with writing SaaS applications',
     ],
     'navigation' => [
         'main' => 'Cumulus',
         'users' => 'Users',
         'clusters' => 'Clusters',
-        'plans' => 'Plans'
+        'plans' => 'Plans',
     ],
     'users' => [
-        'last_first_name' => "Last and first name"
+        'last_first_name' => 'Last and first name',
     ],
     'settings' => [
         'users' => 'Users',
@@ -29,7 +29,7 @@
         'get_cluster' => 'Get cluster from a variable',
         'get_cluster_label' => 'Variable name',
         'new_cluster_variable' => 'Variable with value that will be used to create new cluster',
-        'concrete_cluster_label' => 'Choose the cluster to automatically assign users to',
+        'concrete_cluster_label' => 'Choose the plan to automatically assign clusters to',
         'enable_auto_assign_user_to_group' => 'Enable auto assigning users to a group',
         'enable_auto_assign_user_to_group_comment' => 'This will take effect only for users registered using onRegister from RainLab.User',
         'group_to_auto_assign_user' => 'Group to auto assign users',
@@ -41,7 +41,6 @@
         'get_plan' => 'Get plan from a variable',
         'concrete_plan_label' => 'Choose plan',
         'get_plan_label' => 'Variable name',
-        'concrete_cluster_label' => 'Choose the plan to automatically assign clusters to',
     ],
     'cluster_dashboard' => [
         'name' => 'Cluster dashboard',
@@ -58,8 +57,7 @@
         'menu_item_title_desc' => 'User friendly title to be shown on button to this page',
         'cumulus_module' => 'Module to restrict access',
         'cumulus_module_desc' => 'Pick module to restrict user visibility using the module permissions',
-        'cumulus_module_none' => 'No special privileges'
-
+        'cumulus_module_none' => 'No special privileges',
     ],
     'component_properties' => [
         'cluster_slug' => 'Cluster slug',
@@ -73,12 +71,34 @@
         'name' => 'Module Guard',
         'description' => 'Guard component that allows cluster enter the module',
         'cumulus_module' => 'Cumulus Module',
-        'cumulus_module_desc' => 'Pick module to restrict user access'
+        'cumulus_module_desc' => 'Pick module to restrict user access',
     ],
     'user_clusters_list' => [
         'name' => 'Clusters list',
         'description' => 'Component showing all clusters that user is assigned to',
         'cluster_dashboard_page' => 'Cluster dashboard page',
-        'cluster_dashboard_page_desc' => 'Page where users are going to be redirected after clicking cluster url'
-    ]
+        'cluster_dashboard_page_desc' => 'Page where users are going to be redirected after clicking cluster url',
+    ],
+    'cluster' => [
+        'thoroughfare' => 'Thoroughfare',
+        'plan' => 'Plan',
+        'slug' => 'Slug',
+        'logo' => 'Logo',
+        'city' => 'City',
+        'phone' => 'Telephone',
+        'postal_code' => 'Postal code',
+        'description' => 'Description',
+        'email' => 'Email',
+        'tax_number' => 'Tax number',
+        'account_number' => 'Bank account number',
+        'country' => 'Country',
+        'additional_details' => 'Additional details',
+        'accounting_details_tab' => 'Accounting details',
+        'contact_details_tab' => 'Contact details',
+    ],
+    'plan' => [
+        'name' => 'Name',
+        'slug' => 'Slug',
+        'modules' => 'Modules',
+    ],
 ];

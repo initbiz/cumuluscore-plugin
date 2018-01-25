@@ -13,6 +13,10 @@ class Clusters extends Controller
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
 
+    /**
+     * @var string HTML body tag class
+     */
+    public $bodyClass = 'compact-container';
 
     public function __construct()
     {

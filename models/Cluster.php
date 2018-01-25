@@ -3,6 +3,7 @@
 use Cms\Classes\Page as CmsPage;
 use Cms\Classes\Theme;
 use Model;
+use RainLab\Location\Models\Country;
 use RainLab\User\Models\User as UserModel;
 
 /**
@@ -35,12 +36,29 @@ class Cluster extends Model
      */
     public $table = 'initbiz_cumuluscore_clusters';
     public $primaryKey = 'cluster_id';
-    protected $fillable = ['full_name', 'slug'];
+    protected $fillable = [
+        'full_name',
+        'slug',
+        'plan_id',
+        'thoroughfare',
+        'city',
+        'phone',
+        'country_id',
+        'postal_code',
+        'description',
+        'email',
+        'tax_number',
+        'account_number'
+    ];
     public $belongsTo = [
         'plan' => [
             Plan::class,
             'table' => 'initbiz_cumuluscore_plans',
             'otherKey' => 'plan_id'
+        ],
+        'country' => [
+            Country::class,
+            'table' => 'rainlab_location_countries',
         ]
     ];
 
