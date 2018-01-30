@@ -12,12 +12,8 @@ class BuilderTableUpdateInitbizCumuluscorePlans extends Migration
             $table->string('slug')->nullable(false)->unsigned(false)->default(null)->change();
         });
     }
-    
+
     public function down()
     {
-        Schema::table('initbiz_cumuluscore_plans', function($table)
-        {
-            $table->text('slug')->nullable(false)->unsigned(false)->default(null)->change();
-        });
     }
 }

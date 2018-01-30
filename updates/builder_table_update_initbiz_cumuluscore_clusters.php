@@ -13,13 +13,8 @@ class BuilderTableUpdateInitbizCumuluscoreClusters extends Migration
             $table->string('slug')->nullable(false)->unsigned(false)->default(null)->change();
         });
     }
-    
+
     public function down()
     {
-        Schema::table('initbiz_cumuluscore_clusters', function($table)
-        {
-            $table->text('full_name')->nullable(false)->unsigned(false)->default(null)->change();
-            $table->text('slug')->nullable(false)->unsigned(false)->default(null)->change();
-        });
     }
 }

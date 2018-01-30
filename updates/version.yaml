@@ -39,3 +39,5 @@
     - 'Beautified cluster view in backend'
 1.1.6:
     - 'Fixed MySQL installation'
+1.1.7:
+    - 'Fixed MySQL refreshing plugin'
