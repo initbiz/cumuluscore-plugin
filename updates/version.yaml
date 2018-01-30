@@ -37,3 +37,5 @@
     - 'Moved Cluster slug property from all components to CumulusComponentProperties trait'
 1.1.5:
     - 'Beautified cluster view in backend'
+1.1.6:
+    - 'Fixed MySQL installation'

@@ -12,7 +12,7 @@ class BuilderTableUpdateInitbizCumuluscoreClusters2 extends Migration
             $table->string('thoroughfare')->nullable();
             $table->string('city')->nullable();
             $table->string('phone')->nullable();
-            $table->integer('country_id')->nullable();
+            $table->integer('country_id')->unsigned()->nullable();
             $table->foreign('country_id')->references('id')->on('rainlab_location_countries');
             $table->string('postal_code')->nullable();
             $table->text('description')->nullable();
@@ -21,7 +21,7 @@ class BuilderTableUpdateInitbizCumuluscoreClusters2 extends Migration
             $table->string('account_number')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::table('initbiz_cumuluscore_clusters', function($table)

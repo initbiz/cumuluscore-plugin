@@ -12,10 +12,10 @@ class BuilderTableCreateInitbizCumuluscorePlans extends Migration
             $table->engine = 'InnoDB';
             $table->increments('plan_id');
             $table->string('name');
-            $table->text('slug')->unique();
+            $table->string('slug')->unique();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('initbiz_cumuluscore_plans');
