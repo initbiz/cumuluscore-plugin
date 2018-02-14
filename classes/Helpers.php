@@ -3,6 +3,7 @@
 use Cms\Classes\Page as CmsPage;
 use Cms\Classes\Theme;
 use Initbiz\CumulusCore\Models\Module;
+use Initbiz\CumulusCore\Models\Cluster;
 use Auth;
 
 class Helpers
@@ -21,5 +22,10 @@ class Helpers
         $user->touchLastSeen();
 
         return $user;
+    }
+
+    public static function clusterId($slug)
+    {
+        return Cluster::where('slug', $slug)->first()->cluster_id;
     }
 }
