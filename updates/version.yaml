@@ -41,3 +41,5 @@
     - 'Fixed MySQL installation'
 1.1.7:
     - 'Fixed MySQL refreshing plugin'
+1.1.8:
+    - 'Small organizational fixes'
