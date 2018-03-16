@@ -43,3 +43,5 @@
     - 'Fixed MySQL refreshing plugin'
 1.1.8:
     - 'Small organizational fixes'
+1.1.9:
+    - 'Dropping foreign'

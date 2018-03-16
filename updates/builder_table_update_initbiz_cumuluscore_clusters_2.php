@@ -29,6 +29,7 @@ class BuilderTableUpdateInitbizCumuluscoreClusters2 extends Migration
             $table->dropColumn('thoroughfare');
             $table->dropColumn('city');
             $table->dropColumn('phone');
+            $table->dropForeign('initbiz_cumuluscore_clusters_country_id_foreign');
             $table->dropColumn('country_id');
             $table->dropColumn('postal_code');
             $table->dropColumn('description');
