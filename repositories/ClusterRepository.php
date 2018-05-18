@@ -1,43 +1,53 @@
 <?php namespace Initbiz\Cumuluscore\Repositories;
+
+use Event;
 use Initbiz\Cumuluscore\Contracts\ClusterInterface;
 
-class ClusterRepository implements ClusterInterface {
-
+class ClusterRepository implements ClusterInterface
+{
     public $clusterModel;
     public $planModel;
     public $userRepository;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->clusterModel = new \Initbiz\Cumuluscore\Models\Cluster;
         $this->planModel = new \Initbiz\Cumuluscore\Models\Plan;
         $this->userRepository = new UserRepository();
     }
 
-    public function all($columns = array('*')) {
+    public function all($columns = array('*'))
+    {
         return $this->clusterModel->get($columns);
     }
 
-    public function paginate(int $perPage = 15, $columns = array('*')) {
+    public function paginate(int $perPage = 15, $columns = array('*'))
+    {
         return $this->clusterModel->paginate($perPage, $columns);
     }
 
-    public function create(array $data) {
+    public function create(array $data)
+    {
         return $this->clusterModel->create($data);
     }
 
-    public function update(array $data,int $id, $attribute="id") {
+    public function update(array $data, int $id, $attribute="id")
+    {
         return $this->clusterModel->where($attribute, '=', $id)->update($data);
     }
 
-    public function delete(int $id) {
+    public function delete(int $id)
+    {
         return $this->clusterModel->destroy($id);
     }
 
-    public function find(int $id, $columns = array('*')) {
+    public function find(int $id, $columns = array('*'))
+    {
         return $this->clusterModel->find($id, $columns);
     }
 
-    public function findBy(string $field, $value, $columns = array('*')) {
+    public function findBy(string $field, $value, $columns = array('*'))
+    {
         return $this->clusterModel->where($field, '=', $value)->first($columns);
     }
 
@@ -62,7 +72,7 @@ class ClusterRepository implements ClusterInterface {
 
     public function getClusterModules(string $clusterSlug)
     {
-         return $this->findBy('slug', $clusterSlug)
+        return $this->findBy('slug', $clusterSlug)
             ->plan()
             ->first()
             ->modules()
@@ -88,20 +98,27 @@ class ClusterRepository implements ClusterInterface {
     }
 
 
-    public function addUserToCluster(int $userId, string $clusterSlug) {
+    public function addUserToCluster(int $userId, string $clusterSlug)
+    {
         $cluster = $this->clusterModel->where('slug', $clusterSlug)->first();
         if ($cluster) {
-            $this->userRepository->find($userId)->clusters()->add($cluster);
+            $user = $this->userRepository->find($userId);
+
+            Event::fire('initbiz.cumuluscore.addUserToCluster', [$user, $cluster]);
+
+            $user->clusters()->add($cluster);
         }
     }
 
-    public function addClusterToPlan(string $clusterSlug, string $planSlug) {
+    public function addClusterToPlan(string $clusterSlug, string $planSlug)
+    {
         $plan = $this->planModel->where('slug', $planSlug)->first();
         if ($plan) {
             $cluster = $this->clusterModel->where('slug', $clusterSlug)->first();
 
+            Event::fire('initbiz.cumuluscore.addClusterToPlan', [$cluster, $plan]);
+
             return $cluster->plan()->associate($plan)->save();
         }
     }
-
 }

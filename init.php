@@ -14,8 +14,8 @@ use RainLab\User\Models\User as UserModel;
 use RainLab\User\Controllers\Users as UserController;
 use Initbiz\CumulusCore\Models\Settings as CumulusSettings;
 
-Account::extend(function($component) {
-    $component->addDynamicMethod('onRedirectMe', function() use ($component) {
+Account::extend(function ($component) {
+    $component->addDynamicMethod('onRedirectMe', function () use ($component) {
         return Redirect::to($component->pageUrl($component->property('redirect')));
     });
 });
@@ -58,7 +58,6 @@ Event::listen('backend.menu.extendItems', function ($manager) {
         BackendMenu::setContext('Initbiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-users');
     }
     $manager->removeMainMenuItem('RainLab.User', 'user');
-
 });
 
 Event::listen('rainlab.user.register', function ($user, $data) {
@@ -115,12 +114,10 @@ Event::listen('rainlab.user.register', function ($user, $data) {
             }
         }
     }
-
-});
+}, 100);
 
 
 Event::listen('rainlab.user.register', function ($user, $data) {
-
     if (!CumulusSettings::get('enable_auto_assign_user_to_group')) {
         return true;
     }

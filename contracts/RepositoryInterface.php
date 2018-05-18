@@ -1,7 +1,7 @@
 <?php namespace Initbiz\Cumuluscore\Contracts;
 
-interface RepositoryInterface {
-
+interface RepositoryInterface
+{
     public function all($columns = array('*'));
 
     public function paginate(int $perPage = 15, $columns = array('*'));
