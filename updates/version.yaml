@@ -47,3 +47,5 @@
     - 'Dropping foreign'
 1.1.10:
     - 'Firing events: addClusterToPlan and addUserToCluster'
+1.1.11:
+    - 'Put current cluster slug to Session with key: initbiz.cumuluscore.currentClusterSlug'

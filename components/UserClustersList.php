@@ -1,7 +1,7 @@
 <?php namespace Initbiz\CumulusCore\Components;
 
-use Cms\Classes\ComponentBase;
 use Cms\Classes\Page;
+use Cms\Classes\ComponentBase;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\Cumuluscore\Repositories\UserRepository;
 
@@ -58,4 +58,3 @@ class UserClustersList extends ComponentBase
         return $clusters;
     }
 }
-

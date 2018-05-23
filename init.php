@@ -110,7 +110,7 @@ Event::listen('rainlab.user.register', function ($user, $data) {
             try {
                 $clusterRepository->addClusterToPlan($cluster->slug, $planSlug);
             } catch (\Exception $e) {
-                throw new \Exception("Error Assigning cluster to plan", 1);
+                throw new \Exception("Error assigning cluster to plan", 1);
             }
         }
     }

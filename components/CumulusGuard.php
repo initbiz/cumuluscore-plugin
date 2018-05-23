@@ -1,7 +1,8 @@
 <?php namespace Initbiz\CumulusCore\Components;
 
-use Initbiz\CumulusCore\Classes\Helpers;
+use Session;
 use Cms\Classes\ComponentBase;
+use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 class CumulusGuard extends ComponentBase
@@ -21,11 +22,18 @@ class CumulusGuard extends ComponentBase
     public function onRun()
     {
         $this->clusterRepository = new ClusterRepository;
-        if (!$this->clusterRepository->canEnterCluster(Helpers::getUser()->id,
-            $this->property('clusterSlug'))) {
+        $clusterSlug = $this->property('clusterSlug');
+
+        if (!$this->clusterRepository->canEnterCluster(
+            Helpers::getUser()->id,
+            $clusterSlug
+        )) {
             $this->setStatusCode(403);
             return $this->controller->run('403');
         }
-        $this->page['cluster'] = $this->property('clusterSlug');
+
+        $this->page['cluster'] = $clusterSlug;
+
+        Session::put('initbiz.cumuluscore.currentClusterSlug', $clusterSlug);
     }
 }
