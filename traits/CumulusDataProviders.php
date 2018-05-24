@@ -45,8 +45,8 @@ trait CumulusDataProviders
             ["userData" => $data]
         ];
     }
-    public function providerClusterData() {
-
+    public function providerClusterData()
+    {
         $data = $this->fakeClusterData();
         return [
             ["clusterData" => $data]

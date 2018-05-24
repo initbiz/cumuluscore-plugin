@@ -1,7 +1,7 @@
 <?php namespace Initbiz\CumulusCore\Traits;
 
-trait CumulusComponentProperties {
-
+trait CumulusComponentProperties
+{
     public function defineClusterSlug()
     {
         return [

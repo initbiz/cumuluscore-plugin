@@ -51,3 +51,7 @@
     - 'Put current cluster slug to Session with key: initbiz.cumuluscore.currentClusterSlug'
 1.1.12:
     - 'Changed the concept from session to cookie: cumulus_clusterslug'
+1.1.13:
+    - 'Funny part here. Both session and cookie should have been used. They are named cumulus_clusterslug :)'
+1.1.14:
+    - 'Added ClusterFiltrable trait for models to easy filter their data using cluster_slug property'

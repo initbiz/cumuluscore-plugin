@@ -1,8 +1,7 @@
 <?php namespace Initbiz\CumulusCore\Traits;
 
-trait CumulusTestHelpers {
-
-
+trait CumulusTestHelpers
+{
     public function createUser($data)
     {
         $this->visit(TEST_SELENIUM_BACKEND_URL. '/rainlab/user/users/create')
@@ -146,7 +145,8 @@ trait CumulusTestHelpers {
         return $this;
     }
 
-    public function deleteAllPlans(){
+    public function deleteAllPlans()
+    {
         $this->visit(TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/plans')
             ->hold(2)
             ->findAndClickElement('check all plans', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[2]/div/table/thead/tr/th[1]")
@@ -156,13 +156,12 @@ trait CumulusTestHelpers {
             ->press('OK')
             ->waitForFlashMessage()
             ->hold(2);
-
     }
 
     public function checkSwitchOn($switchId)
     {
         $value = $this->findElement($switchId)->attribute('checked');
-        if($value !== "true") {
+        if ($value !== "true") {
             $this->toggleSwitch($switchId);
         }
         return $this;
@@ -171,7 +170,7 @@ trait CumulusTestHelpers {
     public function checkSwitchOff($switchId)
     {
         $value = $this->findElement($switchId)->attribute('checked');
-        if($value === "true") {
+        if ($value === "true") {
             $this->toggleSwitch($switchId);
         }
         return $this;
