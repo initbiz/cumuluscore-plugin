@@ -49,3 +49,5 @@
     - 'Firing events: addClusterToPlan and addUserToCluster'
 1.1.11:
     - 'Put current cluster slug to Session with key: initbiz.cumuluscore.currentClusterSlug'
+1.1.12:
+    - 'Changed the concept from session to cookie: cumulus_clusterslug'

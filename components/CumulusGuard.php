@@ -1,6 +1,6 @@
 <?php namespace Initbiz\CumulusCore\Components;
 
-use Session;
+use Cookie;
 use Cms\Classes\ComponentBase;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Repositories\ClusterRepository;
@@ -34,6 +34,6 @@ class CumulusGuard extends ComponentBase
 
         $this->page['cluster'] = $clusterSlug;
 
-        Session::put('initbiz.cumuluscore.currentClusterSlug', $clusterSlug);
+        Cookie::queue(Cookie::forever('cumulus_clusterslug', $clusterSlug));
     }
 }
