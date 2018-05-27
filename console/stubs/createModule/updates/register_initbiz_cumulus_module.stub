@@ -1,34 +1,29 @@
-<?php namespace {{author}}\{{name}}\Updates;
+<?php namespace {{studly_author}}\{{studly_name}}\Updates;
 
-
-
-use {{author}}\{{name}}\Plugin;
+use {{studly_author}}\{{studly_name}}\Plugin;
 use October\Rain\Database\Updates\Migration;
 use Initbiz\CumulusCore\Models\Module;
 
 class RegisterInitbizCumulusModule extends Migration
 {
-    private $name;
-    private $plugin;
+    protected $name;
+    protected $plugin;
+    protected $description;
 
     public function __construct()
     {
         $this->plugin = new Plugin(app());
         $this->name = \Lang::get($this->plugin->pluginDetails()['name']);
-    }
-
-
-    private function getSlug() {
-        return str_slug($this->name);
+        $this->description = \Lang::get($this->plugin->pluginDetails()['description']);
     }
 
     public function up()
     {
-
         if (\Schema::hasTable('initbiz_cumuluscore_modules')) {
             Module::create([
                 'name' => $this->name,
-                'slug' => $this->getSlug()
+                'slug' => $this->getSlug(),
+                'description' => $this->description
             ]);
         }
     }
@@ -36,8 +31,14 @@ class RegisterInitbizCumulusModule extends Migration
     public function down()
     {
         if (\Schema::hasTable('initbiz_cumuluscore_modules')) {
+            //Slug is unique in table, so it is possible
             Module::whereSlug($this->getSlug())->delete();
         }
 
     }
+
+    protected function getSlug() {
+        return str_slug('{{author}}-'.$this->name);
+    }
+    
 }

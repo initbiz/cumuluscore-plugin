@@ -42,11 +42,11 @@ For example:
 
 ```php artisan cumulus:createmodule Initbiz.CumulusProducts```
 
-After creating such module (which basically is OctoberCMS plugin), you will have to run
+Module created in such way is basically a normal OctoberCMS plugin with one extra migration which binds it to Cumulus. After you have the plugin created describe it in plugins `lang` directory (it's name and description) and run:
 
 ```php artisan plugin:refresh namespace.modulename```
 
-in order to register module in Cumulus Core.
+After that command completes, the module will be initially migrated and registered in Cumulus Core.
 
 <a name="testing"></a>
 ## Testing Cumulus

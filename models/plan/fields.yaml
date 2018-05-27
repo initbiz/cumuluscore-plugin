@@ -1,22 +1,18 @@
 fields:
     name:
         label: 'initbiz.cumuluscore::lang.plan.name'
-        oc.commentPosition: ''
         span: left
         required: 1
-        type: text
     slug:
         label: 'initbiz.cumuluscore::lang.plan.slug'
-        oc.commentPosition: ''
-        span: left
+        span: right
         required: 1
         preset:
             field: name
             type: slug
-        type: text
     modules:
         label: 'initbiz.cumuluscore::lang.plan.modules'
-        oc.commentPosition: ''
+        commentAbove: 'initbiz.cumuluscore::lang.plan.modules_comment'
         nameFrom: name
         descriptionFrom: description
         span: left

@@ -41,6 +41,9 @@
         'get_plan' => 'Get plan from a variable',
         'concrete_plan_label' => 'Choose plan',
         'get_plan_label' => 'Variable name',
+        'modules_list_slug' => 'Slug',
+        'modules_list_name' => 'Name',
+        'modules_list_description' => 'Description',
     ],
     'cluster_dashboard' => [
         'name' => 'Cluster dashboard',
@@ -100,5 +103,6 @@
         'name' => 'Name',
         'slug' => 'Slug',
         'modules' => 'Modules',
+        'modules_comment' => 'You can find more info about modules in Settings->Cumulus->Modules',
     ],
 ];

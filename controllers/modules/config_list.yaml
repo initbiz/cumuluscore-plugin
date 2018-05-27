@@ -9,10 +9,7 @@ list: $/initbiz/cumuluscore/models/module/columns.yaml
 modelClass: Initbiz\CumulusCore\Models\Module
 
 # List Title
-title: Manage Modules
-
-# Link URL for each record
-#recordUrl: initbiz/cumuluscore/modules/update/:id
+title: List Cumulus Modules
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records
@@ -25,18 +22,3 @@ showSetup: true
 
 # Displays the sorting link on each column
 showSorting: true
-
-# Default sorting column
-# defaultSort:
-#     column: created_at
-#     direction: desc
-
-# Display checkboxes next to each record
-# showCheckboxes: true
-
-## Toolbar widget configuration
-#toolbar:
-#
-#    # Search widget configuration
-#    search:
-#        prompt: backend::lang.list.search_prompt

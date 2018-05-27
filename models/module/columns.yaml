@@ -3,6 +3,11 @@
 # ===================================
 
 columns:
-    name:
-        label: rainlab.translate::lang.locale.name
+    slug:
+        label: initbiz.cumuluscore::lang.settings.modules_list_slug
         searchable: yes
+    name:
+        label: initbiz.cumuluscore::lang.settings.modules_list_name
+        searchable: yes
+    description:
+        label: initbiz.cumuluscore::lang.settings.modules_list_description

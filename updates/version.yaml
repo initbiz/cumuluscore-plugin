@@ -55,3 +55,8 @@
     - 'Funny part here. Both session and cookie should have been used. They are named cumulus_clusterslug :)'
 1.1.14:
     - 'Added ClusterFiltrable trait for models to easy filter their data using cluster_slug property'
+1.1.15:
+    - 'Updated table initbiz_cumuluscore_modules -> added nullable description column'
+    - builder_table_update_initbiz_cumuluscore_modules.php
+1.1.16:
+    - 'Cleanup modules creating and listing them in settings'
