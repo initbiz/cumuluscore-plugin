@@ -9,4 +9,11 @@ interface ClusterInterface extends RepositoryInterface
     public function getClusterModules(string $clusterSlug);
 
     public function getClusterModulesName(string $clusterSlug);
+
+    /**
+     * Get users from clusters slugs array
+     * @param  array  $clustersSlugs array of cluster slugs
+     * @return Collection Users in clusters
+     */
+    public function getClustersUsers(array $clustersSlugs);
 }

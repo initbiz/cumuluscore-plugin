@@ -53,4 +53,25 @@ class UserRepository implements UserInterface
                     ->clusters()
                     ->get();
     }
+
+    public function getActivatedUsers($columns = array('*'))
+    {
+        return $this->userModel->where("is_activated", true)->get($columns);
+    }
+
+    public function getByRelationPropertiesArray(string $relationName, string $propertyName, array $array)
+    {
+        return $this->userModel->whereHas($relationName, function ($query) use ($propertyName, $array) {
+            $query->whereIn($propertyName, $array);
+        })->get();
+    }
+
+    public function getUsingArray(string $field, array $array)
+    {
+        $users = $this->userModel->where($field, array_shift($array));
+        foreach ($array as $item) {
+            $users = $users->orWhere($field, $item);
+        }
+        return $users->get();
+    }
 }

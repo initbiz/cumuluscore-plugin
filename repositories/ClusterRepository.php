@@ -51,6 +51,22 @@ class ClusterRepository implements ClusterInterface
         return $this->clusterModel->where($field, '=', $value)->first($columns);
     }
 
+    public function getByRelationPropertiesArray(string $relationName, string $propertyName, array $array)
+    {
+        return $this->clusterModel->whereHas($relationName, function ($query) use ($propertyName, $array) {
+            $query->whereIn($propertyName, $array);
+        })->get();
+    }
+
+    public function getUsingArray(string $field, array $array)
+    {
+        $clusters = $this->clusterModel->where($field, array_shift($array));
+        foreach ($array as $item) {
+            $clusters = $clusters->orWhere($field, $item);
+        }
+        return $clusters->get();
+    }
+
     public function canEnterCluster(int $userId, string $clusterSlug)
     {
         return $this->userRepository->find($userId)->clusters()->whereSlug($clusterSlug)->first()? true : false;
@@ -70,6 +86,17 @@ class ClusterRepository implements ClusterInterface
             ? true : false;
     }
 
+    public function getClustersUsers(array $clustersSlugs)
+    {
+        $users = '';
+
+        $clustersIds = $this->getUsingArray('slug', $clustersSlugs)->pluck('cluster_id')->toArray();
+
+        $users = $this->userRepository->getByRelationPropertiesArray('clusters', 'initbiz_cumuluscore_clusters.cluster_id', $clustersIds);
+
+        return $users;
+    }
+
     public function getClusterModules(string $clusterSlug)
     {
         return $this->findBy('slug', $clusterSlug)
@@ -78,7 +105,6 @@ class ClusterRepository implements ClusterInterface
             ->modules()
              ->get();
     }
-
 
     public function getClusterModulesName(string $clusterSlug)
     {
