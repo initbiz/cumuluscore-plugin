@@ -60,3 +60,5 @@
     - builder_table_update_initbiz_cumuluscore_modules.php
 1.1.16:
     - 'Cleanup modules creating and listing them in settings'
+1.1.17:
+    - 'Created plan repo and added some useful methods to existing ones'
