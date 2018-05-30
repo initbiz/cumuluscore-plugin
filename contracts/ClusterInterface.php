@@ -16,4 +16,6 @@ interface ClusterInterface extends RepositoryInterface
      * @return Collection Users in clusters
      */
     public function getClustersUsers(array $clustersSlugs);
+
+    public function getClustersPlans(array $clustersSlugs);
 }
