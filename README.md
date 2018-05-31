@@ -12,7 +12,7 @@ The plugin is a skeleton for building SaaS applications using OctoberCMS.
 Its main purpose is to help developers with managing permissions to frontend pages and boost the development of SaaS applications.
 
 These plugins extends Cumulus Core functionality:
-* Cumulus Announcements - inform users of your system about new features, updates, changing regulations or any activity that concerns them
+* (Cumulus Announcements)[https://octobercms.com/plugin/initbiz-cumulusannouncements] - inform users of your system about new features, updates, changing regulations or any activity that concerns them
 
 <a name="howto"></a>
 ## How-to
