@@ -62,3 +62,5 @@
     - 'Cleanup modules creating and listing them in settings'
 1.1.17:
     - 'Created plan repo and added some useful methods to existing ones'
+1.2.0:
+    - 'First Cumulus extension - Cumulus Announcements: octobercms.com/plugin/initbiz-cumulusannouncements'
