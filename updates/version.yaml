@@ -64,3 +64,5 @@
     - 'Created plan repo and added some useful methods to existing ones'
 1.2.0:
     - 'First Cumulus extension - Cumulus Announcements: octobercms.com/plugin/initbiz-cumulusannouncements'
+1.2.1:
+    - 'Set event listeners priorities'
