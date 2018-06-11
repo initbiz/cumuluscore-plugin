@@ -127,4 +127,4 @@ Event::listen('rainlab.user.register', function ($user, $data) {
     if ($group) {
         $user->groups()->add($group);
     }
-});
+}, 90);

@@ -65,4 +65,6 @@
 1.2.0:
     - 'First Cumulus extension - Cumulus Announcements: octobercms.com/plugin/initbiz-cumulusannouncements'
 1.2.1:
+    - 'Set event listeners priorities'
+1.2.2:
     - 'Fixed recurrent dependencies in repositories'
