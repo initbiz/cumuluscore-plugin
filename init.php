@@ -65,7 +65,7 @@ Event::listen('rainlab.user.register', function ($user, $data) {
         return true;
     }
 
-    $clusterRepository = new ClusterRepository;
+    $clusterRepository = new ClusterRepository();
 
     if (CumulusSettings::get('auto_assign_user') === 'concrete_cluster') {
         try {

@@ -6,13 +6,11 @@ use Initbiz\Cumuluscore\Contracts\ClusterInterface;
 class ClusterRepository implements ClusterInterface
 {
     public $clusterModel;
-    public $planRepository;
     public $userRepository;
 
     public function __construct()
     {
         $this->clusterModel = new \Initbiz\Cumuluscore\Models\Cluster;
-        $this->planRepository = new \Initbiz\Cumuluscore\Models\Plan;
         $this->userRepository = new UserRepository();
     }
 
@@ -138,7 +136,9 @@ class ClusterRepository implements ClusterInterface
 
     public function addClusterToPlan(string $clusterSlug, string $planSlug)
     {
-        $plan = $this->planRepository->findBy('slug', $planSlug)->first();
+        $this->planRepository = new PlanRepository();
+        
+        $plan = $this->planRepository->findBy('slug', $planSlug);
         if ($plan) {
             $cluster = $this->clusterModel->where('slug', $clusterSlug)->first();
 

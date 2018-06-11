@@ -12,8 +12,6 @@ class PlanRepository implements PlanInterface
     public function __construct()
     {
         $this->planModel = new \Initbiz\Cumuluscore\Models\Plan;
-        $this->clusterRepository = new ClusterRepository();
-        $this->userRepository = new UserRepository();
     }
 
     public function all($columns = array('*'))
@@ -70,6 +68,8 @@ class PlanRepository implements PlanInterface
 
     public function getPlansUsers(array $plansSlugs)
     {
+        $this->clusterRepository = new ClusterRepository();
+
         $users = '';
 
         $plansIds = $this->getUsingArray('slug', $plansSlugs)->pluck('plan_id')->toArray();
