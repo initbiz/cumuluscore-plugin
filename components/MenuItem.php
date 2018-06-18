@@ -1,4 +1,4 @@
-<?php namespace Initbiz\Cumuluscore\Components;
+<?php namespace Initbiz\CumulusCore\Components;
 
 use Lang;
 use Cms\Classes\ComponentBase;

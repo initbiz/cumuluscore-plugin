@@ -1,4 +1,4 @@
-<?php namespace  Initbiz\Cumuluscore\Repositories;
+<?php namespace  Initbiz\CumulusCore\Repositories;
 
 use Initbiz\CumulusCore\Contracts\UserInterface;
 

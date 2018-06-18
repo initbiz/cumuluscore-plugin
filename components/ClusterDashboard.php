@@ -1,11 +1,11 @@
-<?php namespace Initbiz\Cumuluscore\Components;
+<?php namespace Initbiz\CumulusCore\Components;
 
 use Cms\Classes\ComponentBase;
 use RainLab\User\Models\User as Users;
 
 class ClusterDashboard extends ComponentBase
 {
-    use \Initbiz\Cumuluscore\Traits\CumulusComponentProperties;
+    use \Initbiz\CumulusCore\Traits\CumulusComponentProperties;
 
     public function componentDetails()
     {
@@ -21,5 +21,4 @@ class ClusterDashboard extends ComponentBase
             $query->where('slug', $this->property('clusterSlug'));
         })->count();
     }
-
 }

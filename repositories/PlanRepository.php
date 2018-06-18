@@ -1,7 +1,7 @@
-<?php namespace Initbiz\Cumuluscore\Repositories;
+<?php namespace Initbiz\CumulusCore\Repositories;
 
 use Event;
-use Initbiz\Cumuluscore\Contracts\PlanInterface;
+use Initbiz\CumulusCore\Contracts\PlanInterface;
 
 class PlanRepository implements PlanInterface
 {
@@ -11,7 +11,7 @@ class PlanRepository implements PlanInterface
 
     public function __construct()
     {
-        $this->planModel = new \Initbiz\Cumuluscore\Models\Plan;
+        $this->planModel = new \Initbiz\CumulusCore\Models\Plan;
     }
 
     public function all($columns = array('*'))

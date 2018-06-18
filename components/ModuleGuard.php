@@ -1,14 +1,14 @@
-<?php namespace Initbiz\Cumuluscore\Components;
+<?php namespace Initbiz\CumulusCore\Components;
 
 use Cms\Classes\ComponentBase;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Models\Module;
-use Initbiz\Cumuluscore\Repositories\ClusterRepository;
+use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 class ModuleGuard extends ComponentBase
 {
-    use \Initbiz\Cumuluscore\Traits\CumulusComponentProperties;
+    use \Initbiz\CumulusCore\Traits\CumulusComponentProperties;
 
     public $clusterRepository;
 
@@ -46,6 +46,4 @@ class ModuleGuard extends ComponentBase
         //TODO: get title from lang
         return Helpers::getModulesList();
     }
-
-
 }

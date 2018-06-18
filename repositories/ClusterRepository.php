@@ -1,7 +1,7 @@
-<?php namespace Initbiz\Cumuluscore\Repositories;
+<?php namespace Initbiz\CumulusCore\Repositories;
 
 use Event;
-use Initbiz\Cumuluscore\Contracts\ClusterInterface;
+use Initbiz\CumulusCore\Contracts\ClusterInterface;
 
 class ClusterRepository implements ClusterInterface
 {
@@ -10,7 +10,7 @@ class ClusterRepository implements ClusterInterface
 
     public function __construct()
     {
-        $this->clusterModel = new \Initbiz\Cumuluscore\Models\Cluster;
+        $this->clusterModel = new \Initbiz\CumulusCore\Models\Cluster;
         $this->userRepository = new UserRepository();
     }
 
@@ -137,7 +137,7 @@ class ClusterRepository implements ClusterInterface
     public function addClusterToPlan(string $clusterSlug, string $planSlug)
     {
         $this->planRepository = new PlanRepository();
-        
+
         $plan = $this->planRepository->findBy('slug', $planSlug);
         if ($plan) {
             $cluster = $this->clusterModel->where('slug', $clusterSlug)->first();

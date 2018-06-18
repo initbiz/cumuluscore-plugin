@@ -8,7 +8,7 @@ use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 class CumulusGuard extends ComponentBase
 {
-    use \Initbiz\Cumuluscore\Traits\CumulusComponentProperties;
+    use \Initbiz\CumulusCore\Traits\CumulusComponentProperties;
 
     public $clusterRepository;
 

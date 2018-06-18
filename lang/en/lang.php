@@ -49,6 +49,10 @@
         'name' => 'Cluster dashboard',
         'description' => 'Show cluster dashboard',
     ],
+    'cluster_settings' => [
+        'name' => 'Cluster Settings',
+        'description' => 'Show cluster settings',
+    ],
     'menu' => [
         'name' => 'Menu Component',
         'description' => 'Component that renders menu based on menuItems component',

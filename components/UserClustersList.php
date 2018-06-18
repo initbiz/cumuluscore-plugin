@@ -3,7 +3,7 @@
 use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use Initbiz\CumulusCore\Classes\Helpers;
-use Initbiz\Cumuluscore\Repositories\UserRepository;
+use Initbiz\CumulusCore\Repositories\UserRepository;
 
 class UserClustersList extends ComponentBase
 {

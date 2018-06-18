@@ -1,15 +1,16 @@
-<?php namespace Initbiz\Cumuluscore\Components;
+<?php namespace Initbiz\CumulusCore\Components;
+
 use Cms\Classes\ComponentBase;
 use Event;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Models\Cluster;
 use Cms\Classes\Page as CmsPage;
 use Cms\Classes\Theme;
-use Initbiz\Cumuluscore\Repositories\ClusterRepository;
+use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 class Menu extends ComponentBase
 {
-    use \Initbiz\Cumuluscore\Traits\CumulusComponentProperties;
+    use \Initbiz\CumulusCore\Traits\CumulusComponentProperties;
 
     public $clusterRepository;
 
@@ -40,7 +41,6 @@ class Menu extends ComponentBase
                 || in_array($component['cumulusModule'], $current_cluster_modules, true)) {
                 $menuEntries[$component['menuItemTitle']] = CmsPage::url($page['fileName']);
             }
-
         }
 
         return $menuEntries;
@@ -65,7 +65,7 @@ class Menu extends ComponentBase
         foreach ($page['settings']['components'] as $tmpComponentName => $componentProperties) {
             $exp_key = explode(' ', $tmpComponentName);
             if ($exp_key[0] === $componentName) {
-               return $page['settings']['components'][$tmpComponentName];
+                return $page['settings']['components'][$tmpComponentName];
             }
         }
     }
