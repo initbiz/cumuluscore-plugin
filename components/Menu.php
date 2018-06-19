@@ -32,7 +32,7 @@ class Menu extends ComponentBase
     public function getMenuEntries()
     {
         //TODO: Refactor spaghetti code
-        $current_cluster_modules = $this->clusterRepository->getClusterModulesName($this->property('clusterSlug'));
+        $current_cluster_modules = $this->clusterRepository->getClusterModulesSlugs($this->property('clusterSlug'));
         $menuEntries= [];
         $pagesWithMenuItem = $this->getPagesWithComponent('menuItem');
         foreach ($pagesWithMenuItem as $page) {
