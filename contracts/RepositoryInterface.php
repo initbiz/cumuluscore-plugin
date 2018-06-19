@@ -24,11 +24,12 @@ interface RepositoryInterface
     public function create(array $data);
 
     /**
-     * Update record using data and its id
+     * Update record using data and unique id
      * @param  array  $data data key => value with "column name" => value syntax
-     * @param  int  $id of record to update
+     * @param         $id of record to update
+     * @param  string $attribute attribute to look for record
      */
-    public function update(array $data, int $id);
+    public function update(array $data, $id, $attribute="id");
 
     /**
      * Delete record

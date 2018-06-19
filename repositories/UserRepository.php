@@ -26,7 +26,7 @@ class UserRepository implements UserInterface
         return $this->userModel->create($data);
     }
 
-    public function update(array $data, int $id, $attribute="id")
+    public function update(array $data, $id, $attribute="id")
     {
         return $this->userModel->where($attribute, '=', $id)->update($data);
     }

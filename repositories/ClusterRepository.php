@@ -35,7 +35,7 @@ class ClusterRepository implements ClusterInterface
         return $this->clusterModel->create($data);
     }
 
-    public function update(array $data, int $id, $attribute="id")
+    public function update(array $data, $id, $attribute="id")
     {
         return $this->clusterModel->where($attribute, '=', $id)->update($data);
     }

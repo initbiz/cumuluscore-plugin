@@ -1,8 +1,8 @@
 <?php namespace Initbiz\CumulusCore\Models;
 
-use Cms\Classes\Page as CmsPage;
-use Cms\Classes\Theme;
 use Model;
+use Cms\Classes\Theme;
+use Cms\Classes\Page as CmsPage;
 use RainLab\Location\Models\Country;
 use RainLab\User\Models\User as UserModel;
 
@@ -11,20 +11,11 @@ use RainLab\User\Models\User as UserModel;
  */
 class Cluster extends Model
 {
-    use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\Nullable;
     use \October\Rain\Database\Traits\Sluggable;
+    use \October\Rain\Database\Traits\Validation;
 
-    /*
-     * Validation
-     */
-    public $rules = [
-    ];
-
-    /*
-     * Disable timestamps by default.
-     * Remove this line if timestamps are defined in the database table.
-     */
-    public $timestamps = false;
+    protected $guarded = ['*'];
 
     /**
      * @var array Generate slugs for these attributes.
@@ -32,10 +23,24 @@ class Cluster extends Model
     protected $slugs = ['slug' => 'full_name'];
 
     /**
-     * @var string The database table used by the model.
+     * Fields to be set as null when left empty
+     * @var array
      */
-    public $table = 'initbiz_cumuluscore_clusters';
-    public $primaryKey = 'cluster_id';
+    protected $nullable = [
+        'full_name',
+        'slug',
+        'plan_id',
+        'thoroughfare',
+        'city',
+        'phone',
+        'country_id',
+        'postal_code',
+        'description',
+        'email',
+        'tax_number',
+        'account_number'
+    ];
+
     protected $fillable = [
         'full_name',
         'slug',
@@ -50,6 +55,27 @@ class Cluster extends Model
         'tax_number',
         'account_number'
     ];
+
+    /*
+     * Validation
+     */
+    public $rules = [
+        'full_name'   => 'required|between:4,255',
+        'slug'        => 'required|between:4,100|unique:initbiz_cumulusinvoices_clients',
+        'email'       => 'between:6,255|email',
+    ];
+
+    /*
+     * Disable timestamps by default.
+     * Remove this line if timestamps are defined in the database table.
+     */
+    public $timestamps = false;
+
+    /**
+     * @var string The database table used by the model.
+     */
+    public $table = 'initbiz_cumuluscore_clusters';
+    public $primaryKey = 'cluster_id';
     public $belongsTo = [
         'plan' => [
             Plan::class,
