@@ -1,21 +1,20 @@
 <?php namespace Initbiz\CumulusCore;
 
-use Initbiz\CumulusCore\Classes\Helpers;
 use System\Classes\PluginBase;
+use Initbiz\CumulusCore\Classes\Helpers;
 
 class Plugin extends PluginBase
 {
-    public $require = ['RainLab.UserPlus'];
+    public $require = ['RainLab.User', 'RainLab.Notify', 'RainLab.Location', 'RainLab.UserPlus'];
 
     public function registerComponents()
     {
         return [
-            'Initbiz\CumulusCore\Components\CumulusGuard'       =>  'cumulusGuard',
+            'Initbiz\CumulusCore\Components\Menu'              =>  'menu',
+            'Initbiz\CumulusCore\Components\MenuItem'          =>  'menuItem',
             'Initbiz\CumulusCore\Components\ModuleGuard'       =>  'moduleGuard',
+            'Initbiz\CumulusCore\Components\CumulusGuard'      =>  'cumulusGuard',
             'Initbiz\CumulusCore\Components\UserClustersList'  =>  'clustersList',
-            'Initbiz\CumulusCore\Components\Menu'               =>  'menu',
-            'Initbiz\CumulusCore\Components\MenuItem'               =>  'menuItem',
-            'Initbiz\CumulusCore\Components\ClusterDashboard'   =>  'clusterDashboard'
         ];
     }
 
@@ -43,13 +42,8 @@ class Plugin extends PluginBase
         ];
     }
 
-    public function boot()
-    {
-    }
-
     public function register()
     {
         $this->registerConsoleCommand('cumulus.createmodule', 'Initbiz\CumulusCore\Console\CreateModule');
     }
-
 }
