@@ -61,7 +61,7 @@ class Cluster extends Model
      */
     public $rules = [
         'full_name'   => 'required|between:4,255',
-        'slug'        => 'required|between:4,100|unique:initbiz_cumulusinvoices_clients',
+        'slug'        => 'required|between:4,100|unique:initbiz_cumuluscore_clusters',
         'email'       => 'between:6,255|email',
     ];
 
