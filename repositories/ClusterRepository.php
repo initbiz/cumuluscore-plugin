@@ -11,58 +11,77 @@ class ClusterRepository implements ClusterInterface
 
     public $currentCluster;
 
+    /**
+     * {@inheritdoc}
+     */
     public function __construct(string $currentClusterSlug = '')
     {
-        if ($currentClusterSlug) {
-            $this->currentCluster = $this->findBy('slug', $currentClusterSlug);
-        }
         $this->clusterModel = new \Initbiz\CumulusCore\Models\Cluster;
         $this->userRepository = new UserRepository();
+        if ($currentClusterSlug !== '') {
+            $this->refreshCurrentCluster($currentClusterSlug);
+        }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function all($columns = array('*'))
     {
         return $this->clusterModel->get($columns);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function paginate(int $perPage = 15, $columns = array('*'))
     {
         return $this->clusterModel->paginate($perPage, $columns);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function create(array $data)
     {
         return $this->clusterModel->create($data);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function update(array $data, $id, $attribute="id")
     {
         return $this->clusterModel->where($attribute, '=', $id)->update($data);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function delete(int $id)
     {
         return $this->clusterModel->destroy($id);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function find(int $id, $columns = array('*'))
     {
-        $cluster = $this->clusterModel->find($id, $columns);
-        if ($columns === array('*')) {
-            $this->currentCluster = $cluster;
-        }
-        return $cluster;
+        return $this->clusterModel->find($id, $columns);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function findBy(string $field, $value, $columns = array('*'))
     {
-        $cluster = $this->clusterModel->where($field, '=', $value)->first($columns);
-        if ($columns === array('*')) {
-            $this->currentCluster = $cluster;
-        }
-        return $cluster;
+        return $this->clusterModel->where($field, '=', $value)->first($columns);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getByRelationPropertiesArray(string $relationName, string $propertyName, array $array)
     {
         return $this->clusterModel->whereHas($relationName, function ($query) use ($propertyName, $array) {
@@ -70,6 +89,9 @@ class ClusterRepository implements ClusterInterface
         })->get();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getUsingArray(string $field, array $array)
     {
         $clusters = $this->clusterModel->where($field, array_shift($array));
@@ -79,11 +101,17 @@ class ClusterRepository implements ClusterInterface
         return $clusters->get();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function canEnterCluster(int $userId, string $clusterSlug)
     {
         return $this->userRepository->find($userId)->clusters()->whereSlug($clusterSlug)->first()? true : false;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function canEnterModule(string $clusterSlug, string $moduleSlug)
     {
         $this->refreshCurrentCluster($clusterSlug);
@@ -96,6 +124,9 @@ class ClusterRepository implements ClusterInterface
             ? true : false;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getClustersUsers(array $clustersSlugs)
     {
         $users = '';
@@ -107,16 +138,22 @@ class ClusterRepository implements ClusterInterface
         return $users;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getClusterModules(string $clusterSlug)
     {
-        $cluster = $this->refreshCurrentCluster($clusterSlug);
-        return $cluster
+        $this->refreshCurrentCluster($clusterSlug);
+        return $this->currentCluster
             ->plan()
             ->first()
             ->modules()
-             ->get();
+            ->get();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getClusterModulesSlugs(string $clusterSlug)
     {
         $currentClusterModules = $this->getClusterModules($clusterSlug);
@@ -128,32 +165,42 @@ class ClusterRepository implements ClusterInterface
         return $slugs;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addUserToCluster(int $userId, string $clusterSlug)
     {
-        $cluster = $this->refreshCurrentCluster($clusterSlug);
-        if ($cluster) {
+        $this->refreshCurrentCluster($clusterSlug);
+        if ($this->currentCluster) {
             $user = $this->userRepository->find($userId);
 
-            Event::fire('initbiz.cumuluscore.addUserToCluster', [$user, $cluster]);
+            Event::fire('initbiz.cumuluscore.addUserToCluster', [$user, $this->currentCluster]);
 
-            $user->clusters()->add($cluster);
+            $user->clusters()->add($this->currentCluster);
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addClusterToPlan(string $clusterSlug, string $planSlug)
     {
         $this->planRepository = new PlanRepository();
 
         $plan = $this->planRepository->findBy('slug', $planSlug);
         if ($plan) {
-            $cluster = $this->refreshCurrentCluster($clusterSlug);
+            $this->refreshCurrentCluster($clusterSlug);
 
-            Event::fire('initbiz.cumuluscore.addClusterToPlan', [$cluster, $plan]);
+            Event::fire('initbiz.cumuluscore.addClusterToPlan', [$this->currentCluster, $plan]);
 
-            return $cluster->plan()->associate($plan)->save();
+            $this->currentCluster->plan()->associate($plan);
+            $this->currentCluster->save();
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getClustersPlans(array $clustersSlugs)
     {
         $plans = [];
@@ -167,15 +214,30 @@ class ClusterRepository implements ClusterInterface
     }
 
     /**
-     * Thanks to this method, there will be less queries to db - this will query only if differs
-     * @param  string $clusterSlug cluster's slug
-     * @return Cluster             current cluster
+     * {@inheritdoc}
      */
-    protected function refreshCurrentCluster($clusterSlug)
+    public function refreshCurrentCluster(string $clusterSlug)
     {
+        //It's good place to enable caching fo clusters
         if (!isset($this->currentCluster) || $this->currentCluster->slug !== $clusterSlug) {
             $this->currentCluster = $this->findBy('slug', $clusterSlug);
         }
-        return $this->currentCluster;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCurrentCluster()
+    {
+        if (!$this->currentCluster) {
+            return [];
+        }
+
+        $currentCluster = $this->currentCluster->toArray();
+        if ($logo = $this->currentCluster->logo()->first()) {
+            $currentCluster['logo'] = $logo->toArray();
+        }
+
+        return $currentCluster;
     }
 }

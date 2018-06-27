@@ -45,4 +45,17 @@ interface ClusterInterface extends RepositoryInterface
      * @return Collection Plans of clusters
      */
     public function getClustersPlans(array $clustersSlugs);
+
+    /**
+     * Set and get current cluster object for future method invokes to be more optimized
+     * @param  string $clusterSlug cluster's slug
+     * @return Cluster             current cluster
+     */
+    public function refreshCurrentCluster(string $clusterSlug);
+
+    /**
+     * Get current cluster, set using refreshCurrentCluster method
+     * @return array array of current cluster data
+     */
+    public function getCurrentCluster();
 }

@@ -22,8 +22,8 @@ class CumulusGuard extends ComponentBase
 
     public function onRun()
     {
-        $this->clusterRepository = new ClusterRepository;
         $clusterSlug = $this->property('clusterSlug');
+        $this->clusterRepository = new ClusterRepository($clusterSlug);
 
         if (!$this->clusterRepository->canEnterCluster(
             Helpers::getUser()->id,
@@ -34,6 +34,7 @@ class CumulusGuard extends ComponentBase
         }
 
         $this->page['cluster'] = $clusterSlug;
+        $this->page['clusterData'] = $this->clusterRepository->getCurrentCluster();
 
         Session::put('cumulus_clusterslug', $clusterSlug);
         Cookie::queue(Cookie::forever('cumulus_clusterslug', $clusterSlug));

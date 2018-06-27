@@ -13,7 +13,7 @@ class Cluster extends Model
 {
     use \October\Rain\Database\Traits\Nullable;
     use \October\Rain\Database\Traits\Sluggable;
-    use \October\Rain\Database\Traits\Validation;
+    // use \October\Rain\Database\Traits\Validation;
 
     protected $guarded = ['*'];
 
@@ -59,11 +59,12 @@ class Cluster extends Model
     /*
      * Validation
      */
-    public $rules = [
-        'full_name'   => 'required|between:4,255',
-        'slug'        => 'required|between:4,100|unique:initbiz_cumuluscore_clusters',
-        'email'       => 'between:6,255|email',
-    ];
+    //TODO: problems with auto assigning clusters. While saving model email is required, although it's not...
+    // public $rules = [
+    //     'full_name'   => 'required|between:4,255',
+    //     'slug'        => 'between:4,100|unique:initbiz_cumuluscore_clusters',
+    //     'email'       => 'between:6,255|email',
+    // ];
 
     /*
      * Disable timestamps by default.

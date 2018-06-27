@@ -87,6 +87,7 @@
         'cluster_dashboard_page_desc' => 'Page where users are going to be redirected after clicking cluster url',
     ],
     'cluster' => [
+        'delete_confirm' => 'Are you sure you want to delete this cluster?',
         'thoroughfare' => 'Thoroughfare',
         'plan' => 'Plan',
         'slug' => 'Slug',
