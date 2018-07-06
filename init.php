@@ -1,5 +1,6 @@
 <?php namespace Initbiz\CumulusCore;
 
+use Db;
 use Yaml;
 use File;
 use Lang;
@@ -71,6 +72,7 @@ Event::listen('rainlab.user.register', function ($user, $data) {
         try {
             $clusterRepository->addUserToCluster($user->id, CumulusSettings::get('auto_assign_user_concrete_cluster'));
         } catch (\Exception $e) {
+            Db::rollback();
             throw new \Exception("Error Assigning user to concrete cluster", 1);
         }
     }
@@ -81,17 +83,32 @@ Event::listen('rainlab.user.register', function ($user, $data) {
         try {
             $clusterRepository->addUserToCluster($user->id, $clusterSlug);
         } catch (\Exception $e) {
+            Db::rollback();
             throw new \Exception("Error Assigning user to existing cluster with slug get from variable", 1);
         }
     }
     if (CumulusSettings::get('auto_assign_user') === 'new_cluster') {
-        $clusterName = $data[CumulusSettings::get('auto_assign_user_new_cluster')];
+        Event::fire('initbiz.cumuluscore.beforeAutoAssignNewCluster', [&$data]);
 
-        $cluster = $clusterRepository->create(['full_name' => $clusterName]);
+        $createClusterData = [
+            'full_name' => $data[CumulusSettings::get('auto_assign_user_new_cluster')],
+            'thoroughfare'   => (isset($data['thoroughfare']))? $data['thoroughfare']: null,
+            'city'           => (isset($data['city']))? $data['city']: null,
+            'phone'          => (isset($data['phone']))? $data['phone']: null,
+            'country_id'     => (isset($data['country_id']))? $data['country_id']: null,
+            'postal_code'    => (isset($data['postal_code']))? $data['postal_code']: null,
+            'description'    => (isset($data['description']))? $data['description']: null,
+            'email'          => (isset($data['cluster_email']))? $data['cluster_email']: null,
+            'tax_number'     => (isset($data['tax_number']))? $data['tax_number']: null,
+            'account_number' => (isset($data['account_number']))? $data['account_number']: null,
+        ];
+
+        $cluster = $clusterRepository->create($createClusterData);
 
         try {
             $clusterRepository->addUserToCluster($user->id, $cluster->slug);
         } catch (\Exception $e) {
+            Db::rollback();
             throw new \Exception("Error Assigning user to new cluster", 1);
         }
 
@@ -110,6 +127,7 @@ Event::listen('rainlab.user.register', function ($user, $data) {
             try {
                 $clusterRepository->addClusterToPlan($cluster->slug, $planSlug);
             } catch (\Exception $e) {
+                Db::rollback();
                 throw new \Exception("Error assigning cluster to plan", 1);
             }
         }
@@ -128,3 +146,12 @@ Event::listen('rainlab.user.register', function ($user, $data) {
         $user->groups()->add($group);
     }
 }, 90);
+
+// start transaction before register user
+Event::listen('rainlab.user.beforeRegister', function (&$data) {
+    Db::beginTransaction();
+}, 500);
+
+Event::listen('rainlab.user.register', function ($user, $data) {
+    Db::commit();
+}, 10);

@@ -76,3 +76,5 @@
     - 'Fixed typo'
 1.3.3:
     - '!!! Updated repository interface. Temporarily removed validation. Refactored cluster repository + minor fixes'
+1.3.4:
+    - 'Added handling transactions on user register'
