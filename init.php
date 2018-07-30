@@ -5,11 +5,16 @@ use Yaml;
 use File;
 use Lang;
 use Event;
+use Controller;
 use Redirect;
 use BackendMenu;
+use Cms\Classes\Theme;
+use Cms\Classes\Layout;
+use Cms\Classes\Page as CmsPage;
 use RainLab\User\Models\UserGroup;
 use RainLab\User\Components\Account;
 use Initbiz\CumulusCore\Models\Cluster;
+use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Repositories\ClusterRepository;
 use RainLab\User\Models\User as UserModel;
 use RainLab\User\Controllers\Users as UserController;
@@ -155,3 +160,94 @@ Event::listen('rainlab.user.beforeRegister', function (&$data) {
 Event::listen('rainlab.user.register', function ($user, $data) {
     Db::commit();
 }, 10);
+
+ /* Register menu items for the RainLab.Pages plugin
+ /*
+ */
+Event::listen('pages.menuitem.listTypes', function () {
+    return [
+        'cumulus-page'       => 'initbiz.cumuluscore::lang.menu_item.cumulus_page',
+    ];
+});
+
+Event::listen('pages.menuitem.getTypeInfo', function ($type) {
+    if ($type == 'cumulus-page') {
+        $theme = Theme::getActiveTheme();
+//
+        $pages = CmsPage::listInTheme($theme, true);
+        $layouts = Layout::listInTheme($theme, true);
+        // $result = [];
+
+        $result['cmsPages'] = $pages;
+        $result = [
+        'references'   => CmsPage::sortBy('baseFileName')->lists('title', 'baseFileName'),
+        // 'references'   => CmsPage::sortBy('baseFileName')->lists('title', 'baseFileName'),
+        ];
+        return $result;
+    }
+});
+
+Event::listen('pages.menuitem.resolveItem', function ($type, $item, $url, $theme) {
+    $result = null;
+
+    if ($item->type === 'cumulus-page') {
+        if (!$item->reference || !$item->cmsPage) {
+            return;
+        }
+
+        $category = self::find($item->reference);
+        if (!$category) {
+            return;
+        }
+
+        $pageUrl = self::getCategoryPageUrl($item->cmsPage, $category, $theme);
+        if (!$pageUrl) {
+            return;
+        }
+
+        $pageUrl = URL::to($pageUrl);
+
+        $result = [];
+        $result['url'] = $pageUrl;
+        $result['isActive'] = $pageUrl == $url;
+    }
+    return $result;
+});
+
+Event::listen('backend.form.extendFields', function ($widget) {
+    if (
+        !$widget->getController() instanceof \RainLab\Pages\Controllers\Index ||
+        !$widget->model instanceof \RainLab\Pages\Classes\MenuItem
+    ) {
+        return;
+    }
+
+    $modules = ['none' => Lang::get('initbiz.cumuluscore::lang.menuitem.cumulus_module_none')] + Helpers::getModulesList();
+
+    $widget->addTabFields([
+        'viewBag[cumulusModule]' => [
+            'tab' => 'initbiz.cumuluscore::lang.menuitem.cumulus_tab_label',
+            'label' => 'initbiz.cumuluscore::lang.menuitem.cumulus_module',
+            'comment' => 'initbiz.cumuluscore::lang.menuiem.cumulus_module_comment',
+            'type' => 'dropdown',
+            'options' => $modules,
+            'trigger' => [
+                'action' => 'show',
+                'field' => 'type',
+                'condition' => 'value[cumulus-page]'
+            ]
+        ],
+        'viewBag[clusterSlug]' => [
+            'tab' => 'initbiz.cumuluscore::lang.menuitem.cumulus_tab_label',
+            'label' => 'initbiz.cumuluscore::lang.menuitem.cluster_slug',
+            'comment' => 'initbiz.cumuluscore::lang.menuiem.cluster_slug_comment',
+            'default' => 'cluster',
+            'type' => 'text',
+            'trigger' => [
+                'action' => 'show',
+                'field' => 'type',
+                'condition' => 'value[cumulus-page]'
+            ]
+        ],
+    ]);
+});

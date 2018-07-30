@@ -53,11 +53,8 @@
         'name' => 'Cluster Settings',
         'description' => 'Show cluster settings',
     ],
-    'menu' => [
-        'name' => 'Menu Component',
-        'description' => 'Component that renders menu based on menuItems component',
-    ],
     'menu_item' => [
+        'cumulus_page' => 'Cumulus page',
         'name' => 'Menu item',
         'description' => 'Component that is going to be used on pages that we want to show in navigation',
         'menu_item_title' => 'Menu item title',
