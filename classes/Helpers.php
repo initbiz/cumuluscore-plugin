@@ -28,4 +28,16 @@ class Helpers
     {
         return Cluster::where('slug', $slug)->first()->cluster_id;
     }
+
+    public static function getPageUrl($pageCode, $theme)
+    {
+        $page = CmsPage::loadCached($theme, $pageCode);
+        if (!$page) {
+            return;
+        }
+
+        $url = CmsPage::url($page->getBaseFileName());
+
+        return $url;
+    }
 }

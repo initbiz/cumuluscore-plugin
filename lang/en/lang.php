@@ -56,11 +56,11 @@
     'menu_item' => [
         'cumulus_page' => 'Cumulus page',
         'name' => 'Menu item',
-        'description' => 'Component that is going to be used on pages that we want to show in navigation',
-        'menu_item_title' => 'Menu item title',
-        'menu_item_title_desc' => 'User friendly title to be shown on button to this page',
+        'cluster_slug' => 'Cluster Slug',
+        'cluster_slug_comment' => 'Variable uses in urls',
+        'cumulus_tab_label' => 'Cumulus',
         'cumulus_module' => 'Module to restrict access',
-        'cumulus_module_desc' => 'Pick module to restrict user visibility using the module permissions',
+        'cumulus_module_comment' => 'Pick module to restrict user visibility using the module permissions',
         'cumulus_module_none' => 'No special privileges',
     ],
     'component_properties' => [

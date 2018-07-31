@@ -1,12 +1,14 @@
 <?php namespace Initbiz\CumulusCore;
 
 use Db;
+use URL;
 use Yaml;
 use File;
 use Lang;
 use Event;
-use Controller;
+use Session;
 use Redirect;
+use Controller;
 use BackendMenu;
 use Cms\Classes\Theme;
 use Cms\Classes\Layout;
@@ -15,9 +17,9 @@ use RainLab\User\Models\UserGroup;
 use RainLab\User\Components\Account;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
-use Initbiz\CumulusCore\Repositories\ClusterRepository;
 use RainLab\User\Models\User as UserModel;
 use RainLab\User\Controllers\Users as UserController;
+use Initbiz\CumulusCore\Repositories\ClusterRepository;
 use Initbiz\CumulusCore\Models\Settings as CumulusSettings;
 
 Account::extend(function ($component) {
@@ -173,16 +175,14 @@ Event::listen('pages.menuitem.listTypes', function () {
 Event::listen('pages.menuitem.getTypeInfo', function ($type) {
     if ($type == 'cumulus-page') {
         $theme = Theme::getActiveTheme();
-//
+
         $pages = CmsPage::listInTheme($theme, true);
         $layouts = Layout::listInTheme($theme, true);
-        // $result = [];
-
-        $result['cmsPages'] = $pages;
-        $result = [
-        'references'   => CmsPage::sortBy('baseFileName')->lists('title', 'baseFileName'),
-        // 'references'   => CmsPage::sortBy('baseFileName')->lists('title', 'baseFileName'),
-        ];
+        $cmsPages = [];
+        foreach ($pages as $page) {
+            $cmsPages[] = $page;
+        }
+        $result['cmsPages'] = $cmsPages;
         return $result;
     }
 });
@@ -191,22 +191,16 @@ Event::listen('pages.menuitem.resolveItem', function ($type, $item, $url, $theme
     $result = null;
 
     if ($item->type === 'cumulus-page') {
-        if (!$item->reference || !$item->cmsPage) {
+        if (!$item->cmsPage) {
             return;
         }
 
-        $category = self::find($item->reference);
-        if (!$category) {
-            return;
-        }
-
-        $pageUrl = self::getCategoryPageUrl($item->cmsPage, $category, $theme);
+        $pageUrl = Helpers::getPageUrl($item->cmsPage, $theme);
         if (!$pageUrl) {
             return;
         }
 
         $pageUrl = URL::to($pageUrl);
-
         $result = [];
         $result['url'] = $pageUrl;
         $result['isActive'] = $pageUrl == $url;
@@ -214,6 +208,24 @@ Event::listen('pages.menuitem.resolveItem', function ($type, $item, $url, $theme
     return $result;
 });
 
+Event::listen('pages.menu.referencesGenerated', function (&$items) {
+    $iterator = function($menuItems) use (&$iterator) {
+        foreach ($menuItems as $item) {
+            $clusterRepository = new ClusterRepository;
+            if ($item->viewBag['cumulusModule'] !== "none") {
+                if (!$clusterRepository->canEnterModule(Session::get('cumulus_clusterslug'), $item->viewBag['cumulusModule'])) {
+                    $item->viewBag['isHidden'] = "1";
+                }
+            }
+            if($item->items) {
+                $item->items = $iterator($item->items);
+            }
+            $result[] = $item;
+        }
+        return $result;
+    };
+    $items = $iterator($items);
+});
 Event::listen('backend.form.extendFields', function ($widget) {
     if (
         !$widget->getController() instanceof \RainLab\Pages\Controllers\Index ||
