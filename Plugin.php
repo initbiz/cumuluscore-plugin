@@ -10,8 +10,6 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            'Initbiz\CumulusCore\Components\Menu'              =>  'menu',
-            'Initbiz\CumulusCore\Components\MenuItem'          =>  'menuItem',
             'Initbiz\CumulusCore\Components\ModuleGuard'       =>  'moduleGuard',
             'Initbiz\CumulusCore\Components\CumulusGuard'      =>  'cumulusGuard',
             'Initbiz\CumulusCore\Components\UserClustersList'  =>  'clustersList',

@@ -248,18 +248,6 @@ Event::listen('backend.form.extendFields', function ($widget) {
                 'field' => 'type',
                 'condition' => 'value[cumulus-page]'
             ]
-        ],
-        'viewBag[clusterSlug]' => [
-            'tab' => 'initbiz.cumuluscore::lang.menuitem.cumulus_tab_label',
-            'label' => 'initbiz.cumuluscore::lang.menuitem.cluster_slug',
-            'comment' => 'initbiz.cumuluscore::lang.menuiem.cluster_slug_comment',
-            'default' => 'cluster',
-            'type' => 'text',
-            'trigger' => [
-                'action' => 'show',
-                'field' => 'type',
-                'condition' => 'value[cumulus-page]'
-            ]
-        ],
+        ]
     ]);
 });
