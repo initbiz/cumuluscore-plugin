@@ -5,7 +5,7 @@ use Initbiz\CumulusCore\Classes\Helpers;
 
 class Plugin extends PluginBase
 {
-    public $require = ['RainLab.User', 'RainLab.Notify', 'RainLab.Location', 'RainLab.UserPlus'];
+    public $require = ['RainLab.User', 'RainLab.Notify', 'RainLab.Location', 'RainLab.UserPlus', 'RainLab.Pages'];
 
     public function registerComponents()
     {
