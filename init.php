@@ -209,10 +209,11 @@ Event::listen('pages.menuitem.resolveItem', function ($type, $item, $url, $theme
 });
 
 Event::listen('pages.menu.referencesGenerated', function (&$items) {
-    $iterator = function($menuItems) use (&$iterator) {
+    $clusterRepository = new ClusterRepository;
+    $iterator = function($menuItems) use (&$iterator, $clusterRepository) {
+        $result = [];
         foreach ($menuItems as $item) {
-            $clusterRepository = new ClusterRepository;
-            if ($item->viewBag['cumulusModule'] !== "none") {
+            if (isset($item->viewBag['cumulusModule']) && $item->viewBag['cumulusModule'] !== "none") {
                 if (!$clusterRepository->canEnterModule(Session::get('cumulus_clusterslug'), $item->viewBag['cumulusModule'])) {
                     $item->viewBag['isHidden'] = "1";
                 }
@@ -226,6 +227,7 @@ Event::listen('pages.menu.referencesGenerated', function (&$items) {
     };
     $items = $iterator($items);
 });
+
 Event::listen('backend.form.extendFields', function ($widget) {
     if (
         !$widget->getController() instanceof \RainLab\Pages\Controllers\Index ||
@@ -234,20 +236,15 @@ Event::listen('backend.form.extendFields', function ($widget) {
         return;
     }
 
-    $modules = ['none' => Lang::get('initbiz.cumuluscore::lang.menuitem.cumulus_module_none')] + Helpers::getModulesList();
+    $modules = ['none' => Lang::get('initbiz.cumuluscore::lang.menu_item.cumulus_module_none')] + Helpers::getModulesList();
 
     $widget->addTabFields([
         'viewBag[cumulusModule]' => [
-            'tab' => 'initbiz.cumuluscore::lang.menuitem.cumulus_tab_label',
-            'label' => 'initbiz.cumuluscore::lang.menuitem.cumulus_module',
-            'comment' => 'initbiz.cumuluscore::lang.menuiem.cumulus_module_comment',
+            'tab' => 'initbiz.cumuluscore::lang.menu_item.cumulus_tab_label',
+            'label' => 'initbiz.cumuluscore::lang.menu_item.cumulus_module',
+            'comment' => 'initbiz.cumuluscore::lang.menu_item.cumulus_module_comment',
             'type' => 'dropdown',
             'options' => $modules,
-            'trigger' => [
-                'action' => 'show',
-                'field' => 'type',
-                'condition' => 'value[cumulus-page]'
-            ]
         ]
     ]);
 });
