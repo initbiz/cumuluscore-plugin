@@ -80,3 +80,5 @@
     - 'Added handling transactions on user register'
 1.3.5:
     - 'Added unique in cluster scope validation rule + minor fixes'
+1.3.6:
+    - 'Removing cookie and session cluster_slug on logout + small fix'
