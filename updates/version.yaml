@@ -78,3 +78,5 @@
     - '!!! Updated repository interface. Temporarily removed validation. Refactored cluster repository + minor fixes'
 1.3.4:
     - 'Added handling transactions on user register'
+1.3.5:
+    - 'Added unique in cluster scope validation rule + minor fixes'
