@@ -5,6 +5,8 @@ use Yaml;
 use File;
 use Lang;
 use Event;
+use Cookie;
+use Session;
 use Redirect;
 use BackendMenu;
 use RainLab\User\Models\UserGroup;
@@ -155,3 +157,8 @@ Event::listen('rainlab.user.beforeRegister', function (&$data) {
 Event::listen('rainlab.user.register', function ($user, $data) {
     Db::commit();
 }, 10);
+
+Event::listen('rainlab.user.logout', function ($user) {
+    Session::pull('cumulus_clusterslug');
+    Cookie::queue(Cookie::forget('cumulus_clusterslug'));
+}, 100);

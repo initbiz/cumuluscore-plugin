@@ -65,6 +65,10 @@ trait ClusterFiltrable
     {
         $this->prepareClusterSlug();
 
+        if (!$this->clusterSlug) {
+            return '';
+        }
+
         $rule  = 'unique:';
 
         if ($table) {
