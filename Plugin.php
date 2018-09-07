@@ -18,6 +18,32 @@ class Plugin extends PluginBase
         ];
     }
 
+    public function registerPermissions()
+    {
+        return [
+            'initbiz.cumuluscore.settings_access_auto_assign' => [
+                'tab'   => 'initbiz.cumuluscore::lang.permissions.cumulus_tab',
+                'label' => 'initbiz.cumuluscore::lang.permissions.settings_access_auto_assign'
+            ],
+            'initbiz.cumuluscore.settings_access_manage_modules' => [
+                'tab'   => 'initbiz.cumuluscore::lang.permissions.cumulus_tab',
+                'label' => 'initbiz.cumuluscore::lang.permissions.settings_access_manage_modules'
+            ],
+            'initbiz.cumuluscore.access_users' => [
+                'tab'   => 'initbiz.cumuluscore::lang.permissions.cumulus_tab',
+                'label' => 'initbiz.cumuluscore::lang.permissions.access_users'
+            ],
+            'initbiz.cumuluscore.access_clusters' => [
+                'tab'   => 'initbiz.cumuluscore::lang.permissions.cumulus_tab',
+                'label' => 'initbiz.cumuluscore::lang.permissions.access_clusters'
+            ],
+            'initbiz.cumuluscore.access_plans' => [
+                'tab'   => 'initbiz.cumuluscore::lang.permissions.cumulus_tab',
+                'label' => 'initbiz.cumuluscore::lang.permissions.access_plans'
+            ],
+        ];
+    }
+
     public function registerSettings()
     {
         return [
@@ -27,7 +53,7 @@ class Plugin extends PluginBase
                 'category'       => 'initbiz.cumuluscore::lang.settings.menu_category',
                 'icon' => 'icon-sitemap',
                 'class' => 'Initbiz\CumulusCore\Models\Settings',
-                'permissions' => [],
+                'permissions' => ['initbiz.cumuluscore.settings_access_auto_assign'],
                 'order' => 100
             ],
             'modules' => [
@@ -36,7 +62,7 @@ class Plugin extends PluginBase
                 'category'       => 'initbiz.cumuluscore::lang.settings.menu_category',
                 'icon' => 'icon-cubes',
                 'url' => \Backend::url('initbiz/cumuluscore/modules'),
-                'permissions' => [],
+                'permissions' => ['initbiz.cumuluscore.settings_access_manage_modules'],
                 'order' => 100
             ]
         ];

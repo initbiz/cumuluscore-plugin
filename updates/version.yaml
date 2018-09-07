@@ -84,3 +84,7 @@
     - 'Removing cookie and session cluster_slug on logout + small fix'
 1.3.7:
     - 'Fixed extending RainLab.User backend menu by other plugins'
+1.3.8:
+    - 'Added empty cluster dashboard for better permissions managing'
+1.3.9:
+    - 'Added backend permissions to restrict access to controllers and settings.'

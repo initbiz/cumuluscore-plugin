@@ -45,6 +45,18 @@
         'modules_list_name' => 'Name',
         'modules_list_description' => 'Description',
     ],
+    'permissions' => [
+        'cumulus_tab' => 'Cumulus',
+        'settings_access_auto_assign' => 'Manage auto assigning settings',
+        'settings_access_manage_modules' => 'Manage modules settings',
+        'access_users' => 'Manage users',
+        'access_clusters' => 'Manage clusters',
+        'access_plans' => 'Manage plans',
+    ],
+    'backend_dashboard' => [
+        'welcome' => 'Welcome',
+        'welcome_message' => 'You will be able to see some useful statistics about your Cumulus system here soon. <br> Right now the feature is under construction.',
+    ],
     'cluster_dashboard' => [
         'name' => 'Cluster dashboard',
         'description' => 'Show cluster dashboard',

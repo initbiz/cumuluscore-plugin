@@ -9,9 +9,14 @@ class Clusters extends Controller
         'Backend\Behaviors\ListController',
         'Backend\Behaviors\FormController'
     ];
-    
+
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
+
+    /**
+     * @var array Permissions required to view this page.
+     */
+    public $requiredPermissions = ['initbiz.cumuluscore.access_clusters'];
 
     /**
      * @var string HTML body tag class

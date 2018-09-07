@@ -11,6 +11,11 @@ class Plans extends Controller
         'Backend\Behaviors\ReorderController'
     ];
 
+    /**
+     * @var array Permissions required to view this page.
+     */
+    public $requiredPermissions = ['initbiz.cumuluscore.access_plans'];
+
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
     public $reorderConfig = 'config_reorder.yaml';

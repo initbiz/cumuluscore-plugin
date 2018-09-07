@@ -7,19 +7,27 @@ plugin:
 navigation:
     cumulus-main-menu:
         label: 'initbiz.cumuluscore::lang.navigation.main'
-        url: initbiz/cumuluscore/users
+        url: initbiz/cumuluscore/dashboard
         icon: icon-soundcloud
+        permissions:
+            0: 'initbiz.cumuluscore.access*'
         order: '700'
         sideMenu:
             cumulus-side-menu-users:
                 label: 'initbiz.cumuluscore::lang.navigation.users'
                 url: initbiz/cumuluscore/users
                 icon: icon-users
+                permissions:
+                    0: 'initbiz.cumuluscore.access_users'
             cumulus-side-menu-clusters:
                 label: 'initbiz.cumuluscore::lang.navigation.clusters'
                 url: initbiz/cumuluscore/clusters
                 icon: icon-yelp
+                permissions:
+                    0: 'initbiz.cumuluscore.access_clusters'
             cumulus-side-menu-plan:
                 label: 'initbiz.cumuluscore::lang.navigation.plans'
                 url: initbiz/cumuluscore/plans
                 icon: icon-codepen
+                permissions:
+                    0: 'initbiz.cumuluscore.access_plans'
