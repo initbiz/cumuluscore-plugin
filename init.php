@@ -55,14 +55,6 @@ Event::listen('backend.list.extendColumns', function ($widget) {
     }
 });
 
-Event::listen('backend.menu.extendItems', function ($manager) {
-    if ($manager->getContext()->owner === "RainLab.User"
-        && $manager->getContext()->mainMenuCode === "user") {
-        BackendMenu::setContext('Initbiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-users');
-    }
-    $manager->removeMainMenuItem('RainLab.User', 'user');
-});
-
 Event::listen('rainlab.user.register', function ($user, $data) {
     if (!CumulusSettings::get('enable_auto_assign_user')) {
         return true;

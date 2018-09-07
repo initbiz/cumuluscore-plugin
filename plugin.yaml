@@ -7,13 +7,13 @@ plugin:
 navigation:
     cumulus-main-menu:
         label: 'initbiz.cumuluscore::lang.navigation.main'
-        url: rainlab/user/users
+        url: initbiz/cumuluscore/users
         icon: icon-soundcloud
         order: '700'
         sideMenu:
             cumulus-side-menu-users:
                 label: 'initbiz.cumuluscore::lang.navigation.users'
-                url: rainlab/user/users
+                url: initbiz/cumuluscore/users
                 icon: icon-users
             cumulus-side-menu-clusters:
                 label: 'initbiz.cumuluscore::lang.navigation.clusters'

@@ -1,0 +1,25 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: rainlab.user::lang.user.label
+
+# Model Form Field configuration
+form: $/rainlab/user/models/user/fields.yaml
+
+# Model Class name
+modelClass: RainLab\User\Models\User
+
+# Default redirect location
+defaultRedirect: initbiz/cumuluscore/users
+
+# Create page
+create:
+    redirect: initbiz/cumuluscore/users/preview/:id
+    redirectClose: initbiz/cumuluscore/users
+
+# Update page
+update:
+    redirect: initbiz/cumuluscore/users/update/:id
+    redirectClose: initbiz/cumuluscore/users/preview/:id
