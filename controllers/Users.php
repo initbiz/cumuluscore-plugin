@@ -14,6 +14,10 @@ class Users extends RainLabUsers
     {
         parent::__construct();
 
+        $this->addViewPath($this->guessViewPathFrom(RainLabUsers::class));
+
+        $this->viewPath = array_reverse($this->viewPath);
+        
         BackendMenu::setContext('Initbiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-users');
     }
 }

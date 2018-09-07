@@ -9,6 +9,10 @@ class UserGroups extends RainLabUserGroups
     {
         parent::__construct();
 
+        $this->addViewPath($this->guessViewPathFrom(RainLabUserGroups::class));
+
+        $this->viewPath = array_reverse($this->viewPath);
+
         BackendMenu::setContext('Initbiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-users');
     }
 }
