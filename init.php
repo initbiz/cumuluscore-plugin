@@ -28,8 +28,8 @@ UserModel::extend(function ($model) {
         Cluster::class,
         'table' => 'initbiz_cumuluscore_cluster_user',
         'order' => 'full_name',
-        'key'      => 'cluster_id',
-        'otherKey' => 'user_id'
+        'key'      => 'user_id',
+        'otherKey' => 'cluster_id'
     ];
 });
 

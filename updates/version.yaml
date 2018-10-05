@@ -92,3 +92,6 @@
     - 'Cleaned registering and extending views'
 1.3.11:
     - 'View fixes, translations and plan filter in cluster list'
+1.3.12:
+    - 'User-cluster relation fixed'
+    - update_initbiz_cumuluscore_cluster_user_table.php
