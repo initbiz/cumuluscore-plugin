@@ -164,6 +164,18 @@ class ClusterRepository implements ClusterInterface
         }
         return $slugs;
     }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function checkIfUserAlreadyExistsInClusterPivot(int $userId, string $clusterSlug)
+    {
+        $clusterUsersIds = self::getClustersUsers([$clusterSlug])->pluck(['id'])->toArray();
+        if (in_array($userId, $clusterUsersIds)) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * {@inheritdoc}
@@ -171,12 +183,14 @@ class ClusterRepository implements ClusterInterface
     public function addUserToCluster(int $userId, string $clusterSlug)
     {
         $this->refreshCurrentCluster($clusterSlug);
-        if ($this->currentCluster) {
-            $user = $this->userRepository->find($userId);
+        if (self::checkIfUserAlreadyExistsInClusterPivot($userId, $clusterSlug) == false) {
+            if ($this->currentCluster) {
+                $user = $this->userRepository->find($userId);
 
-            Event::fire('initbiz.cumuluscore.addUserToCluster', [$user, $this->currentCluster]);
+                Event::fire('initbiz.cumuluscore.addUserToCluster', [$user, $this->currentCluster]);
 
-            $user->clusters()->add($this->currentCluster);
+                $user->clusters()->add($this->currentCluster);
+            }
         }
     }
 
