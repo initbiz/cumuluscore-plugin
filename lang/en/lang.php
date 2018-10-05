@@ -101,6 +101,7 @@
     'cluster' => [
         'delete_confirm' => 'Are you sure you want to delete this cluster?',
         'thoroughfare' => 'Thoroughfare',
+        'name' => 'Full name',
         'plan' => 'Plan',
         'slug' => 'Slug',
         'logo' => 'Logo',
@@ -115,11 +116,13 @@
         'additional_details' => 'Additional details',
         'accounting_details_tab' => 'Accounting details',
         'contact_details_tab' => 'Contact details',
+        'plan_filter' => 'Select plans',
     ],
     'plan' => [
         'name' => 'Name',
         'slug' => 'Slug',
         'modules' => 'Modules',
+        'delete_confirm' => 'Are you sure you want to delete this plan?',
         'modules_comment' => 'You can find more info about modules in Settings->Cumulus->Modules',
     ],
 ];

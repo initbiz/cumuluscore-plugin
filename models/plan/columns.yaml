@@ -1,6 +1,6 @@
 columns:
     name:
-        label: Name
+        label: 'initbiz.cumuluscore::lang.plan.name'
         type: text
         searchable: true
         sortable: true

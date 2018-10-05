@@ -29,7 +29,7 @@ interface RepositoryInterface
      * @param         $id of record to update
      * @param  string $attribute attribute to look for record
      */
-    public function update(array $data, $id, $attribute="id");
+    public function update(array $data, $id, $attribute);
 
     /**
      * Delete record

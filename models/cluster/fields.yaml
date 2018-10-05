@@ -1,13 +1,11 @@
 fields:
     full_name:
         label: 'Full name'
-        oc.commentPosition: ''
         span: auto
         required: 1
         type: text
     slug:
         label: 'initbiz.cumuluscore::lang.cluster.slug'
-        oc.commentPosition: ''
         span: auto
         required: 1
         preset:
@@ -17,44 +15,37 @@ fields:
     description:
         label: 'initbiz.cumuluscore::lang.cluster.description'
         size: ''
-        oc.commentPosition: ''
         span: full
         type: richeditor
 tabs:
     fields:
         email:
             label: 'initbiz.cumuluscore::lang.cluster.email'
-            oc.commentPosition: ''
             span: auto
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
         phone:
             label: 'initbiz.cumuluscore::lang.cluster.phone'
-            oc.commentPosition: ''
             span: auto
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
         thoroughfare:
             label: 'initbiz.cumuluscore::lang.cluster.thoroughfare'
-            oc.commentPosition: ''
             span: full
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
         postal_code:
             label: 'initbiz.cumuluscore::lang.cluster.postal_code'
-            oc.commentPosition: ''
             span: auto
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
         city:
             label: 'initbiz.cumuluscore::lang.cluster.city'
-            oc.commentPosition: ''
             span: auto
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
         country:
             label: 'initbiz.cumuluscore::lang.cluster.country'
-            oc.commentPosition: ''
             nameFrom: name
             descriptionFrom: description
             emptyOption: none
@@ -63,13 +54,11 @@ tabs:
             tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
         account_number:
             label: 'initbiz.cumuluscore::lang.cluster.account_number'
-            oc.commentPosition: ''
             span: full
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.accounting_details_tab'
         tax_number:
             label: 'initbiz.cumuluscore::lang.cluster.tax_number'
-            oc.commentPosition: ''
             span: auto
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.accounting_details_tab'
@@ -77,7 +66,6 @@ secondaryTabs:
     fields:
         logo:
             label: 'initbiz.cumuluscore::lang.cluster.logo'
-            oc.commentPosition: ''
             mode: image
             imageWidth: '260'
             imageHeight: '360'
@@ -87,13 +75,10 @@ secondaryTabs:
                 extension: auto
             span: full
             type: fileupload
-            tab: Mics
         plan:
             label: 'initbiz.cumuluscore::lang.cluster.plan'
-            oc.commentPosition: ''
             nameFrom: name
             descriptionFrom: description
             emptyOption: none
             span: full
             type: relation
-            tab: Mics

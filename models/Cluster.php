@@ -148,4 +148,11 @@ class Cluster extends Model
 
         return $result;
     }
+    
+    public function scopeApplyPlanFilter($query, $filtered)
+    {
+        return $query->whereHas('plan', function ($q) use ($filtered) {
+            $q->whereIn('plan_id', $filtered);
+        });
+    }
 }

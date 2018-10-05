@@ -50,7 +50,7 @@ class ClusterRepository implements ClusterInterface
     /**
      * {@inheritdoc}
      */
-    public function update(array $data, $id, $attribute="id")
+    public function update(array $data, $id, $attribute="cluster_id")
     {
         return $this->clusterModel->where($attribute, '=', $id)->update($data);
     }

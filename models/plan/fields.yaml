@@ -10,10 +10,11 @@ fields:
         preset:
             field: name
             type: slug
-    modules:
-        label: 'initbiz.cumuluscore::lang.plan.modules'
-        commentAbove: 'initbiz.cumuluscore::lang.plan.modules_comment'
-        nameFrom: name
-        descriptionFrom: description
-        span: left
-        type: relation
+secondaryTabs:
+    fields:
+        modules:
+            label: 'initbiz.cumuluscore::lang.plan.modules'
+            commentAbove: 'initbiz.cumuluscore::lang.plan.modules_comment'
+            nameFrom: name
+            descriptionFrom: description
+            type: relation

@@ -1,0 +1,6 @@
+scopes:
+    plan:
+        label: "initbiz.cumuluscore::lang.cluster.plan_filter"
+        scope: applyPlanFilter
+        modelClass: Initbiz\CumulusCore\Models\Plan
+        nameFrom: name

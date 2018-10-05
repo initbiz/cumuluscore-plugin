@@ -19,6 +19,11 @@ class Plans extends Controller
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
     public $reorderConfig = 'config_reorder.yaml';
+    
+    /**
+     * @var string HTML body tag class
+     */
+    public $bodyClass = 'compact-container';
 
     public function __construct()
     {

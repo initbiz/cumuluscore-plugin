@@ -1,11 +1,15 @@
 columns:
     full_name:
-        label: 'Full name'
-        type: text
+        label: 'initbiz.cumuluscore::lang.cluster.name'
         searchable: true
         sortable: true
     slug:
-        label: Slug
-        type: text
+        label: 'initbiz.cumuluscore::lang.cluster.slug'
         searchable: true
         sortable: true
+    plan:
+        label: 'initbiz.cumuluscore::lang.cluster.plan'
+        searchable: true
+        sortable: false
+        relation: plan
+        valueFrom: name

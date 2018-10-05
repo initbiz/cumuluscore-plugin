@@ -29,7 +29,7 @@ class PlanRepository implements PlanInterface
         return $this->planModel->create($data);
     }
 
-    public function update(array $data, $id, $attribute="id")
+    public function update(array $data, $id, $attribute="plan_id")
     {
         return $this->planModel->where($attribute, '=', $id)->update($data);
     }
