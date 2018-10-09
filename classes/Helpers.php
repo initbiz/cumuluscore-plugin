@@ -28,4 +28,9 @@ class Helpers
     {
         return Cluster::where('slug', $slug)->first()->cluster_id;
     }
+
+    public static function getFileListToDropdown()
+    {
+        return CmsPage::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
+    }
 }
