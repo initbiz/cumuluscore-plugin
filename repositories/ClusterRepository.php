@@ -164,7 +164,7 @@ class ClusterRepository implements ClusterInterface
         }
         return $slugs;
     }
-
+    
     /**
      * {@inheritdoc}
      */
@@ -176,7 +176,7 @@ class ClusterRepository implements ClusterInterface
 
             Event::fire('initbiz.cumuluscore.addUserToCluster', [$user, $this->currentCluster]);
 
-            $user->clusters()->add($this->currentCluster);
+            $user->clusters()->syncWithoutDetaching($this->currentCluster);
         }
     }
 
