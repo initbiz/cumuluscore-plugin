@@ -1,7 +1,10 @@
 <div data-control="toolbar">
-    <a
-        href="<?= Backend::url('initbiz/cumuluscore/modules/create') ?>"
-        class="btn btn-primary oc-icon-plus">
-        New Module
-    </a>
+    <button
+        type="submit"
+        class="btn btn-primary"
+        data-request="onScanPurgeFeatures"
+        data-load-indicator="<?= e(trans('initbiz.cumuluscore::lang.features.scan_purge_loading')) ?>"
+        id="scanPurgeButton">
+        <?= e(trans('initbiz.cumuluscore::lang.features.scan_purge_button')) ?>
+    </button>
 </div>

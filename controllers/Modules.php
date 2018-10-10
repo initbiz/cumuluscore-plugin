@@ -1,7 +1,8 @@
 <?php namespace Initbiz\CumulusCore\Controllers;
 
-use Backend\Classes\Controller;
 use BackendMenu;
+use Backend\Classes\Controller;
+use Initbiz\CumulusCore\Classes\FeatureManager;
 use System\Classes\SettingsManager;
 
 /**
@@ -20,5 +21,11 @@ class Modules extends Controller
         parent::__construct();
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('Initbiz.CumulusCore', 'modules');
+    }
+
+    public function onScanPurgeFeatures()
+    {
+        $featureManager = FeatureManager::instance();
+        $featureManager->getFeatures();
     }
 }
