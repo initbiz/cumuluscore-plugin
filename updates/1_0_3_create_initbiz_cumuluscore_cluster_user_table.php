@@ -3,7 +3,7 @@
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
-class BuilderTableCreateInitbizCumuluscoreClusterUser extends Migration
+class CreateInitbizCumuluscoreClusterUserTable extends Migration
 {
     public function up()
     {

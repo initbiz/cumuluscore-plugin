@@ -13,9 +13,10 @@ class Module extends Model
      * Validation
      */
     public $rules = [
+        'code' => 'unique:initbiz_cumuluscore_features'
     ];
 
-    public $fillable = ['module_id', 'name', 'slug'];
+    public $fillable = ['code', 'name'];
 
     /*
      * Disable timestamps by default.
@@ -26,15 +27,13 @@ class Module extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'initbiz_cumuluscore_modules';
-    public $primaryKey = 'module_id';
+    public $table = 'initbiz_cumuluscore_features';
 
     public $belongsToMany = [
         'plans' => [
             Plan::class,
-            'table' => 'initbiz_cumuluscore_plan_module',
+            'table' => 'initbiz_cumuluscore_plan_feature',
             'key'      => 'plan_id',
-            'otherKey' => 'module_id'
         ]
     ];
 }

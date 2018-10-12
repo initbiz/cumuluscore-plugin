@@ -2,9 +2,6 @@
 
 use Model;
 
-/**
- * Model
- */
 class Plan extends Model
 {
     use \October\Rain\Database\Traits\Validation;
@@ -33,11 +30,11 @@ class Plan extends Model
     public $table = 'initbiz_cumuluscore_plans';
 
     public $belongsToMany = [
-        'modules' => [
-            Module::class,
-            'table' => 'initbiz_cumuluscore_plan_module',
+        'features' => [
+            Feature::class,
+            'table' => 'initbiz_cumuluscore_plan_features',
             'key'      => 'plan_id',
-            'otherKey' => 'module_id'
+            'otherKey' => 'feature_id'
         ]
     ];
     public $hasMany = [

@@ -2,19 +2,19 @@
     - 'Initialize plugin.'
 1.0.2:
     - 'Created table initbiz_cumuluscore_clusters'
-    - builder_table_create_initbiz_cumuluscore_clusters.php
+    - 1_0_2_create_initbiz_cumuluscore_clusters_table.php
 1.0.3:
     - 'Created table initbiz_cumuluscore_cluster_user'
-    - builder_table_create_initbiz_cumuluscore_cluster_user.php
+    - 1_0_3_create_initbiz_cumuluscore_cluster_user_table.php
 1.0.4:
     - 'Created table initbiz_cumuluscore_modules'
-    - builder_table_create_initbiz_cumuluscore_modules.php
+    - 1_0_4_create_initbiz_cumuluscore_modules_table.php
 1.0.5:
     - 'Created table initbiz_cumuluscore_plans'
-    - builder_table_create_initbiz_cumuluscore_plans.php
+    - 1_0_5_create_initbiz_cumuluscore_plans_table.php
 1.0.6:
     - 'Created table initbiz_cumuluscore_plan_module'
-    - builder_table_create_initbiz_cumuluscore_plan_module.php
+    - 1_0_6_create_initbiz_cumuluscore_plan_module_table.php
 1.0.7:
     - 'After clean up, Cumulus is ready to be published on Marketplace'
 1.0.8:
@@ -23,16 +23,16 @@
     - 'Added dynamic method onRedirectMe for building login pages'
 1.1.0:
     - 'Added unique at slug in Modules table'
-    - update_table_initbiz_cumuluscore_modules.php
+    - 1_1_0_update_initbiz_cumuluscore_modules_table.php
 1.1.1:
     - 'Managing automatically adding users and clusters from settings view + cleanup and small fixes'
 1.1.2:
     - 'Fixed auto assigning with tests'
 1.1.3:
     - 'Changed texts to strings, extended cluster table '
-    - builder_table_update_initbiz_cumuluscore_clusters.php
-    - builder_table_update_initbiz_cumuluscore_plans.php
-    - builder_table_update_initbiz_cumuluscore_clusters_2.php
+    - 1_1_3_update_initbiz_cumuluscore_clusters_table.php
+    - 1_1_3_update_initbiz_cumuluscore_plans_table.php
+    - 1_1_3_update_initbiz_cumuluscore_clusters_table_2.php
 1.1.4:
     - 'Moved Cluster slug property from all components to CumulusComponentProperties trait'
 1.1.5:
@@ -57,7 +57,7 @@
     - 'Added ClusterFiltrable trait for models to easy filter their data using cluster_slug property'
 1.1.15:
     - 'Updated table initbiz_cumuluscore_modules -> added nullable description column'
-    - builder_table_update_initbiz_cumuluscore_modules.php
+    - 1_1_15_update_initbiz_cumuluscore_modules_table.php
 1.1.16:
     - 'Cleanup modules creating and listing them in settings'
 1.1.17:
@@ -94,6 +94,12 @@
     - 'View fixes, translations and plan filter in cluster list'
 1.3.12:
     - 'User-cluster relation fixed'
-    - update_initbiz_cumuluscore_cluster_user_table.php
+    - 1_3_12_update_initbiz_cumuluscore_cluster_user_table.php
 1.3.13:
     - 'Added helper getFileListToDropdown'
+2.0.0:
+    - '!!! Before upgrading to 2.0.0 read the upgrade guide'
+    - 2_0_0_drop_initbiz_cumuluscore_modules_table.php
+    - 2_0_0_drop_initbiz_cumuluscore_plan_modules_table.php
+    - 2_0_0_update_initbiz_cumuluscore_clusters_table.php
+    - 2_0_0_update_initbiz_cumuluscore_plans_table.php

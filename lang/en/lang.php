@@ -15,8 +15,8 @@
     'settings' => [
         'users' => 'Users',
         'menu_category' => 'Cumulus',
-        'menu_modules_label' => 'Modules',
-        'menu_modules_description' => 'List Cumulus modules',
+        'menu_feature_label' => 'Features',
+        'menu_feature_description' => 'List Cumulus features',
         'menu_auto_assign_label' => 'Auto assign',
         'menu_auto_assign_description' => 'Auto assigning users and clusters',
         'tab_auto_assign_user' => 'Auto assign users',

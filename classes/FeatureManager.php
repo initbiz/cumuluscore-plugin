@@ -19,7 +19,11 @@ class FeatureManager extends Singleton
         $this->pluginManager = PluginManager::instance();
     }
 
-    public function getFeatures()
+    /**
+     * Get features without looking for them in cache
+     * @return array cumulus features array
+     */
+    public function getCleanFeatures()
     {
         $plugins = $this->pluginManager->getPlugins();
 
@@ -32,19 +36,21 @@ class FeatureManager extends Singleton
                 if (!is_array($features = $plugin->registerCumulusFeatures())) {
                     continue;
                 }
-                //get nice plugin code slug, like Initbiz.CumulusCore
-                $class = get_class($plugin);
-                $pluginCode = explode('\\', $class);
-                array_pop($pluginCode);
-                $pluginCode = implode('.', $pluginCode);
-                $cumulusFeatures[$pluginCode] = $features;
+                $cumulusFeatures[] = $features;
             }
         }
 
+        //TODO: add cache support
         return $cumulusFeatures;
     }
 
-    public function scanFeatures()
+    public function refreshFeatures()
     {
+        //TODO: clear cache and
+    }
+
+    public function getFeatures()
+    {
+        //TODO: If in cache, return, if not get fresh
     }
 }
