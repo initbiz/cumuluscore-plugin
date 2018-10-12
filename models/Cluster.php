@@ -81,7 +81,6 @@ class Cluster extends Model
         'plan' => [
             Plan::class,
             'table' => 'initbiz_cumuluscore_plans',
-            'otherKey' => 'plan_id'
         ],
         'country' => [
             Country::class,

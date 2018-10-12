@@ -138,27 +138,17 @@ class ClusterRepository implements ClusterInterface
     /**
      * {@inheritdoc}
      */
-    public function getClusterFeatures(string $clusterSlug)
+    public function getClusterFeatures(string $clusterSlug):array
     {
         $this->refreshCurrentCluster($clusterSlug);
 
         $clusterFeatures = $this->currentCluster->plan()->first()->features;
 
-        return $clusterFeatures;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getClusterFeaturesCodes(string $clusterSlug)
-    {
-        $clusterFeatures = $this->getClusterFeatures($clusterSlug);
-
-        $codes = [];
-        foreach ($clusterFeatures as $featureCode => $featureDef) {
-            $codes[] = $featureCode;
+        if (!isset($clusterFeatures)) {
+            $clusterFeatures = [];
         }
-        return $codes;
+
+        return $clusterFeatures;
     }
 
     /**

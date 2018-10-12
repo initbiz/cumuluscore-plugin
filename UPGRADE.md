@@ -26,7 +26,7 @@ Methods from `ClusterRepository` that concerns modules will right now use featur
 What is more module had slugs while features have codes. So every time where we were talking about module slug, right now it is feature code.
 
 ### Modify modules
-Before updating you have to ensure you register features as described in documentation for all of your modules. What is more, you have to remove the initial migration previously created by `create:module` command.
+Before updating you have to ensure you register features as described in documentation for all of your modules. What is more, you have to remove the initial migration previously created by `create:module` command (named `register_initbiz_cumulus_module.php`).
 
 ### `ModuleGuard` becomes `FeatureGuard`
 The responsibility of `ModuleGuard` component was to ensure that plan has access to specified module and return 403 (Forbidden access) if it does not. The responsibility of `FeatureGuard` is almost the same but it checks if plan has access to any of features specified in component configuration.
