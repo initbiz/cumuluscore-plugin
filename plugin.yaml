@@ -2,7 +2,7 @@ plugin:
     name: 'initbiz.cumuluscore::lang.plugin.name'
     description: 'initbiz.cumuluscore::lang.plugin.description'
     author: Initbiz
-    icon: oc-icon-soundcloud
+    icon: oc-icon-cloud
     homepage: 'http://cumulus.init.biz'
 permissions:
     initbiz.cumuluscore.settings_access_auto_assign:
@@ -24,7 +24,7 @@ navigation:
     cumulus-main-menu:
         label: 'initbiz.cumuluscore::lang.navigation.main'
         url: initbiz/cumuluscore/dashboard
-        icon: icon-soundcloud
+        icon: icon-cloud
         permissions:
             0: 'initbiz.cumuluscore.access*'
         order: '700'

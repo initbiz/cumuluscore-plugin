@@ -144,7 +144,7 @@ class ClusterRepository implements ClusterInterface
 
         $clusterFeatures = $this->currentCluster->plan()->first()->features;
 
-        if (!isset($clusterFeatures)) {
+        if (!isset($clusterFeatures) || $clusterFeatures === "0") {
             $clusterFeatures = [];
         }
 
