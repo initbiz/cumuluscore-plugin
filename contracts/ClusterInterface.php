@@ -11,26 +11,26 @@ interface ClusterInterface extends RepositoryInterface
     public function canEnterCluster(int $userId, string $clusterSlug);
 
     /**
-     * Check if cluster can enter module
+     * Check if cluster can enter feature
      * @param  string $clusterSlug Cluster's slug
-     * @param  string $moduleSlug  Module's slug
-     * @return boolean             can or cannot enter module
+     * @param  string $featureCode  Feature's slug
+     * @return boolean             can or cannot enter feature
      */
-    public function canEnterModule(string $clusterSlug, string $moduleSlug);
+    public function canEnterFeature(string $clusterSlug, string $featureCode);
 
     /**
-     * Get current cluster's modules
+     * Get current cluster's features
      * @param  string $clusterSlug Cluster slug
-     * @return array  cluster modules
+     * @return array  cluster features
      */
-    public function getClusterModules(string $clusterSlug);
+    public function getClusterFeatures(string $clusterSlug);
 
     /**
-     * Get current cluster's modules slugs
+     * Get current cluster's features codes
      * @param  string $clusterSlug Cluster slug
-     * @return array  cluster modules slugs
+     * @return array  cluster feature codes
      */
-    public function getClusterModulesSlugs(string $clusterSlug);
+    public function getClusterFeaturesCodes(string $clusterSlug);
 
     /**
      * Get users from clusters slugs array

@@ -112,16 +112,13 @@ class ClusterRepository implements ClusterInterface
     /**
      * {@inheritdoc}
      */
-    public function canEnterModule(string $clusterSlug, string $moduleSlug)
+    public function canEnterFeature(string $clusterSlug, string $featureCode)
     {
         $this->refreshCurrentCluster($clusterSlug);
-        return $this->currentCluster
-                    ->plan()
-                    ->first()
-                    ->modules()
-                    ->whereSlug($moduleSlug)
-                    ->first()
-            ? true : false;
+
+        $clusterFeatures = $this->getClusterFeatures($clusterSlug);
+
+        return array_key_exists($featureCode, $clusterFeatures) ? true : false;
     }
 
     /**
@@ -141,30 +138,29 @@ class ClusterRepository implements ClusterInterface
     /**
      * {@inheritdoc}
      */
-    public function getClusterModules(string $clusterSlug)
+    public function getClusterFeatures(string $clusterSlug)
     {
         $this->refreshCurrentCluster($clusterSlug);
-        return $this->currentCluster
-            ->plan()
-            ->first()
-            ->modules()
-            ->get();
+
+        $clusterFeatures = $this->currentCluster->plan()->first()->features;
+
+        return $clusterFeatures;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getClusterModulesSlugs(string $clusterSlug)
+    public function getClusterFeaturesCodes(string $clusterSlug)
     {
-        $currentClusterModules = $this->getClusterModules($clusterSlug);
+        $clusterFeatures = $this->getClusterFeatures($clusterSlug);
 
-        $slugs = [];
-        foreach ($currentClusterModules as $module) {
-            $slugs[] = $module->slug;
+        $codes = [];
+        foreach ($clusterFeatures as $featureCode => $featureDef) {
+            $codes[] = $featureCode;
         }
-        return $slugs;
+        return $codes;
     }
-    
+
     /**
      * {@inheritdoc}
      */

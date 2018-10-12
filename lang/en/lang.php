@@ -75,9 +75,9 @@
         'description' => 'Component that is going to be used on pages that we want to show in navigation',
         'menu_item_title' => 'Menu item title',
         'menu_item_title_desc' => 'User friendly title to be shown on button to this page',
-        'cumulus_module' => 'Module to restrict access',
-        'cumulus_module_desc' => 'Pick module to restrict user visibility using the module permissions',
-        'cumulus_module_none' => 'No special privileges',
+        'cumulus_feature' => 'Feature to restrict access',
+        'cumulus_feature_desc' => 'Pick feature to restrict user visibility using the feature permissions',
+        'cumulus_feature_none' => 'No special privileges',
     ],
     'component_properties' => [
         'cluster_slug' => 'Cluster slug',
@@ -87,11 +87,11 @@
         'name' => 'Cumulus guard',
         'description' => 'Component checking if user can enter cluster page',
     ],
-    'module_guard' => [
-        'name' => 'Module Guard',
-        'description' => 'Guard component that allows cluster enter the module',
-        'cumulus_module' => 'Cumulus Module',
-        'cumulus_module_desc' => 'Pick module to restrict user access',
+    'feature_guard' => [
+        'name' => 'Feature Guard',
+        'description' => 'Guard component that allows cluster enter the feature',
+        'cumulus_features' => 'Cumulus features',
+        'cumulus_features_desc' => 'Pick features to restrict user access',
     ],
     'user_clusters_list' => [
         'name' => 'Clusters list',

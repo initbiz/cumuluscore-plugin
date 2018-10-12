@@ -1,6 +1,0 @@
-plugin:
-    name: '{{lower_author}}.{{lower_name}}::lang.plugin.name'
-    description: '{{lower_author}}.{{lower_name}}::lang.plugin.description'
-    author: {{author}}
-    icon: oc-icon-soundcloud
-    homepage: ''

@@ -22,9 +22,9 @@ class MenuItem extends ComponentBase
                 'description' => 'initbiz.cumuluscore::lang.menu_item.menu_item_title_desc',
                 'type' => 'string'
             ],
-            'cumulusModule' => [
-                'title' => 'initbiz.cumuluscore::lang.menu_item.cumulus_module',
-                'description' => 'initbiz.cumuluscore::lang.menu_item.cumulus_module_desc',
+            'cumulusFeature' => [
+                'title' => 'initbiz.cumuluscore::lang.menu_item.cumulus_feature',
+                'description' => 'initbiz.cumuluscore::lang.menu_item.cumulus_feature_desc',
                 'type'        => 'dropdown'
             ]
         ];

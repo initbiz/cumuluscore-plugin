@@ -13,7 +13,7 @@ class Plugin extends PluginBase
         return [
             'Initbiz\CumulusCore\Components\Menu'              =>  'menu',
             'Initbiz\CumulusCore\Components\MenuItem'          =>  'menuItem',
-            'Initbiz\CumulusCore\Components\ModuleGuard'       =>  'moduleGuard',
+            'Initbiz\CumulusCore\Components\FeatureGuard'      =>  'featureGuard',
             'Initbiz\CumulusCore\Components\CumulusGuard'      =>  'cumulusGuard',
             'Initbiz\CumulusCore\Components\UserClustersList'  =>  'clustersList',
         ];
@@ -41,10 +41,5 @@ class Plugin extends PluginBase
                 'order' => 100
             ]
         ];
-    }
-
-    public function register()
-    {
-        $this->registerConsoleCommand('cumulus.createmodule', 'Initbiz\CumulusCore\Console\CreateModule');
     }
 }

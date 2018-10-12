@@ -32,13 +32,13 @@ class Menu extends ComponentBase
     public function getMenuEntries()
     {
         //TODO: Refactor spaghetti code
-        $current_cluster_modules = $this->clusterRepository->getClusterModulesSlugs($this->property('clusterSlug'));
+        $clusterFeatures = $this->clusterRepository->getClusterFeaturesCodes($this->property('clusterSlug'));
         $menuEntries= [];
         $pagesWithMenuItem = $this->getPagesWithComponent('menuItem');
         foreach ($pagesWithMenuItem as $page) {
             $component = $this->getComponentPropertiesFromPage($page, 'menuItem');
             if ($component['cumulusModule'] === "none"
-                || in_array($component['cumulusModule'], $current_cluster_modules, true)) {
+                || in_array($component['cumulusModule'], $clusterFeatures, true)) {
                 $menuEntries[$component['menuItemTitle']] = CmsPage::url($page['fileName']);
             }
         }

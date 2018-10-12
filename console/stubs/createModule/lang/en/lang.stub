@@ -1,8 +1,0 @@
-<?php
-
-return [
-    'plugin' => [
-        'name' => '{{name}}',
-        'description' => ''
-    ]
-];
