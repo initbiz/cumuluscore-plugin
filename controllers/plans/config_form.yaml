@@ -3,7 +3,7 @@ form: $/initbiz/cumuluscore/models/plan/fields.yaml
 modelClass: Initbiz\CumulusCore\Models\Plan
 defaultRedirect: initbiz/cumuluscore/plans
 create:
-    redirect: 'initbiz/cumuluscore/plans/update/:plan_id'
+    redirect: 'initbiz/cumuluscore/plans/update/:id'
     redirectClose: initbiz/cumuluscore/plans
 update:
     redirect: initbiz/cumuluscore/plans

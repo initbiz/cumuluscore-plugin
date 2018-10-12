@@ -1,18 +1,12 @@
 <?php namespace Initbiz\CumulusCore\Classes;
 
-use Cms\Classes\Page as CmsPage;
-use Cms\Classes\Theme;
-use Initbiz\CumulusCore\Models\Module;
-use Initbiz\CumulusCore\Models\Cluster;
 use Auth;
+use Cms\Classes\Theme;
+use Cms\Classes\Page as CmsPage;
+use Initbiz\CumulusCore\Models\Cluster;
 
 class Helpers
 {
-    public static function getModulesList()
-    {
-        return Module::all()->lists('name', 'slug');
-    }
-
     public static function getUser()
     {
         if (!$user = Auth::getUser()) {
@@ -26,7 +20,7 @@ class Helpers
 
     public static function clusterId($slug)
     {
-        return Cluster::where('slug', $slug)->first()->cluster_id;
+        return Cluster::where('slug', $slug)->first()->id;
     }
 
     public static function getFileListToDropdown()

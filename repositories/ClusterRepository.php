@@ -50,7 +50,7 @@ class ClusterRepository implements ClusterInterface
     /**
      * {@inheritdoc}
      */
-    public function update(array $data, $id, $attribute="cluster_id")
+    public function update(array $data, $id, $attribute="id")
     {
         return $this->clusterModel->where($attribute, '=', $id)->update($data);
     }
@@ -128,9 +128,9 @@ class ClusterRepository implements ClusterInterface
     {
         $users = '';
 
-        $clustersIds = $this->getUsingArray('slug', $clustersSlugs)->pluck('cluster_id')->toArray();
+        $clustersIds = $this->getUsingArray('slug', $clustersSlugs)->pluck('id')->toArray();
 
-        $users = $this->userRepository->getByRelationPropertiesArray('clusters', 'initbiz_cumuluscore_clusters.cluster_id', $clustersIds);
+        $users = $this->userRepository->getByRelationPropertiesArray('clusters', 'initbiz_cumuluscore_clusters.id', $clustersIds);
 
         return $users;
     }

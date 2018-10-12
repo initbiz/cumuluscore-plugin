@@ -76,7 +76,7 @@ class Cluster extends Model
      * @var string The database table used by the model.
      */
     public $table = 'initbiz_cumuluscore_clusters';
-    public $primaryKey = 'cluster_id';
+
     public $belongsTo = [
         'plan' => [
             Plan::class,
@@ -93,7 +93,6 @@ class Cluster extends Model
         'users' => [
             UserModel::class,
             'table' => 'users',
-            'key'      => 'cluster_id',
             'otherKey' => 'user_id'
         ]
     ];
@@ -148,7 +147,7 @@ class Cluster extends Model
 
         return $result;
     }
-    
+
     public function scopeApplyPlanFilter($query, $filtered)
     {
         return $query->whereHas('plan', function ($q) use ($filtered) {

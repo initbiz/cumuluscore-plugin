@@ -1,11 +1,11 @@
 <?php namespace Initbiz\CumulusCore\Components;
 
-use Cms\Classes\ComponentBase;
 use Event;
-use Initbiz\CumulusCore\Classes\Helpers;
-use Initbiz\CumulusCore\Models\Cluster;
-use Cms\Classes\Page as CmsPage;
 use Cms\Classes\Theme;
+use Cms\Classes\ComponentBase;
+use Cms\Classes\Page as CmsPage;
+use Initbiz\CumulusCore\Models\Cluster;
+use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 class Menu extends ComponentBase
@@ -37,8 +37,8 @@ class Menu extends ComponentBase
         $pagesWithMenuItem = $this->getPagesWithComponent('menuItem');
         foreach ($pagesWithMenuItem as $page) {
             $component = $this->getComponentPropertiesFromPage($page, 'menuItem');
-            if ($component['cumulusModule'] === "none"
-                || in_array($component['cumulusModule'], $clusterFeatures, true)) {
+            if ($component['cumulusFeature'] === "none"
+                || in_array($component['cumulusFeature'], $clusterFeatures, true)) {
                 $menuEntries[$component['menuItemTitle']] = CmsPage::url($page['fileName']);
             }
         }

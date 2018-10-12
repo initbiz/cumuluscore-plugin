@@ -2,7 +2,7 @@
 
 use Lang;
 use Cms\Classes\ComponentBase;
-use Initbiz\CumulusCore\Classes\Helpers;
+use Initbiz\CumulusCore\Classes\FeatureManager;
 
 class MenuItem extends ComponentBase
 {
@@ -22,17 +22,19 @@ class MenuItem extends ComponentBase
                 'description' => 'initbiz.cumuluscore::lang.menu_item.menu_item_title_desc',
                 'type' => 'string'
             ],
-            'cumulusFeature' => [
-                'title' => 'initbiz.cumuluscore::lang.menu_item.cumulus_feature',
-                'description' => 'initbiz.cumuluscore::lang.menu_item.cumulus_feature_desc',
-                'type'        => 'dropdown'
+            'cumulusFeatures' => [
+                'title' => 'initbiz.cumuluscore::lang.menu_item.cumulus_features',
+                'description' => 'initbiz.cumuluscore::lang.menu_item.cumulus_features_desc',
+                'placeholder' => '*',
+                'type'        => 'set',
+                'default'     => []
             ]
         ];
     }
 
-    public function getCumulusModuleOptions()
+    public function getCumulusFeaturesOptions()
     {
-        //TODO: get title from lang
-        return ['none' => Lang::get('initbiz.cumuluscore::lang.menu_item.cumulus_module_none')] + Helpers::getModulesList();
+        $featureManager = FeatureManager::instance();
+        return ['none' => Lang::get('initbiz.cumuluscore::lang.menu_item.cumulus_feature_none')] + $featureManager->getFeaturesOptions();
     }
 }

@@ -8,9 +8,9 @@ permissions:
     initbiz.cumuluscore.settings_access_auto_assign:
         tab: 'initbiz.cumuluscore::lang.permissions.cumulus_tab'
         label: 'initbiz.cumuluscore::lang.permissions.settings_access_auto_assign'
-    initbiz.cumuluscore.settings_access_manage_modules:
+    initbiz.cumuluscore.settings_access_manage_features:
         tab: 'initbiz.cumuluscore::lang.permissions.cumulus_tab'
-        label: 'initbiz.cumuluscore::lang.permissions.settings_access_manage_modules'
+        label: 'initbiz.cumuluscore::lang.permissions.settings_access_manage_features'
     initbiz.cumuluscore.access_users:
         tab: 'initbiz.cumuluscore::lang.permissions.cumulus_tab'
         label: 'initbiz.cumuluscore::lang.permissions.access_users'

@@ -40,12 +40,12 @@ class FeatureGuard extends ComponentBase
 
         $clusterSlug = $this->property('clusterSlug');
 
-        $featuresOnPage = $this->property('cumulusFeatures');
+        $featureCodes = $this->property('cumulusFeatures');
 
         $canEnter = false;
 
-        foreach ($featuresOnPage as $feature) {
-            if ($this->clusterRepository->canEnterFeature($clusterSlug, $feature)) {
+        foreach ($featureCodes as $featureCode) {
+            if ($this->clusterRepository->canEnterFeature($clusterSlug, $featureCode)) {
                 $canEnter = true;
                 break;
             }

@@ -8,4 +8,4 @@ toolbar:
     buttons: list_toolbar
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'initbiz/cumuluscore/plans/update/:plan_id'
+recordUrl: 'initbiz/cumuluscore/plans/update/:id'

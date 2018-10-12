@@ -3,7 +3,7 @@ modelClass: Initbiz\CumulusCore\Models\Cluster
 form: $/initbiz/cumuluscore/models/cluster/fields.yaml
 defaultRedirect: initbiz/cumuluscore/clusters
 create:
-    redirect: 'initbiz/cumuluscore/clusters/update/:cluster_id'
+    redirect: 'initbiz/cumuluscore/clusters/update/:id'
     redirectClose: initbiz/cumuluscore/clusters
 update:
     redirect: initbiz/cumuluscore/clusters

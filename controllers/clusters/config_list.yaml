@@ -1,7 +1,7 @@
 title: Clusters
 modelClass: Initbiz\CumulusCore\Models\Cluster
 list: $/initbiz/cumuluscore/models/cluster/columns.yaml
-recordUrl: 'initbiz/cumuluscore/clusters/update/:cluster_id'
+recordUrl: 'initbiz/cumuluscore/clusters/update/:id'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true
