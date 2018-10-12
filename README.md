@@ -60,8 +60,8 @@ For example:
         return [
            'initbiz.cumulusinvoices.manage_invoices' => [
                'label' => 'initbiz.cumulusinvoices::lang.feature.manage_invoices',
-               'tab' => 'initbiz.cumulusinvoices::lang.feature.manage_invoices',
-               'order' => '200',
+               'description' => 'initbiz.cumulusinvoices::lang.feature.manage_invoices_desc',
+               'tab' => 'initbiz.cumulusinvoices::lang.feature.invoices_tab',
            ]
         ];
     }

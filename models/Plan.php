@@ -1,6 +1,7 @@
 <?php namespace Initbiz\CumulusCore\Models;
 
 use Model;
+use Initbiz\CumulusCore\Classes\FeatureManager;
 
 class Plan extends Model
 {
@@ -16,31 +17,30 @@ class Plan extends Model
     /*
      * Validation
      */
-    public $rules = [ ];
+    public $rules = [];
 
-    public $fillable = ['plan_id', 'name', 'slug'];
-
-    public $primaryKey = 'plan_id';
+    public $fillable = ['name', 'slug', 'features'];
 
     protected $slugs = ['slug' => 'name'];
+
+    protected $jsonable = ['features'];
 
     /**
      * @var string The database table used by the model.
      */
     public $table = 'initbiz_cumuluscore_plans';
 
-    public $belongsToMany = [
-        'features' => [
-            Feature::class,
-            'table' => 'initbiz_cumuluscore_plan_features',
-            'key'      => 'plan_id',
-            'otherKey' => 'feature_id'
-        ]
-    ];
     public $hasMany = [
         'clusters' => [
             Cluster::class,
-            'key' => 'plan_id'
+            // 'key' => 'plan_id'
         ]
     ];
+
+    public function getFeaturesOptions()
+    {
+        $featureManager = FeatureManager::instance();
+        $featuresOptions = $featureManager->getFeaturesOptions();
+        return $featuresOptions;
+    }
 }

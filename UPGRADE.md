@@ -29,3 +29,5 @@ The responsibility of `ModuleGuard` component was to ensure that plan has access
 
 ### Command `create:module` removed
 As a consequence the command `create:module` is removed. If you want to create something similar then create typical OctoberCMS plugin using `create:plugin` command and by adding `registerCumulusFeatures` method (details below).
+
+## `Settings` model becomes `AutoAssign`

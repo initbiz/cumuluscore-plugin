@@ -1,0 +1,34 @@
+<table class="table data">
+    <thead>
+        <tr>
+            <th>
+                <a href="javascript:;">
+                    <?= e(trans('initbiz.cumuluscore::lang.settings.features_list_code')) ?>
+                </a>
+            </th>
+            <th>
+                <a href="javascript:;">
+                    <?= e(trans('initbiz.cumuluscore::lang.settings.features_list_name')) ?>
+                </a>
+            </th>
+            <th>
+                <a href="javascript:;">
+                    <?= e(trans('initbiz.cumuluscore::lang.settings.features_list_description')) ?>
+                </a>
+            </th>
+        </tr>
+    </thead>
+    <?php foreach ($features as $featureCode => $featureDef): ?>
+        <tr>
+            <td>
+                <?= e($featureCode); ?>
+            </td>
+            <td>
+                <?= e(trans($featureDef['name'])) ?>
+            </td>
+            <td>
+                <?= e(trans($featureDef['description'])) ?>
+            </td>
+        </tr>
+    <?php endforeach ?>
+</table>

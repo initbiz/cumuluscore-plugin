@@ -1,5 +1,6 @@
 <?php namespace Initbiz\CumulusCore;
 
+use Backend;
 use System\Classes\PluginBase;
 use Initbiz\CumulusCore\Classes\Helpers;
 
@@ -26,17 +27,17 @@ class Plugin extends PluginBase
                 'description'       => 'initbiz.cumuluscore::lang.settings.menu_auto_assign_description',
                 'category'       => 'initbiz.cumuluscore::lang.settings.menu_category',
                 'icon' => 'icon-sitemap',
-                'class' => 'Initbiz\CumulusCore\Models\Settings',
+                'class' => 'Initbiz\CumulusCore\Models\AutoAssign',
                 'permissions' => ['initbiz.cumuluscore.settings_access_auto_assign'],
                 'order' => 100
             ],
-            'modules' => [
-                'label'       => 'initbiz.cumuluscore::lang.settings.menu_modules_label',
-                'description'       => 'initbiz.cumuluscore::lang.settings.menu_modules_description',
+            'features' => [
+                'label'       => 'initbiz.cumuluscore::lang.settings.menu_features_label',
+                'description'       => 'initbiz.cumuluscore::lang.settings.menu_features_description',
                 'category'       => 'initbiz.cumuluscore::lang.settings.menu_category',
                 'icon' => 'icon-cubes',
-                'url' => \Backend::url('initbiz/cumuluscore/modules'),
-                'permissions' => ['initbiz.cumuluscore.settings_access_manage_modules'],
+                'url'         => Backend::url('initbiz/cumuluscore/features'),
+                'permissions' => ['initbiz.cumuluscore.settings_access_manage_features'],
                 'order' => 100
             ]
         ];

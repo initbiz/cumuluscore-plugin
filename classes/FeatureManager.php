@@ -1,5 +1,7 @@
 <?php namespace Initbiz\CumulusCore\Classes;
 
+use Lang;
+use Cache;
 use Event;
 use System\Classes\PluginManager;
 use October\Rain\Support\Singleton;
@@ -20,10 +22,40 @@ class FeatureManager extends Singleton
     }
 
     /**
-     * Get features without looking for them in cache
+     * Get features
      * @return array cumulus features array
      */
-    public function getCleanFeatures()
+    public function getFeatures()
+    {
+        if (Cache::has('cumulusFeatures')) {
+            $features = Cache::get('cumulusFeatures');
+            return $features;
+        }
+
+        $features = $this->scanFeatures();
+
+        Cache::forever('cumulusFeatures', $features);
+
+        return $features;
+    }
+
+    public function getFeaturesOptions()
+    {
+        $features = $this->getFeatures();
+        $featureOptions = [];
+        foreach ($features as $featureCode => $featureDef) {
+            $name = $featureDef['name'] ?? $featureCode;
+            $description = $featureDef['description'] ?? "";
+
+            $featureOptions[$featureCode] = [
+                Lang::get($name),
+                Lang::get($description)
+            ];
+        }
+        return $featureOptions;
+    }
+
+    public function scanFeatures()
     {
         $plugins = $this->pluginManager->getPlugins();
 
@@ -36,21 +68,17 @@ class FeatureManager extends Singleton
                 if (!is_array($features = $plugin->registerCumulusFeatures())) {
                     continue;
                 }
-                $cumulusFeatures[] = $features;
+                $cumulusFeatures = array_merge($cumulusFeatures, $features);
             }
         }
 
-        //TODO: add cache support
         return $cumulusFeatures;
     }
 
-    public function refreshFeatures()
+    public function clearCache()
     {
-        //TODO: clear cache and
-    }
-
-    public function getFeatures()
-    {
-        //TODO: If in cache, return, if not get fresh
+        Cache::forget('cumulusFeatures');
+        $features = $this->getFeatures();
+        Cache::forever('cumulusFeatures', $features);
     }
 }

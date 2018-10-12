@@ -12,9 +12,8 @@ fields:
             type: slug
 secondaryTabs:
     fields:
-        modules:
-            label: 'initbiz.cumuluscore::lang.plan.modules'
-            commentAbove: 'initbiz.cumuluscore::lang.plan.modules_comment'
+        features:
+            label: 'initbiz.cumuluscore::lang.plan.features'
             nameFrom: name
             descriptionFrom: description
-            type: relation
+            type: checkboxlist
