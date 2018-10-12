@@ -9,6 +9,7 @@ class UpdateInitbizCumuluscorePlansTable extends Migration
     {
         Schema::table('initbiz_cumuluscore_plans', function ($table) {
             $table->renameColumn('plan_id', 'id');
+            $table->text('features')->nullable();
         });
     }
 
@@ -16,6 +17,7 @@ class UpdateInitbizCumuluscorePlansTable extends Migration
     {
         Schema::table('initbiz_cumuluscore_plans', function ($table) {
             $table->renameColumn('id', 'plan_id');
+            $table->dropColumn('features');
         });
     }
 }
