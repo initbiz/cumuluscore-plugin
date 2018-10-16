@@ -16,10 +16,15 @@ Typical use cases where Cumulus may help:
 ## Documentation
 
 ## TL;DR
-Install official [Cumulus theme](https://octobercms.com/theme/initbiz-cumulus) and you are ready to go :)
+If you just want to see what Cumulus can do for you, great place to start will be:
+1. installing official [Cumulus theme](https://octobercms.com/theme/initbiz-cumulus)
+1. running `php artisan cumulus:seed` command (see [Cumulus Demo]() documentation for info about the command)
+
+After that you are ready to play with Cumulus based app with demo data seeded :)
+
+If you want to play with your own configuration of Cumulus see documentation.
 
 ## CumulusCore extensions
-
 **[Cumulus Announcements](https://octobercms.com/plugin/initbiz-cumulusannouncements)**
 ![Cumulus Announcements Icon](https://octobercms.com/storage/app/uploads/public/5b0/ed4/66c/thumb_9923_64_64_0_0_auto.png)
 Notify users of your system about things that concerns them, their clusters or their plans.
@@ -29,23 +34,20 @@ Notify users of your system about things that concerns them, their clusters or t
 Extend your Cumulus Core system with dashboard and settings pages within seconds.
 
 ### Concept
-
 To fully understand the concept it is a good idea to watch the video here: <a href="http://cumulus.init.biz/videos">http://cumulus.init.biz/videos</a>
 
-
-
-Working with pages in Cumulus is based on four levels of testing user privileges:
+Working with pages in Cumulus is based on four levels of checking user privileges:
 
 1. Public pages
 1. User is logged in (using `Session` component from Rainlab.Users)
 1. User can access to cluster's page (using Cumulus Guard)
-1. Cluster has access to the module (using Module Guard)
+1. Cluster has access to the feature (using Feature Guard)
 
 You can use the Guards on pages, but the best approach is to create the following layouts:
 * first one for public pages
 * second one with `Session` component from `RainLab.UserPlus` for all pages that requires a user to be signed in
 * third one with `Session` component and `CumulusGuard` component for all pages that requires a user to be signed in and to be assigned to a cluster
-* Fourth, fifth and so on with `Session` component, `CumulusGuard` component and a `ModuleGuard` component for all pages that requires a user to be signed in, assigned to a cluster and the privilege for a cluster to access the module.
+* Fourth, fifth and so on with `Session` component, `CumulusGuard` component and a `FeatureGuard` component for all pages that requires a user to be signed in, assigned to a cluster and the privilege for a cluster to access the feature.
 
 ## Features
 Cumulus is using features to separate functionality and access for front-end users. Every plugin can register it's own features using `registerCumulusFeatures` method in plugin registration file.

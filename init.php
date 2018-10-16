@@ -15,7 +15,7 @@ use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Repositories\ClusterRepository;
 use RainLab\User\Models\User as UserModel;
 use RainLab\User\Controllers\Users as UserController;
-use Initbiz\CumulusCore\Models\AutoAssign as AutoAssignSettings;
+use Initbiz\CumulusCore\Models\AutoAssignSettings;
 
 Account::extend(function ($component) {
     $component->addDynamicMethod('onRedirectMe', function () use ($component) {

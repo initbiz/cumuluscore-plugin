@@ -37,10 +37,10 @@ The responsibility of `ModuleGuard` component was to ensure that plan has access
 ### Command `create:module` removed
 As a consequence the command `create:module` is removed. If you want to create something similar then create typical OctoberCMS plugin using `create:plugin` command and by adding `registerCumulusFeatures` method (details below).
 
-## `Settings` model becomes `AutoAssign`
-If you have user somewhere in your code `Settings` model than you have to change its name to `AutoAssign`.
+## `Settings` model becomes `AutoAssignSettings`
+If you have user somewhere in your code `Settings` model than you have to change its name to `AutoAssignSettings`.
 
-What is more, you will have to reconfigure autoassign in settings or change `initbiz_cumuluscore_settings` to `initbiz_cumuluscore_autoassign` in `system_settings` table.
+What is more, you will have to reconfigure autoassign in settings or change `initbiz_cumuluscore_settings` to `initbiz_cumuluscore_autoassignsettings` in `system_settings` table.
 
 ## Cumulus Plus users
 If you are using Cumulus Plus extension make sure you change permissions from module name to feature code in "permissions".

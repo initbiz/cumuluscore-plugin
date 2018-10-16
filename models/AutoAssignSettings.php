@@ -5,13 +5,13 @@ use RainLab\User\Models\UserGroup;
 use Initbiz\CumulusCore\Models\Plan;
 use Initbiz\CumulusCore\Models\Cluster;
 
-class AutoAssign extends Model
+class AutoAssignSettings extends Model
 {
     public $implement = [
         'System.Behaviors.SettingsModel'
     ];
 
-    public $settingsCode = 'initbiz_cumuluscore_autoassign';
+    public $settingsCode = 'initbiz_cumuluscore_autoassignsettings';
 
     public $settingsFields = 'fields.yaml';
 
