@@ -1,5 +1,7 @@
 # from v.1.x.x to v.2.0.0
 
+It is big. I know. It is funny in technology that after you create something it does not make sense after you work with it. This is exactly what happened to modules and some conventions we used in versions 1.x.x. Sorry about the amount of changes, but we hope our plugin will be much better and usable after the upgrade.
+
 ## Database changes
 In the beginning of Cumulus we did not know some October's and Laravel's conventions. While designing and developing Cumulus we used our own experience and ideas. During this time we get familiar with October's naming suggestions. As a consequence in version 2.0.0 we decided to change some names.
 
@@ -36,3 +38,9 @@ The responsibility of `ModuleGuard` component was to ensure that plan has access
 As a consequence the command `create:module` is removed. If you want to create something similar then create typical OctoberCMS plugin using `create:plugin` command and by adding `registerCumulusFeatures` method (details below).
 
 ## `Settings` model becomes `AutoAssign`
+If you have user somewhere in your code `Settings` model than you have to change its name to `AutoAssign`.
+
+What is more, you will have to reconfigure autoassign in settings or change `initbiz_cumuluscore_settings` to `initbiz_cumuluscore_autoassign` in `system_settings` table.
+
+## Cumulus Plus users
+If you are using Cumulus Plus extension make sure you change permissions from module name to feature code in "permissions".
