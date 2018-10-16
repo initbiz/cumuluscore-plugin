@@ -1,7 +1,6 @@
 <?php namespace Initbiz\CumulusCore;
 
 use Db;
-use URL;
 use Yaml;
 use File;
 use Lang;
@@ -11,16 +10,15 @@ use Session;
 use Redirect;
 use Controller;
 use BackendMenu;
-use Cms\Classes\Theme;
-use Cms\Classes\Layout;
-use Cms\Classes\Page as CmsPage;
 use RainLab\User\Models\UserGroup;
 use RainLab\User\Components\Account;
 use Initbiz\CumulusCore\Models\Cluster;
-use Initbiz\CumulusCore\Classes\Helpers;
 use RainLab\User\Models\User as UserModel;
-use RainLab\User\Controllers\Users as UserController;
+use Initbiz\CumulusCore\Classes\MenuManager;
+use Initbiz\CumulusCore\Classes\FeatureManager;
 use Initbiz\CumulusCore\Models\AutoAssignSettings;
+use RainLab\User\Controllers\Users as UserController;
+use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 Account::extend(function ($component) {
     $component->addDynamicMethod('onRedirectMe', function () use ($component) {
@@ -162,67 +160,37 @@ Event::listen('rainlab.user.logout', function ($user) {
 
 
 // Register menu items for the RainLab.Pages plugin
-
 Event::listen('pages.menuitem.listTypes', function () {
     return [
-        'cumulus-page'       => 'initbiz.cumuluscore::lang.menu_item.cumulus_page',
+        'cumulus-page' => 'initbiz.cumuluscore::lang.menu_item.cumulus_page',
     ];
 });
 
 Event::listen('pages.menuitem.getTypeInfo', function ($type) {
-    if ($type == 'cumulus-page') {
-        $theme = Theme::getActiveTheme();
+    $result = null;
 
-        $pages = CmsPage::listInTheme($theme, true);
-        $layouts = Layout::listInTheme($theme, true);
-        $cmsPages = [];
-        foreach ($pages as $page) {
-            $cmsPages[] = $page;
-        }
-        $result['cmsPages'] = $cmsPages;
-        return $result;
+    if ($type == 'cumulus-page') {
+        $menuManager = MenuManager::instance();
+        $result = $menuManager->getCmsPages();
     }
+
+    return $result;
 });
 
 Event::listen('pages.menuitem.resolveItem', function ($type, $item, $url, $theme) {
     $result = null;
 
     if ($item->type === 'cumulus-page') {
-        if (!$item->cmsPage) {
-            return;
-        }
-
-        $pageUrl = Helpers::getPageUrl($item->cmsPage, $theme);
-        if (!$pageUrl) {
-            return;
-        }
-
-        $pageUrl = URL::to($pageUrl);
-        $result = [];
-        $result['url'] = $pageUrl;
-        $result['isActive'] = $pageUrl == $url;
+        $menuManager = MenuManager::instance();
+        $result = $menuManager->resolveItem($item, $url, $theme);
     }
+
     return $result;
 });
 
 Event::listen('pages.menu.referencesGenerated', function (&$items) {
-    $clusterRepository = new ClusterRepository;
-    $iterator = function($menuItems) use (&$iterator, $clusterRepository) {
-        $result = [];
-        foreach ($menuItems as $item) {
-            if (isset($item->viewBag['cumulusModule']) && $item->viewBag['cumulusModule'] !== "none") {
-                if (!$clusterRepository->canEnterModule(Session::get('cumulus_clusterslug'), $item->viewBag['cumulusModule'])) {
-                    $item->viewBag['isHidden'] = "1";
-                }
-            }
-            if($item->items) {
-                $item->items = $iterator($item->items);
-            }
-            $result[] = $item;
-        }
-        return $result;
-    };
-    $items = $iterator($items);
+    $menuManager = MenuManager::instance();
+    $items = $menuManager->hideClusterMenuItems($items);
 });
 
 Event::listen('backend.form.extendFields', function ($widget) {
@@ -233,15 +201,16 @@ Event::listen('backend.form.extendFields', function ($widget) {
         return;
     }
 
-    $modules = ['none' => Lang::get('initbiz.cumuluscore::lang.menu_item.cumulus_module_none')] + Helpers::getModulesList();
+    $featureManager = FeatureManager::instance();
+    $features = $featureManager->getFeaturesOptions();
 
     $widget->addTabFields([
-        'viewBag[cumulusModule]' => [
+        'viewBag[cumulusFeatures]' => [
             'tab' => 'initbiz.cumuluscore::lang.menu_item.cumulus_tab_label',
-            'label' => 'initbiz.cumuluscore::lang.menu_item.cumulus_module',
-            'comment' => 'initbiz.cumuluscore::lang.menu_item.cumulus_module_comment',
-            'type' => 'dropdown',
-            'options' => $modules,
+            'label' => 'initbiz.cumuluscore::lang.menu_item.cumulus_features',
+            'comment' => 'initbiz.cumuluscore::lang.menu_item.cumulus_features_comment',
+            'type' => 'checkboxlist',
+            'options' => $features,
         ]
     ]);
 });

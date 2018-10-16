@@ -1,6 +1,8 @@
 <?php namespace Initbiz\CumulusCore\Classes;
 
 use Auth;
+use Cookie;
+use Session;
 use Cms\Classes\Theme;
 use Cms\Classes\Page as CmsPage;
 use Initbiz\CumulusCore\Models\Cluster;
@@ -16,6 +18,11 @@ class Helpers
         $user->touchLastSeen();
 
         return $user;
+    }
+
+    public static function getCluster()
+    {
+        return Session::get('cumulus_clusterslug', Cookie::get('cumulus_clusterslug'));
     }
 
     public static function clusterId($slug)

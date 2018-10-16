@@ -118,7 +118,9 @@ class ClusterRepository implements ClusterInterface
 
         $clusterFeatures = $this->getClusterFeatures($clusterSlug);
 
-        return array_key_exists($featureCode, $clusterFeatures) ? true : false;
+        $can = in_array($featureCode, $clusterFeatures) ? true : false;
+        
+        return $can;
     }
 
     /**

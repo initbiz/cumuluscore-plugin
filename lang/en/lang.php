@@ -74,8 +74,8 @@
         'cluster_slug' => 'Cluster Slug',
         'cluster_slug_comment' => 'Variable uses in urls',
         'cumulus_tab_label' => 'Cumulus',
-        'cumulus_features' => 'Feature to restrict access',
-        'cumulus_features_desc' => 'Pick feature to restrict user visibility using the feature permissions',
+        'cumulus_features' => 'Features to restrict access',
+        'cumulus_features_comment' => 'Choose features to restrict user visibility using the cluster permissions',
     ],
     'component_properties' => [
         'cluster_slug' => 'Cluster slug',
