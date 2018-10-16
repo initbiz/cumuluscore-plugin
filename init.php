@@ -59,7 +59,7 @@ Event::listen('backend.list.extendColumns', function ($widget) {
 });
 
 Event::listen('rainlab.user.register', function ($user, $data) {
-    if (!AutoAssignSetting::get('enable_auto_assign_user')) {
+    if (!AutoAssignSettings::get('enable_auto_assign_user')) {
         return true;
     }
 
