@@ -27,4 +27,16 @@ class Helpers
     {
         return CmsPage::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
     }
+
+    public static function getPageUrl($pageCode, $theme)
+    {
+        $page = CmsPage::loadCached($theme, $pageCode);
+        if (!$page) {
+            return;
+        }
+
+        $url = CmsPage::url($page->getBaseFileName());
+
+        return $url;
+    }
 }

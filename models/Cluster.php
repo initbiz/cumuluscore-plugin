@@ -100,53 +100,6 @@ class Cluster extends Model
         'logo' => ['System\Models\File']
     ];
 
-    public static function getMenuTypeInfo($type)
-    {
-        //TODO To consider extending automatic static menu generating
-        $result = ['dynamicItems' => true];
-
-        $theme = Theme::getActiveTheme();
-
-        $pages = CmsPage::listInTheme($theme, true);
-        $cmsPages = [];
-        foreach ($pages as $page) {
-            if (!$page->hasComponent('cumulusGuard')) {
-                continue;
-            }
-
-            $cmsPages[] = $page;
-        }
-        $result['cmsPages'] = $cmsPages;
-        return $result;
-    }
-
-    public static function resolveMenuItem($item, $url, $theme)
-    {
-        //TODO To consider extending automatic static menu generating
-        $theme = Theme::getActiveTheme();
-        $pages = CmsPage::listInTheme($theme, true);
-        $cumulusPages = [];
-        foreach ($pages as $page) {
-            if (!$page->hasComponent('cumulusGuard')) {
-                continue;
-            }
-            $cumulusPages[] = $page;
-        }
-        $result = null;
-        if (!$item->reference || !$item->cmsPage) {
-            return;
-        }
-
-        $result = [
-            'items' => []
-        ];
-
-        $categoryItem['isActive'] = $categoryItem['url'] == $url;
-        $result['items'][] = $categoryItem;
-
-        return $result;
-    }
-
     public function scopeApplyPlanFilter($query, $filtered)
     {
         return $query->whereHas('plan', function ($q) use ($filtered) {
