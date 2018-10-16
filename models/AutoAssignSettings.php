@@ -17,7 +17,7 @@ class AutoAssignSettings extends Model
 
     public function getAutoAssignUserConcreteClusterOptions()
     {
-        return Cluster::all()->pluck('full_name', 'slug')->toArray();
+        return Cluster::all()->pluck('name', 'slug')->toArray();
     }
 
     public function getGroupToAutoAssignUserOptions()

@@ -27,7 +27,7 @@ UserModel::extend(function ($model) {
     $model->belongsToMany['clusters'] = [
         Cluster::class,
         'table' => 'initbiz_cumuluscore_cluster_user',
-        'order' => 'full_name',
+        'order' => 'name',
         'key'      => 'user_id',
         'otherKey' => 'cluster_id'
     ];
@@ -85,7 +85,7 @@ Event::listen('rainlab.user.register', function ($user, $data) {
         Event::fire('initbiz.cumuluscore.beforeAutoAssignNewCluster', [&$data]);
 
         $createClusterData = [
-            'full_name' => $data[AutoAssignSettings::get('auto_assign_user_new_cluster')],
+            'name' => $data[AutoAssignSettings::get('auto_assign_user_new_cluster')],
             'thoroughfare'   => (isset($data['thoroughfare']))? $data['thoroughfare']: null,
             'city'           => (isset($data['city']))? $data['city']: null,
             'phone'          => (isset($data['phone']))? $data['phone']: null,

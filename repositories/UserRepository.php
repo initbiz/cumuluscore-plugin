@@ -5,10 +5,12 @@ use Initbiz\CumulusCore\Contracts\UserInterface;
 class UserRepository implements UserInterface
 {
     public $userModel;
+    public $groupModel;
 
     public function __construct()
     {
         $this->userModel = new \Rainlab\User\Models\User;
+        $this->groupModel = new \Rainlab\User\Models\UserGroup;
     }
 
     public function all($columns = array('*'))
@@ -73,5 +75,20 @@ class UserRepository implements UserInterface
             $users = $users->orWhere($field, $item);
         }
         return $users->get();
+    }
+
+    public function addUserToGroup($userId, $groupCode)
+    {
+        $group = $this->groupModel->where('code', $groupCode)->first() ?: false;
+        if ($group) {
+            $user = $this->userModel->find($userId);
+            $user->groups()->add($group);
+        }
+    }
+
+    public function activateUser($userId)
+    {
+        $user = $this->find($userId);
+        $user->attemptActivation($user->activation_code);
     }
 }

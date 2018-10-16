@@ -1,5 +1,5 @@
 columns:
-    full_name:
+    name:
         label: 'initbiz.cumuluscore::lang.cluster.name'
         searchable: true
         sortable: true

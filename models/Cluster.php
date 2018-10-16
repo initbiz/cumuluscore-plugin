@@ -20,14 +20,14 @@ class Cluster extends Model
     /**
      * @var array Generate slugs for these attributes.
      */
-    protected $slugs = ['slug' => 'full_name'];
+    protected $slugs = ['slug' => 'name'];
 
     /**
      * Fields to be set as null when left empty
      * @var array
      */
     protected $nullable = [
-        'full_name',
+        'name',
         'slug',
         'plan_id',
         'thoroughfare',
@@ -42,7 +42,7 @@ class Cluster extends Model
     ];
 
     protected $fillable = [
-        'full_name',
+        'name',
         'slug',
         'plan_id',
         'thoroughfare',
@@ -61,7 +61,7 @@ class Cluster extends Model
      */
     //TODO: problems with auto assigning clusters. While saving model email is required, although it's not...
     // public $rules = [
-    //     'full_name'   => 'required|between:4,255',
+    //     'name'   => 'required|between:4,255',
     //     'slug'        => 'between:4,100|unique:initbiz_cumuluscore_clusters',
     //     'email'       => 'between:6,255|email',
     // ];
