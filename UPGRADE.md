@@ -42,5 +42,8 @@ If you have user somewhere in your code `Settings` model than you have to change
 
 What is more, you will have to reconfigure autoassign in settings or change `initbiz_cumuluscore_settings` to `initbiz_cumuluscore_autoassignsettings` in `system_settings` table.
 
+## `Menu` and `MenuItem` components removed
+From version 2.0.0 we decided to use [RainLab.Pages]() to build menus. It is powerful, supported and extendable way to build menus.
+
 ## Cumulus Plus users
 If you are using Cumulus Plus extension make sure you change permissions from module name to feature code in "permissions".

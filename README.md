@@ -69,10 +69,13 @@ For example:
     }
 ```
 
-After regustering new features in your plugin you can run command:
-
-```php artisan cumulus:purgefeatures```
+After regustering new features in your plugin you can run command: `php artisan cumulus:purgefeatures`
 
 
 ## Rainlab.User extension
 The plugin extends RainLab.User plugin and uses the same `User` model, so if you want to restrict backend admin to manage users remember that there is controller from RainLab.Users that uses the same Model and can access the same data.
+
+## Menus
+Cumulus extends [RainLab.Pages]() plugin as well. It uses only one part of static pages plugin: building menus.
+
+Cumulus adds possibility to add pages to menus which are filtered using clusters, so that clusters will see only those menu items that they are permitted to see using features.

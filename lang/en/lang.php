@@ -77,9 +77,8 @@
         'description' => 'Component that is going to be used on pages that we want to show in navigation',
         'menu_item_title' => 'Menu item title',
         'menu_item_title_desc' => 'User friendly title to be shown on button to this page',
-        'cumulus_feature' => 'Feature to restrict access',
-        'cumulus_feature_desc' => 'Pick feature to restrict user visibility using the feature permissions',
-        'cumulus_feature_none' => 'No special privileges',
+        'cumulus_features' => 'Feature to restrict access',
+        'cumulus_features_desc' => 'Pick feature to restrict user visibility using the feature permissions',
     ],
     'component_properties' => [
         'cluster_slug' => 'Cluster slug',

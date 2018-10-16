@@ -148,6 +148,7 @@ class ClusterRepository implements ClusterInterface
             $clusterFeatures = [];
         }
 
+        $clusterFeatures = (array) $clusterFeatures;
         return $clusterFeatures;
     }
 
