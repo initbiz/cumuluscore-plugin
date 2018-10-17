@@ -92,6 +92,12 @@ For example:
     }
 ```
 
+Features are assigned to plans. So that every cluster that has particular plan has the same set of features.
+
+It is up to you while writing plugin how many features will it register for our clients. There must be a reasonable amount of them for us to easily manage which features should be applied to which plan.
+
+Before creating and using features read about `FeatureGuard` component below.
+
 ## How-to
 
 ### Shortcut
@@ -158,8 +164,13 @@ What is more, the component push two variables to view:
 and pushes active cluster's slug to session and cookie as `cumulus_clusterslug`.
 
 **FeatureGuard**
+Feature guard is a component which ensures if current cluster can see the page based on features it has access to.
+
+Remember that only one of checked features is enough to let the user see the page.
 
 ![Feature guard](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/feature-guard.png)
+
+If you want to filter content on one page so that only a cluster that has access to this and that feature can see this use `canEnterFeature` twig function described below.
 
 ### Repositories
 What is more if you want to get current cluster's data somewhere in your code, then you may like the method from clusterRepository:
@@ -185,6 +196,9 @@ The `ClusterFiltrable` trait is meant to be used in models.
 ```
 
 After that you can use `clusterFiltered()` method on model to filter the data using currently picked cluster (it's slug).
+
+## Twig extensions
+### `canEnterFeature('feature.code')`
 
 ## Rainlab.User note
 The plugin extends RainLab.User plugin and uses the same `User` model, so if you want to restrict backend admin to manage users remember that there is controller from RainLab.Users that uses the same Model and can access the same data.

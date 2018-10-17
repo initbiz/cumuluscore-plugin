@@ -3,6 +3,7 @@
 use Backend;
 use System\Classes\PluginBase;
 use Initbiz\CumulusCore\Classes\Helpers;
+use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 class Plugin extends PluginBase
 {
@@ -39,5 +40,24 @@ class Plugin extends PluginBase
                 'order'         => 100
             ]
         ];
+    }
+
+    public function registerMarkupTags()
+    {
+        return [
+            'functions' => [
+                'canEnterFeature' => [$this, 'canEnterFeature']
+            ]
+        ];
+    }
+
+    public function canEnterFeature($featureCode)
+    {
+        $clusterSlug = Helpers::getCluster();
+        $clusterRepository = new ClusterRepository();
+
+        $can = $clusterRepository->canEnterFeature($clusterSlug, $featureCode)
+        
+        return $can;
     }
 }
