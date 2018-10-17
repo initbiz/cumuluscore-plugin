@@ -92,8 +92,6 @@ For example:
     }
 ```
 
-After regustering new features in your plugin you can run command: `php artisan cumulus:purgefeatures`
-
 ## How-to
 
 ### Shortcut
@@ -101,33 +99,47 @@ If you want to play with working Cumulus environment then install clean OctoberC
 
 This will prepare very basic environment. More info about the process can be found in [Cumulus Demo](https://octobercms.com/plugin/initbiz-cumulusdemo) docs.
 
-### Own configuration
+### Your own setup
 
-You can use the Guards on pages, but the best approach is to create the following layouts:
+You can use the Guards on pages, but the best approach is to use them on layouts. Example set of layouts is as follows:
 * first one for public pages
-* second one with `Session` component from `RainLab.UserPlus` for all pages that requires a user to be signed in
+* second one with `Session` component from `RainLab.User` for all pages that requires a user to be signed in
 * third one with `Session` component and `CumulusGuard` component for all pages that requires a user to be signed in and to be assigned to a cluster
 * Fourth, fifth and so on with `Session` component, `CumulusGuard` component and a `FeatureGuard` component for all pages that requires a user to be signed in, assigned to a cluster and the privilege for a cluster to access the feature.
 
-Of course you do not have to use layouts to this purpose, you can embed guards on pages. Using layouts just looks more convenient for me.
+> More information about the components can be found below.
 
 The typical flow for user will be as follows:
-1. Login page, with login form that after successful logging in will redirect to "Choose cluster" page
+1. Login page, with login form that after successful logging in will redirect to "Choose cluster" page (screenshot below)
 1. After user choose cluster he/she will be redirected to the cluster's dashboard
 
 On "Choose cluster" page will be `UserClustersList` component embedded which automatically redirects user to cluster's dashboard if he/she is assigned to only one cluster.
 
 ### Login page
+Login page can use `Account` component from `RainLab.Users` plugin. It should be configured so that it automatically redirects to "Choose cluster" page after successful logging in.
 
-### Choose cluster
+![Login page](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/login-page.png)
+
+### "Choose cluster" page
+On "Choose cluster" page should be `UserClustersList` component embedded. It will automatically redirect user to cluster's dashboard if he/she is assigned to only one cluster.
+
+![Choose cluster page](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/choose-cluster-page.png)
+
+### Cluster's dashboard
+Welcome screen for everyone in the cluster.
 
 ![Cluster's dashboard page](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/cluster-dashboard-page.png)
 
-### Cluster's dashboard
+From this level every page url should contain cluster slug variable. By default it is `:cluster` but it can be changed in component. So from now all pages will have url similar to this:
+
+![Cluster's dashboard page view](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/cluster-dashboard-page-view.png)
+
+### Feature pages
+Every page of your system that provides some functionality is considered as "Feature page". So here is where Cumulus cannot help anymore (and tries to not disturb you with unnecessary code bloat).
 
 ### Components
 
-**`UserClustersList`**
+**UserClustersList**
 
 The components role is to render view to select cluster if user is assigned to more than one cluster.
 
@@ -135,18 +147,21 @@ The components role is to render view to select cluster if user is assigned to m
 
 ![Clusters list component](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/user-cluster-list-component.png)
 
+**CumulusGuard**
 
-**`CumulusGuard`**
+The `CumulusGuard` component is here to check if the logged in user has access to cluster that he/she tries to visit. It uses cluster slug from url.
 
-The `CumulusGuard` component
+What is more, the component push two variables to view:
+* `cluster` which contains current cluster's slug
+* `clusterData ` which contains array of the current cluster data.
 
-CumulusGuard in it's onRun method push to page two variables:
+and pushes active cluster's slug to session and cookie as `cumulus_clusterslug`.
 
-    cluster which contains current cluster's slug
-    clusterData which contains array of the current cluster data.
+**FeatureGuard**
 
-Since version 1.1.13 active cluster slug is also pushed to session and cookie as cumulus_clusterslug by CumulusGuard component, but by design the cluster was designed to be get using url param.
+![Feature guard](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/feature-guard.png)
 
+### Repositories
 What is more if you want to get current cluster's data somewhere in your code, then you may like the method from clusterRepository:
 
 use Initbiz\CumulusCore\Repositories\ClusterRepository;
@@ -174,10 +189,18 @@ After that you can use `clusterFiltered()` method on model to filter the data us
 ## Rainlab.User note
 The plugin extends RainLab.User plugin and uses the same `User` model, so if you want to restrict backend admin to manage users remember that there is controller from RainLab.Users that uses the same Model and can access the same data.
 
-## Menus
-Cumulus extends [RainLab.Pages]() plugin as well. It uses only one part of static pages plugin: building menus.
+## Menus / Navigation
+Cumulus extends [RainLab.Pages](https://octobercms.com/plugin/rainlab-pages) plugin as well. It uses only one part of static pages plugin: building menus.
 
 Cumulus adds possibility to add pages to menus which are filtered using clusters, so that clusters will see only those menu items that they are permitted to see using features.
+
+## Cumulus Core events
+
+## Troubleshooting
+
+### I cannot see my registered features
+If you cannot see your features then go to Settings -> Cumulus -> Features and click `Clear feature cache` button.
+
 
 ## Future plans (TODO)
 * Automatically build features table
