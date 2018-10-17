@@ -173,6 +173,12 @@ Remember that only one of checked features is enough to let the user see the pag
 If you want to filter content on one page so that only a cluster that has access to this and that feature can see this use `canEnterFeature` twig function described below.
 
 ### Repositories
+In Cumulus we decided to use repositories to access data from DB.
+
+That is because we had problems with models using models using models and problems with organization of methods appeared. Of course under the hood there are typical Eloquent models, so if you want to use them go ahead.
+
+**ClusterRepository**
+
 What is more if you want to get current cluster's data somewhere in your code, then you may like the method from clusterRepository:
 
 use Initbiz\CumulusCore\Repositories\ClusterRepository;
@@ -181,6 +187,15 @@ $clusterSlug = $this->property('clusterSlug');
 $clusterRepository = new ClusterRepository($clusterSlug);
 $clusterData = $clusterRepository->getCurrentCluster();
 
+**PlanRepository**
+
+`getPlansUsers(array $plansSlugs)` - the method takes array of plans slugs and get all users that are in those plans.
+
+**UserRepository**
+
+`addUserToGroup($userId, $groupCode)`
+
+`activateUser($userId)`
 
 ## Auto assign
 
@@ -199,6 +214,11 @@ After that you can use `clusterFiltered()` method on model to filter the data us
 
 ## Twig extensions
 ### `canEnterFeature('feature.code')`
+If you want to check in twig if current cluster has access to "feature.code" than use `canEnterFeature('feature.code')` Twig function.
+
+```twig
+
+```
 
 ## Rainlab.User note
 The plugin extends RainLab.User plugin and uses the same `User` model, so if you want to restrict backend admin to manage users remember that there is controller from RainLab.Users that uses the same Model and can access the same data.
