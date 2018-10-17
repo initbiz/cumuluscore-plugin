@@ -1,53 +1,76 @@
 # Cumulus Core
 
-## Introduction
+# Introduction
 The plugin is a skeleton for building Software as a Service (SaaS) applications using OctoberCMS. Software as a Service application is (according to Wikipedia) a software licensing and delivery model in which software is licensed on a subscription basis and is centrally hosted.
 
-It is much simpler that it looks at the first sight. It has use cases in a lot of scenarios and situations (after working with Cumulus for almost 2 years I cannot see application without it :) ).
+The easiest way to understand it is to imagine an application which you want to create for your clients (one application for more than one client) but it is going to be hosted on your server.
 
-It may be useful every time you want to create application that is restricting users' access to subpages.
+Here are some examples of use cases where Cumulus may help:
+* system for your clients' companies where they can have their private data in cloud while other clients cannot see each other's data like invoicing system, client management system etc.
+* system for schools where classes can share some data and have access to some data while cannot see other classes data like exams system, school diary etc.
+* every system that supports cutting functionality for different plans (like "Free", "Plus", "Pro") so that company that has Pro plan will be able to do more than those with Plus etc.
+![Pricing table example]()
 
-Typical use cases where Cumulus may help:
-
-* system for your clients - where company of your client can have it's private data in cloud while other clients cannot see each other's data
-* system for schools - where classes can share some data and have access to some data while cannot see other classes data
-* every system that supports different functionality for different plans (like "Bronze", "Silver", "Gold" etc.)
-
-## Documentation
 
 ## TL;DR
 If you just want to see what Cumulus can do for you, great place to start will be:
 1. installing official [Cumulus theme](https://octobercms.com/theme/initbiz-cumulus)
 1. running `php artisan cumulus:seed` command (see [Cumulus Demo]() documentation for info about the command)
 
-After that you are ready to play with Cumulus based app with demo data seeded :)
+After that you are ready to play with Cumulus based app with demo data seeded (user demo@example.com with password demo):)
 
-If you want to play with your own configuration of Cumulus see documentation.
+See documentation for more about Cumulus using and configuration.
 
 ## CumulusCore extensions
-**[Cumulus Announcements](https://octobercms.com/plugin/initbiz-cumulusannouncements)**
-![Cumulus Announcements Icon](https://octobercms.com/storage/app/uploads/public/5b0/ed4/66c/thumb_9923_64_64_0_0_auto.png)
-Notify users of your system about things that concerns them, their clusters or their plans.
+**[Cumulus Subscriptions](https://octobercms.com/plugin/initbiz-cumulussubscriptions)**
+![Cumulus Subscriptions Icon](https://octobercms.com/storage/app/uploads/public/5bb/cc6/83e/thumb_11218_64_64_0_0_auto.png)
+Extend your Cumulus Core system with automatic subscription manager.
 
 **[Cumulus Plus](https://octobercms.com/plugin/initbiz-cumulusplus)**
 ![Cumulus Plus Icon](https://octobercms.com/storage/app/uploads/public/5b2/a0e/2d7/thumb_10080_64_64_0_0_auto.png)
 Extend your Cumulus Core system with dashboard and settings pages within seconds.
 
-### Concept
-To fully understand the concept it is a good idea to watch the video here: <a href="http://cumulus.init.biz/videos">http://cumulus.init.biz/videos</a>
+**[Cumulus Announcements](https://octobercms.com/plugin/initbiz-cumulusannouncements)**
+![Cumulus Announcements Icon](https://octobercms.com/storage/app/uploads/public/5b0/ed4/66c/thumb_9923_64_64_0_0_auto.png)
+Notify users of your system about things that concerns them, their clusters or their plans.
 
-Working with pages in Cumulus is based on four levels of checking user privileges:
+## Other products using Cumulus Core
 
-1. Public pages
-1. User is logged in (using `Session` component from Rainlab.Users)
-1. User can access to cluster's page (using Cumulus Guard)
-1. Cluster has access to the feature (using Feature Guard)
+**[Cumulus Theme](https://octobercms.com/theme/initbiz-cumulus)**
+Using the theme you can install bare Cumulus application with a single click of a mouse. This is only a suggestion, scheme. Cumulus does not require this theme. It is fully up to you how you decide to use it.
 
-You can use the Guards on pages, but the best approach is to create the following layouts:
-* first one for public pages
-* second one with `Session` component from `RainLab.UserPlus` for all pages that requires a user to be signed in
-* third one with `Session` component and `CumulusGuard` component for all pages that requires a user to be signed in and to be assigned to a cluster
-* Fourth, fifth and so on with `Session` component, `CumulusGuard` component and a `FeatureGuard` component for all pages that requires a user to be signed in, assigned to a cluster and the privilege for a cluster to access the feature.
+**[Power Components](https://octobercms.com/theme/initbiz-powercomponents)**
+![Power Components icon](https://octobercms.com/storage/app/uploads/public/5af/b1c/992/thumb_9851_64_64_0_0_auto.png)
+Power Components plugin integrates with Cumulus Core so that lists and forms generated by it can be easily filtered and accessible only for particular cluster.
+
+# Documentation
+
+## Terms used in Cumulus and this document
+
+**User** is a frontend user from `RainLab.User` plugin who can log to frontend. See [RainLab.User documentation](https://octobercms.com/plugin/rainlab-user) for more info about this.
+
+**Cluster** is a group of users which share some data between them and can be described as one entity. The most common example is a company. But it also applies to offices, office branches, classes in school, schools etc. Cluster is not a usergroup from RainLab.User plugin (like guest, registered and so on). User groups are about permissions (like read, write, update etc.) while clusters are about organizing users in logical entities.
+
+**Plan**s are assigned to clusters. Cluster can have only one plan at a time. Imagine a pricing table with plans like "Free", "Basic", "Standard", "Premium" with a set of pros why to choose one over another. So those plans differ from each other with a set of features they have.
+
+**Feature** is a part of functionality of application. As described above plans have a different set of features. If you have imagine a pricing table, than you must have imagined a features below
+
+## Concept
+
+In all SaaS applications there are at least two groups of pages:
+1. Those which are publicly visible (where you put your offer, regulations, contact form, login form, register form etc.),
+1. Those accessible only for registered users and logged in users.
+
+In Cumulus we extend the second group of pages so that you may have also pages that are accessible only for users that are:
+1. logged in and nothing more (like manage profile page or some kind of dashboard),
+1. assigned to a group of users (called cluster here) and are restricted only for particular cluster (for example cluster's dashboard with data that can be visible for all users in the cluster),
+1. assigned to a cluster and their cluster has access to particular feature (for example one cluster has access to pages related with invoicing and the other does not).
+
+Check the How to section to see how it may be done.
+
+
+## Frontend and backend
+It may be difficult to understand the difference between frontend and backend users at first glance.
 
 ## Features
 Cumulus is using features to separate functionality and access for front-end users. Every plugin can register it's own features using `registerCumulusFeatures` method in plugin registration file.
@@ -71,6 +94,41 @@ For example:
 
 After regustering new features in your plugin you can run command: `php artisan cumulus:purgefeatures`
 
+## How-to
+
+You can use the Guards on pages, but the best approach is to create the following layouts:
+* first one for public pages
+* second one with `Session` component from `RainLab.UserPlus` for all pages that requires a user to be signed in
+* third one with `Session` component and `CumulusGuard` component for all pages that requires a user to be signed in and to be assigned to a cluster
+* Fourth, fifth and so on with `Session` component, `CumulusGuard` component and a `FeatureGuard` component for all pages that requires a user to be signed in, assigned to a cluster and the privilege for a cluster to access the feature.
+
+(using `Session` component from Rainlab.Users)
+ (using Cumulus Guard)
+(using Feature Guard)
+
+
+The `CumulusGuard` component
+
+CumulusGuard in it's onRun method push to page two variables:
+
+    cluster which contains current cluster's slug
+    clusterData which contains array of the current cluster data.
+
+Since version 1.1.13 active cluster slug is also pushed to session and cookie as cumulus_clusterslug by CumulusGuard component, but by design the cluster was designed to be get using url param.
+
+What is more if you want to get current cluster's data somewhere in your code, then you may like the method from clusterRepository:
+
+use Initbiz\CumulusCore\Repositories\ClusterRepository;
+...
+$clusterSlug = $this->property('clusterSlug');
+$clusterRepository = new ClusterRepository($clusterSlug);
+$clusterData = $clusterRepository->getCurrentCluster();
+
+
+## Auto assign
+
+## `ClusterFiltrable` trait
+The `ClusterFiltrable` trait is meant to be used in models. It adds method for
 
 ## Rainlab.User extension
 The plugin extends RainLab.User plugin and uses the same `User` model, so if you want to restrict backend admin to manage users remember that there is controller from RainLab.Users that uses the same Model and can access the same data.
@@ -79,3 +137,6 @@ The plugin extends RainLab.User plugin and uses the same `User` model, so if you
 Cumulus extends [RainLab.Pages]() plugin as well. It uses only one part of static pages plugin: building menus.
 
 Cumulus adds possibility to add pages to menus which are filtered using clusters, so that clusters will see only those menu items that they are permitted to see using features.
+
+## Future plans (TODO)
+* Automatically build features table

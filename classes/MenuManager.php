@@ -35,6 +35,7 @@ class MenuManager extends Singleton
                     foreach ($itemFeatures as $feature) {
                         if ($clusterRepository->canEnterFeature($currentCluster, $feature)) {
                             $item->viewBag['isHidden'] = "0";
+                            break;
                         }
                     }
                 }
