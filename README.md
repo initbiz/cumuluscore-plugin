@@ -8,14 +8,14 @@ The easiest way to understand it is to imagine an application which you want to 
 Here are some examples of use cases where Cumulus may help:
 * system for your clients' companies where they can have their private data in cloud while other clients cannot see each other's data like invoicing system, client management system etc.
 * system for schools where classes can share some data and have access to some data while cannot see other classes data like exams system, school diary etc.
-* every system that supports cutting functionality for different plans (like "Free", "Plus", "Pro") so that company that has Pro plan will be able to do more than those with Plus etc.
-![Pricing table example]()
+* every system that supports cutting functionality for different plans (like "Free", "Plus", "Pro") like in the example below:
+![Pricing table example](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/pricing-table.png)
 
 
 ## TL;DR
 If you just want to see what Cumulus can do for you, great place to start will be:
 1. installing official [Cumulus theme](https://octobercms.com/theme/initbiz-cumulus)
-1. running `php artisan cumulus:seed` command (see [Cumulus Demo]() documentation for info about the command)
+1. running `php artisan cumulus:seed` command (see [Cumulus Demo](https://octobercms.com/plugin/initbiz-cumulusdemo) documentation for info about the command)
 
 After that you are ready to play with Cumulus based app with demo data seeded (user demo@example.com with password demo):)
 
@@ -46,17 +46,16 @@ Power Components plugin integrates with Cumulus Core so that lists and forms gen
 # Documentation
 
 ## Terms used in Cumulus and this document
-
 **User** is a frontend user from `RainLab.User` plugin who can log to frontend. See [RainLab.User documentation](https://octobercms.com/plugin/rainlab-user) for more info about this.
 
 **Cluster** is a group of users which share some data between them and can be described as one entity. The most common example is a company. But it also applies to offices, office branches, classes in school, schools etc. Cluster is not a usergroup from RainLab.User plugin (like guest, registered and so on). User groups are about permissions (like read, write, update etc.) while clusters are about organizing users in logical entities.
 
-**Plan**s are assigned to clusters. Cluster can have only one plan at a time. Imagine a pricing table with plans like "Free", "Basic", "Standard", "Premium" with a set of pros why to choose one over another. So those plans differ from each other with a set of features they have.
+**Plan**s are assigned to clusters. Cluster can have only one plan at a time. Imagine a pricing table like in the example below. So plans here are "Free", "Plus", "Pro".
+![Pricing table example](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/pricing-table.png)
 
-**Feature** is a part of functionality of application. As described above plans have a different set of features. If you have imagine a pricing table, than you must have imagined a features below
+**Feature** is a part of functionality of application. The easiest explanation of features is the records in the above table. Features are registered by your plugins as described below. It is fully up to you to create functionality of your application.
 
 ## Concept
-
 In all SaaS applications there are at least two groups of pages:
 1. Those which are publicly visible (where you put your offer, regulations, contact form, login form, register form etc.),
 1. Those accessible only for registered users and logged in users.
@@ -68,9 +67,10 @@ In Cumulus we extend the second group of pages so that you may have also pages t
 
 Check the How to section to see how it may be done.
 
-
-## Frontend and backend
+## Separated frontend and backend user access
 It may be difficult to understand the difference between frontend and backend users at first glance.
+
+By design backend admin is a developer like me and you while frontend (Cumulus) user is your client. Your clients are using your application but they must not see other clients' data (of course if you want to) and you, as backend admin, have access to all data of your clients. So as you can see here those are two completely different points of view on the application.
 
 ## Features
 Cumulus is using features to separate functionality and access for front-end users. Every plugin can register it's own features using `registerCumulusFeatures` method in plugin registration file.
@@ -96,16 +96,47 @@ After regustering new features in your plugin you can run command: `php artisan 
 
 ## How-to
 
+### Shortcut
+If you want to play with working Cumulus environment then install clean OctoberCMS using [Cumulus theme](https://octobercms.com/theme/initbiz-cumulus) and run `php artisan cumulus:seed` command.
+
+This will prepare very basic environment. More info about the process can be found in [Cumulus Demo](https://octobercms.com/plugin/initbiz-cumulusdemo) docs.
+
+### Own configuration
+
 You can use the Guards on pages, but the best approach is to create the following layouts:
 * first one for public pages
 * second one with `Session` component from `RainLab.UserPlus` for all pages that requires a user to be signed in
 * third one with `Session` component and `CumulusGuard` component for all pages that requires a user to be signed in and to be assigned to a cluster
 * Fourth, fifth and so on with `Session` component, `CumulusGuard` component and a `FeatureGuard` component for all pages that requires a user to be signed in, assigned to a cluster and the privilege for a cluster to access the feature.
 
-(using `Session` component from Rainlab.Users)
- (using Cumulus Guard)
-(using Feature Guard)
+Of course you do not have to use layouts to this purpose, you can embed guards on pages. Using layouts just looks more convenient for me.
 
+The typical flow for user will be as follows:
+1. Login page, with login form that after successful logging in will redirect to "Choose cluster" page
+1. After user choose cluster he/she will be redirected to the cluster's dashboard
+
+On "Choose cluster" page will be `UserClustersList` component embedded which automatically redirects user to cluster's dashboard if he/she is assigned to only one cluster.
+
+### Login page
+
+### Choose cluster
+
+![Cluster's dashboard page](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/cluster-dashboard-page.png)
+
+### Cluster's dashboard
+
+### Components
+
+**`UserClustersList`**
+
+The components role is to render view to select cluster if user is assigned to more than one cluster.
+
+> Note: If user is assigned to one cluster then the component will automatically redirect to `Cluster dashboard page`
+
+![Clusters list component](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/user-cluster-list-component.png)
+
+
+**`CumulusGuard`**
 
 The `CumulusGuard` component
 
@@ -128,9 +159,19 @@ $clusterData = $clusterRepository->getCurrentCluster();
 ## Auto assign
 
 ## `ClusterFiltrable` trait
-The `ClusterFiltrable` trait is meant to be used in models. It adds method for
+The `ClusterFiltrable` trait is meant to be used in models.
 
-## Rainlab.User extension
+```php
+    class Course extends Model
+    {
+        use \Initbiz\CumulusCore\Traits\ClusterFiltrable;
+        ...
+    }
+```
+
+After that you can use `clusterFiltered()` method on model to filter the data using currently picked cluster (it's slug).
+
+## Rainlab.User note
 The plugin extends RainLab.User plugin and uses the same `User` model, so if you want to restrict backend admin to manage users remember that there is controller from RainLab.Users that uses the same Model and can access the same data.
 
 ## Menus
