@@ -198,46 +198,53 @@ To use clusterRepository you have to create the object as in the example below:
 
 **ClusterRepository**
 
-`canEnterCluster(int $userId, string $clusterSlug)`
-//TODO:
+`canEnterCluster(int $userId, string $clusterSlug)` - check if user can enter given cluster
 
-`canEnterFeature(string $clusterSlug, string $featureCode)`
-//TODO:
+`canEnterFeature(string $clusterSlug, string $featureCode)` - check if cluster can enter the feature (using its plan)
 
-`getClustersUsers(array $clustersSlugs)`
-//TODO:
+`getClustersUsers(array $clustersSlugs)` - get array of users in given clusters array (can be more than one)
 
-`getClusterFeatures(string $clusterSlug)`
-//TODO:
+`getClusterFeatures(string $clusterSlug)` - get array of cluster's features
 
-`addUserToCluster(int $userId, string $clusterSlug)`
-//TODO:
+`addUserToCluster(int $userId, string $clusterSlug)` - adds user to cluster
 
-`addClusterToPlan(string $clusterSlug, string $planSlug)`
-//TODO:
+`addClusterToPlan(string $clusterSlug, string $planSlug)` - assigns a plan to cluster
 
-`getClustersPlans(array $clustersSlugs)`
-//TODO:
+`getClustersPlans(array $clustersSlugs)` - get array of clusters that has given plans (can be more than one)
 
 **PlanRepository**
-//TODO:
 
 `getPlansUsers(array $plansSlugs)` - the method takes array of plans slugs and get all users that are in those plans.
 
 **UserRepository**
-//TODO:
 
-`addUserToGroup($userId, $groupCode)`
-//TODO:
+`addUserToGroup($userId, $groupCode)` - adds user to group (`RainLab.UserGroup`)
 
-`activateUser($userId)`
-//TODO:
+`activateUser($userId)` - activate user (by default users are not active)
 
 ## Helpers
 //TODO:
 
 ## Auto assign
-//TODO:
+Auto assigning is Cumulus functionality that automatically assigns users and clusters during their registering. You can create a lot of configurations.
+
+Go to Settings -> Cumulus -> Auto assign. You wil find there two tabs: "Auto assign users" and "Auto assign clusters".
+
+### Auto assign users
+
+![Auto assign users](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/auto-assign-users.png)
+
+While auto assigning users to clusters you can decide if you want to:
+* create new cluster using variable specified in "variable name" (for example company name)
+* choose existing cluster for every newly registered user
+* get cluster slug from variable
+
+You can also decide whether you want to add user to a group after registering or not (`RainLab.UserGroup`).
+
+
+### Auto assign clusters
+
+![Auto assign clusters](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/auto-assign-clusters.png)
 
 ## `ClusterFiltrable` trait
 The `ClusterFiltrable` trait is meant to be used in models.
