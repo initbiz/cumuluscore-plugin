@@ -41,9 +41,14 @@ class MenuManager extends Singleton
                     }
                 }
 
+                //If $itemFeatures empty, then foreach will not run
                 foreach ($itemFeatures as $featureCode) {
-                    if (!$clusterRepository->canEnterFeature($currentCluster, $featureCode)) {
-                        $item->viewBag['isHidden'] = "1";
+                    //If any cumulusFeature exists than hide the item
+                    $item->viewBag['isHidden'] = "1";
+                    if ($clusterRepository->canEnterFeature($currentCluster, $featureCode)) {
+                        //The item will be shown only when cluster has access to feature
+                        $item->viewBag['isHidden'] = "0";
+                        break;
                     }
                 }
                 if ($item->items) {
