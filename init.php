@@ -204,13 +204,15 @@ Event::listen('backend.form.extendFields', function ($widget) {
     $featureManager = FeatureManager::instance();
     $features = $featureManager->getFeaturesOptions();
 
-    $widget->addTabFields([
-        'viewBag[cumulusFeatures]' => [
+    $featureFields = [];
+
+    foreach ($features as $featureCode => $featureDef) {
+        $featureFields['viewBag[cumulusFeature-'.$featureCode.']'] = [
             'tab' => 'initbiz.cumuluscore::lang.menu_item.cumulus_tab_label',
-            'label' => 'initbiz.cumuluscore::lang.menu_item.cumulus_features',
-            'comment' => 'initbiz.cumuluscore::lang.menu_item.cumulus_features_comment',
-            'type' => 'checkboxlist',
-            'options' => $features,
-        ]
-    ]);
+            'label' => $featureDef[0],
+            'commentAbove' => $featureDef[1],
+            'type' => 'checkbox',
+        ];
+    }
+    $widget->addTabFields($featureFields);
 });

@@ -293,11 +293,14 @@ If you want to specify table name or column name to build unique rule, than you 
 
 ## Twig extensions
 ### `canEnterFeature('feature.code')`
-//TODO:
 If you want to check in twig if current cluster has access to "feature.code" than use `canEnterFeature('feature.code')` Twig function.
 
-```twig
+For example:
 
+```twig
+    {% if canEnterFeature('initbiz.cumulusdemo.paid_feature') %}
+        Something visible only to those who have access to initbiz.cumulusdemo.paid_feature.
+    {% endif %}
 ```
 
 ## Rainlab.User note
@@ -308,15 +311,9 @@ Cumulus extends [RainLab.Pages](https://octobercms.com/plugin/rainlab-pages) plu
 
 Cumulus adds possibility to add pages to menus which are filtered using clusters, so that clusters will see only those menu items that they are permitted to see using features.
 
-## Cumulus Core events
-
-//TODO:
 ## Troubleshooting
-
 ### I cannot see my registered features
 If you cannot see your features then go to Settings -> Cumulus -> Features and click `Clear feature cache` button.
 
-
 ## Future plans (TODO)
-//TODO:
-* Automatically build features table
+* Component that automatically builds features table
