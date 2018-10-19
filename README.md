@@ -307,9 +307,11 @@ For example:
 The plugin extends RainLab.User plugin and uses the same `User` model, so if you want to restrict backend admin to manage users remember that there is controller from RainLab.Users that uses the same Model and can access the same data.
 
 ## Menus / Navigation
-Cumulus extends [RainLab.Pages](https://octobercms.com/plugin/rainlab-pages) plugin as well. It uses only one part of static pages plugin: building menus.
+Cumulus extends [RainLab.Pages](https://octobercms.com/plugin/rainlab-pages) plugin to build menus.
 
-Cumulus adds possibility to add pages to menus which are filtered using clusters, so that clusters will see only those menu items that they are permitted to see using features.
+![Static menu in cumulus](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/menu-static-pages.png)
+
+As you can see there are two important things. The first is new type: Cumulus page. It defines items that have `cluster_slug` in URLs. The second is "Cumulus" tab. Under the tab you can choose features that are required to see the menu item for cluster. If none specified, then everybody can see it. But if any feature is checked than the cluster must have access to it to see the menu entry. What is more, cluster can have access to just one of the features and entry will appear.
 
 ## Troubleshooting
 ### I cannot see my registered features
