@@ -56,8 +56,8 @@ class Plugin extends PluginBase
         $clusterSlug = Helpers::getCluster();
         $clusterRepository = new ClusterRepository();
 
-        $can = $clusterRepository->canEnterFeature($clusterSlug, $featureCode)
-        
+        $can = $clusterRepository->canEnterFeature($clusterSlug, $featureCode);
+
         return $can;
     }
 }

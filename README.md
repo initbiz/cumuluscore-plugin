@@ -222,16 +222,12 @@ To use clusterRepository you have to create the object as in the example below:
 
 `activateUser($userId)` - activate user (by default users are not active)
 
-## Helpers
-//TODO:
-
 ## Auto assign
 Auto assigning is Cumulus functionality that automatically assigns users and clusters during their registering. You can create a lot of configurations.
 
-Go to Settings -> Cumulus -> Auto assign. You wil find there two tabs: "Auto assign users" and "Auto assign clusters".
+Go to Settings -> Cumulus -> Auto assign. You wil find two tabs there: "Auto assign users" and "Auto assign clusters".
 
 ### Auto assign users
-
 ![Auto assign users](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/auto-assign-users.png)
 
 While auto assigning users to clusters you can decide if you want to:
@@ -239,15 +235,21 @@ While auto assigning users to clusters you can decide if you want to:
 * choose existing cluster for every newly registered user
 * get cluster slug from variable
 
-You can also decide whether you want to add user to a group after registering or not (`RainLab.UserGroup`).
-
+You can also decide whether you want to add user to a group (`RainLab.UserGroup`) after registering or not.
 
 ### Auto assign clusters
-
 ![Auto assign clusters](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/auto-assign-clusters.png)
 
+While auto assigning clusters to plans you can decide if you want to:
+* assign user to concrete plan (in most cases something like Free or Trial) or
+* get plan from variable (if you have more then one plan that cluster can be assigned)
+
+Remember that auto assigning clusters will work only if creating new cluster is enabled in "Auto assign users" tab.
+
 ## `ClusterFiltrable` trait
-The `ClusterFiltrable` trait is meant to be used in models.
+As you may have noticed, data in database will not be filtered automatically to your clusters. You have to do it by yourself. The `ClusterFiltrable` trait will be useful in this case.
+
+Just use it in your model as in the example:
 
 ```php
     class Course extends Model
@@ -257,11 +259,37 @@ The `ClusterFiltrable` trait is meant to be used in models.
     }
 ```
 
-//TODO:
-After that you can use `clusterFiltered()` method on model to filter the data using currently picked cluster (it's slug).
+If you want to use `clusterFiltered()` method without any parameters than add `cluster_slug` attribute to your model where you will store the cluster's slug. If you use id than you will have to add parameters to `clusterFiltered()` method as described below.
 
-//TODO:
-It also adds `clusterUnique($attribute, $table = null, $columnName = 'cluster_slug')`
+### `clusterFiltered($value = '', $attribute = 'cluster_slug')` scope
+The method is a Laravel scope, so it is very easy to use it on models when you want it. Just add `clusterFiltered()` to your query and done.
+
+```php
+    ExampleModel::clusterFiltered()->get();
+```
+
+The method gets two optional parameters. The first is a value and the second is an attribute. If you do not specify any of them, then the scope will use current cluster slug and tries to use `cluster_slug` attribute in the model.
+
+If you want to use `cluster_id` instead of `cluster_slug` then you will have to run the method like
+
+```php
+    ExampleModel::clusterFiltered($clusterId, 'cluster_id')->get();
+```
+
+### `clusterUnique($attribute, $table = null, $columnName = 'cluster_slug')`
+The `ClusterFiltrable` trait adds `clusterUnique` method as well. The method can be used to add validation rule for October's validator (more about validation can be found [here](https://octobercms.com/docs/services/validation)).
+
+Parameters to this method works similar to `clusterFiltered` method described above.
+
+The method returns string of validation rule. You can use the rule in model's constructor. Let's say we want to check if `invoice_number` is unique in cluster (while other clusters can safely have the same number).
+```php
+    public function __construct(array $attributes = array())
+    {
+        parent::__construct($attributes);
+        $this->rules['invoice_number'] = 'required|'.$this->clusterUnique('invoice_number');
+    }
+```
+If you want to specify table name or column name to build unique rule, than you have to use those parameters in the method. By default it will use `$this->table` attribute and `cluster_slug` as a column name.
 
 ## Twig extensions
 ### `canEnterFeature('feature.code')`

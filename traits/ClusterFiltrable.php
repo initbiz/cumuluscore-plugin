@@ -38,20 +38,20 @@ trait ClusterFiltrable
     }
 
     /**
-     * get model filtered by cluster using cluster_slug property
+     * get model filtered by value in specified attribute
      * @param  $query
-     * @param  string $clusterSlug Cluster's slug
+     * @param  string $value value to filter data by
      * @return $query
      */
-    public function scopeClusterFiltered($query, $clusterSlug = '')
+    public function scopeClusterFiltered($query, $value = '', $attribute = 'cluster_slug')
     {
-        if ($clusterSlug !== '') {
-            return $query->where('cluster_slug', $clusterSlug);
+        if ($value !== '') {
+            return $query->where($attribute, $value);
         }
 
         $this->prepareClusterSlug();
 
-        return $query->where('cluster_slug', $this->clusterSlug);
+        return $query->where($attribute, $this->clusterSlug);
     }
 
     /**
