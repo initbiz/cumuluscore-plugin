@@ -28,15 +28,22 @@ class MenuManager extends Singleton
         $iterator = function ($menuItems) use (&$iterator, $clusterRepository, $currentCluster) {
             $result = [];
             foreach ($menuItems as $item) {
-                if (isset($item->viewBag['cumulusFeatures']) && $item->viewBag['cumulusFeatures'] !== "0") {
-                    $itemFeatures = (array) $item->viewBag['cumulusFeatures'];
-                    $item->viewBag['isHidden'] = "1";
+                $itemFeatures = [];
 
-                    foreach ($itemFeatures as $feature) {
-                        if ($clusterRepository->canEnterFeature($currentCluster, $feature)) {
-                            $item->viewBag['isHidden'] = "0";
-                            break;
+                foreach ($item->viewBag as $key => $value) {
+                    if ($value === "1") {
+                        //Remove cumulusFeature- string from key to get clear feature code
+                        $parts = explode("cumulusFeature-", $key);
+                        //If second element of array exists, then key starts with cumulusFeature-
+                        if (isset($parts[1])) {
+                            $itemFeatures[] = $parts[1];
                         }
+                    }
+                }
+
+                foreach ($itemFeatures as $featureCode) {
+                    if (!$clusterRepository->canEnterFeature($currentCluster, $featureCode)) {
+                        $item->viewBag['isHidden'] = "1";
                     }
                 }
                 if ($item->items) {

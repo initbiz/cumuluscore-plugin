@@ -204,6 +204,11 @@ Event::listen('backend.form.extendFields', function ($widget) {
     $featureManager = FeatureManager::instance();
     $features = $featureManager->getFeaturesOptions();
 
+    //TODO: this should be added as checkboxlist or taglist, the problem is that
+    //      the rainlab/pages/formwidgets/assets/js/menu-items-editor.js
+    //      gets and sets values using jquery not PHP to get value
+    //      as a consequence it sets only last value to yaml
+    //      and cannot set value of select2 (taglist) or checkboxlist
     $featureFields = [];
 
     foreach ($features as $featureCode => $featureDef) {
