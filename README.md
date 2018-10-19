@@ -182,7 +182,7 @@ Feature guard is a component which ensures if current cluster can see the page b
 
 ![Feature guard](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/feature-guard.png)
 
-> If you want to filter content on one page so that only a cluster that has access to this and that feature can see this use `canEnterFeature` twig function described below.
+> If you want to filter content on one page so that only a cluster that has access to this feature can see it use `canEnterFeature` twig function described below.
 
 ### Repositories
 In Cumulus we decided to use repositories to access data from DB.
@@ -225,14 +225,14 @@ To use clusterRepository you have to create the object as in the example below:
 `activateUser($userId)` - activate user (by default users are not active)
 
 ## Auto assign
-Auto assigning is Cumulus functionality that automatically assigns users and clusters during their registering. You can create a lot of configurations.
+Auto assigning is Cumulus functionality that automatically assigns users and clusters during their registering. You can create a lot of different configurations so it should meet you expectations.
 
-Go to Settings -> Cumulus -> Auto assign. You wil find two tabs there: "Auto assign users" and "Auto assign clusters".
+Go to Settings -> Cumulus -> Auto assign where you wil find two tabs: "Auto assign users" and "Auto assign clusters".
 
 ### Auto assign users
 ![Auto assign users](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/auto-assign-users.png)
 
-While auto assigning users to clusters you can decide if you want to:
+While auto assigning users to clusters you can decide whether you want to:
 * create new cluster using variable specified in "variable name" (for example company name)
 * choose existing cluster for every newly registered user
 * get cluster slug from variable
@@ -261,7 +261,7 @@ Just use it in your model as in the example:
     }
 ```
 
-If you want to use `clusterFiltered()` method without any parameters than add `cluster_slug` attribute to your model where you will store the cluster's slug. If you use id than you will have to add parameters to `clusterFiltered()` method as described below.
+If you want to use `clusterFiltered()` method without any parameters than add `cluster_slug` attribute to your model where you will be storing the owning cluster's slug. If you use id than you will have to add parameters to `clusterFiltered()` method as described below.
 
 ### `clusterFiltered($value = '', $attribute = 'cluster_slug')` scope
 The method is a Laravel scope, so it is very easy to use it on models when you want it. Just add `clusterFiltered()` to your query and done.
@@ -279,19 +279,23 @@ If you want to use `cluster_id` instead of `cluster_slug` then you will have to 
 ```
 
 ### `clusterUnique($attribute, $table = null, $columnName = 'cluster_slug')`
-The `ClusterFiltrable` trait adds `clusterUnique` method as well. The method can be used to add validation rule for October's validator (more about validation can be found [here](https://octobercms.com/docs/services/validation)).
+The `ClusterFiltrable` trait adds `clusterUnique` method as well. The method returns validation rule (string) for October's validator (more about validation can be found [here](https://octobercms.com/docs/services/validation)).
 
-Parameters to this method works similar to `clusterFiltered` method described above.
+Parameters to this method work similar to `clusterFiltered` method described above.
 
 The method returns string of validation rule. You can use the rule in model's constructor. Let's say we want to check if `invoice_number` is unique in cluster (while other clusters can safely have the same number).
 ```php
     public function __construct(array $attributes = array())
     {
         parent::__construct($attributes);
-        $this->rules['invoice_number'] = 'required|'.$this->clusterUnique('invoice_number');
+        $this->rules['invoice_number'] = $this->clusterUnique('invoice_number');
     }
 ```
-If you want to specify table name or column name to build unique rule, than you have to use those parameters in the method. By default it will use `$this->table` attribute and `cluster_slug` as a column name.
+If you want to specify table name or column name to build unique rule, than you have to use parameters in the method. By default it will use `$this->table` attribute and `cluster_slug` as a column name, for example:
+
+```php
+    $this->rules['invoice_number'] = $this->clusterUnique('invoice_number', 'invoices', 'cluster_id');
+```
 
 ## Twig extensions
 ### `canEnterFeature('feature.code')`
@@ -313,7 +317,7 @@ Cumulus extends [RainLab.Pages](https://octobercms.com/plugin/rainlab-pages) plu
 
 ![Static menu in cumulus](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/menu-static-pages.png)
 
-As you can see there are two important things. The first is new type: Cumulus page. It defines items that have `cluster_slug` in URLs. The second is "Cumulus" tab. Under the tab you can choose features that are required to see the menu item for cluster. If none specified, then everybody can see it. But if any feature is checked than the cluster must have access to it to see the menu entry. What is more, cluster can have access to just one of the features and entry will appear.
+As you can see there are two new things. The first is a menu item type: Cumulus page. It defines items that have `cluster_slug` in URLs and the cluster slug will be injected to URL. The second is "Cumulus" tab. Under the tab you can choose features that are required to see the menu item for cluster. If none specified then everybody can see it. But if any feature is checked than the cluster must have access to it to see the menu entry. What is more, cluster can have access to just one of the features and entry will appear.
 
 ## Troubleshooting
 ### I cannot see my registered features
