@@ -187,7 +187,9 @@ Feature guard is a component which ensures if current cluster can see the page b
 ### Repositories
 In Cumulus we decided to use repositories to access data from DB.
 
-That is because we had problems with models using models using models (this inception O.o) and problems with organization of useful methods. Of course under the hood there are typical Eloquent models, so if you want to use them go ahead.
+That is because we had problems with models using models using models (this inception O.o) and problems with organization of useful methods since Models are just representations of tables in database and not the entire data.
+
+Of course under the hood there are typical Eloquent models, so if you want to use them go ahead.
 
 To use clusterRepository you have to create the object as in the example below:
 ```php
@@ -325,3 +327,6 @@ If you cannot see your features then go to Settings -> Cumulus -> Features and c
 
 ## Future plans (TODO)
 * Component that automatically builds features table
+
+## Contributing
+Every contribution is very welcomed, especially from professional devs who can suggest better organization of code. Thanks for you time in advance :)
