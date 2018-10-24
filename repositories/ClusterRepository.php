@@ -119,7 +119,7 @@ class ClusterRepository implements ClusterInterface
         $clusterFeatures = $this->getClusterFeatures($clusterSlug);
 
         $can = in_array($featureCode, $clusterFeatures) ? true : false;
-        
+
         return $can;
     }
 
@@ -180,10 +180,10 @@ class ClusterRepository implements ClusterInterface
         if ($plan) {
             $this->refreshCurrentCluster($clusterSlug);
 
-            Event::fire('initbiz.cumuluscore.addClusterToPlan', [$this->currentCluster, $plan]);
-
             $this->currentCluster->plan()->associate($plan);
             $this->currentCluster->save();
+            
+            Event::fire('initbiz.cumuluscore.addClusterToPlan', [$this->currentCluster, $plan]);
         }
     }
 
