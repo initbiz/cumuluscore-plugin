@@ -4,8 +4,9 @@ trait CumulusTestHelpers
 {
     public function createUser($data)
     {
-        $this->visit(TEST_SELENIUM_BACKEND_URL. '/rainlab/user/users/create')
-             ->type($data['name'], 'Form-field-User-name')
+        $this->gotoBackend('initbiz/cumuluscore/users/create');
+
+        $this->type($data['name'], 'Form-field-User-name')
              ->type($data['surname'], 'Form-field-User-surname')
              ->type($data['email'], 'Form-field-User-email')
              ->type($data['password'], 'Form-field-User-password')
@@ -18,8 +19,9 @@ trait CumulusTestHelpers
 
     public function createCluster($data)
     {
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/clusters/create')
-             ->type($data['name'], 'Form-field-Cluster-full_name')
+        $this->gotoBackend('initbiz/cumuluscore/clusters/create');
+
+        $this->type($data['name'], 'Form-field-Cluster-full_name')
              ->press('Create')
              ->waitForFlashMessage();
         return $this;
@@ -27,17 +29,20 @@ trait CumulusTestHelpers
 
     public function createPlan($name)
     {
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/plans/create')
-             ->type($name, 'Form-field-Plan-name')
+        $this->gotoBackend('initbiz/cumuluscore/plans/create');
+
+        $this->type($name, 'Form-field-Plan-name')
              ->press('Create')
              ->waitForFlashMessage();
+
         return $this;
     }
 
     public function activateUser($email)
     {
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users')
-             ->clickRowInBackendList($email)
+        $this->gotoBackend('initbiz/cumuluscore/users/create');
+
+        $this->clickRowInBackendList($email)
              ->clickLink('Activate this user manually')
              ->waitForElementsWithClass('sweet-alert')
              ->hold(1)
@@ -47,9 +52,9 @@ trait CumulusTestHelpers
     }
 
 
-    public function signInToFrontend($data)
+    public function signInToFrontend($data, $url = "/")
     {
-        $this->visit('/')
+        $this->visit($url)
              ->type($data['email'], 'login')
              ->type($data['password'], 'password')
              ->findAndClickElement("Login button", "//button[@type='submit']")
@@ -57,22 +62,21 @@ trait CumulusTestHelpers
         return $this;
     }
 
-    public function attachClusterToPlan($plan, $clusterName)
+    public function attachClusterToPlan($clusterName, $plan)
     {
-        $clusterId = $this->getRecordID($clusterName, TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/clusters');
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/clusters/update/' . $clusterId)
-             ->findAndClickElement('Relation-formPlan-plan')
-             ->hold(3)
-             ->findAndClickElement($plan, "//li[contains(., '{$plan}')]")
-             ->press('Save')
-             ->waitForFlashMessage();
+        $this->gotoBackend('initbiz/cumuluscore/clusters');
+
+        $this->clickRowInBackendList($clusterName)
+             ->select2('select2-Form-field-Cluster-plan-container', $plan)
+             ->press('Save');
+
         return $this;
     }
 
     public function addUserToCluster($userEmail, $clusterName)
     {
-        $userId = $this->getRecordID($userEmail, TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users');
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users/update/' . $userId)
+        $this->gotoBackend('initbiz/cumuluscore/users');
+        $this->clickRowInBackendList($userEmail)
              ->findAndClickElement('Clusters', '//a[@title="Clusters"]')
              ->hold(2)
              ->clickLabel($clusterName)
@@ -82,29 +86,15 @@ trait CumulusTestHelpers
         return $this;
     }
 
-    public function addModuleToPlan($module, $plan)
+    public function addFeatureToPlan($feature, $plan)
     {
-        $planId = $this->getRecordID($plan, TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/plans');
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/plans/update/' . $planId)
-             ->clickLabel($module);
+        $this->gotoBackend('initbiz/cumuluscore/plans');
+        $this->clickRowInBackendList($plan)
+             ->clickLabel($feature);
         $this->hold(1)
              ->press('Save')
              ->waitForFlashMessage();
         return $this;
-    }
-
-    public function slugify($text)
-    {
-        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
-        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-        $text = preg_replace('~[^-\w]+~', '', $text);
-        $text = trim($text, '-');
-        $text = preg_replace('~-+~', '-', $text);
-        $text = strtolower($text);
-        if (empty($text)) {
-            return 'n-a';
-        }
-        return $text;
     }
 
     public function clearCumulus()
@@ -117,9 +107,8 @@ trait CumulusTestHelpers
 
     public function deleteAllUsers()
     {
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users')
-             ->hold(2)
-             ->typeInBackendSearch('', true)
+        $this->gotoBackend('initbiz/cumuluscore/users');
+        $this->typeInBackendSearch('', true)
              ->hold(1)
              ->findAndClickElement('check all', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[3]/div/table/thead/tr/th[1]")
              ->press('Delete selected')
@@ -131,11 +120,10 @@ trait CumulusTestHelpers
         return $this;
     }
 
-    public function deleteAllCluster()
+    public function deleteAllClusters()
     {
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/clusters')
-             ->hold(2)
-             ->findAndClickElement('check all clusters', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[2]/div/table/thead/tr/th[1]")
+        $this->gotoBackend('initbiz/cumuluscore/clusters');
+        $this->findAndClickElement('check all clusters', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[2]/div/table/thead/tr/th[1]")
              ->press('Delete selected')
              ->waitForElementsWithClass('sweet-alert')
              ->hold(2)
@@ -147,38 +135,40 @@ trait CumulusTestHelpers
 
     public function deleteAllPlans()
     {
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/plans')
-            ->hold(2)
-            ->findAndClickElement('check all plans', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[2]/div/table/thead/tr/th[1]")
-            ->press('Delete selected')
-            ->waitForElementsWithClass('sweet-alert')
-            ->hold(2)
-            ->press('OK')
-            ->waitForFlashMessage()
-            ->hold(2);
+        $this->gotoBackend('initbiz/cumuluscore/plans');
+        $this->findAndClickElement('check all plans', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[2]/div/table/thead/tr/th[1]")
+             ->press('Delete selected')
+             ->waitForElementsWithClass('sweet-alert')
+             ->hold(2)
+             ->press('OK')
+             ->waitForFlashMessage()
+             ->hold(2);
     }
 
-    public function checkSwitchOn($switchId)
+    public function gotoCumulusBackend($sidenavLabel = "")
     {
-        $value = $this->findElement($switchId)->attribute('checked');
-        if ($value !== "true") {
-            $this->toggleSwitch($switchId);
+        $this->gotoBackend('initbiz/cumuluscore/dashboard');
+
+        if ($sidenavLabel !== "") {
+            $this->findAndClickElement($sidenavLabel, "//a[contains(., '". $sidenavLabel ."')]");
         }
-        return $this;
     }
 
-    public function checkSwitchOff($switchId)
+    public function gotoCumulusBackendForm($controllerName, $context = "create", $id = null)
     {
-        $value = $this->findElement($switchId)->attribute('checked');
-        if ($value === "true") {
-            $this->toggleSwitch($switchId);
+        if ($context !== "create") {
+            if ($id === null) {
+                //TODO: throw exception
+                return;
+            }
         }
-        return $this;
-    }
 
-    public function toggleSwitch($switchId)
-    {
-        $this->findAndClickElement($switchId);
-        return $this;
+        $this->signInToBackend();
+
+        $url = $this->backendUrl . '/initbiz/cumuluscore/' . $controllerName . '/' . $context;
+
+        if ($context === "preview" || $context === "update") {
+            $url .= $id;
+        }
     }
 }
