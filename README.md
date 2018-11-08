@@ -317,6 +317,8 @@ The plugin extends RainLab.User plugin and uses the same `User` model, so if you
 ## Menus / Navigation
 Cumulus extends [RainLab.Pages](https://octobercms.com/plugin/rainlab-pages) plugin to build menus.
 
+**Version 1.2.20 of RainLab.Pages is required**
+
 ![Static menu in cumulus](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/menu-static-pages.png)
 
 As you can see there are two new things. The first is a menu item type: Cumulus page. It defines items that have `cluster_slug` in URLs and the cluster slug will be injected to URL. The second is "Cumulus" tab. Under the tab you can choose features that are required to see the menu item for cluster. If none specified then everybody can see it. But if any feature is checked than the cluster must have access to it to see the menu entry. What is more, cluster can have access to just one of the features and entry will appear.
