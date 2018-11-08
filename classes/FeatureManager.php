@@ -3,22 +3,21 @@
 use Lang;
 use Cache;
 use Event;
-use System\Classes\PluginManager;
 use October\Rain\Support\Singleton;
 
 class FeatureManager extends Singleton
 {
     /**
-     * @var \System\Classes\PluginManager
+     * @var PluginRegistrationManager
      */
-    protected $pluginManager;
+    protected $pluginRegistrationManager;
 
     /**
      * Initialize this singleton.
      */
     protected function init()
     {
-        $this->pluginManager = PluginManager::instance();
+        $this->pluginRegistrationManager = PluginRegistrationManager::instance();
     }
 
     /**
@@ -57,20 +56,7 @@ class FeatureManager extends Singleton
 
     public function scanFeatures()
     {
-        $plugins = $this->pluginManager->getPlugins();
-
-        $pluginsNamespaces = $this->pluginManager->getPluginNamespaces();
-
-        $cumulusFeatures = [];
-
-        foreach ($plugins as $plugin) {
-            if (method_exists($plugin, 'registerCumulusFeatures')) {
-                if (!is_array($features = $plugin->registerCumulusFeatures())) {
-                    continue;
-                }
-                $cumulusFeatures = array_merge($cumulusFeatures, $features);
-            }
-        }
+        $cumulusFeatures = $this->pluginRegistrationManager->runMethod('registerCumulusFeatures');
 
         return $cumulusFeatures;
     }
@@ -79,6 +65,5 @@ class FeatureManager extends Singleton
     {
         Cache::forget('cumulusFeatures');
         $features = $this->getFeatures();
-        Cache::forever('cumulusFeatures', $features);
     }
 }
