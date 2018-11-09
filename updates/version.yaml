@@ -103,3 +103,5 @@
     - 2_0_0_drop_initbiz_cumuluscore_plan_modules_table.php
     - 2_0_0_update_initbiz_cumuluscore_clusters_table.php
     - 2_0_0_update_initbiz_cumuluscore_plans_table.php
+2.0.1:
+    - 'Dropping foreign for MySQL fixed'
