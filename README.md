@@ -15,7 +15,7 @@ Here are some use cases where Cumulus may help:
 ## TL;DR
 If you just want to see what Cumulus can do for you see the video below
 
-[![Cumulus demo video thumbnail](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/youtube_demo_screenshot.png)](https://www.youtube.com/watch?v=Y0-OvGzmP5w "Cumulus demo video")
+[![Cumulus demo video thumbnail](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/youtube_demo_screenshot.png)](https://www.youtube.com/watch?v=Y0-OvGzmP5w)
 
 or prepare example app by yourself:
 
