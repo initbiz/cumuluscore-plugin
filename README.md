@@ -10,12 +10,17 @@ Here are some use cases where Cumulus may help:
 * system for schools where classes can share some data and have access to some data while cannot see other classes data like exams system, school diary etc.
 * every system that supports cutting functionality for different plans (like "Free", "Plus", "Pro") like in the example below:
 
-![Pricing table example](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/pricing-table.png)
+![Pricing table example](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/pricing-table.png)
 
 ## TL;DR
-If you just want to see what Cumulus can do for you, great place to start will be:
-1. installing official [Cumulus theme](https://octobercms.com/theme/initbiz-cumulus)
-1. running `php artisan cumulus:seed` command (see [Cumulus Demo](https://octobercms.com/plugin/initbiz-cumulusdemo) documentation for info about the command)
+If you just want to see what Cumulus can do for you see the video below
+
+[![Cumulus demo video thumbnail](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/youtube_demo_screenshot.png)](https://www.youtube.com/watch?v=Y0-OvGzmP5w "Cumulus demo video")
+
+or prepare example app by yourself:
+
+1. install official [Cumulus theme](https://octobercms.com/theme/initbiz-cumulus)
+1. run `php artisan cumulus:seed` command (see [Cumulus Demo](https://octobercms.com/plugin/initbiz-cumulusdemo) documentation for info about the command)
 
 After that you are ready to play with Cumulus based app with demo data seeded (user demo@example.com with password demo) :).
 
@@ -57,7 +62,7 @@ Power Components plugin integrates with Cumulus Core so that lists and forms gen
 
 **Plan**s are assigned to clusters. Cluster can have only one plan at a time. Imagine a pricing table like in the example below. Plans in this case are "Free", "Plus", "Pro":
 
-![Pricing table example](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/pricing-table.png)
+![Pricing table example](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/pricing-table.png)
 
 **Feature** is a part of functionality of application. The easiest explanation of features is the records in the above table. Features are registered by your plugins as described below. It is fully up to you to create functionality of your application. Features are assigned to plans so that clusters with some plan will have access to some features.
 
@@ -99,7 +104,7 @@ The syntax is similar to registering backend permissions. For example:
 
 Features are assigned to plans. So that every cluster that has particular plan has the same set of features.
 
-![Example plan](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/example-plan.png)
+![Example plan](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/example-plan.png)
 
 It is up to you while writing plugin how many features will it register for our clients. There must be a reasonable amount of them.
 
@@ -121,7 +126,7 @@ As defined in **Concept** section above, pages in Cumulus applications are in on
 
 If you want to check if user is signed in, is assigned to a cluster and the cluster has access to a feature, then embed all three components (`Session`, `CumulusGuard` and `FeatureGuard`).
 
-![Feature guard](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/feature-guard.png)
+![Feature guard](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/feature-guard.png)
 
 The cleanest way will be creating layouts with sets of component configurations instead of embedding them on every page.
 
@@ -136,21 +141,21 @@ On "Choose cluster" page will be `UserClustersList` component embedded which aut
 ### Login page
 Login page can use `Account` component from `RainLab.Users` plugin. It should be configured so that it automatically redirects to "Choose cluster" page after successful logging in.
 
-![Login page](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/login-page.png)
+![Login page](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/login-page.png)
 
 ### "Choose cluster" page
 On "Choose cluster" page should be `UserClustersList` component embedded. It will automatically redirect user to cluster's dashboard if he/she is assigned to only one cluster.
 
-![Choose cluster page](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/choose-cluster-page.png)
+![Choose cluster page](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/choose-cluster-page.png)
 
 ### Cluster's dashboard
 Welcome screen for everyone in the cluster. Place for statistics (and [Cumulus Plus](https://octobercms.com/plugin/initbiz-cumulusplus) component).
 
-![Cluster's dashboard page](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/cluster-dashboard-page.png)
+![Cluster's dashboard page](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/cluster-dashboard-page.png)
 
 From this level every page's url should contain cluster slug variable. By default it is `:cluster` but it can be changed in component. So from now all pages will have url similar to this:
 
-![Cluster's dashboard page view](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/cluster-dashboard-page-view.png)
+![Cluster's dashboard page view](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/cluster-dashboard-page-view.png)
 
 ### Feature pages
 Every page of your system that provides some functionality is considered as "Feature page". So here is where Cumulus cannot help anymore (and tries to not disturb you with unnecessary code bloat).
@@ -163,7 +168,7 @@ The components role is to render view to select cluster if user is assigned to m
 
 > Note: If user is assigned to one cluster then the component will automatically redirect to `Cluster dashboard page`
 
-![Clusters list component](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/user-cluster-list-component.png)
+![Clusters list component](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/user-cluster-list-component.png)
 
 **CumulusGuard**
 
@@ -180,7 +185,7 @@ Feature guard is a component which ensures if current cluster can see the page b
 
 **Remember that only one of checked features is enough to let the user see the page**
 
-![Feature guard](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/feature-guard.png)
+![Feature guard](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/feature-guard.png)
 
 > If you want to filter content on one page so that only a cluster that has access to this feature can see it use `canEnterFeature` twig function described below.
 
@@ -232,7 +237,7 @@ Auto assigning is Cumulus functionality that automatically assigns users and clu
 Go to Settings -> Cumulus -> Auto assign where you wil find two tabs: "Auto assign users" and "Auto assign clusters".
 
 ### Auto assign users
-![Auto assign users](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/auto-assign-users.png)
+![Auto assign users](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/auto-assign-users.png)
 
 While auto assigning users to clusters you can decide whether you want to:
 * create new cluster using variable specified in "variable name" (for example company name)
@@ -242,7 +247,7 @@ While auto assigning users to clusters you can decide whether you want to:
 You can also decide whether you want to add user to a group (`RainLab.UserGroup`) after registering or not.
 
 ### Auto assign clusters
-![Auto assign clusters](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/auto-assign-clusters.png)
+![Auto assign clusters](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/auto-assign-clusters.png)
 
 While auto assigning clusters to plans you can decide if you want to:
 * assign user to concrete plan (in most cases something like Free or Trial) or
@@ -319,7 +324,7 @@ Cumulus extends [RainLab.Pages](https://octobercms.com/plugin/rainlab-pages) plu
 
 **Version 1.2.20 of RainLab.Pages is required**
 
-![Static menu in cumulus](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/features/docs/images/menu-static-pages.png)
+![Static menu in cumulus](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/menu-static-pages.png)
 
 As you can see there are two new things. The first is a menu item type: Cumulus page. It defines items that have `cluster_slug` in URLs and the cluster slug will be injected to URL. The second is "Cumulus" tab. Under the tab you can choose features that are required to see the menu item for cluster. If none specified then everybody can see it. But if any feature is checked than the cluster must have access to it to see the menu entry. What is more, cluster can have access to just one of the features and entry will appear.
 
