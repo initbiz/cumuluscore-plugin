@@ -7,12 +7,14 @@ class CreateInitbizCumuluscoreClustersTable extends Migration
 {
     public function up()
     {
-        Schema::create('initbiz_cumuluscore_clusters', function ($table) {
-            $table->increments('cluster_id')->unsigned();
-            $table->string('full_name');
-            $table->string('slug')->unique();
-            $table->integer('plan_id')->nullable();
-        });
+        if (!Schema::hasTable('initbiz_cumuluscore_clusters')) {
+            Schema::create('initbiz_cumuluscore_clusters', function ($table) {
+                $table->increments('cluster_id')->unsigned();
+                $table->string('full_name');
+                $table->string('slug')->unique();
+                $table->integer('plan_id')->nullable();
+            });
+        }
     }
 
     public function down()

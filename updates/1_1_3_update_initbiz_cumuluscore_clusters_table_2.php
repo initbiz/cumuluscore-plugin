@@ -4,7 +4,7 @@ use Schema;
 use Illuminate\Support\Facades\DB;
 use October\Rain\Database\Updates\Migration;
 
-class BuilderTableUpdateInitbizCumuluscoreClusters2 extends Migration
+class UpdateInitbizCumuluscoreClustersTable2 extends Migration
 {
     public function up()
     {
@@ -24,16 +24,11 @@ class BuilderTableUpdateInitbizCumuluscoreClusters2 extends Migration
 
     public function down()
     {
-        DB::statement("SET foreign_key_checks = 0");
-        Schema::table('initbiz_cumuluscore_clusters', function ($table) {
-            $table->dropForeign('initbiz_cumuluscore_clusters_country_id_foreign');
-        });
-        DB::statement("SET foreign_key_checks = 1");
-
         Schema::table('initbiz_cumuluscore_clusters', function ($table) {
             $table->dropColumn('thoroughfare');
             $table->dropColumn('city');
             $table->dropColumn('phone');
+            $table->dropForeign(['country_id']);
             $table->dropColumn('country_id');
             $table->dropColumn('postal_code');
             $table->dropColumn('description');

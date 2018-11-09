@@ -8,7 +8,12 @@ class UpdateInitbizCumuluscoreModulesTable extends Migration
     public function up()
     {
         Schema::table('initbiz_cumuluscore_modules', function ($table) {
-            $table->unique('slug');
+            $indexes = Schema::getConnection()->getDoctrineSchemaManager()->listTableIndexes($table->getTable());
+            $index_name = 'initbiz_cumuluscore_modules_slug__unique';
+
+            if (!array_key_exists($index_name, $indexes)) {
+                $table->unique('slug');
+            }
         });
     }
 

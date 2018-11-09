@@ -7,12 +7,14 @@ class CreateInitbizCumuluscorePlanModuleTable extends Migration
 {
     public function up()
     {
-        Schema::create('initbiz_cumuluscore_plan_module', function ($table) {
-            $table->engine = 'InnoDB';
-            $table->integer('plan_id');
-            $table->integer('module_id');
-            $table->primary(['plan_id' , 'module_id']);
-        });
+        if (!Schema::hasTable('initbiz_cumuluscore_plan_module')) {
+            Schema::create('initbiz_cumuluscore_plan_module', function ($table) {
+                $table->engine = 'InnoDB';
+                $table->integer('plan_id');
+                $table->integer('module_id');
+                $table->primary(['plan_id' , 'module_id']);
+            });
+        }
     }
 
     public function down()

@@ -7,11 +7,13 @@ class CreateInitbizCumuluscoreModulesTable extends Migration
 {
     public function up()
     {
-        Schema::create('initbiz_cumuluscore_modules', function ($table) {
-            $table->increments('module_id')->unsigned();
-            $table->string('name');
-            $table->string('slug');
-        });
+        if (!Schema::hasTable('initbiz_cumuluscore_modules')) {
+            Schema::create('initbiz_cumuluscore_modules', function ($table) {
+                $table->increments('module_id')->unsigned();
+                $table->string('name');
+                $table->string('slug');
+            });
+        }
     }
 
     public function down()
