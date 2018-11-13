@@ -103,6 +103,8 @@
         'name' => 'Full name',
         'plan' => 'Plan',
         'slug' => 'Slug',
+        'username' => 'Username',
+        'username_comment' => 'Username is used in URLs instead slug if you enable this feature in settings',
         'logo' => 'Logo',
         'city' => 'City',
         'phone' => 'Telephone',

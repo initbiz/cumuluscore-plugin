@@ -138,6 +138,13 @@ Example usage for our client will be as follows:
 
 On "Choose cluster" page will be `UserClustersList` component embedded which automatically redirects user to cluster's dashboard if he/she is assigned to only one cluster.
 
+### Clusters' *usernames*
+Clusters' usernames are unique strings to be used in URLs, so that URLs looks nice and so user can change its cluster's URL in your app. The same feature in Facebook and Twitter is called *username* so we decided to use name *username* as well.
+
+If you enable using usernames in URLs in Cumulus Settings than you have to ensure that you have not been using `cluster_slug` variable from URL.
+
+Notice however that if you have been using page variable injected from `Cumulus Guard` component than it will work the same way as it worked.
+
 ### Login page
 Login page can use `Account` component from `RainLab.Users` plugin. It should be configured so that it automatically redirects to "Choose cluster" page after successful logging in.
 
