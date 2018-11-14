@@ -107,3 +107,6 @@
     - 'Dropping foreign for MySQL fixed'
 2.0.2:
     - 'Better fix for the previous drop'
+2.0.3:
+    - 'Features registration logs added'
+    - '2_0_3_create_initbiz_cumuluscore_cluster_feature_logs_table.php'
