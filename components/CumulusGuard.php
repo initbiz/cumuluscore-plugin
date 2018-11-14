@@ -30,6 +30,10 @@ class CumulusGuard extends ComponentBase
         }
 
         $cluster = Helpers::getClusterFromUrlParam($this->property('clusterUniq'));
+        if (!$cluster) {
+            //if cluster has not been found, what to do?
+            return $this->controller->run('404');
+        }
         $clusterSlug = $cluster->slug;
 
         $this->clusterRepository = new ClusterRepository($clusterSlug);

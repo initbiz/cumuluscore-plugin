@@ -1,5 +1,7 @@
 <?php namespace Initbiz\CumulusCore\Models;
 
+use Db;
+use Event;
 use Model;
 use Cms\Classes\Theme;
 use Cms\Classes\Page as CmsPage;
@@ -111,5 +113,22 @@ class Cluster extends Model
         return $query->whereHas('plan', function ($q) use ($filtered) {
             $q->whereIn('plan_id', $filtered);
         });
+    }
+
+    public function beforeSave()
+    {
+        /* This must be on model because every time the model is saved:
+         * backend or repo or anywhere on create or update
+         * there should be ability to check if for example
+         * username is unique and if not, than return false, drop
+         */
+        trace_log('test');
+        Db::beginTransaction();
+        $state = Event::fire('initbiz.cumuluscore.beforeClusterSave', [$model], true);
+        if ($state === false) {
+            Db::rollBack();
+            return false;
+        }
+        Db::commit();
     }
 }
