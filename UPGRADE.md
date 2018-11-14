@@ -1,3 +1,17 @@
+# from v.2.0.3 to v.2.0.4
+## `ClusterSlug` becomes `ClusterUniq`
+`ClusterSlug` property from Cumulus components becomes `ClusterUniq`. That is because it can be either slug or username. It depends on the setting in General settings tab in Backend Settings.
+
+The only thing you have to change is `ClusterSlug` to `ClusterUniq` in all places you have been using it directly. Those places are:
+* layouts and pages in themes using Cumulus,
+* components that have been using `clusterSlug` param,
+* external methods that used components' `clusterSlug` param.
+
+As a consequence method `defineClusterSlug` becomes `defineClusterUniq`.
+
+## `cluster` and `clusterData` variables injected to page by `CumulusGuard` have changed
+`cluster` variable so far has been actually cluster's slug. This was misleading convention that had to be changed. Right now `cluster` is object of current cluster model, while `clusterData` variable is removed.
+
 # from v.1.x.x to v.2.0.0
 It is big. I know. It is funny in technology that after you create something it does not make sense after you work with it for some time. This is what happened to modules and some conventions we used in versions 1.x.x. Sorry about the amount of changes, but we hope our plugin will be much better and usable after the upgrade.
 

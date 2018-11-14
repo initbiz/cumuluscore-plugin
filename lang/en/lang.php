@@ -76,15 +76,13 @@
     'menu_item' => [
         'cumulus_page' => 'Cumulus page',
         'name' => 'Menu item',
-        'cluster_slug' => 'Cluster Slug',
-        'cluster_slug_comment' => 'Variable uses in urls',
         'cumulus_tab_label' => 'Cumulus',
         'cumulus_features' => 'Features to restrict access',
         'cumulus_features_comment' => 'Choose features to restrict user visibility using the cluster permissions',
     ],
     'component_properties' => [
-        'cluster_slug' => 'Cluster slug',
-        'cluster_slug_desc' => 'Variable from URL with slug of the current cluster',
+        'cluster_uniq' => 'Cluster unique id',
+        'cluster_uniq_desc' => 'Variable from URL with unique identifier of the current cluster',
     ],
     'cumulus_guard' => [
         'name' => 'Cumulus guard',

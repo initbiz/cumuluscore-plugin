@@ -8,9 +8,7 @@ The easiest way to understand it is to imagine an application which you want to 
 Here are some use cases where Cumulus may help:
 * system for your clients' companies where they can have their private data in cloud (your server) while other clients cannot see each other's data like invoicing system, client management system etc.
 * system for schools where classes can share some data and have access to some data while cannot see other classes data like exams system, school diary etc.
-* every system that supports cutting functionality for different plans (like "Free", "Plus", "Pro") like in the example below:
-
-![Pricing table example](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/pricing-table.png)
+* every system that supports cutting functionality for different plans (like "Free", "Plus", "Pro") like in the example in documentation in 'Example pricing table' section.
 
 ## TL;DR
 If you just want to see what Cumulus can do for you see the video below
@@ -60,9 +58,7 @@ Power Components plugin integrates with Cumulus Core so that lists and forms gen
 
 **Cluster** is a group of users which share some data between them and can be described as one entity. The most common example is a company. But it also applies to offices, office branches, classes in school, schools etc. Cluster is not a `usergroup` from `RainLab.User` plugin (like guest, registered and so on). User groups are about permissions (like read, write, update etc.) while clusters are about organizing users in logical entities.
 
-**Plan**s are assigned to clusters. Cluster can have only one plan at a time. Imagine a pricing table like in the example below. Plans in this case are "Free", "Plus", "Pro":
-
-![Pricing table example](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/pricing-table.png)
+**Plan**s are assigned to clusters. Cluster can have only one plan at a time. Imagine a pricing table like in the 'Example pricing table' section below. Plans in this case are "Free", "Plus", "Pro".
 
 **Feature** is a part of functionality of application. The easiest explanation of features is the records in the above table. Features are registered by your plugins as described below. It is fully up to you to create functionality of your application. Features are assigned to plans so that clusters with some plan will have access to some features.
 
@@ -344,3 +340,9 @@ If you cannot see your features then go to Settings -> Cumulus -> Features and c
 
 ## Contributing
 Every contribution is very welcomed, especially from professional devs who can suggest better organization of code. Thanks for you time in advance :)
+
+## Doc helpers etc.
+### Example pricing table
+Here you have an example pricing table with plans that you can create using Cumulus. The image is here only for reference purposes and is not related with Cumulus itself.
+
+![Pricing table example](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/pricing-table.png)
