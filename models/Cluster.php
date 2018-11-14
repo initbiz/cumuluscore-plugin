@@ -122,9 +122,8 @@ class Cluster extends Model
          * there should be ability to check if for example
          * username is unique and if not, than return false, drop
          */
-        trace_log('test');
         Db::beginTransaction();
-        $state = Event::fire('initbiz.cumuluscore.beforeClusterSave', [$model], true);
+        $state = Event::fire('initbiz.cumuluscore.beforeClusterSave', [$this], true);
         if ($state === false) {
             Db::rollBack();
             return false;

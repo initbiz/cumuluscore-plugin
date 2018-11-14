@@ -52,7 +52,11 @@ class ClusterRepository implements ClusterInterface
      */
     public function update(array $data, $id, $attribute="id")
     {
-        return $this->clusterModel->where($attribute, '=', $id)->update($data);
+        $cluster = $this->clusterModel->where($attribute, '=', $id)->first();
+        foreach ($data as $key => $value) {
+            $cluster->$key = $value;
+        }
+        $cluster->save();
     }
 
     /**
