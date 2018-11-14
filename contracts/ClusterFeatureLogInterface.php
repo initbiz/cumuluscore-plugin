@@ -9,5 +9,5 @@ interface ClusterFeatureLogInterface extends RepositoryInterface
      * @param  array  $features array of cluster's features
      * @return
      */
-    public function refreshClusterFeatures(int $clusterId, array $features);
+    public function registerClusterFeatures(int $clusterId, array $features);
 }

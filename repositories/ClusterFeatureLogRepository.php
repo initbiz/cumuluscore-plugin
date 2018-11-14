@@ -67,13 +67,33 @@ class ClusterFeatureLogRepository implements ClusterFeatureLogInterface
         return $plans->get();
     }
 
-    public function refreshClusterFeatures(int $clusterId, array $features)
+    public function registerClusterFeatures(int $clusterId, array $features)
     {
-        $registredFeatures = $this->clusterRegisteredFeatures($clusterId, $features);
-        $featuresToRegister = array_diff($features, $registredFeatures);
-        $this->registerClusterFeatures($clusterId, $featuresToRegister);
-        $featuresToUnregister = array_diff($registredFeatures, $features);
-        $this->unregisterClusterFeatures($clusterId, $featuresToUnregister);
+         $registredFeatures = $this->clusterRegisteredFeatures($clusterId, $features);
+         $featuresToRegister = array_diff($features, $registredFeatures);
+         foreach ($featuresToRegister as $feature) {
+            $this->registerClusterFeature($clusterId, $feature);
+        }
+    }
+
+    public function registerClusterFeature(int $clusterId, string $feature)
+    {
+        Db::beginTransaction();
+
+        $state = Event::fire('initbiz.cumuluscore.beforeRegisterClusterFeatures', [$clusterId, $feature], true);
+        if ($state === false) {
+            Db::rollBack();
+            return;
+        }
+
+        $data = [
+               'cluster_id' => $clusterId,
+               'feature_code' => $feature,
+               'action' => 'registered',
+        ];
+        $this->create($data);
+
+        Db::commit();
     }
 
     public function clusterRegisteredFeatures(int $clusterId, array $features)
@@ -82,42 +102,6 @@ class ClusterFeatureLogRepository implements ClusterFeatureLogInterface
                         ->where('action', 'registered')
                         ->get()->pluck('feature_code')
                         ->toArray();
-    }
-
-    public function registerClusterFeatures(int $clusterId, array $features)
-    {
-        foreach ($features as $feature) {
-            Db::beginTransaction();
-            $state = Event::fire('initbiz.cumuluscore.clusterFeaturesToRegister', [$clusterId, $feature], true);
-            if ($state === false) {
-                Db::rollBack();
-                continue;
-            }
-            $data = [
-                'cluster_id' => $clusterId,
-                'feature_code' => $feature,
-                'action' => 'registered',
-            ];
-            $this->create($data);
-            Db::commit();
-        }
-    }
-
-    public function unregisterClusterFeatures(int $clusterId, array $features)
-    {
-        foreach ($features as $feature) {
-            Db::beginTransaction();
-            $state = Event::fire('initbiz.cumuluscore.clusterFeaturesToUnregister', [$clusterId, $feature], true);
-            if ($state === false) {
-                Db::rollBack();
-                continue;
-            }
-            $data = [
-                'action' => 'unregistered',
-            ];
-            $this->clusterFeatureLogModel->where('cluster_id', $clusterId)->where('feature_code', $feature)->update($data);
-            Db::commit();
-        }
     }
 
 }

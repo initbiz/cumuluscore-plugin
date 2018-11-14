@@ -2,6 +2,7 @@
 
 use Model;
 use Initbiz\CumulusCore\Classes\FeatureManager;
+use Initbiz\CumulusCore\Repositories\ClusterFeatureLogRepository;
 
 class Plan extends Model
 {
@@ -42,5 +43,15 @@ class Plan extends Model
         $featureManager = FeatureManager::instance();
         $featuresOptions = $featureManager->getFeaturesOptions();
         return $featuresOptions;
+    }
+
+    public function afterSave() {
+        $clusterFeatureLogRepository = new ClusterFeatureLogRepository();
+        foreach ($this->clusters as $cluster) {
+            if ($this->features === "0") {
+                continue;
+            }
+            $clusterFeatureLogRepository->registerClusterFeatures($cluster->id, $this->features);
+        }
     }
 }

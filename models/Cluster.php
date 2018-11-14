@@ -6,6 +6,7 @@ use Cms\Classes\Page as CmsPage;
 use RainLab\Location\Models\Country;
 use RainLab\User\Models\User as UserModel;
 use Initbiz\CumulusCore\Repositories\ClusterFeatureLogRepository;
+
 /**
  * Model
  */
@@ -115,6 +116,8 @@ class Cluster extends Model
 
     public function afterSave() {
         $clusterFeatureLogRepository = new ClusterFeatureLogRepository();
-        $clusterFeatureLogRepository->refreshClusterFeatures($this->id, $this->plan->features);
+        if($this->plan) {
+            $clusterFeatureLogRepository->registerClusterFeatures($this->id, $this->plan->features);
+        }
     }
 }
