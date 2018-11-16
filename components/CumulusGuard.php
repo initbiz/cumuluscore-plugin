@@ -25,13 +25,11 @@ class CumulusGuard extends ComponentBase
         $user = Helpers::getUser();
 
         if (!$user) {
-            //throw? if user is not logged in, than guard should stop
-            return false;
+            return $this->controller->run('403');
         }
 
         $cluster = Helpers::getClusterFromUrlParam($this->property('clusterUniq'));
         if (!$cluster) {
-            //if cluster has not been found, what to do?
             return $this->controller->run('404');
         }
         $clusterSlug = $cluster->slug;

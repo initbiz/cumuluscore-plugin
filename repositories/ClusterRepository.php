@@ -237,6 +237,9 @@ class ClusterRepository implements ClusterInterface
         return $currentCluster;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function usernameUnique(string $username, string $clusterSlug)
     {
         $this->refreshCurrentCluster($clusterSlug);
