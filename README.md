@@ -139,7 +139,16 @@ Clusters' usernames are unique strings to be used in URLs, so that URLs looks ni
 
 If you enable using usernames in URLs in Cumulus Settings than you have to ensure that you have not been using `cluster_slug` variable from URL.
 
-Notice however that if you have been using page variable injected from `Cumulus Guard` component than it will work the same way as it worked.
+Notice however that if you have been using page variable injected from `Cumulus Guard` component than it will work the same way it worked.
+
+#### Username validation
+There are two events fired where you can validate username.
+
+The first one is `initbiz.cumuluscore.beforeClusterSave` which basically is fired every time you save or update cluster. It gets `cluster` model object as a parameter and you can stop executing and propagating to other listeners if you return `false`.
+
+The second one is `initbiz.cumuluscore.usernameUnique` which is run in `ClusterRepository`in `usernameUnique` method. It gets two parameters: `username` and `clusterSlug`. It may be used for example to check if username is unique in more places than one cumulus host.
+
+`ClusterUpdate` component in [Cumulus Plus](https://octobercms.com/plugin/initbiz-cumulusplus) plugin validates the username for you using AJAX.
 
 ### Login page
 Login page can use `Account` component from `RainLab.Users` plugin. It should be configured so that it automatically redirects to "Choose cluster" page after successful logging in.
@@ -203,7 +212,7 @@ To use clusterRepository you have to create the object as in the example below:
 ```php
     use Initbiz\CumulusCore\Repositories\ClusterRepository;
     ...
-    $clusterSlug = $this->property('clusterSlug');
+    $clusterSlug = $this->property('clusterUniq');
     $clusterRepository = new ClusterRepository($clusterSlug);
     $clusterData = $clusterRepository->getCurrentCluster();
 ```
