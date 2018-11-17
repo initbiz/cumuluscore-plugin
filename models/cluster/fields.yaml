@@ -12,6 +12,14 @@ fields:
             field: name
             type: slug
         type: text
+    username:
+        label: 'initbiz.cumuluscore::lang.cluster.username'
+        commentAbove: 'initbiz.cumuluscore::lang.cluster.username_comment'
+        span: full
+        preset:
+            field: name
+            type: slug
+        type: text
     description:
         label: 'initbiz.cumuluscore::lang.cluster.description'
         size: ''

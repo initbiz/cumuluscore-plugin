@@ -3,6 +3,7 @@
 use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use Initbiz\CumulusCore\Classes\Helpers;
+use Initbiz\CumulusCore\Models\GeneralSettings;
 use Initbiz\CumulusCore\Repositories\UserRepository;
 
 class UserClustersList extends ComponentBase
@@ -47,11 +48,18 @@ class UserClustersList extends ComponentBase
     public function clustersListWithUrl()
     {
         $userClustersList = $this->userRepository->getUserClusterList(Helpers::getUser()->id);
+
+        if (GeneralSettings::get('enable_usernames_in_urls')) {
+            $clusterUniq = 'username';
+        } else {
+            $clusterUniq = 'slug';
+        }
+
         $clusters = [];
         foreach ($userClustersList as $cluster) {
             $cluster['pageUrl'] = $this->controller->pageUrl(
                 $this->property('clusterDashboardPage'),
-                ['cluster' => $cluster->slug]
+                ['cluster' => $cluster->$clusterUniq]
             );
             $clusters[] = $cluster;
         }

@@ -2,12 +2,12 @@
 
 trait CumulusComponentProperties
 {
-    public function defineClusterSlug()
+    public function defineClusterUniq()
     {
         return [
-            'clusterSlug' => [
-                'title' => 'initbiz.cumuluscore::lang.component_properties.cluster_slug',
-                'description' => 'initbiz.cumuluscore::lang.component_properties.cluster_slug_desc',
+            'clusterUniq' => [
+                'title' => 'initbiz.cumuluscore::lang.component_properties.cluster_uniq',
+                'description' => 'initbiz.cumuluscore::lang.component_properties.cluster_uniq_desc',
                 'type' => 'string',
                 'default' => '{{ :cluster }}'
             ]
@@ -16,6 +16,6 @@ trait CumulusComponentProperties
 
     public function defineProperties()
     {
-        return $this->defineClusterSlug();
+        return $this->defineClusterUniq();
     }
 }

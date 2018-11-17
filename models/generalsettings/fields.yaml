@@ -1,0 +1,10 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    enable_usernames_in_urls:
+        label: initbiz.cumuluscore::lang.settings.enable_usernames_in_urls
+        comment: initbiz.cumuluscore::lang.settings.enable_usernames_in_urls_comment
+        type: switch
+        default: false

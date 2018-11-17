@@ -21,6 +21,15 @@ class Plugin extends PluginBase
     public function registerSettings()
     {
         return [
+            'general' => [
+                'label'         => 'initbiz.cumuluscore::lang.settings.general_label',
+                'description'   => 'initbiz.cumuluscore::lang.settings.general_description',
+                'category'      => 'initbiz.cumuluscore::lang.settings.menu_category',
+                'icon'          => 'icon-cogs',
+                'class'         => 'Initbiz\CumulusCore\Models\GeneralSettings',
+                'permissions'   => ['initbiz.cumuluscore.settings_access_general'],
+                'order'         => 100
+            ],
             'auto_assign' => [
                 'label'         => 'initbiz.cumuluscore::lang.settings.menu_auto_assign_label',
                 'description'   => 'initbiz.cumuluscore::lang.settings.menu_auto_assign_description',
@@ -28,7 +37,7 @@ class Plugin extends PluginBase
                 'icon'          => 'icon-sitemap',
                 'class'         => 'Initbiz\CumulusCore\Models\AutoAssignSettings',
                 'permissions'   => ['initbiz.cumuluscore.settings_access_auto_assign'],
-                'order'         => 100
+                'order'         => 110
             ],
             'features' => [
                 'label'         => 'initbiz.cumuluscore::lang.settings.menu_features_label',
@@ -37,7 +46,7 @@ class Plugin extends PluginBase
                 'icon'          => 'icon-cubes',
                 'url'           => Backend::url('initbiz/cumuluscore/features'),
                 'permissions'   => ['initbiz.cumuluscore.settings_access_manage_features'],
-                'order'         => 100
+                'order'         => 120
             ]
         ];
     }

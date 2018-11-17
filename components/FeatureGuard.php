@@ -1,6 +1,7 @@
 <?php namespace Initbiz\CumulusCore\Components;
 
 use Cms\Classes\ComponentBase;
+use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Classes\FeatureManager;
 use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
@@ -22,7 +23,7 @@ class FeatureGuard extends ComponentBase
 
     public function defineProperties()
     {
-        return $this->defineClusterSlug() +
+        return $this->defineClusterUniq() +
         [
             'cumulusFeatures' => [
                 'title' => 'initbiz.cumuluscore::lang.feature_guard.cumulus_features',
@@ -36,9 +37,9 @@ class FeatureGuard extends ComponentBase
 
     public function onRun()
     {
-        $this->clusterRepository = new ClusterRepository;
+        $clusterSlug = Helpers::getClusterSlugFromUrlParam($this->property('clusterUniq'));
 
-        $clusterSlug = $this->property('clusterSlug');
+        $this->clusterRepository = new ClusterRepository($clusterSlug);
 
         $featureCodes = $this->property('cumulusFeatures');
 

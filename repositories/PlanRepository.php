@@ -31,7 +31,11 @@ class PlanRepository implements PlanInterface
 
     public function update(array $data, $id, $attribute="id")
     {
-        return $this->planModel->where($attribute, '=', $id)->update($data);
+        $plan = $this->planModel->where($attribute, '=', $id)->first();
+        foreach ($data as $key => $value) {
+            $plan->$key = $value;
+        }
+        $plan->save();
     }
 
     public function delete(int $id)

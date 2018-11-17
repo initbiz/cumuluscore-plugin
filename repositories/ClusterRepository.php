@@ -1,6 +1,9 @@
 <?php namespace Initbiz\CumulusCore\Repositories;
 
+use Lang;
 use Event;
+use Validator;
+use October\Rain\Exception\ValidationException;
 use Initbiz\CumulusCore\Contracts\ClusterInterface;
 
 class ClusterRepository implements ClusterInterface
@@ -52,7 +55,11 @@ class ClusterRepository implements ClusterInterface
      */
     public function update(array $data, $id, $attribute="id")
     {
-        return $this->clusterModel->where($attribute, '=', $id)->update($data);
+        $cluster = $this->clusterModel->where($attribute, '=', $id)->first();
+        foreach ($data as $key => $value) {
+            $cluster->$key = $value;
+        }
+        $cluster->save();
     }
 
     /**
@@ -182,7 +189,7 @@ class ClusterRepository implements ClusterInterface
 
             $this->currentCluster->plan()->associate($plan);
             $this->currentCluster->save();
-            
+
             Event::fire('initbiz.cumuluscore.addClusterToPlan', [$this->currentCluster, $plan]);
         }
     }
@@ -228,5 +235,35 @@ class ClusterRepository implements ClusterInterface
         }
 
         return $currentCluster;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function usernameUnique(string $username, string $clusterSlug)
+    {
+        $this->refreshCurrentCluster($clusterSlug);
+
+        $rules = [
+            'username' => 'required|between:4,255|alpha_dash|unique:initbiz_cumuluscore_clusters,username,' . $this->currentCluster->id,
+        ];
+
+        $data = [
+            'username' => $username,
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails()) {
+            return false;
+        }
+
+        $state = Event::fire('initbiz.cumuluscore.usernameUnique', [$username, $clusterSlug], true);
+
+        if ($state === false) {
+            return false;
+        }
+
+        return true;
     }
 }

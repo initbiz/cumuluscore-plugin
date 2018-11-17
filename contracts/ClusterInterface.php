@@ -51,4 +51,12 @@ interface ClusterInterface extends RepositoryInterface
      * @return array array of current cluster data
      */
     public function getCurrentCluster();
+
+    /**
+     * Check if username for this cluster is unique
+     * @param  string $username    username string
+     * @param  string $clusterSlug cluster's slug
+     * @return boolean             unique or not
+     */
+    public function usernameUnique(string $username, string $clusterSlug);
 }

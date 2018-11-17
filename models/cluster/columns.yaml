@@ -7,6 +7,10 @@ columns:
         label: 'initbiz.cumuluscore::lang.cluster.slug'
         searchable: true
         sortable: true
+    username:
+        label: 'initbiz.cumuluscore::lang.cluster.username'
+        searchable: true
+        sortable: true
     plan:
         label: 'initbiz.cumuluscore::lang.cluster.plan'
         searchable: true
