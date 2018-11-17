@@ -2,6 +2,8 @@
 ### Introducing *Clusters' usernames*
 Clusters' usernames is a new feature of Cumulus, where your users can specify their "username" in URL. See documentation for more info about the feature.
 
+While installing this version Cumulus will by default copy Clusters' slugs to their usernames so by default usernames will be seeded and everything should work out of the box if you enable using usernames.
+
 ### `ClusterSlug` becomes `ClusterUniq`
 `ClusterSlug` property from Cumulus components becomes `ClusterUniq`. That is because it can be either slug or username. It depends on the setting in General settings tab in Backend Settings.
 
