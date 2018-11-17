@@ -1,4 +1,4 @@
-## from v.2.0.3 to v.2.0.4
+## from v.2.0.2 to v.2.0.3
 ### Introducing *Clusters' usernames*
 Clusters' usernames is a new feature of Cumulus, where your users can specify their "username" in URL. See documentation for more info about the feature.
 
