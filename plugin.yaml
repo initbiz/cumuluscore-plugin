@@ -5,6 +5,9 @@ plugin:
     icon: oc-icon-cloud
     homepage: 'http://cumulus.init.biz'
 permissions:
+    initbiz.cumuluscore.settings_general:
+        tab: 'initbiz.cumuluscore::lang.permissions.cumulus_tab'
+        label: 'initbiz.cumuluscore::lang.permissions.settings_access_general'
     initbiz.cumuluscore.settings_access_auto_assign:
         tab: 'initbiz.cumuluscore::lang.permissions.cumulus_tab'
         label: 'initbiz.cumuluscore::lang.permissions.settings_access_auto_assign'

@@ -1,5 +1,7 @@
 <?php namespace Initbiz\CumulusCore\Models;
 
+use Db;
+use Event;
 use Model;
 use Cms\Classes\Theme;
 use Cms\Classes\Page as CmsPage;
@@ -21,7 +23,10 @@ class Cluster extends Model
     /**
      * @var array Generate slugs for these attributes.
      */
-    protected $slugs = ['slug' => 'name'];
+    protected $slugs = [
+        'slug' => 'name',
+        'username' => 'name',
+    ];
 
     /**
      * Fields to be set as null when left empty
@@ -30,6 +35,7 @@ class Cluster extends Model
     protected $nullable = [
         'name',
         'slug',
+        'username',
         'plan_id',
         'thoroughfare',
         'city',
@@ -45,6 +51,7 @@ class Cluster extends Model
     protected $fillable = [
         'name',
         'slug',
+        'username',
         'plan_id',
         'thoroughfare',
         'city',
@@ -62,9 +69,10 @@ class Cluster extends Model
      */
     //TODO: problems with auto assigning clusters. While saving model email is required, although it's not...
     // public $rules = [
-    //     'name'   => 'required|between:4,255',
-    //     'slug'        => 'between:4,100|unique:initbiz_cumuluscore_clusters',
-    //     'email'       => 'between:6,255|email',
+    //     'name'      => 'required|between:4,255',
+    //     'slug'      => 'between:4,100|unique:initbiz_cumuluscore_clusters',
+    //     'username'  => 'between:4,100|unique:initbiz_cumuluscore_clusters',
+    //     'email'     => 'between:6,255|email',
     // ];
 
     /*
@@ -98,7 +106,6 @@ class Cluster extends Model
         'clusterFeatures' => [
             ClusterFeatureLog::class,
             'table' => 'initbiz_cumuluscore_cluster_feature_logs',
-            'otherKey' => 'user_id'
         ]
     ];
 
@@ -114,10 +121,19 @@ class Cluster extends Model
         });
     }
 
-    public function afterSave() {
-        $clusterFeatureLogRepository = new ClusterFeatureLogRepository();
-        if($this->plan) {
-            $clusterFeatureLogRepository->registerClusterFeatures($this->id, $this->plan->features);
+    public function beforeSave()
+    {
+        /* This must be on model because every time the model is saved:
+         * backend or repo or anywhere on create or update
+         * there should be ability to check if for example
+         * username is unique and if not, than return false, drop
+         */
+        Db::beginTransaction();
+        $state = Event::fire('initbiz.cumuluscore.beforeClusterSave', [$this], true);
+        if ($state === false) {
+            Db::rollBack();
+            return false;
         }
+        Db::commit();
     }
 }

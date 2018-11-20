@@ -30,7 +30,11 @@ class UserRepository implements UserInterface
 
     public function update(array $data, $id, $attribute="id")
     {
-        return $this->userModel->where($attribute, '=', $id)->update($data);
+        $user = $this->userModel->where($attribute, '=', $id)->first();
+        foreach ($data as $key => $value) {
+            $user->$key = $value;
+        }
+        $user->save();
     }
 
     public function delete(int $id)

@@ -22,19 +22,26 @@ class CumulusGuard extends ComponentBase
 
     public function onRun()
     {
-        $clusterSlug = $this->property('clusterSlug');
+        $user = Helpers::getUser();
+
+        if (!$user) {
+            return $this->controller->run('403');
+        }
+
+        $cluster = Helpers::getClusterFromUrlParam($this->property('clusterUniq'));
+        if (!$cluster) {
+            return $this->controller->run('404');
+        }
+        $clusterSlug = $cluster->slug;
+
         $this->clusterRepository = new ClusterRepository($clusterSlug);
 
-        if (!$this->clusterRepository->canEnterCluster(
-            Helpers::getUser()->id,
-            $clusterSlug
-        )) {
+        if (!$this->clusterRepository->canEnterCluster($user->id, $clusterSlug)) {
             $this->setStatusCode(403);
             return $this->controller->run('403');
         }
 
-        $this->page['cluster'] = $clusterSlug;
-        $this->page['clusterData'] = $this->clusterRepository->getCurrentCluster();
+        $this->page['cluster'] = $cluster;
 
         Session::put('cumulus_clusterslug', $clusterSlug);
         Cookie::queue(Cookie::forever('cumulus_clusterslug', $clusterSlug));
