@@ -23,7 +23,7 @@ class ClusterFeatureLog extends Model
      * @var array Fillable fields
      */
     protected $fillable = [
-        'cluster_id',
+        'cluster_slug',
         'feature_code',
         'action',
     ];
@@ -39,4 +39,11 @@ class ClusterFeatureLog extends Model
             'table' => 'initbiz_cumuluscore_clusters',
         ]
     ];
-}
+
+    /**
+     * Scope a query to only include registered features
+     */
+    public function scopeRegistered($query)
+    {
+        return $query->where('action', 'registered');
+    }}

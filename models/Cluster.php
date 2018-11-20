@@ -103,7 +103,7 @@ class Cluster extends Model
             'table' => 'users',
             'otherKey' => 'user_id'
         ],
-        'clusterFeatures' => [
+        'clusterRegisteredFeatures' => [
             ClusterFeatureLog::class,
             'table' => 'initbiz_cumuluscore_cluster_feature_logs',
         ]
@@ -135,5 +135,12 @@ class Cluster extends Model
             return false;
         }
         Db::commit();
+    }
+
+    public function afterSave() {
+        $clusterFeatureLogRepository = new ClusterFeatureLogRepository();
+        if($this->plan) {
+            $clusterFeatureLogRepository->registerClusterFeatures($this->slug, $this->plan->features);
+        }
     }
 }

@@ -206,10 +206,6 @@ Feature guard is a component which ensures if current cluster can see the page b
 
 > If you want to filter content on one page so that only a cluster that has access to this feature can see it use `canEnterFeature` twig function described below.
 
-### Cluster features logs
-
-The logs stores data about features that cluster has access. Register method fires `initbiz.cumuluscore.beforeRegisterClusterFeatures` event before save log for every feature.
-
 ### Repositories
 In Cumulus we decided to use repositories to access data from DB.
 

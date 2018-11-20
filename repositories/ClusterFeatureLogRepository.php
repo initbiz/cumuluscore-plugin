@@ -2,6 +2,7 @@
 
 use Db;
 use Event;
+use Exception;
 use Initbiz\CumulusCore\Contracts\ClusterFeatureLogInterface;
 
 class ClusterFeatureLogRepository implements ClusterFeatureLogInterface
@@ -10,47 +11,78 @@ class ClusterFeatureLogRepository implements ClusterFeatureLogInterface
     public $clusterFeatureLogModel;
     public $userRepository;
 
+    /**
+     * {@inheritdoc}
+     */
     public function __construct()
     {
         $this->clusterFeatureLogModel = new \Initbiz\CumulusCore\Models\ClusterFeatureLog;
         $this->clusterRepository = new ClusterRepository();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function all($columns = array('*'))
     {
         return $this->clusterFeatureLogModel->get($columns);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function paginate(int $perPage = 15, $columns = array('*'))
     {
         return $this->clusterFeatureLogModel->paginate($perPage, $columns);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function create(array $data)
     {
         return $this->clusterFeatureLogModel->create($data);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function update(array $data, $id, $attribute="id")
     {
-        return $this->clusterFeatureLogModel->where($attribute, '=', $id)->update($data);
+        $cluster = $this->clusterModel->where($attribute, '=', $id)->first();
+        foreach ($data as $key => $value) {
+            $cluster->$key = $value;
+        }
+        $cluster->save();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function delete(int $id)
     {
         return $this->clusterFeatureLogModel->destroy($id);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function find(int $id, $columns = array('*'))
     {
         return $this->clusterFeatureLogModel->find($id, $columns);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function findBy(string $field, $value, $columns = array('*'))
     {
         return $this->clusterFeatureLogModel->where($field, '=', $value)->first($columns);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getByRelationPropertiesArray(string $relationName, string $propertyName, array $array)
     {
         return $this->clusterFeatureLogModel->whereHas($relationName, function ($query) use ($propertyName, $array) {
@@ -58,6 +90,9 @@ class ClusterFeatureLogRepository implements ClusterFeatureLogInterface
         })->get();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getUsingArray(string $field, array $array)
     {
         $plans = $this->clusterFeatureLogModel->where($field, array_shift($array));
@@ -67,27 +102,37 @@ class ClusterFeatureLogRepository implements ClusterFeatureLogInterface
         return $plans->get();
     }
 
-    public function registerClusterFeatures(int $clusterId, array $features)
+    /**
+     * {@inheritdoc}
+     */
+    public function registerClusterFeatures(string $clusterSlug, array $features)
     {
-         $registredFeatures = $this->clusterRegisteredFeatures($clusterId, $features);
+         $registredFeatures = $this->clusterRegisteredFeatures($clusterSlug, $features);
          $featuresToRegister = array_diff($features, $registredFeatures);
          foreach ($featuresToRegister as $feature) {
-            $this->registerClusterFeature($clusterId, $feature);
+            $this->registerClusterFeature($clusterSlug, $feature);
         }
     }
 
-    public function registerClusterFeature(int $clusterId, string $feature)
+    /**
+     * Register feature for cluster
+     * @param  string    $clusterSlug
+     * @param  string $feature   feature code
+     * @return void
+     */
+    public function registerClusterFeature(String $clusterSlug, string $feature)
     {
         Db::beginTransaction();
 
-        $state = Event::fire('initbiz.cumuluscore.beforeRegisterClusterFeatures', [$clusterId, $feature], true);
+        $state = Event::fire('initbiz.cumuluscore.registerClusterFeature', [$clusterSlug, $feature], true);
         if ($state === false) {
             Db::rollBack();
-            return;
+            //TODO: Create own Excetion class
+            throw new Exception();
         }
 
         $data = [
-               'cluster_id' => $clusterId,
+               'cluster_slug' => $clusterSlug,
                'feature_code' => $feature,
                'action' => 'registered',
         ];
@@ -96,11 +141,12 @@ class ClusterFeatureLogRepository implements ClusterFeatureLogInterface
         Db::commit();
     }
 
-    public function clusterRegisteredFeatures(int $clusterId, array $features)
+    public function clusterRegisteredFeatures(string $clusterSlug)
     {
-            return $this->clusterFeatureLogModel->clusterFiltered($clusterId, 'cluster_id')
-                        ->where('action', 'registered')
-                        ->get()->pluck('feature_code')
+            return $this->clusterFeatureLogModel->clusterFiltered($clusterSlug)
+                        ->registered()
+                        ->get()
+                        ->pluck('feature_code')
                         ->toArray();
     }
 

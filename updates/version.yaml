@@ -111,5 +111,5 @@
     - '!!! Username for cluster added. Read the upgrade guide.'
     - 2_0_3_update_initbiz_cumuluscore_clusters_table_4.php
 2.0.4:
-    - 'Features registration logs added'
-    - '2_0_3_create_initbiz_cumuluscore_cluster_feature_logs_table.php'
+    - 'Registration of clusters features support added'
+    - '2_0_4_create_initbiz_cumuluscore_cluster_feature_logs_table.php'

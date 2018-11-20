@@ -51,7 +51,7 @@ class Plan extends Model
             if ($this->features === "0") {
                 continue;
             }
-            $clusterFeatureLogRepository->registerClusterFeatures($cluster->id, $this->features);
+            $clusterFeatureLogRepository->registerClusterFeatures($cluster->slug, $this->features);
         }
     }
 }

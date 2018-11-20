@@ -191,14 +191,6 @@ class ClusterRepository implements ClusterInterface
             $this->currentCluster->plan()->associate($plan);
             $this->currentCluster->save();
 
-            /**
-             * register new cluster features.
-             */
-            $clusterFeatureLogRepository = new ClusterFeatureLogRepository();
-            if($this->currentCluster->plan) {
-                $clusterFeatureLogRepository->registerClusterFeatures($this->currentCluster->id, $this->currentCluster->plan->features);
-            }
-
             Event::fire('initbiz.cumuluscore.addClusterToPlan', [$this->currentCluster, $plan]);
         }
     }

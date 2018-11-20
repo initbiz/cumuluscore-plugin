@@ -11,7 +11,7 @@ class CreateClusterFeatureLogsTable extends Migration
         Schema::create('initbiz_cumuluscore_cluster_feature_logs', function(Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('cluster_id');
+            $table->string('cluster_slug');
             $table->string('feature_code');
             $table->string('action');
             $table->timestamp('timestamp')->nullable();
