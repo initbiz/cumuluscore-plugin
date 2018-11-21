@@ -46,4 +46,5 @@ class ClusterFeatureLog extends Model
     public function scopeRegistered($query)
     {
         return $query->where('action', 'registered');
-    }}
+    }
+}

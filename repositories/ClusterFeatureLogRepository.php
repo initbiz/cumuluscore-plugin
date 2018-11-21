@@ -149,5 +149,4 @@ class ClusterFeatureLogRepository implements ClusterFeatureLogInterface
                         ->pluck('feature_code')
                         ->toArray();
     }
-
 }

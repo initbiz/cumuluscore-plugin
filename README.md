@@ -244,7 +244,7 @@ To use clusterRepository you have to create the object as in the example below:
 
 **ClusterFeatureLogRepository**
 
-`registerClusterFeatures(int $clusterId, array $features)` - the method log that this cluster has access to such features.
+`registerClusterFeatures(string $clusterSlug, array $features)` - the method log that this cluster has access to such features.
 
 **UserRepository**
 

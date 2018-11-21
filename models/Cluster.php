@@ -106,6 +106,8 @@ class Cluster extends Model
         'clusterRegisteredFeatures' => [
             ClusterFeatureLog::class,
             'table' => 'initbiz_cumuluscore_cluster_feature_logs',
+            'key' => 'cluster_slug',
+            'otherKey' => 'slug',
         ]
     ];
 

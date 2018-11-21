@@ -14,7 +14,7 @@ class CreateClusterFeatureLogsTable extends Migration
             $table->string('cluster_slug');
             $table->string('feature_code');
             $table->string('action');
-            $table->timestamp('timestamp')->nullable();
+            $table->timestamp('timestamp')->useCurrent();
         });
     }
 
