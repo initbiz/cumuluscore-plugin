@@ -115,10 +115,7 @@ class ClusterFeatureLogRepository implements ClusterFeatureLogInterface
     }
 
     /**
-     * Register feature for cluster
-     * @param  string    $clusterSlug
-     * @param  string $feature   feature code
-     * @return void
+     * {@inheritdoc}
      */
     public function registerClusterFeature(String $clusterSlug, string $feature)
     {
@@ -141,6 +138,9 @@ class ClusterFeatureLogRepository implements ClusterFeatureLogInterface
         Db::commit();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function clusterRegisteredFeatures(string $clusterSlug)
     {
             return $this->clusterFeatureLogModel->clusterFiltered($clusterSlug)
