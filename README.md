@@ -91,7 +91,7 @@ The syntax is similar to registering backend permissions. For example:
     {
         return [
            'initbiz.cumulusinvoices.manage_invoices' => [
-               'label' => 'initbiz.cumulusinvoices::lang.feature.manage_invoices',
+               'name' => 'initbiz.cumulusinvoices::lang.feature.manage_invoices',
                'description' => 'initbiz.cumulusinvoices::lang.feature.manage_invoices_desc',
            ]
         ];
@@ -105,6 +105,23 @@ Features are assigned to plans. So that every cluster that has particular plan h
 It is up to you while writing plugin how many features will it register for our clients. There must be a reasonable amount of them.
 
 Before creating and using features it is a good idea to read about `FeatureGuard` component below.
+
+### Registering cluster's features
+> **Registering features in system differs from registering cluster's features.** Registering features in system is described in section right above.
+
+Every time any cluster obtains access to any feature (**for the first time, once**) we call it registering cluster's feature. Registering clusters' features is the process of running some 'registering' code when cluster gets access to a feature whether by changes of cluster's plan or plan's features.
+
+To register a feature you have to bind to `initbiz.cumuluscore.registerClusterFeature` event and check if it is your feature being registered right now like in the example below:
+
+```php
+    Event::listen('initbiz.cumuluscore.registerClusterFeature', function ([$clusterSlug, $featureCode]) {
+        if ($featureCode === "initbiz.cumulusinvoices.manage_invoices") {
+            // perform some registering code, for example seed tables for the cluster with sample data
+        }
+    });
+```
+
+The event is blocking so if you decide to stop the process of registration then return false and exception will be thrown.
 
 ## How-to
 ### Shortcut
