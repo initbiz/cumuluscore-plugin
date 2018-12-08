@@ -20,7 +20,7 @@ interface ClusterInterface extends RepositoryInterface
 
     /**
      * Get current cluster's features
-     * @param  string $clusterSlug Cluster slug
+     * @param  string $clusterSlug Cluster's slug
      * @return array  cluster features codes
      */
     public function getClusterFeatures(string $clusterSlug);

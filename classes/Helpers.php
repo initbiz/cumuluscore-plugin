@@ -41,6 +41,20 @@ class Helpers
         return $clusterSlug;
     }
 
+    public static function getClusterUsernameFromUrlParam($param)
+    {
+        $clusterUsername = '';
+
+        if (GeneralSettings::get('enable_usernames_in_urls')) {
+            $clusterUsername = $param;
+        } else {
+            $cluster = self::getClusterFromUrlParam($param);
+            $clusterUsername = $cluster->username;
+        }
+
+        return $clusterUsername;
+    }
+
     public static function getClusterFromUrlParam($param)
     {
         $findBy = '';
@@ -59,6 +73,11 @@ class Helpers
     public static function clusterId($slug)
     {
         return Cluster::where('slug', $slug)->first()->id;
+    }
+
+    public static function clusterUsername($slug)
+    {
+        return Cluster::where('slug', $slug)->first()->username;
     }
 
     public static function getFileListToDropdown()
