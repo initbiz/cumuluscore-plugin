@@ -5,6 +5,7 @@ use Event;
 use Validator;
 use October\Rain\Exception\ValidationException;
 use Initbiz\CumulusCore\Contracts\ClusterInterface;
+use Initbiz\CumulusCore\Repositories\ClusterFeatureLogRepository;
 
 class ClusterRepository implements ClusterInterface
 {

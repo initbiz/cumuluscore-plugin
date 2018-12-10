@@ -259,6 +259,10 @@ To use clusterRepository you have to create the object as in the example below:
 
 `getPlansUsers(array $plansSlugs)` - the method takes array of plans slugs and get all users that are in those plans.
 
+**ClusterFeatureLogRepository**
+
+`registerClusterFeatures(string $clusterSlug, array $features)` - the method log that this cluster has access to such features.
+
 **UserRepository**
 
 `addUserToGroup($userId, $groupCode)` - adds user to group (`RainLab.UserGroup`)

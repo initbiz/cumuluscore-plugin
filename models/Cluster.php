@@ -7,6 +7,7 @@ use Cms\Classes\Theme;
 use Cms\Classes\Page as CmsPage;
 use RainLab\Location\Models\Country;
 use RainLab\User\Models\User as UserModel;
+use Initbiz\CumulusCore\Repositories\ClusterFeatureLogRepository;
 
 /**
  * Model
@@ -101,8 +102,15 @@ class Cluster extends Model
             UserModel::class,
             'table' => 'users',
             'otherKey' => 'user_id'
+        ],
+        'clusterRegisteredFeatures' => [
+            ClusterFeatureLog::class,
+            'table' => 'initbiz_cumuluscore_cluster_feature_logs',
+            'key' => 'cluster_slug',
+            'otherKey' => 'slug',
         ]
     ];
+
 
     public $attachOne = [
         'logo' => ['System\Models\File']
@@ -129,5 +137,12 @@ class Cluster extends Model
             return false;
         }
         Db::commit();
+    }
+
+    public function afterSave() {
+        $clusterFeatureLogRepository = new ClusterFeatureLogRepository();
+        if($this->plan) {
+            $clusterFeatureLogRepository->registerClusterFeatures($this->slug, $this->plan->features);
+        }
     }
 }
