@@ -114,7 +114,7 @@ Every time any cluster obtains access to any feature (**for the first time, once
 To register a feature you have to bind to `initbiz.cumuluscore.registerClusterFeature` event and check if it is your feature being registered right now like in the example below:
 
 ```php
-    Event::listen('initbiz.cumuluscore.registerClusterFeature', function ([$clusterSlug, $featureCode]) {
+    Event::listen('initbiz.cumuluscore.registerClusterFeature', function ($clusterSlug, $featureCode) {
         if ($featureCode === "initbiz.cumulusinvoices.manage_invoices") {
             // perform some registering code, for example seed tables for the cluster with sample data
         }
