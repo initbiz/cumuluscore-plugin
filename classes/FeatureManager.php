@@ -4,6 +4,7 @@ use Lang;
 use Cache;
 use Event;
 use October\Rain\Support\Singleton;
+use Initbiz\InitDry\Classes\PluginRegistrationManager;
 
 class FeatureManager extends Singleton
 {

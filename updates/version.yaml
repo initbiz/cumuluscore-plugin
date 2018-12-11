@@ -113,3 +113,5 @@
 2.0.4:
     - 'Registration of clusters features support added'
     - '2_0_4_create_initbiz_cumuluscore_cluster_feature_logs_table.php'
+2.0.5:
+    - '!!! Moved some helpers to Initbiz.InitDry plugin. Install the plugin if want to proceed.'
