@@ -6,6 +6,7 @@ use Cms\Classes\Layout;
 use Cms\Classes\Page as CmsPage;
 use October\Rain\Support\Singleton;
 use Initbiz\CumulusCore\Classes\Helpers;
+use Initbiz\InitDry\Classes\Helpers as DryHelpers;
 use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 class MenuManager extends Singleton
@@ -68,7 +69,7 @@ class MenuManager extends Singleton
             return;
         }
 
-        $pageUrl = Helpers::getPageUrl($item->cmsPage, $theme);
+        $pageUrl = DryHelpers::getPageUrl($item->cmsPage, $theme);
         if (!$pageUrl) {
             return;
         }

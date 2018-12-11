@@ -2,7 +2,7 @@
 
 use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
-use Initbiz\CumulusCore\Classes\Helpers;
+use Initbiz\InitDry\Classes\Helpers;
 use Initbiz\CumulusCore\Models\GeneralSettings;
 use Initbiz\CumulusCore\Repositories\UserRepository;
 

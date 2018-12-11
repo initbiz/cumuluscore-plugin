@@ -4,6 +4,7 @@ use Cookie;
 use Session;
 use Cms\Classes\ComponentBase;
 use Initbiz\CumulusCore\Classes\Helpers;
+use Initbiz\InitDry\Classes\Helpers as DryHelpers;
 use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 class CumulusGuard extends ComponentBase
@@ -22,7 +23,7 @@ class CumulusGuard extends ComponentBase
 
     public function onRun()
     {
-        $user = Helpers::getUser();
+        $user = DryHelpers::getUser();
 
         if (!$user) {
             return $this->controller->run('403');
