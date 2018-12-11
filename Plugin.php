@@ -7,7 +7,7 @@ use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 class Plugin extends PluginBase
 {
-    public $require = ['RainLab.User', 'RainLab.Notify', 'RainLab.Location', 'RainLab.UserPlus', 'RainLab.Pages'];
+    public $require = ['RainLab.User', 'RainLab.Notify', 'RainLab.Location', 'RainLab.UserPlus', 'RainLab.Pages', 'Initbiz.InitDry'];
 
     public function registerComponents()
     {
