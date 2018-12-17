@@ -141,7 +141,7 @@ class ClusterFeatureLogRepository implements ClusterFeatureLogInterface
     /**
      * {@inheritdoc}
      */
-    public function clusterRegisteredFeatures(string $clusterSlug)
+    public function clusterRegisteredFeatures(string $clusterSlug): array
     {
             return $this->clusterFeatureLogModel->clusterFiltered($clusterSlug)
                         ->registered()
