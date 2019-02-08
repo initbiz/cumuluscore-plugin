@@ -70,7 +70,12 @@ Event::listen('rainlab.user.register', function ($user, $data) {
             $clusterRepository->addUserToCluster($user->id, AutoAssignSettings::get('auto_assign_user_concrete_cluster'));
         } catch (\Exception $e) {
             Db::rollback();
-            throw new \Exception("Error Assigning user to concrete cluster", 1);
+            if (env('APP_DEBUG', false)) {
+                throw $e;
+            } else {
+                trace_log($e);
+                throw new \Exception("Error Assigning user to concrete cluster", 1);
+            }
         }
     }
 
@@ -81,7 +86,12 @@ Event::listen('rainlab.user.register', function ($user, $data) {
             $clusterRepository->addUserToCluster($user->id, $clusterSlug);
         } catch (\Exception $e) {
             Db::rollback();
-            throw new \Exception("Error Assigning user to existing cluster with slug get from variable", 1);
+            if (env('APP_DEBUG', false)) {
+                throw $e;
+            } else {
+                trace_log($e);
+                throw new \Exception("Error Assigning user to existing cluster with slug get from variable", 1);
+            }
         }
     }
     if (AutoAssignSettings::get('auto_assign_user') === 'new_cluster') {
@@ -106,7 +116,12 @@ Event::listen('rainlab.user.register', function ($user, $data) {
             $clusterRepository->addUserToCluster($user->id, $cluster->slug);
         } catch (\Exception $e) {
             Db::rollback();
-            throw new \Exception("Error Assigning user to new cluster", 1);
+            if (env('APP_DEBUG', false)) {
+                throw $e;
+            } else {
+                trace_log($e);
+                throw new \Exception("Error Assigning user to new cluster", 1);
+            }
         }
 
         //TODO move this to other methods, add some try catches
@@ -125,7 +140,12 @@ Event::listen('rainlab.user.register', function ($user, $data) {
                 $clusterRepository->addClusterToPlan($cluster->slug, $planSlug);
             } catch (\Exception $e) {
                 Db::rollback();
-                throw new \Exception("Error assigning cluster to plan", 1);
+                if (env('APP_DEBUG', false)) {
+                    throw $e;
+                } else {
+                    trace_log($e);
+                    throw new \Exception("Error assigning cluster to plan", 1);
+                }
             }
         }
     }

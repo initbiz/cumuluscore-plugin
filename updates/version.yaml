@@ -117,3 +117,5 @@
     - '!!! Moved some helpers to Initbiz.InitDry plugin. Install the plugin if want to proceed.'
 2.0.6:
     - 'Small fix with registering cluster features'
+2.0.7:
+    - 'Small fix of auto assigning'
