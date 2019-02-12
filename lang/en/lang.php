@@ -11,8 +11,6 @@
     ],
     'users' => [
         'last_first_name' => 'Last and first name',
-        'cluster_tab' => 'Clusters',
-        'cluster_label' => 'Cluster',
     ],
     'settings' => [
         'menu_category' => 'Cumulus',
@@ -65,20 +63,9 @@
         'welcome' => 'Welcome',
         'welcome_message' => 'You will be able to see some useful statistics about your Cumulus system here soon. <br> Right now the feature is under construction.',
     ],
-    'cluster_dashboard' => [
-        'name' => 'Cluster dashboard',
-        'description' => 'Show cluster dashboard',
-    ],
-    'cluster_settings' => [
-        'name' => 'Cluster Settings',
-        'description' => 'Show cluster settings',
-    ],
     'menu_item' => [
         'cumulus_page' => 'Cumulus page',
-        'name' => 'Menu item',
         'cumulus_tab_label' => 'Cumulus',
-        'cumulus_features' => 'Features to restrict access',
-        'cumulus_features_comment' => 'Choose features to restrict user visibility using the cluster permissions',
     ],
     'component_properties' => [
         'cluster_uniq' => 'Cluster unique id',

@@ -119,3 +119,5 @@
     - 'Small fix with registering cluster features'
 2.0.7:
     - 'Small fix of auto assigning'
+2.0.8:
+    - 'Cleaned translations and added Polish translation'
