@@ -1,24 +1,20 @@
 {
-  "name": "Initbiz/CumulusCore",
+  "name": "initbiz/oc-cumuluscore-plugin",
   "type": "october-plugin",
-  "description": "Cumulus core plugin for October CMS",
-  "homepage": "http://cumulus.init.biz",
-  "keywords": ["october", "octobercms", "cumulus", "saas", "php"],
+  "description": "October CMS plugin that helps with writing SaaS applications",
+  "homepage": "http://init.biz",
+  "keywords": ["october", "octobercms", "cumulus", "saas", "php", "subscription", "plan"],
   "license": "MIT",
   "authors": [
     {
       "name": "Tomasz Strojny",
       "email": "tomasz@init.biz",
       "role": "Founder"
-  },
+    },
     {
       "name": "Piotr Rogowski",
       "email": "piotr@init.biz",
-      "role": "Developer"
+      "role": "Contributor"
     }
-  ],
-  "require": {
-    "php": ">=7.0",
-    "composer/installers": "~1.0"
-  }
+  ]
 }
