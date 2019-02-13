@@ -23,6 +23,6 @@
     "rainlab/notify-plugin": "dev-master",
     "rainlab/userplus-plugin": "dev-master",
     "rainlab/pages-plugin": "dev-master",
-    "initbiz/initdry": "dev-master"
+    "initbiz/oc-initdry-plugin": "dev-master"
   }
 }
