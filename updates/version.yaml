@@ -121,3 +121,5 @@
     - 'Small fix of auto assigning'
 2.0.8:
     - 'Cleaned translations and added Polish translation'
+2.0.9:
+    - 'Fixed assigning clusters to empty plans'

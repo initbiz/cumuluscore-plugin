@@ -139,9 +139,10 @@ class Cluster extends Model
         Db::commit();
     }
 
-    public function afterSave() {
-        $clusterFeatureLogRepository = new ClusterFeatureLogRepository();
-        if($this->plan) {
+    public function afterSave()
+    {
+        if ($this->plan && $this->plan->features) {
+            $clusterFeatureLogRepository = new ClusterFeatureLogRepository();
             $clusterFeatureLogRepository->registerClusterFeatures($this->slug, $this->plan->features);
         }
     }
