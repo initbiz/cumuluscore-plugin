@@ -142,8 +142,14 @@ class Cluster extends Model
     public function afterSave()
     {
         if ($this->plan && $this->plan->features) {
+            $features = $this->plan->features;
+
+            if (is_string($features)) {
+                $features = [$features];
+            }
+            
             $clusterFeatureLogRepository = new ClusterFeatureLogRepository();
-            $clusterFeatureLogRepository->registerClusterFeatures($this->slug, $this->plan->features);
+            $clusterFeatureLogRepository->registerClusterFeatures($this->slug, $features);
         }
     }
 }

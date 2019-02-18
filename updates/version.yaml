@@ -123,3 +123,5 @@
     - 'Cleaned translations and added Polish translation'
 2.0.9:
     - 'Fixed assigning clusters to empty plans'
+2.0.10:
+    - 'Now working with Cumulus Theme again'
