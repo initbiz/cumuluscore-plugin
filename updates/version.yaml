@@ -125,3 +125,5 @@
     - 'Fixed assigning clusters to empty plans'
 2.0.10:
     - 'Now working with Cumulus Theme again'
+2.0.11:
+    - 'Fixed buggy migration'

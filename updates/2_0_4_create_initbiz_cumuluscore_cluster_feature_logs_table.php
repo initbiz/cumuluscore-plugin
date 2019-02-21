@@ -8,7 +8,7 @@ class CreateClusterFeatureLogsTable extends Migration
 {
     public function up()
     {
-        Schema::create('initbiz_cumuluscore_cluster_feature_logs', function(Blueprint $table) {
+        Schema::create('initbiz_cumuluscore_cluster_feature_logs', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('cluster_slug');
@@ -20,6 +20,6 @@ class CreateClusterFeatureLogsTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('initbiz_cumuluscore_cluster_feature_registrations');
+        Schema::dropIfExists('initbiz_cumuluscore_cluster_feature_logs');
     }
 }
