@@ -127,3 +127,6 @@
     - 'Now working with Cumulus Theme again'
 2.0.11:
     - 'Fixed buggy migration'
+2.1.0:
+    - 'Added softDelete trait for Cluster Model'
+    - 2_1_0_update_initbiz_cumuluscore_clusters_table_5.php
