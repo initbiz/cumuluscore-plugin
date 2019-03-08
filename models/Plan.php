@@ -8,6 +8,7 @@ class Plan extends Model
 {
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\Sluggable;
+    use \October\Rain\Database\Traits\SoftDelete;
 
     /*
      * Disable timestamps by default.
@@ -21,6 +22,8 @@ class Plan extends Model
     public $rules = [];
 
     public $fillable = ['name', 'slug', 'features'];
+
+    protected $dates = ['deleted_at'];
 
     protected $slugs = ['slug' => 'name'];
 
