@@ -16,9 +16,12 @@ class Cluster extends Model
 {
     use \October\Rain\Database\Traits\Nullable;
     use \October\Rain\Database\Traits\Sluggable;
+    use \October\Rain\Database\Traits\SoftDelete;
     // use \October\Rain\Database\Traits\Validation;
 
     protected $guarded = ['*'];
+
+    protected $dates = ['deleted_at'];
 
     /**
      * @var array Generate slugs for these attributes.
