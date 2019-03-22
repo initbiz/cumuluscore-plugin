@@ -135,3 +135,5 @@
     - 2_1_1_update_initbiz_cumuluscore_plans_table_3.php
 2.1.2:
     - 'Fixed typo'
+2.1.3:
+    - 'Fixed seeding after soft deletion'

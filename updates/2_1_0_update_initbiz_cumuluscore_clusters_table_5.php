@@ -8,9 +8,11 @@ class UpdateInitbizCumuluscoreClustersTable5 extends Migration
 {
     public function up()
     {
-        Schema::table('initbiz_cumuluscore_clusters', function ($table) {
-            $table->softDeletes();
-        });
+        if (!Schema::hasColumn('initbiz_cumuluscore_clusters', 'deleted_at')) {
+            Schema::table('initbiz_cumuluscore_clusters', function ($table) {
+                $table->softDeletes();
+            });
+        }
     }
 
     public function down()
