@@ -3,7 +3,7 @@
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
-class UpdateInitbizCumuluscoreModulesTable extends Migration
+class UpdateInitbizCumuluscoreModulesTable2 extends Migration
 {
     public function up()
     {
