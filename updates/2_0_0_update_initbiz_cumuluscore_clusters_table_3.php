@@ -9,6 +9,8 @@ class UpdateInitbizCumuluscoreClustersTable3 extends Migration
     {
         Schema::table('initbiz_cumuluscore_clusters', function ($table) {
             $table->renameColumn('cluster_id', 'id');
+        });
+        Schema::table('initbiz_cumuluscore_clusters', function ($table) {
             $table->renameColumn('full_name', 'name');
         });
     }
@@ -17,6 +19,8 @@ class UpdateInitbizCumuluscoreClustersTable3 extends Migration
     {
         Schema::table('initbiz_cumuluscore_clusters', function ($table) {
             $table->renameColumn('id', 'cluster_id');
+        });
+        Schema::table('initbiz_cumuluscore_clusters', function ($table) {
             $table->renameColumn('name', 'full_name');
         });
     }

@@ -9,6 +9,8 @@ class UpdateInitbizCumuluscoreClusterUserTable extends Migration
     {
         Schema::table('initbiz_cumuluscore_cluster_user', function ($table) {
             $table->renameColumn('user_id', 'user_id_tmp');
+        });
+        Schema::table('initbiz_cumuluscore_cluster_user', function ($table) {
             $table->renameColumn('cluster_id', 'user_id');
         });
         Schema::table('initbiz_cumuluscore_cluster_user', function ($table) {
@@ -20,6 +22,8 @@ class UpdateInitbizCumuluscoreClusterUserTable extends Migration
     {
         Schema::table('initbiz_cumuluscore_cluster_user', function ($table) {
             $table->renameColumn('user_id', 'user_id_tmp');
+        });
+        Schema::table('initbiz_cumuluscore_cluster_user', function ($table) {
             $table->renameColumn('cluster_id', 'user_id');
         });
         Schema::table('initbiz_cumuluscore_cluster_user', function ($table) {
