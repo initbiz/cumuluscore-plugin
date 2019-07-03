@@ -110,6 +110,7 @@
         'plan_filter' => 'Select plans',
     ],
     'plan' => [
+        'is_registration_allowed' => 'Allow users registration for this plan',
         'name' => 'Name',
         'slug' => 'Slug',
         'features' => 'Features',

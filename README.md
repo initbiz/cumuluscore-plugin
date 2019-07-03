@@ -291,7 +291,9 @@ While auto assigning clusters to plans you can decide if you want to:
 * assign user to concrete plan (in most cases something like Free or Trial) or
 * get plan from variable (if you have more then one plan that cluster can be assigned)
 
-Remember that auto assigning clusters will work only if creating new cluster is enabled in "Auto assign users" tab.
+Please note that:
+* auto assigning clusters will work only if creating new cluster is enabled in "Auto assign users" tab
+* auto assigning clusters to plans from variable will be possible only when you allow that in the plan definition
 
 ## `ClusterFiltrable` trait
 As you may have noticed, data in database will not be filtered automatically to your clusters. You have to do it by yourself. The `ClusterFiltrable` trait will be useful in this case.

@@ -1,4 +1,8 @@
 fields:
+    is_registration_allowed:
+        label: 'initbiz.cumuluscore::lang.plan.is_registration_allowed'
+        span: full
+        type: switch
     name:
         label: 'initbiz.cumuluscore::lang.plan.name'
         span: left

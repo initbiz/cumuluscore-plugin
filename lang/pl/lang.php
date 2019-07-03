@@ -110,7 +110,8 @@
         'plan_filter' => 'Wybierz plany',
     ],
     'plan' => [
-        'name' => 'Name',
+        'is_registration_allowed' => 'Zezwalaj na rejestrację nowych użytkowników do tego planu',
+        'name' => 'Nazwa',
         'slug' => 'Slug',
         'features' => 'Funkcje Cumulusa',
         'delete_confirm' => 'Czy jesteś pewny, że chcesz usunąć ten plan?',

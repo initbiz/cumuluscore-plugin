@@ -137,3 +137,6 @@
     - 'Fixed typo'
 2.1.3:
     - 'Fixed seeding after soft deletion'
+2.2.0:
+    - 'Added allow user registration checkbox to plans'
+    - 2_2_0_update_initbiz_cumuluscore_plans_table_4.php

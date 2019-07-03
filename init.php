@@ -1,9 +1,9 @@
 <?php namespace Initbiz\CumulusCore;
 
 use Db;
-use Yaml;
 use File;
 use Lang;
+use Yaml;
 use Event;
 use Cookie;
 use Session;
@@ -17,6 +17,7 @@ use RainLab\User\Models\User as UserModel;
 use Initbiz\CumulusCore\Classes\MenuManager;
 use Initbiz\CumulusCore\Classes\FeatureManager;
 use Initbiz\CumulusCore\Models\AutoAssignSettings;
+use Initbiz\CumulusCore\Repositories\PlanRepository;
 use RainLab\User\Controllers\Users as UserController;
 use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
@@ -130,6 +131,23 @@ Event::listen('rainlab.user.register', function ($user, $data) {
 
             if (AutoAssignSettings::get('auto_assign_cluster') === 'get_plan') {
                 $planSlug = $data[AutoAssignSettings::get('auto_assign_cluster_get_plan')];
+
+                $planRepository = new PlanRepository();
+
+                $plan = $planRepository->findBy('slug', $planSlug);
+
+                try {
+                    if (! $plan->is_registration_allowed) {
+                        throw new \Exception("This plan doesn't allow users registration", 1);
+                    }
+                } catch (\Exception $e) {
+                    Db::rollback();
+                    if (env('APP_DEBUG', false)) {
+                        throw $e;
+                    } else {
+                        trace_log($e);
+                    }
+                }
             }
 
             if (AutoAssignSettings::get('auto_assign_cluster') === 'concrete_plan') {
