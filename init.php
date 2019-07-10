@@ -188,6 +188,7 @@ Event::listen('rainlab.user.beforeRegister', function (&$data) {
 }, 500);
 
 Event::listen('rainlab.user.register', function ($user, $data) {
+    //TODO: ensure this one makes sense, when creating cluster fails the user is created
     Db::commit();
 }, 10);
 
