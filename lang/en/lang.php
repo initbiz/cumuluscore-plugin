@@ -11,6 +11,7 @@
     ],
     'users' => [
         'last_first_name' => 'Last and first name',
+        'cluster_tab' => 'Clusters',
     ],
     'settings' => [
         'menu_category' => 'Cumulus',

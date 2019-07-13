@@ -3,7 +3,6 @@
 # ===================================
 
 clusters:
-    label: "initbiz.cumuluscore::lang.users.cluster_label"
     tab: "initbiz.cumuluscore::lang.users.cluster_tab"
     type: relation
     nameFrom: name

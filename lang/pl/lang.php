@@ -11,6 +11,7 @@
     ],
     'users' => [
         'last_first_name' => 'Imię i nazwisko',
+        'cluster_tab' => 'Klastry',
     ],
     'settings' => [
         'menu_category' => 'Cumulus',
