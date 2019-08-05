@@ -1,8 +1,4 @@
 fields:
-    is_registration_allowed:
-        label: 'initbiz.cumuluscore::lang.plan.is_registration_allowed'
-        span: full
-        type: switch
     name:
         label: 'initbiz.cumuluscore::lang.plan.name'
         span: left
@@ -14,10 +10,25 @@ fields:
         preset:
             field: name
             type: slug
-secondaryTabs:
+tabs:
     fields:
         features:
-            label: 'initbiz.cumuluscore::lang.plan.features'
+            tab: 'initbiz.cumuluscore::lang.plan.features'
             nameFrom: name
             descriptionFrom: description
             type: checkboxlist
+        related_plans:
+            label: ""
+            tab: "initbiz.cumuluscore::lang.plan.related_plans_tab"
+            context: [update]
+            type: partial
+secondaryTabs:
+    fields:
+        is_registration_allowed:
+            label: 'initbiz.cumuluscore::lang.plan.is_registration_allowed'
+            span: full
+            type: switch
+        priority:
+            label: 'initbiz.cumuluscore::lang.plan.priority'
+            type: number
+            default: 500

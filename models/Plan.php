@@ -21,7 +21,7 @@ class Plan extends Model
      */
     public $rules = [];
 
-    public $fillable = ['name', 'slug', 'features'];
+    public $fillable = ['name', 'slug', 'features', 'priority'];
 
     protected $dates = ['deleted_at'];
 
@@ -37,6 +37,16 @@ class Plan extends Model
     public $hasMany = [
         'clusters' => [
             Cluster::class
+        ]
+    ];
+
+    public $belongsToMany = [
+        'related_plans' => [
+            Plan::class,
+            'table'     => 'initbiz_cumuluscore_related_plans',
+            'key'       => 'plan_id',
+            'otherKey'  => 'related_plan_id',
+            'pivot'     => ['relation'],
         ]
     ];
 

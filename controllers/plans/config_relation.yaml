@@ -1,0 +1,13 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+related_plans:
+    label: 'initbiz.cumuluscore::lang.plan.related_plans'
+    view:
+        list: $/initbiz/cumuluscore/models/plan/related_list.yaml
+        toolbarButtons: add|remove
+    manage:
+        list: $/initbiz/cumuluscore/models/plan/columns.yaml
+    pivot:
+        form: $/initbiz/cumuluscore/models/plan/related_fields.yaml

@@ -116,5 +116,12 @@
         'slug' => 'Slug',
         'features' => 'Funkcje Cumulusa',
         'delete_confirm' => 'Czy jesteś pewny, że chcesz usunąć ten plan?',
+        'related_plans_tab' => 'Upgrade / downgrade',
+        'related_plans' => 'powiązany plan',
+        'priority' => 'Priorytet',
+        'related_plan_relation' => 'Powiązanie',
+        'related_plan_downgrade' => 'Downgrade',
+        'related_plan_upgrade' => 'Upgrade',
+        'related_plan_alternative' => 'Alternatywny',
     ],
 ];

@@ -116,5 +116,12 @@
         'slug' => 'Slug',
         'features' => 'Features',
         'delete_confirm' => 'Are you sure you want to delete this plan?',
+        'related_plans_tab' => 'Upgrade / downgrade',
+        'related_plans' => 'related plan',
+        'priority' => 'Priority',
+        'related_plan_relation' => 'Relation',
+        'related_plan_downgrade' => 'Downgrade',
+        'related_plan_upgrade' => 'Upgrade',
+        'related_plan_alternative' => 'Alternative',
     ],
 ];

@@ -1,0 +1,11 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    name:
+        label: 'initbiz.cumuluscore::lang.plan.name'
+    pivot[relation]:
+        label: 'initbiz.cumuluscore::lang.plan.related_plan_relation'
+    priority:
+        label: 'initbiz.cumuluscore::lang.plan.priority'

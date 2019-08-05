@@ -140,3 +140,7 @@
 2.2.0:
     - 'Added allow user registration checkbox to plans'
     - 2_2_0_update_initbiz_cumuluscore_plans_table_4.php
+2.3.0:
+    - 'Add related plans for downgrading and upgrading paths'
+    - 2_3_0_create_initbiz_cumuluscore_related_plans_table.php
+    - 2_3_0_update_initbiz_cumuluscore_plans_table_5.php
