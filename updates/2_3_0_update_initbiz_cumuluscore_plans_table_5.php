@@ -9,6 +9,7 @@ class UpdateInitbizCumuluscorePlansTable5 extends Migration
     {
         Schema::table('initbiz_cumuluscore_plans', function ($table) {
             $table->integer('priority')->nullable();
+            $table->boolean('is_trial')->default(false);
         });
     }
 
@@ -16,6 +17,7 @@ class UpdateInitbizCumuluscorePlansTable5 extends Migration
     {
         Schema::table('initbiz_cumuluscore_plans', function ($table) {
             $table->dropColumn('priority');
+            $table->dropColumn('is_trial');
         });
     }
 }

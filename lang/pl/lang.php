@@ -111,6 +111,7 @@
         'plan_filter' => 'Wybierz plany',
     ],
     'plan' => [
+        'is_trial' => 'Plan trialowy',
         'is_registration_allowed' => 'Zezwalaj na rejestrację nowych użytkowników do tego planu',
         'name' => 'Nazwa',
         'slug' => 'Slug',
@@ -123,5 +124,10 @@
         'related_plan_downgrade' => 'Downgrade',
         'related_plan_upgrade' => 'Upgrade',
         'related_plan_alternative' => 'Alternatywny',
+    ],
+    'plan_list' => [
+        'name' => 'Nazwa',
+        'is_trial' => 'Trial',
+        'is_registration_allowed' => 'Rejestracja dozwolona',
     ],
 ];

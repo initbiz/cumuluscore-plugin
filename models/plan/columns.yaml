@@ -1,6 +1,12 @@
 columns:
     name:
-        label: 'initbiz.cumuluscore::lang.plan.name'
+        label: 'initbiz.cumuluscore::lang.plan_list.name'
         type: text
         searchable: true
         sortable: true
+    is_registration_allowed:
+        label: 'initbiz.cumuluscore::lang.plan_list.is_registration_allowed'
+        type: switch
+    is_trial:
+        label: 'initbiz.cumuluscore::lang.plan_list.is_trial'
+        type: switch

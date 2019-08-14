@@ -6,6 +6,7 @@ fields:
     pivot[relation]:
         label: 'initbiz.cumuluscore::lang.plan.related_plan_relation'
         type: dropdown
+        default: upgrade
         options:
             downgrade: "initbiz.cumuluscore::lang.plan.related_plan_downgrade"
             upgrade: "initbiz.cumuluscore::lang.plan.related_plan_upgrade"

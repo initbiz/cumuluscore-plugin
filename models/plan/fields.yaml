@@ -26,7 +26,9 @@ secondaryTabs:
     fields:
         is_registration_allowed:
             label: 'initbiz.cumuluscore::lang.plan.is_registration_allowed'
-            span: full
+            type: switch
+        is_trial:
+            label: 'initbiz.cumuluscore::lang.plan.is_trial'
             type: switch
         priority:
             label: 'initbiz.cumuluscore::lang.plan.priority'

@@ -9,6 +9,7 @@ class Plan extends Model
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\SoftDelete;
+    use \October\Rain\Database\Traits\Nullable;
 
     /*
      * Disable timestamps by default.
@@ -28,6 +29,8 @@ class Plan extends Model
     protected $slugs = ['slug' => 'name'];
 
     protected $jsonable = ['features'];
+
+    protected $nullable = ['priority'];
 
     /**
      * @var string The database table used by the model.
@@ -57,7 +60,8 @@ class Plan extends Model
         return $featuresOptions;
     }
 
-    public function afterSave() {
+    public function afterSave()
+    {
         $clusterFeatureLogRepository = new ClusterFeatureLogRepository();
         foreach ($this->clusters as $cluster) {
             if ($this->features === "0") {
@@ -65,5 +69,10 @@ class Plan extends Model
             }
             $clusterFeatureLogRepository->registerClusterFeatures($cluster->slug, $this->features);
         }
+    }
+    
+    public function plansToUpgrade()
+    {
+       return $this->related_plans()->where('relation', 'upgrade')->get();
     }
 }
