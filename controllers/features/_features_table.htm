@@ -11,24 +11,18 @@
                     <?= e(trans('initbiz.cumuluscore::lang.settings.features_list_name')) ?>
                 </a>
             </th>
-            <th>
-                <a href="javascript:;">
-                    <?= e(trans('initbiz.cumuluscore::lang.settings.features_list_description')) ?>
-                </a>
-            </th>
         </tr>
     </thead>
+    <tbody>
     <?php foreach ($features as $featureCode => $featureDef): ?>
-        <tr>
+        <tr title="<?= e(trans($featureDef['description'])) ?>">
             <td>
-                <?= e($featureCode); ?>
+                <?= e($featureCode) ?>
             </td>
             <td>
                 <?= e(trans($featureDef['name'])) ?>
             </td>
-            <td>
-                <?= e(trans($featureDef['description'])) ?>
-            </td>
         </tr>
     <?php endforeach ?>
+    </tbody>
 </table>

@@ -9,6 +9,12 @@ use Initbiz\InitDry\Classes\PluginRegistrationManager;
 class FeatureManager extends Singleton
 {
     /**
+     * Key in cache to store layouts
+     * @var string
+     */
+    public const CACHEKEY = 'cumulusFeatures';
+
+    /**
      * @var PluginRegistrationManager
      */
     protected $pluginRegistrationManager;
@@ -27,14 +33,18 @@ class FeatureManager extends Singleton
      */
     public function getFeatures()
     {
+        if (env('APP_DEBUG', false)) {
+            Cache::forget(self::CACHEKEY); // clear cache for development purposes
+        }
+
         if (Cache::has('cumulusFeatures')) {
-            $features = Cache::get('cumulusFeatures');
+            $features = Cache::get(self::CACHEKEY);
             return $features;
         }
 
         $features = $this->scanFeatures();
 
-        Cache::forever('cumulusFeatures', $features);
+        Cache::forever(self::CACHEKEY, $features);
 
         return $features;
     }
@@ -64,7 +74,7 @@ class FeatureManager extends Singleton
 
     public function clearCache()
     {
-        Cache::forget('cumulusFeatures');
+        Cache::forget(self::CACHEKEY);
         $features = $this->getFeatures();
     }
 }
