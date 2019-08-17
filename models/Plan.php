@@ -1,6 +1,7 @@
 <?php namespace Initbiz\CumulusCore\Models;
 
 use Model;
+use October\Rain\Database\Collection;
 use Initbiz\CumulusCore\Classes\FeatureManager;
 use Initbiz\CumulusCore\Repositories\ClusterFeatureLogRepository;
 
@@ -71,8 +72,50 @@ class Plan extends Model
         }
     }
     
+    /**
+     * Return plans that this plan can upgrade to
+     *
+     * @return Collection
+     */
     public function plansToUpgrade()
     {
        return $this->related_plans()->where('relation', 'upgrade')->get();
     }
+
+    /**
+     * Returns true if the plan can be upgraded
+     *
+     * @return boolean
+     */
+    public function canUpgrade()
+    {
+        return ($this->plansToUpgrade()->count() > 0);
+    }
+
+    /**
+     * Returns true if the plan can be upgraded to the $plan
+     *
+     * @return boolean
+     */
+    public function canUpgradeTo($plan)
+    {
+        foreach ($this->plansToUpgrade() as $planUpg) {
+            if ($plan->id === $planUpg->id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns true if the plan can be prolongated
+     *
+     * @return boolean
+     */
+    public function canProlongate()
+    {
+        return ($this->is_expiring && !$this->is_trial);
+    }
 }
+
