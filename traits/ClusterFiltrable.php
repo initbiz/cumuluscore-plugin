@@ -2,6 +2,7 @@
 
 use Cookie;
 use Session;
+use Initbiz\CumulusCore\Models\Cluster;
 
 /**
  * Use this trait in models that you want to filter using cluster_slug property
@@ -52,6 +53,23 @@ trait ClusterFiltrable
         $this->prepareClusterSlug();
 
         return $query->where($attribute, $this->clusterSlug);
+    }
+
+    /**
+     * get model filtered by value in specified attribute
+     * @return $query
+     */
+    public function scopeClusterIdFiltered($query, $value = '', $attribute = 'cluster_id')
+    {
+        if ($value !== '') {
+            return $query->clusterFiltered($value, $attribute);
+        }
+
+        $this->prepareClusterSlug();
+
+        $cluster = Cluster::where('slug', $this->clusterSlug)->first();
+
+        return $query->where($attribute, $cluster->id);
     }
 
     /**
