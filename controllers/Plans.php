@@ -8,7 +8,7 @@ class Plans extends Controller
     public $implement = [
         'Backend\Behaviors\ListController',
         'Backend\Behaviors\FormController',
-        'Backend.Behaviors.RelationController'
+        'Backend\Behaviors\RelationController'
     ];
 
     /**

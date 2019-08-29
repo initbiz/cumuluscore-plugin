@@ -1,7 +1,7 @@
 # Cumulus Core
 
 # Introduction
-The plugin is a skeleton for building Software as a Service (SaaS) applications using OctoberCMS. SaaS is (according to Wikipedia) a software licensing and delivery model in which software is licensed on a subscription basis and is centrally hosted.
+The plugin is a skeleton for building Software as a Service (SaaS, multi-tenant) applications using OctoberCMS. SaaS is (according to Wikipedia) a software licensing and delivery model in which software is licensed on a subscription basis and is centrally hosted.
 
 The easiest way to understand it is to imagine an application that you want to create for your clients (one application for more than one client) but it is going to be hosted on your server.
 
@@ -98,11 +98,9 @@ The syntax is similar to registering backend permissions. For example:
     }
 ```
 
-Features are assigned to plans. So that every cluster that has a particular plan has the same set of features.
+Features are assigned to plans. So that every cluster that has a particular plan has the same set of features. It is a good idea to have them as many as possible to make the application customizable.
 
 ![Example plan](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/example-plan.png)
-
-It is up to you while writing plugin how many features will it register for our clients. There must be a reasonable amount of them.
 
 Before creating and using features it is a good idea to read about the `FeatureGuard` component below.
 
@@ -312,7 +310,7 @@ Just use it in your model as in the example:
 If you want to use `clusterFiltered()` method without any parameters than add `cluster_slug` attribute to your model where you will be storing the owning cluster's slug. If you use id than you will have to add parameters to `clusterFiltered()` method as described below.
 
 ### `clusterFiltered($value = '', $attribute = 'cluster_slug')` scope
-The method is a Laravel scope, so it is very easy to use it on models when you want it. Just add `clusterFiltered()` to your query and done.
+If you want to filter model using `cluster_slug` attribute in your table just add `clusterFiltered()` to your query.
 
 ```php
     ExampleModel::clusterFiltered()->get();
@@ -320,10 +318,12 @@ The method is a Laravel scope, so it is very easy to use it on models when you w
 
 The method gets two optional parameters. The first is a value and the second is an attribute. If you do not specify any of them, then the scope will use the current cluster slug and tries to use the `cluster_slug` attribute in the model.
 
-If you want to use `cluster_id` instead of `cluster_slug` then you will have to run the method like
+If you want to filter by `cluster_id` column you can use `clusterIdFiltered()` method.
+
+You can customize the attribute and the column by specifying parameters like
 
 ```php
-    ExampleModel::clusterFiltered($clusterId, 'cluster_id')->get();
+    ExampleModel::clusterFiltered($attributeValue, 'attribute_column')->get();
 ```
 
 ### `clusterUnique($attribute, $table = null, $columnName = 'cluster_slug')`
@@ -373,9 +373,6 @@ As you can see there are two new things. The first is a menu item type: Cumulus 
 ## Troubleshooting
 ### I cannot see my registered features
 If you cannot see your features then go to Settings -> Cumulus -> Features and click the `Clear feature cache` button.
-
-## Future plans (TODO)
-* Component that automatically builds features table
 
 ## Contributing
 Every contribution is very welcomed, especially from professional devs who can suggest the better organization of code. Thanks for your time in advance :)
