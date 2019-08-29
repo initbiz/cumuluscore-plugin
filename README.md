@@ -57,7 +57,7 @@ Power Components plugin integrates with Cumulus Core so that lists and forms gen
 ## Terms used in Cumulus and this document
 **User** is a frontend user from `RainLab.User` plugin who can log to frontend. See [RainLab.User documentation](https://octobercms.com/plugin/rainlab-user) for more info about this. Frontend users differ from backend admins, check "Separated frontend and backend user access" section below for more info.
 
-**Cluster** is a group of users who share some data between them and can be described as one entity. The most common example is a company. But it also applies to offices, office branches, classes in school, schools, etc. Cluster is not a `usergroup` from `RainLab.User` plugin (like guest, registered and so on). User groups are about permissions (like read, write, update, etc.) while clusters are about organizing users in logical entities.
+**Cluster** is a group of users who share some data between them and can be described as one entity. The most common example is the company. But it also applies to offices, office branches, classes in school, schools, etc. Cluster is not a `usergroup` from `RainLab.User` plugin (like a guest, registered and so on). User groups are about permissions (like read, write, update, etc.) while clusters are about organizing users in logical entities.
 
 **Plan**s are assigned to clusters. A cluster can have only one plan at a time. Imagine a pricing table like in the 'Example pricing table' section below. Plans, in this case, are "Free", "Plus", "Pro".
 
@@ -115,7 +115,7 @@ To register a feature you have to bind to `initbiz.cumuluscore.registerClusterFe
 ```php
     Event::listen('initbiz.cumuluscore.registerClusterFeature', function ($clusterSlug, $featureCode) {
         if ($featureCode === "initbiz.cumulusinvoices.manage_invoices") {
-            // perform some registering code, for example seed tables for the cluster with sample data
+            // perform some registering code, for example, seed tables for the cluster with sample data
         }
     });
 ```
@@ -153,7 +153,7 @@ On the "Choose cluster" page will be the `UserClustersList` component embedded w
 ### Clusters' *usernames*
 Clusters' usernames are unique strings to be used in URLs so that URLs can be changed by the client the way they want to. The same feature on Facebook and Twitter is called *username* so we decided to use name *username* as well.
 
-If you enable 'using usernames in URLs' in Cumulus general settings than you have to ensure that you have not been using `cluster_slug` variable from URL. To get cluster or its slug from URL you may use Cumulus's helpers class:
+If you enable 'using usernames in URLs' in Cumulus general settings then you have to ensure that you have not been using `cluster_slug` variable from URL. To get cluster or its slug from URL you may use Cumulus's helpers class:
 
 ```php
     $cluster = Helpers::getClusterFromUrlParam($this->property('clusterUniq'));
@@ -165,7 +165,7 @@ Notice however that `CumulusGuard` component injects `cluster` object to pages t
 #### Username validation
 There are two events fired where you can validate username.
 
-The first one is `initbiz.cumuluscore.beforeClusterSave` which basically is fired every time you save or update the cluster. It gets `cluster` model object as a parameter and you can stop executing and propagating to other listeners if you return `false`.
+The first one is `initbiz.cumuluscore.beforeClusterSave` which basically is fired every time you save or update the cluster. It gets a `cluster` model object as a parameter and you can stop executing and propagating to other listeners if you return `false`.
 
 The second one is `initbiz.cumuluscore.usernameUnique` which is run in `ClusterRepository`in `usernameUnique` method. It gets two parameters: `username` and `clusterSlug`. It may be used for example to check if the username is unique in more places than one cumulus host.
 
@@ -229,7 +229,7 @@ That is because we had problems with models using models using models (this ince
 
 Of course under the hood there are typical Eloquent models, so if you want to use them go ahead.
 
-To use clusterRepository you have to create the object as in the example below:
+To use `clusterRepository` you have to create the object as in the example below:
 
 ```php
     use Initbiz\CumulusCore\Repositories\ClusterRepository;
@@ -257,7 +257,7 @@ To use clusterRepository you have to create the object as in the example below:
 
 **PlanRepository**
 
-`getPlansUsers(array $plansSlugs)` - the method takes array of plans slugs and get all users that are in those plans.
+`getPlansUsers(array $plansSlugs)` - the method takes an array of plans slugs and gets all users that are in those plans.
 
 **ClusterFeatureLogRepository**
 
@@ -308,7 +308,7 @@ Just use it in your model as in the example:
     }
 ```
 
-If you want to use `clusterFiltered()` method without any parameters than add `cluster_slug` attribute to your model where you will be storing the owning cluster's slug. If you use id than you will have to add parameters to `clusterFiltered()` method as described below.
+If you want to use the `clusterFiltered()` method without any parameters than add `cluster_slug` attribute to your model where you will be storing the owning cluster's slug. If you use id than you will have to add parameters to the `clusterFiltered()` method as described below.
 
 ### `clusterFiltered($value = '', $attribute = 'cluster_slug')` scope
 If you want to filter model using `cluster_slug` attribute in your table just add `clusterFiltered()` to your query.
@@ -341,7 +341,7 @@ The method returns a string of validation rule. You can use the rule in the mode
         $this->rules['invoice_number'] = $this->clusterUnique('invoice_number');
     }
 ```
-If you want to specify table name or column name to build unique rule, than you have to use parameters in the method. By default it will use `$this->table` attribute and `cluster_slug` as a column name, for example:
+If you want to specify the table name or column name to build a unique rule then you have to use parameters in the method. By default it will use `$this->table` attribute and `cluster_slug` as a column name, for example:
 
 ```php
     $this->rules['invoice_number'] = $this->clusterUnique('invoice_number', 'invoices', 'cluster_id');
@@ -369,7 +369,7 @@ Cumulus extends [RainLab.Pages](https://octobercms.com/plugin/rainlab-pages) plu
 
 ![Static menu in cumulus](https://github.com/initbizlab/oc-cumuluscore-plugin/raw/master/docs/images/menu-static-pages.png)
 
-As you can see there are two new things. The first is a menu item type: Cumulus page. It defines items that have `cluster_slug` in URLs and the cluster slug will be injected to URL. The second is "Cumulus" tab. Under the tab, you can choose features that are required to see the menu item for a cluster. If none specified then everybody can see it. But if any feature is checked then the cluster must have access to it to see the menu entry. What is more, the cluster can have access to just one of the features and entry will appear.
+As you can see there are two new things. The first is a menu item type: Cumulus page. It defines items that have `cluster_slug` in URLs and the cluster slug will be injected to URL. The second is the "Cumulus" tab. Under the tab, you can choose features that are required to see the menu item for a cluster. If none specified then everybody can see it. But if any feature is checked then the cluster must have access to it to see the menu entry. What is more, the cluster can have access to just one of the features and entry will appear.
 
 ## Troubleshooting
 ### I cannot see my registered features
