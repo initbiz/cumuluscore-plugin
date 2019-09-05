@@ -9,7 +9,7 @@ use Cms\Classes\Page as CmsPage;
 use Initbiz\InitDry\Classes\Helpers;
 use RainLab\Location\Models\Country;
 use RainLab\User\Models\User as UserModel;
-use Initbiz\CumulusCore\Repositories\ClusterFeatureLogRepository;
+use Initbiz\Cumuluscore\Models\ClusterFeatureLog;
 
 /**
  * Model
@@ -108,7 +108,7 @@ class Cluster extends Model
             'table' => 'users',
             'otherKey' => 'user_id'
         ],
-        'clusterRegisteredFeatures' => [
+        'featureLogs' => [
             ClusterFeatureLog::class,
             'table' => 'initbiz_cumuluscore_cluster_feature_logs',
             'key' => 'cluster_slug',
@@ -146,9 +146,11 @@ class Cluster extends Model
 
     public function afterSave()
     {
-        if ($this->plan && $this->plan->features) {
-            $clusterFeatureLogRepository = new ClusterFeatureLogRepository();
-            $clusterFeatureLogRepository->registerClusterFeatures($this->slug, (array)$this->plan->features);
+        $plan = $this->plan()->first();
+
+        if ($plan && $plan->features) {
+            $features = (array) $plan->features;
+            $this->registerFeatures($features);
         }
     }
 
@@ -179,4 +181,58 @@ class Cluster extends Model
         return (array) $features;
     }
 
+    /**
+     * Get cluster's registered features of the cluster
+     *
+     * @return array
+     */
+    public function getRegisteredFeaturesAttribute(): array
+    {
+        return ClusterFeatureLog::clusterFiltered($this->slug)
+                                ->registered()
+                                ->get()
+                                ->pluck('feature_code')
+                                ->toArray();
+    }
+
+    /**
+     * Register feature for the cluster
+     *
+     * @param string $feature
+     * @return void
+     */
+    public function registerFeature(string $feature)
+    {
+        Db::beginTransaction();
+
+        $state = Event::fire('initbiz.cumuluscore.registerClusterFeature', [$this, $feature], true);
+        if ($state === false) {
+            Db::rollBack();
+            //TODO: Create own Excetion class
+            throw new Exception();
+        }
+
+        $logEntry = new ClusterFeatureLog();
+        $logEntry->cluster_slug = $this->slug;
+        $logEntry->feature_code = $feature;
+        $logEntry->action = 'registered';
+        $logEntry->save();
+
+        Db::commit();
+    }
+
+    /**
+     * Register cluster features in bulk
+     *
+     * @param array $features
+     * @return void
+     */
+    public function registerFeatures(array $features)
+    {
+         $featuresToRegister = array_diff($features, $this->registered_features);
+         foreach ($featuresToRegister as $feature) {
+            $this->registerFeature($feature);
+        }
+    }
 }
+

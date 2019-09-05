@@ -2,13 +2,14 @@
 The repositories were moved to the models.
 
 General:
-Ensure you have enabled `Allow registration` on plans that you automatically assign clusters to.
+1. Ensure you have enabled `Allow registration` on plans that you automatically assign clusters to.
 
 Events:
 1. `initbiz.cumuluscore.addClusterToPlan` became `initbiz.cumuluscore.autoAssignClusterToPlan` and is run only on auto assigning cluster to plan
 1. `initbiz.cumuluscore.addUserToCluster` became `initbiz.cumuluscore.autoAssignUserToCluster` and is run only on auto assigning user to cluster
 1. `initbiz.cumuluscore.beforeAutoAssignNewCluster` is removed, instead use `initbiz.cumuluscore.beforeAutoAssignClusterToPlan`
 1. `initbiz.cumuluscore.beforeAutoAssignUserToCluster` and `initbiz.cumuluscore.beforeAutoAssignClusterToPlan` added
+1. `registerClusterFeature(string $clusterSlug, string $feature)` event now looks like that `registerClusterFeature(Cluster $cluster, string $feature)`
 
 Helpers:
 1. `getCluster` now returns `Cluster` object
@@ -30,6 +31,17 @@ All repositories:
 1. `getClustersPlans($clustersSlugs)` -> `$plans->push($cluster->plan()->first())` + foreach and `unique()`.
 1. `canEnterFeature($clusterSlug, $featureCode)` -> `$cluster->canEnterFeature($featureCode)`
 1. `getClusterFeatures($clusterSlug)` -> `$cluster->features`
+1. `usernameUnique($username, $clusterSlug)` -> `Helpers::usernameUnique($username, $clusterSlug`
+
+`ClusterFeatureLogRepository`:
+
+1. `clusterRegisteredFeatures(string $clusterSlug)` -> `$cluster->registered_features`
+1. `registerClusterFeature(string $clusterSlug, string $feature)` -> `$cluster->registerFeature(string $feature)`
+1. `registerClusterFeatures(string $clusterSlug, array $features)` -> `$cluster->registerFeatures(array $features)`
+
+`Cluster` Model:
+
+1. Relation `clusterRegisteredFeatures` renamed to `featureLogs`
 
 ## from v.2.0.2 to v.2.0.3
 ### Introducing *Clusters' usernames*
