@@ -3,7 +3,6 @@
 use Backend;
 use System\Classes\PluginBase;
 use Initbiz\CumulusCore\Classes\Helpers;
-use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 class Plugin extends PluginBase
 {

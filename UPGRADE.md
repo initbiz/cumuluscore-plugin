@@ -13,6 +13,7 @@ Events:
 
 Helpers:
 1. `getCluster` now returns `Cluster` object
+1. `clusterId`, `clusterUsername`, `getClusterUsernameFromUrlParam` and `getClusterSlugFromUrlParam` were removed, use `getClusterFromUrlParam` instead
 
 All repositories:
 1. `getByRelationPropertiesArray()` -> `$model->relation()->get()` and foreach with `unique()`

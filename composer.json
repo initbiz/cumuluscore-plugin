@@ -16,13 +16,5 @@
       "email": "piotr@init.biz",
       "role": "Contributor"
     }
-  ],
-  "require": {
-    "rainlab/user-plugin": "dev-master",
-    "rainlab/location-plugin": "dev-master",
-    "rainlab/notify-plugin": "dev-master",
-    "rainlab/userplus-plugin": "dev-master",
-    "rainlab/pages-plugin": "dev-master",
-    "initbiz/oc-initdry-plugin": "dev-master"
-  }
+  ]
 }
