@@ -30,14 +30,12 @@ class CumulusGuard extends ComponentBase
         }
 
         $cluster = Helpers::getClusterFromUrlParam($this->property('clusterUniq'));
+
         if (!$cluster) {
             return $this->controller->run('404');
         }
-        $clusterSlug = $cluster->slug;
 
-        $this->clusterRepository = new ClusterRepository($clusterSlug);
-
-        if (!$this->clusterRepository->canEnterCluster($user->id, $clusterSlug)) {
+        if (!$user->canEnter($cluster)) {
             $this->setStatusCode(403);
             return $this->controller->run('403');
         }

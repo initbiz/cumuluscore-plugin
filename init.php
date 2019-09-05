@@ -11,13 +11,13 @@ use Redirect;
 use Controller;
 use BackendMenu;
 use RainLab\User\Models\UserGroup;
+use Initbiz\CumulusCore\Models\Plan;
 use RainLab\User\Components\Account;
 use Initbiz\CumulusCore\Models\Cluster;
 use RainLab\User\Models\User as UserModel;
 use Initbiz\CumulusCore\Classes\MenuManager;
 use Initbiz\CumulusCore\Classes\FeatureManager;
 use Initbiz\CumulusCore\Models\AutoAssignSettings;
-use Initbiz\CumulusCore\Repositories\PlanRepository;
 use RainLab\User\Controllers\Users as UserController;
 use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
@@ -35,6 +35,14 @@ UserModel::extend(function ($model) {
         'key'      => 'user_id',
         'otherKey' => 'cluster_id'
     ];
+
+    $model->addDynamicMethod('scopeActivated', function ($query) use ($model) {
+        return $query->where("is_activated", true);
+    });
+
+    $model->addDynamicMethod('canEnter', function ($cluster) use ($model) {
+        return $model->clusters()->whereSlug($clusterSlug)->first() ? true : false;
+    });
 });
 
 UserController::extendFormFields(function ($widget) {
@@ -132,9 +140,7 @@ Event::listen('rainlab.user.register', function ($user, $data) {
             if (AutoAssignSettings::get('auto_assign_cluster') === 'get_plan') {
                 $planSlug = $data[AutoAssignSettings::get('auto_assign_cluster_get_plan')];
 
-                $planRepository = new PlanRepository();
-
-                $plan = $planRepository->findBy('slug', $planSlug);
+                $plan = Plan::where('slug', $planSlug)->first();
 
                 try {
                     if (! $plan->is_registration_allowed) {

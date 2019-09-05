@@ -1,3 +1,25 @@
+## from v.2.* to v.3.*
+The repositories were moved to the models.
+
+Helpers:
+1. `getCluster` now returns `Cluster` object
+
+All repositories:
+1. `getByRelationPropertiesArray()` -> `$model->relation()->get()` and foreach with `unique()`
+
+`UserRepository`:
+
+1. `getUserClusterList($userId)` -> `$user->clusters()->get()`
+
+`PlanRepository`:
+
+1. `getPlansUsers($plansSlugs)` -> `$plan->getUsers()` + foreach and `unique()`.
+
+`ClusterRepository`:
+
+1. `getClustersUsers($clustersSlugs)` -> `$cluster->users()->get()` + foreach and `unique()`.
+1. `getClustersPlans($clustersSlugs)` -> `$plans->push($cluster->plan()->first())` + foreach and `unique()`.
+
 ## from v.2.0.2 to v.2.0.3
 ### Introducing *Clusters' usernames*
 Clusters' usernames is a new feature of Cumulus, where your users can specify their "username" in URL. See documentation for more info about the feature.

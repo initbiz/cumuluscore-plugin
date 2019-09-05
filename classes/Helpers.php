@@ -11,7 +11,10 @@ class Helpers
     public static function getCluster()
     {
         $clusterSlug = Session::get('cumulus_clusterslug', Cookie::get('cumulus_clusterslug'));
-        return $clusterSlug;
+
+        $cluster = Cluster::where('slug', $clusterSlug)->first();
+
+        return $cluster;
     }
 
     public static function getClusterSlugFromUrlParam($param)

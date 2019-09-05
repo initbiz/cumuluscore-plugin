@@ -4,7 +4,9 @@ use Db;
 use Event;
 use Model;
 use Cms\Classes\Theme;
+use RainLab\User\Models\User;
 use Cms\Classes\Page as CmsPage;
+use Initbiz\InitDry\Classes\Helpers;
 use RainLab\Location\Models\Country;
 use RainLab\User\Models\User as UserModel;
 use Initbiz\CumulusCore\Repositories\ClusterFeatureLogRepository;
@@ -149,4 +151,32 @@ class Cluster extends Model
             $clusterFeatureLogRepository->registerClusterFeatures($this->slug, (array)$this->plan->features);
         }
     }
+
+    /**
+     * Check if cluster can enter feature
+     *
+     * @param string $featureCode
+     * @return boolean
+     */
+    public function canEnterFeature(string $featureCode)
+    {
+        return in_array($featureCode, $this->features) ? true : false;
+    }
+
+    /**
+     * Get cluster's features basing on its plan
+     *
+     * @return array
+     */
+    public function getFeaturesAttribute():array
+    {
+        $features = $this->plan()->first()->features;
+
+        if (!isset($features) || $features === "0") {
+            return [];
+        }
+
+        return (array) $features;
+    }
+
 }

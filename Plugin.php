@@ -60,13 +60,20 @@ class Plugin extends PluginBase
         ];
     }
 
-    public function canEnterFeature($featureCode)
+    /**
+     * Twig filter method that checks if a user can enter the feature
+     *
+     * @param string $featureCode
+     * @return boolean
+     */
+    public function canEnterFeature(string $featureCode)
     {
-        $clusterSlug = Helpers::getCluster();
-        $clusterRepository = new ClusterRepository();
+        $cluster = Helpers::getCluster();
 
-        $can = $clusterRepository->canEnterFeature($clusterSlug, $featureCode);
+        if (! $cluster) {
+            return false;
+        }
 
-        return $can;
+        return $cluster->canEnterFeature($featureCode);
     }
 }

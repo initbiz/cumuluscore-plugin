@@ -4,12 +4,10 @@ use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use Initbiz\InitDry\Classes\Helpers;
 use Initbiz\CumulusCore\Models\GeneralSettings;
-use Initbiz\CumulusCore\Repositories\UserRepository;
 
 class UserClustersList extends ComponentBase
 {
     public $clustersList;
-    public $userRepository;
 
     public function componentDetails()
     {
@@ -37,7 +35,6 @@ class UserClustersList extends ComponentBase
 
     public function onRun()
     {
-        $this->userRepository = new UserRepository;
         $this->clustersList = $this->page['userClusters'] = $this->clustersListWithUrl();
 
         if (isset($this->clustersList) && count($this->clustersList) === 1) {
@@ -47,7 +44,8 @@ class UserClustersList extends ComponentBase
 
     public function clustersListWithUrl()
     {
-        $userClustersList = $this->userRepository->getUserClusterList(Helpers::getUser()->id);
+        $user = Helpers::getUser();
+        $userClustersList = $user->clusters()->get();
 
         if (GeneralSettings::get('enable_usernames_in_urls')) {
             $clusterUniq = 'username';

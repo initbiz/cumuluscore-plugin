@@ -117,5 +117,24 @@ class Plan extends Model
     {
         return ($this->is_expiring && !$this->is_trial);
     }
+
+
+    /**
+     * Get users that belongs to clusters with this plan
+     *
+     * @return Collection
+     */
+    public function getUsers()
+    {
+        $users = collect();
+
+        $clusters = $this->clusters()->get();
+
+        foreach ($clusters as $cluster ) {
+            $users->concat($cluster->users()->get());
+        }
+        
+        return $users->unique();
+    }
 }
 
