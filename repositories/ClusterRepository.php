@@ -15,37 +15,6 @@ class ClusterRepository implements ClusterInterface
     /**
      * {@inheritdoc}
      */
-    public function canEnterFeature(string $clusterSlug, string $featureCode)
-    {
-        $this->refreshCurrentCluster($clusterSlug);
-
-        $clusterFeatures = $this->getClusterFeatures($clusterSlug);
-
-        $can = in_array($featureCode, $clusterFeatures) ? true : false;
-
-        return $can;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getClusterFeatures(string $clusterSlug):array
-    {
-        $this->refreshCurrentCluster($clusterSlug);
-
-        $clusterFeatures = $this->currentCluster->plan()->first()->features;
-
-        if (!isset($clusterFeatures) || $clusterFeatures === "0") {
-            $clusterFeatures = [];
-        }
-
-        $clusterFeatures = (array) $clusterFeatures;
-        return $clusterFeatures;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function addUserToCluster(int $userId, string $clusterSlug)
     {
         $this->refreshCurrentCluster($clusterSlug);
@@ -55,33 +24,6 @@ class ClusterRepository implements ClusterInterface
             Event::fire('initbiz.cumuluscore.addUserToCluster', [$user, $this->currentCluster]);
 
             $user->clusters()->syncWithoutDetaching($this->currentCluster);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addClusterToPlan(string $clusterSlug, string $planSlug)
-    {
-        $plan = Plan::where('slug', $planSlug)->first();
-        if ($plan) {
-            $this->refreshCurrentCluster($clusterSlug);
-
-            $this->currentCluster->plan()->associate($plan);
-            $this->currentCluster->save();
-
-            Event::fire('initbiz.cumuluscore.addClusterToPlan', [$this->currentCluster, $plan]);
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function refreshCurrentCluster(string $clusterSlug)
-    {
-        //It's good place to enable caching fo clusters
-        if (!isset($this->currentCluster) || $this->currentCluster->slug !== $clusterSlug) {
-            $this->currentCluster = $this->findBy('slug', $clusterSlug);
         }
     }
 

@@ -19,7 +19,6 @@ use Initbiz\CumulusCore\Classes\MenuManager;
 use Initbiz\CumulusCore\Classes\FeatureManager;
 use Initbiz\CumulusCore\Models\AutoAssignSettings;
 use RainLab\User\Controllers\Users as UserController;
-use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 Account::extend(function ($component) {
     $component->addDynamicMethod('onRedirectMe', function () use ($component) {
@@ -72,104 +71,72 @@ Event::listen('rainlab.user.register', function ($user, $data) {
         return true;
     }
 
-    $clusterRepository = new ClusterRepository();
+    Event::fire('initbiz.cumuluscore.beforeAutoAssignUserToCluster', [$data]);
 
     if (AutoAssignSettings::get('auto_assign_user') === 'concrete_cluster') {
-        try {
-            $clusterRepository->addUserToCluster($user->id, AutoAssignSettings::get('auto_assign_user_concrete_cluster'));
-        } catch (\Exception $e) {
-            Db::rollback();
-            if (env('APP_DEBUG', false)) {
-                throw $e;
-            } else {
-                trace_log($e);
-                throw new \Exception("Error Assigning user to concrete cluster", 1);
-            }
-        }
+        $clusterSlug = AutoAssignSettings::get('auto_assign_user_concrete_cluster');
+        $cluster = Cluster::where('slug', $clusterSlug)->first();
     }
 
     if (AutoAssignSettings::get('auto_assign_user') === 'get_cluster') {
         $clusterSlug = $data[AutoAssignSettings::get('auto_assign_user_get_cluster')];
+        $cluster = Cluster::where('slug', $clusterSlug)->first();
+    }
 
-        try {
-            $clusterRepository->addUserToCluster($user->id, $clusterSlug);
-        } catch (\Exception $e) {
-            Db::rollback();
-            if (env('APP_DEBUG', false)) {
-                throw $e;
-            } else {
-                trace_log($e);
-                throw new \Exception("Error Assigning user to existing cluster with slug get from variable", 1);
-            }
+    if (AutoAssignSettings::get('auto_assign_user') === 'new_cluster') {
+        $cluster = new Cluster();
+
+        $cluster->name           = $data[AutoAssignSettings::get('auto_assign_user_new_cluster')];
+        $cluster->thoroughfare   = (isset($data['thoroughfare']))   ? $data['thoroughfare']: null;
+        $cluster->city           = (isset($data['city']))           ? $data['city']: null;
+        $cluster->phone          = (isset($data['phone']))          ? $data['phone']: null;
+        $cluster->country_id     = (isset($data['country_id']))     ? $data['country_id']: null;
+        $cluster->postal_code    = (isset($data['postal_code']))    ? $data['postal_code']: null;
+        $cluster->description    = (isset($data['description']))    ? $data['description']: null;
+        $cluster->email          = (isset($data['cluster_email']))  ? $data['cluster_email']: null;
+        $cluster->tax_number     = (isset($data['tax_number']))     ? $data['tax_number']: null;
+        $cluster->account_number = (isset($data['account_number'])) ? $data['account_number']: null;
+
+        $cluster->save();
+    }
+
+    try {
+        $user->clusters()->syncWithoutDetaching($cluster);
+        Event::fire('initbiz.cumuluscore.autoAssignUserToCluster', [$user, $cluster]);
+    } catch (\Exception $e) {
+        Db::rollback();
+        if (env('APP_DEBUG', false)) {
+            throw $e;
+        } else {
+            trace_log($e);
+            throw new \Exception("Error auto assigning user to cluster", 1);
         }
     }
-    if (AutoAssignSettings::get('auto_assign_user') === 'new_cluster') {
-        Event::fire('initbiz.cumuluscore.beforeAutoAssignNewCluster', [&$data]);
 
-        $createClusterData = [
-            'name' => $data[AutoAssignSettings::get('auto_assign_user_new_cluster')],
-            'thoroughfare'   => (isset($data['thoroughfare']))? $data['thoroughfare']: null,
-            'city'           => (isset($data['city']))? $data['city']: null,
-            'phone'          => (isset($data['phone']))? $data['phone']: null,
-            'country_id'     => (isset($data['country_id']))? $data['country_id']: null,
-            'postal_code'    => (isset($data['postal_code']))? $data['postal_code']: null,
-            'description'    => (isset($data['description']))? $data['description']: null,
-            'email'          => (isset($data['cluster_email']))? $data['cluster_email']: null,
-            'tax_number'     => (isset($data['tax_number']))? $data['tax_number']: null,
-            'account_number' => (isset($data['account_number']))? $data['account_number']: null,
-        ];
+    if (AutoAssignSettings::get('auto_assign_user') === 'new_cluster' && AutoAssignSettings::get('enable_auto_assign_cluster')) {
+        Event::fire('initbiz.cumuluscore.beforeAutoAssignClusterToPlan', [$data]);
 
-        $cluster = $clusterRepository->create($createClusterData);
+        if (AutoAssignSettings::get('auto_assign_cluster') === 'get_plan') {
+            $planSlug = $data[AutoAssignSettings::get('auto_assign_cluster_get_plan')];
+            $plan = Plan::where('slug', $planSlug)->first();
+        }
 
-        try {
-            $clusterRepository->addUserToCluster($user->id, $cluster->slug);
-        } catch (\Exception $e) {
+        if (AutoAssignSettings::get('auto_assign_cluster') === 'concrete_plan') {
+            $planSlug = AutoAssignSettings::get('auto_assign_cluster_concrete_plan');
+            $plan = Plan::where('slug', $planSlug)->first();
+        }
+
+        if ($plan->is_registration_allowed) {
+            $cluster->plan()->associate($plan);
+            $cluster->save();
+            Event::fire('initbiz.cumuluscore.autoAssignClusterToPlan', [$cluster, $plan]);
+        } else {
             Db::rollback();
             if (env('APP_DEBUG', false)) {
                 throw $e;
             } else {
                 trace_log($e);
-                throw new \Exception("Error Assigning user to new cluster", 1);
-            }
-        }
-
-        //TODO move this to other methods, add some try catches
-        if (AutoAssignSettings::get('enable_auto_assign_cluster')) {
-            $planSlug = "";
-
-            if (AutoAssignSettings::get('auto_assign_cluster') === 'get_plan') {
-                $planSlug = $data[AutoAssignSettings::get('auto_assign_cluster_get_plan')];
-
-                $plan = Plan::where('slug', $planSlug)->first();
-
-                try {
-                    if (! $plan->is_registration_allowed) {
-                        throw new \Exception("This plan doesn't allow users registration", 1);
-                    }
-                } catch (\Exception $e) {
-                    Db::rollback();
-                    if (env('APP_DEBUG', false)) {
-                        throw $e;
-                    } else {
-                        trace_log($e);
-                    }
-                }
-            }
-
-            if (AutoAssignSettings::get('auto_assign_cluster') === 'concrete_plan') {
-                $planSlug = AutoAssignSettings::get('auto_assign_cluster_concrete_plan');
-            }
-
-            try {
-                $clusterRepository->addClusterToPlan($cluster->slug, $planSlug);
-            } catch (\Exception $e) {
-                Db::rollback();
-                if (env('APP_DEBUG', false)) {
-                    throw $e;
-                } else {
-                    trace_log($e);
-                    throw new \Exception("Error assigning cluster to plan", 1);
-                }
+                throw new \Exception("Error auto assigning cluster to plan", 1);
             }
         }
     }
@@ -181,7 +148,6 @@ Event::listen('rainlab.user.register', function ($user, $data) {
         return true;
     }
 
-    //TODO: move to repository, but what to do with those UserModel and UserController at the top of this file?
     $group = UserGroup::where('code', AutoAssignSettings::get('group_to_auto_assign_user'))->first();
     if ($group) {
         $user->groups()->add($group);

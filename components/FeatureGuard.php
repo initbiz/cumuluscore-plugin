@@ -3,13 +3,10 @@
 use Cms\Classes\ComponentBase;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Classes\FeatureManager;
-use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 class FeatureGuard extends ComponentBase
 {
     use \Initbiz\CumulusCore\Traits\CumulusComponentProperties;
-
-    public $clusterRepository;
 
     protected $featureManager;
 
@@ -37,16 +34,14 @@ class FeatureGuard extends ComponentBase
 
     public function onRun()
     {
-        $clusterSlug = Helpers::getClusterSlugFromUrlParam($this->property('clusterUniq'));
-
-        $this->clusterRepository = new ClusterRepository($clusterSlug);
+        $cluster = Helpers::getClusterFromUrlParam($this->property('clusterUniq'));
 
         $featureCodes = $this->property('cumulusFeatures');
 
         $canEnter = false;
 
         foreach ($featureCodes as $featureCode) {
-            if ($this->clusterRepository->canEnterFeature($clusterSlug, $featureCode)) {
+            if ($cluster->canEnterFeature($featureCode)) {
                 $canEnter = true;
                 break;
             }

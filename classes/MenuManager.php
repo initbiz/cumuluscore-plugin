@@ -7,26 +7,14 @@ use Cms\Classes\Page as CmsPage;
 use October\Rain\Support\Singleton;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\InitDry\Classes\Helpers as DryHelpers;
-use Initbiz\CumulusCore\Repositories\ClusterRepository;
 
 class MenuManager extends Singleton
 {
-    protected $clusterRepository;
-
-    /**
-     * Initialize this singleton.
-     */
-    protected function init()
-    {
-        $this->clusterRepository = new ClusterRepository();
-    }
-
     public function hideClusterMenuItems($items)
     {
-        $clusterRepository = new ClusterRepository;
-        $currentCluster = Helpers::getCluster();
+        $cluster = Helpers::getCluster();
 
-        $iterator = function ($menuItems) use (&$iterator, $clusterRepository, $currentCluster) {
+        $iterator = function ($menuItems) use (&$iterator, $cluster) {
             $result = [];
             foreach ($menuItems as $item) {
                 $itemFeatures = [];
@@ -46,7 +34,7 @@ class MenuManager extends Singleton
                 foreach ($itemFeatures as $featureCode) {
                     //If any cumulusFeature exists than hide the item
                     $item->viewBag['isHidden'] = "1";
-                    if ($clusterRepository->canEnterFeature($currentCluster, $featureCode)) {
+                    if ($cluster->canEnterFeature($featureCode)) {
                         //The item will be shown only when cluster has access to feature
                         $item->viewBag['isHidden'] = "0";
                         break;
