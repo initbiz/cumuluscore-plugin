@@ -128,22 +128,6 @@ class Cluster extends Model
         });
     }
 
-    public function beforeSave()
-    {
-        /* This must be on model because every time the model is saved:
-         * backend or repo or anywhere on create or update
-         * there should be ability to check if for example
-         * username is unique and if not, than return false, drop
-         */
-        Db::beginTransaction();
-        $state = Event::fire('initbiz.cumuluscore.beforeClusterSave', [$this], true);
-        if ($state === false) {
-            Db::rollBack();
-            return false;
-        }
-        Db::commit();
-    }
-
     public function afterSave()
     {
         $plan = $this->plan()->first();

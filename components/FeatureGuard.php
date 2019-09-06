@@ -8,8 +8,6 @@ class FeatureGuard extends ComponentBase
 {
     use \Initbiz\CumulusCore\Traits\CumulusComponentProperties;
 
-    protected $featureManager;
-
     public function componentDetails()
     {
         return [
@@ -55,7 +53,6 @@ class FeatureGuard extends ComponentBase
 
     public function getCumulusFeaturesOptions()
     {
-        $this->featureManager = FeatureManager::instance();
-        return $this->featureManager->getFeaturesOptions();
+        return FeatureManager::instance()->getFeaturesOptionsInspector();
     }
 }

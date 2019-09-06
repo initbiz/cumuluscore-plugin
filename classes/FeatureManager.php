@@ -17,14 +17,11 @@ class FeatureManager extends Singleton
     /**
      * @var PluginRegistrationManager
      */
-    protected $pluginRegistrationManager;
-
     /**
      * Initialize this singleton.
      */
     protected function init()
     {
-        $this->pluginRegistrationManager = PluginRegistrationManager::instance();
     }
 
     /**
@@ -49,6 +46,17 @@ class FeatureManager extends Singleton
         return $features;
     }
 
+    /**
+     * Get features in list syntax:
+     * [
+     *    'code' => [
+     *        'name' => 'name/code',
+     *        'description' => 'description'
+     *    ]
+     * ]
+     *  
+     * @return array
+     */
     public function getFeaturesOptions()
     {
         $features = $this->getFeatures();
@@ -65,11 +73,35 @@ class FeatureManager extends Singleton
         return $featureOptions;
     }
 
+    /**
+     * Get features in inspector options syntax:
+     * [
+     *     'code' => 'name/code'
+     * ]
+     *
+     * @return array
+     */
+    public function getFeaturesOptionsInspector()
+    {
+        $features = $this->getFeatures();
+
+        $featureOptions = [];
+
+        foreach ($features as $featureCode => $featureDef) {
+            $featureOptions[$featureCode] = $featureDef['name'] ?? $featureCode;
+        }
+
+        return $featureOptions;
+    }
+
+    /**
+     * Runs registerCumulusFeatures and returns the combination of arrays
+     *
+     * @return array
+     */
     public function scanFeatures()
     {
-        $cumulusFeatures = $this->pluginRegistrationManager->runMethod('registerCumulusFeatures');
-
-        return $cumulusFeatures;
+        return PluginRegistrationManager::instance()->runMethod('registerCumulusFeatures');
     }
 
     public function clearCache()

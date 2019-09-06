@@ -2,8 +2,8 @@
   "name": "initbiz/oc-cumuluscore-plugin",
   "type": "october-plugin",
   "description": "October CMS plugin that helps with writing SaaS applications",
-  "homepage": "http://init.biz",
-  "keywords": ["october", "octobercms", "cumulus", "saas", "php", "subscription", "plan"],
+  "homepage": "https://www.init.biz",
+  "keywords": ["october", "octobercms", "cumulus", "saas", "php", "subscription", "plan", "multi-tenant"],
   "license": "MIT",
   "authors": [
     {

@@ -40,7 +40,7 @@ UserModel::extend(function ($model) {
     });
 
     $model->addDynamicMethod('canEnter', function ($cluster) use ($model) {
-        return $model->clusters()->whereSlug($clusterSlug)->first() ? true : false;
+        return $model->clusters()->whereSlug($cluster->slug)->first() ? true : false;
     });
 });
 

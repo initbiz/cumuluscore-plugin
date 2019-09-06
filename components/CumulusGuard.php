@@ -39,7 +39,7 @@ class CumulusGuard extends ComponentBase
 
         $this->page['cluster'] = $cluster;
 
-        Session::put('cumulus_clusterslug', $clusterSlug);
-        Cookie::queue(Cookie::forever('cumulus_clusterslug', $clusterSlug));
+        Session::put('cumulus_clusterslug', $cluster->slug);
+        Cookie::queue(Cookie::forever('cumulus_clusterslug', $cluster->slug));
     }
 }

@@ -55,9 +55,7 @@ class Plan extends Model
 
     public function getFeaturesOptions()
     {
-        $featureManager = FeatureManager::instance();
-        $featuresOptions = $featureManager->getFeaturesOptions();
-        return $featuresOptions;
+        return FeatureManager::instance()->getFeaturesOptions();
     }
 
     public function afterSave()
@@ -122,7 +120,7 @@ class Plan extends Model
      *
      * @return Collection
      */
-    public function getUsers()
+    public function getUsersAttribute()
     {
         $users = collect();
 
