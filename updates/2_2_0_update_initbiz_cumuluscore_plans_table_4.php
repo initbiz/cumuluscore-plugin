@@ -1,7 +1,6 @@
 <?php namespace Initbiz\CumulusCore\Updates;
 
 use Schema;
-use Initbiz\CumulusCore\Models\Plan;
 use October\Rain\Database\Updates\Migration;
 
 class UpdateInitbizCumuluscorePlansTable4 extends Migration
