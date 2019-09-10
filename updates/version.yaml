@@ -146,3 +146,5 @@
     - 2_3_0_update_initbiz_cumuluscore_plans_table_5.php
 3.0.0:
     - '!!! Upgrade to v.3, check upgrade guide'
+3.0.1:
+    - "Fix the buggy migration"
