@@ -11,12 +11,6 @@ class UpdateInitbizCumuluscorePlansTable4 extends Migration
         Schema::table('initbiz_cumuluscore_plans', function ($table) {
             $table->boolean('is_registration_allowed')->nullable();
         });
-
-        $plans = Plan::all();
-        foreach ($plans as $plan) {
-            $plan->is_registration_allowed = true;
-            $plan->save();
-        }
     }
 
     public function down()
