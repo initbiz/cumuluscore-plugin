@@ -71,7 +71,7 @@ Event::listen('rainlab.user.register', function ($user, $data) {
         return true;
     }
 
-    Event::fire('initbiz.cumuluscore.beforeAutoAssignUserToCluster', [$data]);
+    Event::fire('initbiz.cumuluscore.beforeAutoAssignUserToCluster', [&$data]);
 
     if (AutoAssignSettings::get('auto_assign_user') === 'concrete_cluster') {
         $clusterSlug = AutoAssignSettings::get('auto_assign_user_concrete_cluster');
@@ -114,7 +114,7 @@ Event::listen('rainlab.user.register', function ($user, $data) {
     }
 
     if (AutoAssignSettings::get('auto_assign_user') === 'new_cluster' && AutoAssignSettings::get('enable_auto_assign_cluster')) {
-        Event::fire('initbiz.cumuluscore.beforeAutoAssignClusterToPlan', [$data]);
+        Event::fire('initbiz.cumuluscore.beforeAutoAssignClusterToPlan', [&$data]);
 
         if (AutoAssignSettings::get('auto_assign_cluster') === 'get_plan') {
             $planSlug = $data[AutoAssignSettings::get('auto_assign_cluster_get_plan')];
