@@ -1,8 +1,0 @@
-# ===================================
-#  Extended Profile Field Definitions
-# ===================================
-
-clusters:
-    tab: "initbiz.cumuluscore::lang.users.cluster_tab"
-    type: relation
-    nameFrom: name

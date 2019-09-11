@@ -148,3 +148,5 @@
     - '!!! Upgrade to v.3, check upgrade guide'
 3.0.1:
     - "Fix the buggy migration"
+3.0.2:
+    - "Clean code"

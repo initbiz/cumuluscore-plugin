@@ -1,12 +1,26 @@
 <?php namespace Initbiz\CumulusCore;
 
+use Event;
 use Backend;
 use System\Classes\PluginBase;
 use Initbiz\CumulusCore\Classes\Helpers;
 
 class Plugin extends PluginBase
 {
-    public $require = ['RainLab.User', 'RainLab.Notify', 'RainLab.Location', 'RainLab.UserPlus', 'RainLab.Pages', 'Initbiz.InitDry'];
+    public $require = [
+        'RainLab.User',
+        'RainLab.Notify',
+        'RainLab.Location',
+        'RainLab.UserPlus',
+        'RainLab.Pages',
+        'Initbiz.InitDry'
+    ];
+
+    public function boot() {
+        Event::subscribe(\Initbiz\CumulusCore\EventHandlers\AutoAssignHandler::class);
+        Event::subscribe(\Initbiz\CumulusCore\EventHandlers\RainlabPagesHandler::class);
+        Event::subscribe(\Initbiz\CumulusCore\EventHandlers\RainlabUserHandler::class);
+    }
 
     public function registerComponents()
     {
