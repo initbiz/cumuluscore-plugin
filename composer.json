@@ -1,20 +1,14 @@
 {
   "name": "initbiz/oc-cumuluscore-plugin",
   "type": "october-plugin",
-  "description": "October CMS plugin that helps with writing SaaS applications",
+  "description": "Create a multi-tenant SaaS application in OctoberCMS",
   "homepage": "https://www.init.biz",
   "keywords": ["october", "octobercms", "cumulus", "saas", "php", "subscription", "plan", "multi-tenant"],
   "license": "MIT",
   "authors": [
     {
       "name": "Tomasz Strojny",
-      "email": "tomasz@init.biz",
-      "role": "Founder"
-    },
-    {
-      "name": "Piotr Rogowski",
-      "email": "piotr@init.biz",
-      "role": "Contributor"
+      "email": "tomasz@init.biz"
     }
   ]
 }
