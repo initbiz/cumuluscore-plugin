@@ -11,7 +11,7 @@ class CreateInitbizCumuluscoreRelatedPlansTable extends Migration
         Schema::create('initbiz_cumuluscore_related_plans', function(Blueprint $table) {
             $table->integer('plan_id')->unsigned();
             $table->integer('related_plan_id')->unsigned();
-            $table->primary(['plan_id', 'related_plan_id']);
+            $table->primary(['plan_id', 'related_plan_id'], 'initbiz_cumuluscore_related_plans_primary');
             $table->string('relation')->nullable();
         });
     }

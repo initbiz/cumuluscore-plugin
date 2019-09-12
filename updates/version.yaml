@@ -150,3 +150,5 @@
     - "Fix the buggy migration"
 3.0.2:
     - "Clean code"
+3.0.3:
+    - "Shorten primary name"
