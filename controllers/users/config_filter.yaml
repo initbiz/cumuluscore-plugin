@@ -4,14 +4,16 @@
 
 scopes:
 
+    trashed:
+        label: "initbiz.cumuluscore::lang.trashed.filter_button"
+        type: switch
+        default: 0
+        scope: applyTrashedFilter
+
     groups:
-        # Filter name
         label: rainlab.user::lang.group.label
-        # Model Class name
         modelClass: RainLab\User\Models\UserGroup
-        # Model attribute to display for the name
         nameFrom: name
-        # Filter scope
         scope: filterByGroup
 
     created_date:
@@ -20,11 +22,8 @@ scopes:
         conditions: created_at >= ':after' AND created_at <= ':before'
 
     activated:
-        # Filter name
         label: rainlab.user::lang.user.status_activated
-        # Filter type
         type: switch
-        # SQL conditions
         conditions:
             - is_activated = '0'
             - is_activated = '1'

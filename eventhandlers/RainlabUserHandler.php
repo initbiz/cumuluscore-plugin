@@ -16,6 +16,7 @@ class RainlabUserHandler
         $this->addOnRegirectMeAjaxHandler($event);
         $this->addClusterRelation($event);
         $this->addClusterField($event);
+        $this->addMethodsToUser($event);
         $this->addFullNameColumn($event);
         $this->forgetClusterOnLogout($event);
     }
@@ -40,13 +41,6 @@ class RainlabUserHandler
                 'otherKey' => 'cluster_id'
             ];
 
-            $model->addDynamicMethod('scopeActivated', function ($query) use ($model) {
-                return $query->where("is_activated", true);
-            });
-
-            $model->addDynamicMethod('canEnter', function ($cluster) use ($model) {
-                return $model->clusters()->whereSlug($cluster->slug)->first() ? true : false;
-            });
         });
     }
 
@@ -66,6 +60,30 @@ class RainlabUserHandler
             ];
 
             $widget->addTabFields($config);
+        });
+    }
+
+    public function addMethodsToUser($event)
+    {
+        User::extend(function ($model) {
+            $model->addDynamicMethod('scopeActivated', function ($query) use ($model) {
+                return $query->where("is_activated", true);
+            });
+
+            $model->addDynamicMethod('scopeApplyTrashedFilter', function ($query, $type) use ($model) {
+                switch ($type) {
+                    case '1':
+                        return $query->withTrashed();
+                    case '2':
+                        return $query->onlyTrashed();
+                    default:
+                        return $query;
+                }
+            });
+
+            $model->addDynamicMethod('canEnter', function ($cluster) use ($model) {
+                return $model->clusters()->whereSlug($cluster->slug)->first() ? true : false;
+            });
         });
     }
 
