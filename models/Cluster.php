@@ -19,11 +19,15 @@ class Cluster extends Model
     use \October\Rain\Database\Traits\Nullable;
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\SoftDelete;
-    // use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\Validation;
 
     protected $guarded = ['*'];
 
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 
     /**
      * @var array Generate slugs for these attributes.
@@ -72,19 +76,25 @@ class Cluster extends Model
     /*
      * Validation
      */
-    //TODO: problems with auto assigning clusters. While saving model email is required, although it's not...
-    // public $rules = [
-    //     'name'      => 'required|between:4,255',
-    //     'slug'      => 'between:4,100|unique:initbiz_cumuluscore_clusters',
-    //     'username'  => 'between:4,100|unique:initbiz_cumuluscore_clusters',
-    //     'email'     => 'between:6,255|email',
-    // ];
+    public $rules = [
+        'name'      => 'required|between:1,255',
+        'slug'      => 'between:1,100|unique:initbiz_cumuluscore_clusters',
+        'username'  => 'between:1,100|unique:initbiz_cumuluscore_clusters',
+        'email'     => 'nullable|between:6,255|email',
+    ];
 
     /*
      * Disable timestamps by default.
      * Remove this line if timestamps are defined in the database table.
      */
     public $timestamps = false;
+
+    /**
+     * Ensure slugs are unique when trashed items present
+     *
+     * @var boolean
+     */
+    protected $allowTrashedSlugs = true;
 
     /**
      * @var string The database table used by the model.
@@ -126,6 +136,18 @@ class Cluster extends Model
         return $query->whereHas('plan', function ($q) use ($filtered) {
             $q->whereIn('plan_id', $filtered);
         });
+    }
+
+    public function scopeApplyTrashedFilter($query, $type)
+    {
+        switch ($type) {
+            case '1':
+                return $query->withTrashed();
+            case '2':
+                return $query->onlyTrashed();
+            default:
+                return $query;
+        }
     }
 
     public function afterSave()

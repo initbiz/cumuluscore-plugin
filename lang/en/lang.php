@@ -94,6 +94,7 @@
         'name' => 'Full name',
         'plan' => 'Plan',
         'slug' => 'Slug',
+        'created_at' => 'Created at',
         'username' => 'Username',
         'username_comment' => 'Username is used in URLs instead slug if you enable this feature in settings',
         'logo' => 'Logo',
@@ -109,6 +110,7 @@
         'accounting_details_tab' => 'Accounting details',
         'contact_details_tab' => 'Contact details',
         'plan_filter' => 'Select plans',
+        'trashed_filter' => 'Filter trashed',
     ],
     'plan' => [
         'is_trial' => 'Trial plan',

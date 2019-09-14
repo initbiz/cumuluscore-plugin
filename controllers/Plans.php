@@ -31,6 +31,22 @@ class Plans extends Controller
         BackendMenu::setContext('Initbiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-plan');
     }
 
+    public function listInjectRowClass($record, $definition = null)
+    {
+        if ($record->trashed()) {
+            return 'strike';
+        }
+    }
+
+    public function listExtendQuery($query)
+    {
+        $query->withTrashed();
+    }
+
+    public function formExtendQuery($query)
+    {
+        $query->withTrashed();
+    }
 
     public function relationExtendPivotWidget($widget, $field, $model)
     {

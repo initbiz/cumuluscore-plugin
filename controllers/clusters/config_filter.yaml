@@ -1,4 +1,9 @@
 scopes:
+    trashed:
+        label: "initbiz.cumuluscore::lang.cluster.trashed_filter"
+        type: switch
+        default: 0
+        scope: applyTrashedFilter
     plan:
         label: "initbiz.cumuluscore::lang.cluster.plan_filter"
         scope: applyPlanFilter

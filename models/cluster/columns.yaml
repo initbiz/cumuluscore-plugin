@@ -7,6 +7,9 @@ columns:
         label: 'initbiz.cumuluscore::lang.cluster.slug'
         searchable: true
         sortable: true
+    created_at:
+        label: 'initbiz.cumuluscore::lang.cluster.created_at'
+        sortable: true
     username:
         label: 'initbiz.cumuluscore::lang.cluster.username'
         searchable: true

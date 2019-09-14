@@ -22,15 +22,39 @@ class Plan extends Model
      */
     public $rules = [];
 
-    public $fillable = ['name', 'slug', 'features', 'priority'];
+    public $fillable = [
+        'name',
+        'slug',
+        'features',
+        'priority',
+    ];
 
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at',
+    ];
 
-    protected $slugs = ['slug' => 'name'];
+    protected $slugs = [
+        'slug' => 'name',
+    ];
 
-    protected $jsonable = ['features'];
+    protected $jsonable = [
+        'features'
+    ];
 
-    protected $nullable = ['priority'];
+    /**
+     * Fields to be set as null when left empty
+     * @var array
+     */
+    protected $nullable = [
+        'priority'
+    ];
+
+    /**
+     * Ensure slugs are unique when trashed items present
+     *
+     * @var boolean
+     */
+    protected $allowTrashedSlugs = true;
 
     /**
      * @var string The database table used by the model.

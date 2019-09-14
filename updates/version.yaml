@@ -152,3 +152,6 @@
     - "Clean code"
 3.0.3:
     - "Shorten primary name"
+3.1.0:
+    - 'Add timestamps, fix slugs and validation'
+    - 3_1_0_add_timestamps_to_clusters_and_plans.php

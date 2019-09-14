@@ -94,6 +94,7 @@
         'name' => 'Pełna nazwa',
         'plan' => 'Plan',
         'slug' => 'Slug',
+        'created_at' => 'Data utworzenia',
         'username' => 'Nazwa użytkownika',
         'username_comment' => 'Nazwa użytkownika jest używana w adresach URL zamiast sluga jeżeli włączysz tę funkcję w ustawieniach',
         'logo' => 'Logo',
@@ -109,6 +110,7 @@
         'accounting_details_tab' => 'Dane finansowe',
         'contact_details_tab' => 'Dane kontaktowe',
         'plan_filter' => 'Wybierz plany',
+        'trashed_filter' => 'Pokaż usunięte',
     ],
     'plan' => [
         'is_trial' => 'Plan trialowy',
