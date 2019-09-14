@@ -1,6 +1,6 @@
 <div data-control="toolbar">
-        <a href="<?= Backend::url('initbiz/cumuluscore/clusters/create') ?>" class="btn btn-primary oc-icon-plus"><?= e(trans('backend::lang.form.create')) ?></a>
-        <button
+    <a href="<?= Backend::url('initbiz/cumuluscore/clusters/create') ?>" class="btn btn-primary oc-icon-plus"><?= e(trans('backend::lang.form.create')) ?></a>
+    <button
         class="btn btn-default oc-icon-trash-o"
         disabled="disabled"
         onclick="$(this).data('request-data', {
@@ -14,5 +14,20 @@
         data-request-success="$(this).prop('disabled', true)"
         data-stripe-load-indicator>
         <?= e(trans('backend::lang.list.delete_selected')) ?>
+    </button>
+    <button
+        class="btn btn-default oc-icon-trash-o"
+        disabled="disabled"
+        onclick="$(this).data('request-data', {
+            checked: $('.control-list').listWidget('getChecked')
+        })"
+        data-request="onRestore"
+        data-request-confirm="<?= e(trans('initbiz.cumuluscore::lang.restore.confirmation')) ?>"
+        data-trigger-action="enable"
+        data-trigger=".control-list input[type=checkbox]"
+        data-trigger-condition="checked"
+        data-request-success="$(this).prop('disabled', true)"
+        data-stripe-load-indicator>
+        <?= e(trans('initbiz.cumuluscore::lang.restore.button')) ?>
     </button>
 </div>

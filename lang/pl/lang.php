@@ -132,4 +132,10 @@
         'is_trial' => 'Trial',
         'is_registration_allowed' => 'Rejestracja dozwolona',
     ],
+    'restore' => [
+        'flash_success' => 'Pomyślnie przywrócono elementy',
+        'flash_empty' => 'Lista elementów do przywrócenia nie może być pusta',
+        'confirmation' => 'Czy na pewno przywrócić zaznaczone elementy?',
+        'button' => 'Przywróć',
+    ],
 ];

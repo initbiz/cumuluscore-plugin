@@ -39,13 +39,18 @@ class Clusters extends Controller
         }
     }
 
+    /**
+     * Override the parent method to permanently remove items that were once removed
+     *
+     * @return void
+     */
     public function index_onDelete()
     {
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
             $toForceDelete = Cluster::onlyTrashed()->whereIn('id', $checkedIds)->get();
         }
         
-        $result = $this->asExtension('ListController')->index_onDelete();
+        $this->asExtension('ListController')->index_onDelete();
         
         if ($toForceDelete) {
             foreach ($toForceDelete as $item) {
@@ -55,6 +60,28 @@ class Clusters extends Controller
             Flash::success(Lang::get('backend::lang.list.delete_selected_success'));
         }
         
-        return $result;
+        return $this->listRefresh();
+    }
+
+    /**
+     * Handler to restore softly deleted items
+     *
+     * @return void
+     */
+    public function index_onRestore() {
+        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
+            $toRestore = Cluster::onlyTrashed()->whereIn('id', $checkedIds)->get();
+        } else {
+            Flash::error(Lang::get('initbiz.cumuluscore::lang.restore.flash_empty'));
+        }
+
+        if ($toRestore) {
+            foreach ($toRestore as $item) {
+                $item->restore();
+            }
+            Flash::success(Lang::get('initbiz.cumuluscore::lang.restore.flash_success'));
+        }
+
+        return $this->listRefresh();
     }
 }

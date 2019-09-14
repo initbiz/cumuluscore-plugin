@@ -132,4 +132,10 @@
         'is_trial' => 'Trial',
         'is_registration_allowed' => 'Registration allowed',
     ],
+    'restore' => [
+        'flash_success' => 'Items successfully restored',
+        'flash_empty' => 'The list to restore cannot be empty',
+        'confirmation' => 'Are you sure you want to restore the selected items?',
+        'button' => 'Restore',
+    ],
 ];

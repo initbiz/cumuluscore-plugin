@@ -78,8 +78,8 @@ class Cluster extends Model
      */
     public $rules = [
         'name'      => 'required|between:1,255',
-        'slug'      => 'between:1,100|unique:initbiz_cumuluscore_clusters',
-        'username'  => 'between:1,100|unique:initbiz_cumuluscore_clusters',
+        'slug'      => 'between:1,100',
+        'username'  => 'between:1,100',
         'email'     => 'nullable|between:6,255|email',
     ];
 
