@@ -110,7 +110,6 @@
         'accounting_details_tab' => 'Accounting details',
         'contact_details_tab' => 'Contact details',
         'plan_filter' => 'Select plans',
-        'trashed_filter' => 'Filter trashed',
     ],
     'plan' => [
         'is_trial' => 'Trial plan',
@@ -137,5 +136,8 @@
         'flash_empty' => 'The list to restore cannot be empty',
         'confirmation' => 'Are you sure you want to restore the selected items?',
         'button' => 'Restore',
+    ],
+    'trashed' => [
+        'filter_button' => 'Show trashed',
     ],
 ];

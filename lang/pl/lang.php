@@ -110,7 +110,6 @@
         'accounting_details_tab' => 'Dane finansowe',
         'contact_details_tab' => 'Dane kontaktowe',
         'plan_filter' => 'Wybierz plany',
-        'trashed_filter' => 'Pokaż usunięte',
     ],
     'plan' => [
         'is_trial' => 'Plan trialowy',
@@ -137,5 +136,8 @@
         'flash_empty' => 'Lista elementów do przywrócenia nie może być pusta',
         'confirmation' => 'Czy na pewno przywrócić zaznaczone elementy?',
         'button' => 'Przywróć',
+    ],
+    'trashed' => [
+        'filter_button' => 'Pokaż z kosza',
     ],
 ];

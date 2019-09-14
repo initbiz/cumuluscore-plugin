@@ -20,7 +20,10 @@ class Plan extends Model
     /*
      * Validation
      */
-    public $rules = [];
+    public $rules = [
+        'name'  => 'required|between:1,100',
+        'slug'  => 'required|between:1,100',
+    ];
 
     public $fillable = [
         'name',
@@ -84,11 +87,24 @@ class Plan extends Model
 
     public function afterSave()
     {
+        // Run registering clusters' features
         foreach ($this->clusters as $cluster) {
             if ($this->features === "0") {
                 continue;
             }
             $cluster->registerFeatures($this->features);
+        }
+    }
+
+    public function scopeApplyTrashedFilter($query, $type)
+    {
+        switch ($type) {
+            case '1':
+                return $query->withTrashed();
+            case '2':
+                return $query->onlyTrashed();
+            default:
+                return $query;
         }
     }
     

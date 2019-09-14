@@ -1,7 +1,10 @@
 <?php namespace Initbiz\CumulusCore\Controllers;
 
-use Backend\Classes\Controller;
+use Lang;
+use Flash;
 use BackendMenu;
+use Backend\Classes\Controller;
+use Initbiz\CumulusCore\Models\Plan;
 
 class Plans extends Controller
 {
@@ -38,14 +41,50 @@ class Plans extends Controller
         }
     }
 
-    public function listExtendQuery($query)
+    /**
+     * Override the parent method to permanently remove items that were once removed
+     *
+     * @return void
+     */
+    public function index_onDelete()
     {
-        $query->withTrashed();
+        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
+            $toForceDelete = Plan::onlyTrashed()->whereIn('id', $checkedIds)->get();
+        }
+        
+        $this->asExtension('ListController')->index_onDelete();
+        
+        if ($toForceDelete) {
+            foreach ($toForceDelete as $item) {
+                $item->forceDelete();
+            }
+            Flash::forget();
+            Flash::success(Lang::get('backend::lang.list.delete_selected_success'));
+        }
+        
+        return $this->listRefresh();
     }
 
-    public function formExtendQuery($query)
-    {
-        $query->withTrashed();
+    /**
+     * Handler to restore softly deleted items
+     *
+     * @return void
+     */
+    public function index_onRestore() {
+        if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
+            $toRestore = Plan::onlyTrashed()->whereIn('id', $checkedIds)->get();
+        } else {
+            Flash::error(Lang::get('initbiz.cumuluscore::lang.restore.flash_empty'));
+        }
+
+        if ($toRestore) {
+            foreach ($toRestore as $item) {
+                $item->restore();
+            }
+            Flash::success(Lang::get('initbiz.cumuluscore::lang.restore.flash_success'));
+        }
+
+        return $this->listRefresh();
     }
 
     public function relationExtendPivotWidget($widget, $field, $model)

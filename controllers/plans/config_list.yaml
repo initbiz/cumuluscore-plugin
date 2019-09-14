@@ -9,3 +9,4 @@ toolbar:
     search:
         prompt: 'backend::lang.list.search_prompt'
 recordUrl: 'initbiz/cumuluscore/plans/update/:id'
+filter: config_filter.yaml

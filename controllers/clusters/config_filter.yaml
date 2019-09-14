@@ -1,6 +1,6 @@
 scopes:
     trashed:
-        label: "initbiz.cumuluscore::lang.cluster.trashed_filter"
+        label: "initbiz.cumuluscore::lang.trashed.filter_button"
         type: switch
         default: 0
         scope: applyTrashedFilter
