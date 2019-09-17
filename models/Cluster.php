@@ -112,12 +112,17 @@ class Cluster extends Model
         ]
     ];
 
-    public $hasMany = [
+    public $belongsToMany = [
         'users' => [
             UserModel::class,
-            'table' => 'users',
+            'table' => 'initbiz_cumuluscore_cluster_user',
+            'order' => 'name',
+            'key'      => 'cluster_id',
             'otherKey' => 'user_id'
-        ],
+        ]
+    ];
+    
+    public $hasMany = [
         'featureLogs' => [
             ClusterFeatureLog::class,
             'table' => 'initbiz_cumuluscore_cluster_feature_logs',
