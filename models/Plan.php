@@ -167,7 +167,7 @@ class Plan extends Model
         $clusters = $this->clusters()->get();
 
         foreach ($clusters as $cluster ) {
-            $users->concat($cluster->users()->get());
+            $users = $users->concat($cluster->users()->get());
         }
         
         return $users->unique();

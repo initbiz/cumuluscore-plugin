@@ -155,3 +155,5 @@
 3.1.0:
     - 'Add timestamps, fix slugs and validation'
     - 3_1_0_add_timestamps_to_clusters_and_plans.php
+3.1.1:
+    - 'Bug fixes'

@@ -117,8 +117,6 @@ class Cluster extends Model
             UserModel::class,
             'table' => 'initbiz_cumuluscore_cluster_user',
             'order' => 'name',
-            'key'      => 'cluster_id',
-            'otherKey' => 'user_id'
         ]
     ];
     
