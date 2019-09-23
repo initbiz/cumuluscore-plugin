@@ -73,6 +73,13 @@ class Plugin extends PluginBase
         ];
     }
 
+    public function registerCumulusAnnouncerTypes()
+    {
+        return [
+            '\Initbiz\CumulusCore\Announcers\UserRegisterAnnouncer',
+        ];
+    }
+
     /**
      * Twig filter method that checks if a user can enter the feature
      *

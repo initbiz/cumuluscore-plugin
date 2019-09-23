@@ -140,4 +140,7 @@
     'trashed' => [
         'filter_button' => 'Pokaż z kosza',
     ],
+    'announcers' => [
+        'register_user' => 'Nowy użytkownik zarejestrowany',
+    ],
 ];

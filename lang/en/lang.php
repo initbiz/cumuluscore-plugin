@@ -140,4 +140,7 @@
     'trashed' => [
         'filter_button' => 'Show trashed',
     ],
+    'announcers' => [
+        'register_user' => 'New user registered',
+    ],
 ];
