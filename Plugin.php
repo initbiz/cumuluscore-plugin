@@ -76,7 +76,7 @@ class Plugin extends PluginBase
     public function registerCumulusAnnouncerTypes()
     {
         return [
-            '\Initbiz\CumulusCore\Announcers\UserRegisterAnnouncer',
+            '\Initbiz\CumulusCore\AnnouncerTypes\UserRegisterAnnouncerType',
         ];
     }
 
