@@ -17,6 +17,6 @@ class UserRegisterAnnouncerType extends AnnouncerTypeBase
             $announcement->save();
             $announcement->users()->add($user);
             $announcement->save();
-        });
+        }, 50);
     }
 }

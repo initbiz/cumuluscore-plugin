@@ -45,7 +45,6 @@ class AutoAssignHandler
 
             if (AutoAssignSettings::get('auto_assign_user') === 'new_cluster') {
                 $cluster = new Cluster();
-
                 $cluster->name           = $data[AutoAssignSettings::get('auto_assign_user_new_cluster')];
                 $cluster->thoroughfare   = (isset($data['thoroughfare']))   ? $data['thoroughfare']: null;
                 $cluster->city           = (isset($data['city']))           ? $data['city']: null;
