@@ -89,6 +89,7 @@
         'cluster_dashboard_page_desc' => 'Strona, do której użytkownicy zostaną przekierowani po kliknięciu w klaster',
     ],
     'cluster' => [
+        'list_title' => 'Zarządzaj klastrami',
         'cluster' => 'Klaster',
         'delete_confirm' => 'Czy jesteś pewny, że chcesz usunąć obecny klaster?',
         'thoroughfare' => 'Linia adresowa',
@@ -129,6 +130,7 @@
         'related_plan_alternative' => 'Alternatywny',
     ],
     'plan_list' => [
+        'title' => 'Zarządzaj planami',
         'name' => 'Nazwa',
         'is_trial' => 'Trial',
         'is_registration_allowed' => 'Rejestracja dozwolona',

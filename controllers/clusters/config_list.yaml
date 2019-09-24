@@ -1,4 +1,4 @@
-title: Clusters
+title: initbiz.cumuluscore::lang.cluster.list_title
 modelClass: Initbiz\CumulusCore\Models\Cluster
 list: $/initbiz/cumuluscore/models/cluster/columns.yaml
 recordUrl: 'initbiz/cumuluscore/clusters/update/:id'

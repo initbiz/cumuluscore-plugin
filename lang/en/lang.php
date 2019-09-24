@@ -89,6 +89,7 @@
         'cluster_dashboard_page_desc' => 'Page where users are going to be redirected after clicking cluster url',
     ],
     'cluster' => [
+        'list_title' => 'Manage clusters',
         'cluster' => 'Cluster',
         'delete_confirm' => 'Are you sure you want to delete this cluster?',
         'thoroughfare' => 'Thoroughfare',
@@ -129,6 +130,7 @@
         'related_plan_alternative' => 'Alternative',
     ],
     'plan_list' => [
+        'title' => 'Manage plans',
         'name' => 'Name',
         'is_trial' => 'Trial',
         'is_registration_allowed' => 'Registration allowed',

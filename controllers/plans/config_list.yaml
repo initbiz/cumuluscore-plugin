@@ -1,6 +1,6 @@
 list: $/initbiz/cumuluscore/models/plan/columns.yaml
 modelClass: Initbiz\CumulusCore\Models\Plan
-title: Plans
+title: initbiz.cumuluscore::lang.plan_list.title
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true
