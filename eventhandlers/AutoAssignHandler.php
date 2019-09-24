@@ -2,6 +2,7 @@
 
 use Db;
 use Event;
+use RainLab\User\Models\User;
 use RainLab\User\Models\UserGroup;
 use Initbiz\CumulusCore\Models\Plan;
 use Initbiz\CumulusCore\Models\Cluster;
@@ -119,8 +120,13 @@ class AutoAssignHandler
     public function commitTransactionOnSuccess($event)
     {
         $event->listen('rainlab.user.register', function ($user, $data) {
-            Db::commit();
-        }, 10);
+            // Place to test if everything went as expected
+            
+            $dbUser = User::find($user->id);
+            if ($dbUser) {
+                Db::commit();
+            }
+        }, 1);
     }
 }
 
