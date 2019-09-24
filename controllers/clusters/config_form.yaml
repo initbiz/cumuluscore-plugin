@@ -1,4 +1,4 @@
-name: Clusters
+name: initbiz.cumuluscore::lang.cluster.cluster
 modelClass: Initbiz\CumulusCore\Models\Cluster
 form: $/initbiz/cumuluscore/models/cluster/fields.yaml
 defaultRedirect: initbiz/cumuluscore/clusters

@@ -1,4 +1,4 @@
-name: Plans
+name: initbiz.cumuluscore::lang.plan.plan
 form: $/initbiz/cumuluscore/models/plan/fields.yaml
 modelClass: Initbiz\CumulusCore\Models\Plan
 defaultRedirect: initbiz/cumuluscore/plans
