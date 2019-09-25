@@ -216,7 +216,7 @@ class Cluster extends Model
 
         $state = Event::fire('initbiz.cumuluscore.registerClusterFeature', [$this, $feature], true);
         if ($state === false) {
-            Db::rollBack();
+            Db::rollback();
             //TODO: Create own Excetion class
             throw new Exception();
         }

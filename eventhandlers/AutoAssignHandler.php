@@ -6,6 +6,7 @@ use RainLab\User\Models\User;
 use RainLab\User\Models\UserGroup;
 use Initbiz\CumulusCore\Models\Plan;
 use Initbiz\CumulusCore\Models\Cluster;
+use October\Rain\Exception\ApplicationException;
 use Initbiz\CumulusCore\Models\AutoAssignSettings;
 
 class AutoAssignHandler
@@ -22,7 +23,7 @@ class AutoAssignHandler
     {
         $event->listen('rainlab.user.beforeRegister', function (&$data) {
             Db::beginTransaction();
-        }, 500);
+        }, 1000);
     }
 
     public function autoAssignUserCluster($event)
@@ -124,9 +125,15 @@ class AutoAssignHandler
             
             $dbUser = User::find($user->id);
             if ($dbUser) {
-                Db::commit();
+                $state = Event::fire('initbiz.cumuluscore.registrationComplete', [$dbUser], true);
+                if ($state === false) {
+                    Db::rollback();
+                    throw new ApplicationException("Registration failed");
+                } else {
+                    Db::commit();
+                }
             }
-        }, 1);
+        }, 10);
     }
 }
 
