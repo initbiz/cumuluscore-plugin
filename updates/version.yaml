@@ -157,3 +157,5 @@
     - 3_1_0_add_timestamps_to_clusters_and_plans.php
 3.1.1:
     - 'Bug fixes'
+3.2.0:
+    - 'Deregistering cluster features'

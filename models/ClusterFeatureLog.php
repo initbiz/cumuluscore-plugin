@@ -41,12 +41,4 @@ class ClusterFeatureLog extends Model
             'otherKey' => 'cluster_slug',
         ]
     ];
-
-    /**
-     * Scope a query to only include registered features
-     */
-    public function scopeRegistered($query)
-    {
-        return $query->where('action', 'registered');
-    }
 }

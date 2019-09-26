@@ -92,7 +92,7 @@ class Plan extends Model
             if ($this->features === "0") {
                 continue;
             }
-            $cluster->registerFeatures($this->features);
+            $cluster->refreshRegisteredFeatures($this->features);
         }
     }
 

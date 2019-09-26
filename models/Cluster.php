@@ -10,6 +10,8 @@ use Initbiz\InitDry\Classes\Helpers;
 use RainLab\Location\Models\Country;
 use RainLab\User\Models\User as UserModel;
 use Initbiz\Cumuluscore\Models\ClusterFeatureLog;
+use Initbiz\CumulusCore\Classes\Exceptions\RegisterFeatureException;
+use Initbiz\CumulusCore\Classes\Exceptions\DeregisterFeatureException;
 
 /**
  * Model
@@ -159,7 +161,7 @@ class Cluster extends Model
 
         if ($plan && $plan->features) {
             $features = (array) $plan->features;
-            $this->registerFeatures($features);
+            $this->refreshRegisteredFeatures($features);
         }
     }
 
@@ -197,11 +199,40 @@ class Cluster extends Model
      */
     public function getRegisteredFeaturesAttribute(): array
     {
-        return ClusterFeatureLog::clusterFiltered($this->slug)
-                                ->registered()
-                                ->get()
-                                ->pluck('feature_code')
-                                ->toArray();
+        $featureLogs = ClusterFeatureLog::clusterFiltered($this->slug)->get()->groupBy('feature_code');
+        $features = [];
+
+        foreach ($featureLogs as $feature_code => $group) {
+            $newestElement = $group->sortByDesc('timestamp')->first();
+            if ($newestElement->action === 'registered') {
+                $features[] = $feature_code;
+            }
+        }
+
+        return $features;
+    }
+
+    /**
+     * Refresh registered cluster features,
+     * register those to register and deregister those to deregister
+     *
+     * @param array $features of the current plan, all not included will be deregistered
+     * @return void
+     */
+    public function refreshRegisteredFeatures(array $features)
+    {
+        $currentRegisteredFeatures = $this->registered_features;
+
+        $featuresToRegister = array_diff($features, $currentRegisteredFeatures);
+        $featuresToDeregister = array_diff($currentRegisteredFeatures, $features);
+
+        foreach ($featuresToRegister as $feature) {
+           $this->registerFeature($feature);
+        }
+
+        foreach ($featuresToDeregister as $feature) {
+           $this->deregisterFeature($feature);
+        }
     }
 
     /**
@@ -217,8 +248,7 @@ class Cluster extends Model
         $state = Event::fire('initbiz.cumuluscore.registerClusterFeature', [$this, $feature], true);
         if ($state === false) {
             Db::rollback();
-            //TODO: Create own Excetion class
-            throw new Exception();
+            throw new RegisterFeatureException();
         }
 
         $logEntry = new ClusterFeatureLog();
@@ -231,17 +261,29 @@ class Cluster extends Model
     }
 
     /**
-     * Register cluster features in bulk
+     * Deregister feature for the cluster
      *
-     * @param array $features
+     * @param string $feature
      * @return void
      */
-    public function registerFeatures(array $features)
+    public function deregisterFeature(string $feature)
     {
-         $featuresToRegister = array_diff($features, $this->registered_features);
-         foreach ($featuresToRegister as $feature) {
-            $this->registerFeature($feature);
+        Db::beginTransaction();
+
+        $state = Event::fire('initbiz.cumuluscore.deregisterClusterFeature', [$this, $feature], true);
+        if ($state === false) {
+            Db::rollback();
+            throw new DeregisterFeatureException();
         }
+
+        $logEntry = new ClusterFeatureLog();
+        $logEntry->cluster_slug = $this->slug;
+        $logEntry->feature_code = $feature;
+        $logEntry->action = 'deregistered';
+        $logEntry->save();
+
+        Db::commit();
     }
+
 }
 
