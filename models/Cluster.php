@@ -155,6 +155,22 @@ class Cluster extends Model
         }
     }
 
+    public function beforeSave()
+    {
+        try {
+            $oldPlan = Self::with('plan')->where('id', $this->id)->first()->plan()->first();
+        } catch (\Exception $e) {
+        }
+
+        if ($oldPlan) {
+            $plan = $this->plan()->first();
+            if ($oldPlan->id !== $plan->id) {
+                Event::fire('initbiz.cumuluscore.planChanged', [$this, $oldPlan, $plan]);
+            }
+        }
+
+    }
+
     public function afterSave()
     {
         $plan = $this->plan()->first();
