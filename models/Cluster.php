@@ -157,12 +157,10 @@ class Cluster extends Model
 
     public function beforeSave()
     {
-        try {
-            $oldPlan = Self::with('plan')->where('id', $this->id)->first()->plan()->first();
-        } catch (\Exception $e) {
-        }
+        $oldCluster = Self::with('plan')->where('id', $this->id)->first();
+        if ($oldCluster) {
+            $oldPlan = $oldCluster->plan()->first();
 
-        if ($oldPlan) {
             $plan = $this->plan()->first();
             if ($oldPlan->id !== $plan->id) {
                 Event::fire('initbiz.cumuluscore.planChanged', [$this, $oldPlan, $plan]);
