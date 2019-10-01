@@ -94,4 +94,13 @@ class Clusters extends Controller
             $widgetExtender->relationExtendManageWidget($widget, $field, $model);
         }
     }
+
+    public function relationExtendPivotWidget($widget, $field, $model)
+    {
+        $pluginManager = PluginManager::instance();
+        if ($pluginManager->exists("Initbiz.CumulusRoles")) {
+            $widgetExtender = new \Initbiz\CumulusRoles\Classes\WidgetExtender();
+            $widgetExtender->relationExtendPivotWidget($widget, $field, $model);
+        }
+    }
 }
