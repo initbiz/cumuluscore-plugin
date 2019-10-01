@@ -112,6 +112,7 @@
         'accounting_details_tab' => 'Accounting details',
         'contact_details_tab' => 'Contact details',
         'plan_filter' => 'Select plans',
+        'users' => 'Users',
     ],
     'plan' => [
         'plan' => 'Plan',

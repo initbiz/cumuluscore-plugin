@@ -70,6 +70,12 @@ tabs:
             span: auto
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.accounting_details_tab'
+        users:
+            label: ''
+            nameFrom: email
+            span: auto
+            type: relation
+            tab: 'initbiz.cumuluscore::lang.cluster.users'
 secondaryTabs:
     fields:
         logo:
