@@ -195,13 +195,18 @@ class Cluster extends Model
      */
     public function getFeaturesAttribute():array
     {
-        $features = $this->plan()->first()->features;
+        $plan = $this->plan()->first();
 
-        if (!isset($features) || $features === "0") {
-            return [];
+        if ($plan) {
+            $features = $plan->features;
+            if (!isset($features) || $features === "0") {
+                return [];
+            }
+    
+            return (array) $features;
         }
 
-        return (array) $features;
+        return [];
     }
 
     /**

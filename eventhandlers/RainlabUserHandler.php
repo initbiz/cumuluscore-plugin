@@ -40,7 +40,6 @@ class RainlabUserHandler
                 'key'      => 'user_id',
                 'otherKey' => 'cluster_id'
             ];
-
         });
     }
 

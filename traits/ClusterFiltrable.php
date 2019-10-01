@@ -1,5 +1,6 @@
 <?php namespace Initbiz\CumulusCore\Traits;
 
+use App;
 use Cookie;
 use Session;
 use Initbiz\CumulusCore\Models\Cluster;
@@ -22,21 +23,27 @@ trait ClusterFiltrable
      */
     protected function prepareClusterToFilter()
     {
-        if ($this->clusterToFilter) {
+        if (!App::runningInBackend()) {
+            if ($this->clusterToFilter) {
+                return $this->clusterToFilter;
+            }
+    
+            //It is considered secure as cookies created by October are encrypted
+            //More info: https://octobercms.com/docs/services/request-input#cookies
+    
+            $this->clusterToFilter = Helpers::getCluster();
+    
+            // Retrieving cluster to filtered failed, return false
+            if (!$this->clusterToFilter) {
+                return false;
+            }
+    
             return $this->clusterToFilter;
+        } else {
+            if ($this->cluster) {
+                return $this->cluster;
+            }
         }
-
-        //It is considered secure as cookies created by October are encrypted
-        //More info: https://octobercms.com/docs/services/request-input#cookies
-
-        $this->clusterToFilter = Helpers::getCluster();
-
-        // Retrieving cluster to filtered failed, return false
-        if (!$this->clusterToFilter) {
-            return false;
-        }
-
-        return $this->clusterToFilter;
     }
 
     /**

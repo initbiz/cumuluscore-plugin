@@ -4,6 +4,7 @@ use Lang;
 use Flash;
 use BackendMenu;
 use Backend\Classes\Controller;
+use System\Classes\PluginManager;
 use Initbiz\CumulusCore\Models\Cluster;
 
 class Clusters extends Controller
@@ -83,5 +84,14 @@ class Clusters extends Controller
         }
 
         return $this->listRefresh();
+    }
+
+    public function relationExtendManageWidget($widget, $field, $model)
+    {
+        $pluginManager = PluginManager::instance();
+        if ($pluginManager->exists("Initbiz.CumulusRoles")) {
+            $widgetExtender = new \Initbiz\CumulusRoles\Classes\WidgetExtender();
+            $widgetExtender->relationExtendManageWidget($widget, $field, $model);
+        }
     }
 }
