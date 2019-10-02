@@ -94,7 +94,7 @@ class Cluster extends Model
     /**
      * Ensure slugs are unique when trashed items present
      *
-     * @var boolean
+     * @var bool
      */
     protected $allowTrashedSlugs = true;
 
@@ -181,11 +181,36 @@ class Cluster extends Model
      * Check if cluster can enter feature
      *
      * @param string $featureCode
-     * @return boolean
+     * @return bool
      */
-    public function canEnterFeature(string $featureCode)
+    public function canEnterFeature(string $featureCode): bool
     {
-        return in_array($featureCode, $this->features) ? true : false;
+        $can = in_array($featureCode, $this->features) ? true : false;
+
+        Event::fire('initbiz.cumuluscore.canEnterFeature', [$this, $featureCode, &$can]);
+
+        return $can;
+    }
+
+    /**
+     * Check if cluster can enter any of features supplied
+     *
+     * @param mixed     $featureCodes any object that can be casted to array 
+     * @return bool
+     */
+    public function canEnterAnyFeature($featureCodes): bool
+    {
+        $featureCodes = (array) $featureCodes;
+        $can = false;
+
+        foreach ($featureCodes as $featureCode ) {
+            if ($this->canEnterFeature($featureCode)) {
+                $can = true;
+                break;
+            }
+        }
+
+        return $can;
     }
 
     /**
