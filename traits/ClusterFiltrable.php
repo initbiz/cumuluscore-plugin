@@ -12,42 +12,28 @@ use Initbiz\CumulusCore\Classes\Helpers;
  */
 trait ClusterFiltrable
 {
-    /*
-     * cluster to be used in models methods
-     */
-    protected $clusterToFilter;
 
     /**
-     * prepare cluster property using data in cookie set in CumulusGuard Component
-     * @return boolean this->cluster set or not
+     * get currently logged in cluster, works only in the frontend
+     * or in backend for models that has cluster relation defined
+     * @return Cluster|null
      */
-    protected function prepareClusterToFilter()
+    protected function getCluster()
     {
         if (!App::runningInBackend()) {
-            if ($this->clusterToFilter) {
-                return $this->clusterToFilter;
+            if ($cluster = Helpers::getCluster()) {
+                return $cluster;
             }
-    
-            //It is considered secure as cookies created by October are encrypted
-            //More info: https://octobercms.com/docs/services/request-input#cookies
-    
-            $this->clusterToFilter = Helpers::getCluster();
-    
-            // Retrieving cluster to filtered failed, return false
-            if (!$this->clusterToFilter) {
-                return false;
-            }
-    
-            return $this->clusterToFilter;
         } else {
-            if ($this->cluster) {
-                return $this->cluster;
+            if ($cluster = $this->cluster()->first()) {
+                return $cluster;
             }
         }
     }
 
     /**
      * get model filtered by value in specified attribute
+     * will return empty collection if cluster not set
      * @param  $query
      * @param  string $value value to filter data by
      * @return $query
@@ -58,13 +44,18 @@ trait ClusterFiltrable
             return $query->where($attribute, $value);
         }
 
-        $this->prepareClusterToFilter();
+        $cluster = $this->getCluster();
 
-        return $query->where($attribute, $this->clusterToFilter->slug);
+        $clusterSlug = $cluster->slug ?? '_empty_cluster_slug';
+
+        return $query->where($attribute, $clusterSlug);
     }
 
     /**
      * get model filtered by value in specified attribute
+     * will return empty collection if cluster not set
+     * @param  $query
+     * @param  string $value value to filter data by
      * @return $query
      */
     public function scopeClusterIdFiltered($query, $value = '', $attribute = 'cluster_id')
@@ -73,11 +64,11 @@ trait ClusterFiltrable
             return $query->clusterFiltered($value, $attribute);
         }
 
-        $this->prepareClusterToFilter();
+        $cluster = $this->getCluster();
 
-        $cluster = Cluster::where('slug', $this->clusterToFilter->slug)->first();
+        $clusterId = $cluster->id ?? 0;
 
-        return $query->where($attribute, $cluster->id);
+        return $query->where($attribute, $clusterId);
     }
 
     /**
@@ -89,9 +80,9 @@ trait ClusterFiltrable
      */
     public function clusterUnique($attribute, $table = null, $columnName = 'cluster_slug')
     {
-        $this->prepareClusterToFilter();
+        $cluster = $this->getCluster();
 
-        if (!$this->clusterToFilter) {
+        if (!$cluster) {
             return '';
         }
 
@@ -103,7 +94,7 @@ trait ClusterFiltrable
             $rule .= $this->table;
         }
 
-        $rule .= ','.$attribute.',NULL,'.$attribute.','.$columnName.','.$this->clusterToFilter->slug;
+        $rule .= ','.$attribute.',NULL,'.$attribute.','.$columnName.','.$cluster->slug;
 
         // For example: unique:initbiz_exampleplugin_table,email_address,NULL,email_address,cluster_slug,example-cluster
         // It will check if the cluster has the email_address unique or not
@@ -120,9 +111,9 @@ trait ClusterFiltrable
      */
     public function clusterIdUnique($attribute, $table = null, $columnName = 'cluster_id')
     {
-        $this->prepareClusterToFilter();
+        $cluster = $this->getCluster();
 
-        if (!$this->clusterToFilter) {
+        if (!$cluster) {
             return '';
         }
 
@@ -134,11 +125,39 @@ trait ClusterFiltrable
             $rule .= $this->table;
         }
 
-        $rule .= ','.$attribute.',NULL,'.$attribute.','.$columnName.','.$this->clusterToFilter->id;
+        $rule .= ','.$attribute.',NULL,'.$attribute.','.$columnName.','.$cluster->id;
 
         // For example: unique:initbiz_exampleplugin_table,email_address,NULL,email_address,cluster_slug,12
         // It will check if the cluster has the email_address unique or not
 
         return $rule;
+    }
+
+    /**
+     * Returns true if the current cluster's id is in model's cluster_id property
+     * or cluster's slug in cluster_slug property
+     * or relation called cluster returns the same cluster as the current one
+     * 
+     * for other logic, you have to override the method in the model
+     *
+     * @return bool
+     */
+    public function clusterCanManage()
+    {
+        $can = false;
+        
+        $cluster = Helpers::getCluster();
+
+        if (!empty($cluster) && 
+            (
+               (!empty($this->cluster_id) && $this->cluster_id === $cluster->id) || 
+               (!empty($this->cluster_slug) && $this->cluster_slug === $cluster->slug) ||
+               (!empty($this->cluster) && $this->cluster()->first()->id === $cluster->id)
+            )
+        ) {
+            $can = true;
+        }
+
+        return $can;
     }
 }

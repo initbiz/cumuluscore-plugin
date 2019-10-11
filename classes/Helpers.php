@@ -6,12 +6,12 @@ use Session;
 use Validator;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Models\GeneralSettings;
+use Initbiz\InitDry\Classes\Helpers as DryHelpers;
 
 class Helpers
 {
     /**
      * Get cluster object using session or cookie data
-     * that are set by CumulusGuard
      *
      * @return Cluster
      */
@@ -22,6 +22,29 @@ class Helpers
         $cluster = Cluster::where('slug', $clusterSlug)->first();
 
         return $cluster;
+    }
+
+    /**
+     * Set cluster object to session and cookie
+     *
+     * @param Cluster cluster to set
+     */
+    public static function setCluster(Cluster $cluster)
+    {
+        $currentCluster = self::getCluster();
+
+        if ($currentCluster && $currentCluster->id === $cluster->id) {
+            return;
+        }
+
+        $user = DryHelpers::getUser();
+
+        if (!$user->canEnter($cluster)) {
+            App::abort(403, 'Cannot access cluster');
+        }
+
+        Session::put('cumulus_clusterslug', $cluster->slug);
+        Cookie::queue(Cookie::forever('cumulus_clusterslug', $cluster->slug));
     }
 
     /**
