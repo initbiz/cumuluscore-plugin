@@ -15,7 +15,7 @@ class CumulusGuard extends ComponentBase
         ];
     }
 
-    public function init()
+    public function onRun()
     {
         $cluster = Helpers::getClusterFromUrlParam($this->property('clusterUniq'));
 
@@ -24,10 +24,7 @@ class CumulusGuard extends ComponentBase
         }
 
         Helpers::setCluster($cluster);
-    }
 
-    public function onRun()
-    {
         $this->page['cluster'] = Helpers::getCluster();
     }
 }
