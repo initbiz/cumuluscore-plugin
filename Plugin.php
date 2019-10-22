@@ -68,7 +68,8 @@ class Plugin extends PluginBase
     {
         return [
             'functions' => [
-                'canEnterFeature' => [$this, 'canEnterFeature']
+                'canEnterFeature' => [$this, 'canEnterFeature'],
+                'canEnterAnyFeature' => [$this, 'canEnterAnyFeature']
             ]
         ];
     }
@@ -95,5 +96,26 @@ class Plugin extends PluginBase
         }
 
         return $cluster->canEnterFeature($featureCode);
+    }
+
+    /**
+     * Twig filter method that checks if a user can enter any of the features supplied
+     *
+     * @param array $featureCodes
+     * @return boolean
+     */
+    public function canEnterAnyFeature($featureCodes)
+    {
+        $cluster = Helpers::getCluster();
+
+        if (! $cluster) {
+            return false;
+        }
+
+        if (!is_array($featureCodes)) {
+            $featureCodes = (array) $featureCodes;
+        }
+
+        return $cluster->canEnterAnyFeature($featureCodes);
     }
 }

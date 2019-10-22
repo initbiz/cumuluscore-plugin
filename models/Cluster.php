@@ -185,11 +185,36 @@ class Cluster extends Model
      */
     public function canEnterFeature(string $featureCode): bool
     {
-        $can = in_array($featureCode, $this->features) ? true : false;
+        $can = $this->hasFeature($featureCode);
 
         Event::fire('initbiz.cumuluscore.canEnterFeature', [$this, $featureCode, &$can]);
 
         return $can;
+    }
+
+    /**
+     * Check if cluster has access to the feature using
+     * feature code or regex with asterisk
+     *
+     * @param string $featureCode
+     * @return boolean
+     */
+    public function hasFeature(string $featureCode): bool
+    {
+        $has = false;
+        if ((strlen($featureCode) > 1) && ends_with($featureCode, '*')) {
+            $featureCode2 = substr($featureCode, 0, -1);
+            foreach ($this->features as $feature) {
+                if (starts_with($feature, $featureCode2)) {
+                    $has = true;
+                    break;
+                }
+            }
+        } else {
+            $has = in_array($featureCode, $this->features) ? true : false;
+        }
+
+        return $has;
     }
 
     /**
