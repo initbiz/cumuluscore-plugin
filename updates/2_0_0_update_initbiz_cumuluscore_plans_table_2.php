@@ -9,7 +9,10 @@ class UpdateInitbizCumuluscorePlansTable2 extends Migration
     {
         Schema::table('initbiz_cumuluscore_plans', function ($table) {
             $table->renameColumn('plan_id', 'id');
-            $table->text('features')->nullable();
+        });
+
+        Schema::table('initbiz_cumuluscore_plans', function ($table) {
+            $table->mediumText('features')->nullable();
         });
     }
 
