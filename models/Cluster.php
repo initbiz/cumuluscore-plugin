@@ -45,7 +45,6 @@ class Cluster extends Model
      */
     protected $nullable = [
         'name',
-        'slug',
         'username',
         'plan_id',
         'thoroughfare',
@@ -61,9 +60,7 @@ class Cluster extends Model
 
     protected $fillable = [
         'name',
-        'slug',
         'username',
-        'plan_id',
         'thoroughfare',
         'city',
         'phone',
@@ -80,16 +77,13 @@ class Cluster extends Model
      */
     public $rules = [
         'name'      => 'required|between:1,255',
-        'slug'      => 'between:1,100',
-        'username'  => 'between:1,100',
+        'slug'      => 'required|between:1,255',
+        'username'  => 'required|between:1,255',
         'email'     => 'nullable|between:6,255|email',
+        'logo'      => 'image',
     ];
 
-    /*
-     * Disable timestamps by default.
-     * Remove this line if timestamps are defined in the database table.
-     */
-    public $timestamps = false;
+    protected $jsonable = ['additional_data'];
 
     /**
      * Ensure slugs are unique when trashed items present

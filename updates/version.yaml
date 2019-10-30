@@ -161,3 +161,6 @@
     - 'Deregistering cluster features'
 3.2.1:
     - 'Small fixes, preparing for new features'
+3.2.2:
+    - 'Small cluster model fix and add additional_data'
+    - 3_2_2_add_additional_data_to_cluster.php
