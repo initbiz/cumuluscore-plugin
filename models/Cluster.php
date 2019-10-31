@@ -274,6 +274,17 @@ class Cluster extends Model
     }
 
     /**
+     * Get whole address at once
+     *
+     * @return string address
+     */
+    public function getAddressAttribute()
+    {
+        // TODO: Format customizable, or get by locale somehow
+        return $this->postal_code . ' ' . $this->city . ', ' . $this->thoroughfare;
+    }
+
+    /**
      * Refresh registered cluster features,
      * register those to register and deregister those to deregister
      *
