@@ -77,10 +77,8 @@ class Cluster extends Model
      */
     public $rules = [
         'name'      => 'required|between:1,255',
-        'slug'      => 'required|between:1,255',
-        'username'  => 'required|between:1,255',
         'email'     => 'nullable|between:6,255|email',
-        'logo'      => 'image',
+        'logo'      => 'nullable|image',
     ];
 
     protected $jsonable = ['additional_data'];
@@ -158,7 +156,6 @@ class Cluster extends Model
                 Event::fire('initbiz.cumuluscore.planChanged', [$this, $oldPlan, $plan]);
             }
         }
-
     }
 
     public function afterSave()
@@ -214,7 +211,7 @@ class Cluster extends Model
     /**
      * Check if cluster can enter any of features supplied
      *
-     * @param mixed     $featureCodes any object that can be casted to array 
+     * @param mixed     $featureCodes any object that can be casted to array
      * @return bool
      */
     public function canEnterAnyFeature($featureCodes): bool
@@ -222,7 +219,7 @@ class Cluster extends Model
         $featureCodes = (array) $featureCodes;
         $can = false;
 
-        foreach ($featureCodes as $featureCode ) {
+        foreach ($featureCodes as $featureCode) {
             if ($this->canEnterFeature($featureCode)) {
                 $can = true;
                 break;
@@ -299,11 +296,11 @@ class Cluster extends Model
         $featuresToDeregister = array_diff($currentRegisteredFeatures, $features);
 
         foreach ($featuresToRegister as $feature) {
-           $this->registerFeature($feature);
+            $this->registerFeature($feature);
         }
 
         foreach ($featuresToDeregister as $feature) {
-           $this->deregisterFeature($feature);
+            $this->deregisterFeature($feature);
         }
     }
 
@@ -356,6 +353,4 @@ class Cluster extends Model
 
         Db::commit();
     }
-
 }
-
