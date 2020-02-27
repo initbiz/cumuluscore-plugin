@@ -66,7 +66,7 @@ class AutoAssignHandler
                 Event::fire('initbiz.cumuluscore.autoAssignUserToCluster', [$user, $cluster]);
             } catch (\Exception $e) {
                 Db::rollback();
-                if (env('APP_DEBUG', false)) {
+                if (env('APP_DEBUG', true)) {
                     throw $e;
                 } else {
                     trace_log($e);
@@ -93,12 +93,7 @@ class AutoAssignHandler
                     Event::fire('initbiz.cumuluscore.autoAssignClusterToPlan', [$cluster, $plan]);
                 } else {
                     Db::rollback();
-                    if (env('APP_DEBUG', false)) {
-                        throw $e;
-                    } else {
-                        trace_log($e);
-                        throw new \Exception("Error auto assigning cluster to plan", 1);
-                    }
+                    throw new \Exception("Error auto assigning cluster to plan", 1);
                 }
             }
         }, 100);
@@ -136,6 +131,3 @@ class AutoAssignHandler
         }, 10);
     }
 }
-
-
-
