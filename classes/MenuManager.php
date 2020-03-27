@@ -14,6 +14,10 @@ class MenuManager extends Singleton
     {
         $cluster = Helpers::getCluster();
 
+        if (!$cluster) {
+            return $items;
+        }
+
         $iterator = function ($menuItems) use (&$iterator, $cluster) {
             $result = [];
             foreach ($menuItems as $item) {
@@ -47,7 +51,9 @@ class MenuManager extends Singleton
             }
             return $result;
         };
+
         $items = $iterator($items);
+
         return $items;
     }
 
