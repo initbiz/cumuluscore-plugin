@@ -167,5 +167,6 @@
 3.2.3:
     - 'Static pages and debug info fix'
 3.3.0:
-    - 'Add website column'
+    - 'Add to column'
     - 3_3_0_add_webiste_to_cluster.php
+    
