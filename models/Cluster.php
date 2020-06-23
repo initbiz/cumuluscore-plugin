@@ -55,7 +55,8 @@ class Cluster extends Model
         'description',
         'email',
         'tax_number',
-        'account_number'
+        'account_number',
+        'website'
     ];
 
     protected $fillable = [
@@ -69,7 +70,8 @@ class Cluster extends Model
         'description',
         'email',
         'tax_number',
-        'account_number'
+        'account_number',
+        'website'
     ];
 
     /*
@@ -113,7 +115,7 @@ class Cluster extends Model
             'order' => 'name',
         ]
     ];
-    
+
     public $hasMany = [
         'featureLogs' => [
             ClusterFeatureLog::class,
@@ -243,7 +245,7 @@ class Cluster extends Model
             if (!isset($features) || $features === "0") {
                 return [];
             }
-    
+
             return (array) $features;
         }
 
