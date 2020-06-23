@@ -101,6 +101,7 @@
         'username_comment' => 'Nazwa użytkownika jest używana w adresach URL zamiast sluga jeżeli włączysz tę funkcję w ustawieniach',
         'logo' => 'Logo',
         'city' => 'Miasto',
+        'website' => 'Strona internetowa',
         'phone' => 'Telefon',
         'postal_code' => 'Kod pocztowy',
         'description' => 'Opis',

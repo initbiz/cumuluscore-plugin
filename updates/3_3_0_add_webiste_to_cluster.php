@@ -8,7 +8,7 @@ class AddWebisteToCluster extends Migration
     public function up()
     {
         Schema::table('initbiz_cumuluscore_clusters', function ($table) {
-            $table->string('webiste')->nullable();
+            $table->string('website')->nullable();
         });
     }
 

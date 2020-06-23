@@ -101,6 +101,7 @@
         'username_comment' => 'Username is used in URLs instead slug if you enable this feature in settings',
         'logo' => 'Logo',
         'city' => 'City',
+        'website' => 'Website',
         'phone' => 'Telephone',
         'postal_code' => 'Postal code',
         'description' => 'Description',

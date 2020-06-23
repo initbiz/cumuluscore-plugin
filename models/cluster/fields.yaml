@@ -60,6 +60,11 @@ tabs:
             span: auto
             type: relation
             tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
+        website:
+            label: 'initbiz.cumuluscore::lang.cluster.website'
+            span: auto
+            type: text
+            tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
         account_number:
             label: 'initbiz.cumuluscore::lang.cluster.account_number'
             span: full
