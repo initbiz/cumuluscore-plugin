@@ -1,5 +1,6 @@
 <?php namespace Initbiz\CumulusCore\Classes;
 
+use App;
 use Event;
 use Cookie;
 use Session;
@@ -66,7 +67,7 @@ class Helpers
 
     /**
      * Checks if $username is unique in database with firing blocking event
-     * The clusterSlug parameter is required for the unique rule to know 
+     * The clusterSlug parameter is required for the unique rule to know
      * which id to ignore in the DB table
      *
      * @param string $username
