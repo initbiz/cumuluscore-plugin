@@ -10,10 +10,10 @@ class Plugin extends PluginBase
     public $require = [
         'RainLab.User',
         'RainLab.Notify',
+        'Initbiz.InitDry',
         'RainLab.Location',
         'RainLab.UserPlus',
         'RainLab.Pages',
-        'Initbiz.InitDry'
     ];
 
     public function boot() {
