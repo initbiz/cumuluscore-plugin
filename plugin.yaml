@@ -1,9 +1,3 @@
-plugin:
-    name: 'initbiz.cumuluscore::lang.plugin.name'
-    description: 'initbiz.cumuluscore::lang.plugin.description'
-    author: Initbiz
-    icon: oc-icon-cloud
-    homepage: 'http://cumulus.init.biz'
 permissions:
     initbiz.cumuluscore.settings_general:
         tab: 'initbiz.cumuluscore::lang.permissions.cumulus_tab'
