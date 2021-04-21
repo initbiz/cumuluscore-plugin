@@ -1,8 +1,8 @@
 {
-  "name": "initbiz/oc-cumuluscore-plugin",
+  "name": "initbiz/cumuluscore-plugin",
   "type": "october-plugin",
   "description": "Create a multi-tenant SaaS application in OctoberCMS",
-  "homepage": "https://www.init.biz",
+  "homepage": "https://init.biz",
   "keywords": ["october", "octobercms", "cumulus", "saas", "php", "subscription", "plan", "multi-tenant"],
   "license": "MIT",
   "authors": [
