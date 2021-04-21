@@ -1,3 +1,5 @@
+plugin:
+    homepage: 'https://cumulus.init.biz'
 permissions:
     initbiz.cumuluscore.settings_general:
         tab: 'initbiz.cumuluscore::lang.permissions.cumulus_tab'
