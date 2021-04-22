@@ -194,20 +194,20 @@ class Cluster extends Model
      */
     public function hasFeature(string $featureCode): bool
     {
-        $has = false;
-        if ((strlen($featureCode) > 1) && ends_with($featureCode, '*')) {
-            $featureCode2 = substr($featureCode, 0, -1);
-            foreach ($this->features as $feature) {
-                if (starts_with($feature, $featureCode2)) {
-                    $has = true;
-                    break;
-                }
-            }
-        } else {
-            $has = in_array($featureCode, $this->features) ? true : false;
+        if (in_array($featureCode, $this->features, true)) {
+            return true;
         }
 
-        return $has;
+        if ((strlen($featureCode) > 1) && ends_with($featureCode, '*')) {
+            $featureCodeWithoutAsterisk = substr($featureCode, 0, -1);
+            foreach ($this->features as $feature) {
+                if (starts_with($feature, $featureCodeWithoutAsterisk)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
