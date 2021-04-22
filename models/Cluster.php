@@ -1,14 +1,12 @@
-<?php namespace Initbiz\CumulusCore\Models;
+<?php
+
+namespace Initbiz\CumulusCore\Models;
 
 use Db;
 use Event;
 use Model;
-use Cms\Classes\Theme;
 use RainLab\User\Models\User;
-use Cms\Classes\Page as CmsPage;
-use Initbiz\InitDry\Classes\Helpers;
 use RainLab\Location\Models\Country;
-use RainLab\User\Models\User as UserModel;
 use Initbiz\Cumuluscore\Models\ClusterFeatureLog;
 use Initbiz\CumulusCore\Classes\Exceptions\RegisterFeatureException;
 use Initbiz\CumulusCore\Classes\Exceptions\DeregisterFeatureException;
@@ -110,7 +108,7 @@ class Cluster extends Model
 
     public $belongsToMany = [
         'users' => [
-            UserModel::class,
+            User::class,
             'table' => 'initbiz_cumuluscore_cluster_user',
             'order' => 'name',
         ]
@@ -125,29 +123,9 @@ class Cluster extends Model
         ]
     ];
 
-
     public $attachOne = [
         'logo' => ['System\Models\File']
     ];
-
-    public function scopeApplyPlanFilter($query, $filtered)
-    {
-        return $query->whereHas('plan', function ($q) use ($filtered) {
-            $q->whereIn('plan_id', $filtered);
-        });
-    }
-
-    public function scopeApplyTrashedFilter($query, $type)
-    {
-        switch ($type) {
-            case '1':
-                return $query->withTrashed();
-            case '2':
-                return $query->onlyTrashed();
-            default:
-                return $query;
-        }
-    }
 
     public function beforeSave()
     {
@@ -169,6 +147,28 @@ class Cluster extends Model
             $this->refreshRegisteredFeatures($features);
         }
     }
+
+    // Scopes
+
+    public function scopeApplyPlanFilter($query, $filtered)
+    {
+        return $query->whereHas('plan', function ($q) use ($filtered) {
+            $q->whereIn('plan_id', $filtered);
+        });
+    }
+
+    public function scopeApplyTrashedFilter($query, $type)
+    {
+        switch ($type) {
+            case '1':
+                return $query->withTrashed();
+            case '2':
+                return $query->onlyTrashed();
+            default:
+                return $query;
+        }
+    }
+
 
     /**
      * Check if cluster can enter feature
@@ -236,7 +236,7 @@ class Cluster extends Model
      *
      * @return array
      */
-    public function getFeaturesAttribute():array
+    public function getFeaturesAttribute(): array
     {
         $plan = $this->plan()->first();
 
