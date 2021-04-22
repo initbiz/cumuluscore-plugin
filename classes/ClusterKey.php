@@ -22,13 +22,26 @@ class ClusterKey
      */
     public static function put(string $clusterSlug, string $key = null)
     {
+        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
+
+        // Create the keys file if it doesn't exist
+        // ensure that the file is only readable and writable by the user who
+        // run the command - probably it's the webserver user
+
+        if (!Storage::exists($keysFilePath)) {
+            Storage::put($keysFilePath, '');
+            try {
+                chmod($keysFilePath, '600');
+            } catch (\Throwable $th) {
+                trace_log('Problems with setting chmod on clusters keys file - check the permissions manually');
+            }
+        }
+
         $keyExists = Self::get($clusterSlug);
 
         if ($keyExists) {
             throw new CannotOverwriteKeyException();
         }
-
-        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
 
         if (is_null($key)) {
             $cipher = Config::get('initbiz.cumuluscore::encryption.cipher');
@@ -46,19 +59,23 @@ class ClusterKey
      */
     public static function get(string $clusterSlug)
     {
-        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
-        $content = fopen(Storage::path($keysFilePath), 'r');
-
         $key = '';
-        while (!feof($content)) {
-            $line = fgets($content);
-            list($slug, $key) = explode('=', $line);
-            if ($slug === $clusterSlug) {
+
+        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
+        $content = Storage::get($keysFilePath);
+
+        $lines = explode('\n', $content);
+        if (!is_array($lines)) {
+            return $key;
+        }
+
+        foreach ($lines as $line) {
+            $parts = explode('=', $line);
+            if (isset($parts[1]) && $parts[0] === $clusterSlug) {
                 break;
             }
         }
 
-        fclose($content);
         return $key;
     }
 }

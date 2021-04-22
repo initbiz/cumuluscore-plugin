@@ -2,6 +2,7 @@
 
 namespace Initbiz\CumulusCore\Tests\Models;
 
+use Storage;
 use Initbiz\CumulusCore\Models\Plan;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\Cumuluscore\Models\ClusterFeatureLog;
@@ -9,6 +10,12 @@ use Initbiz\InitDry\Tests\Classes\FullPluginTestCase;
 
 class ClusterTest extends FullPluginTestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+        Storage::fake('local');
+    }
+
     public function testCanEnterFeature()
     {
         $cluster = new Cluster;
