@@ -11,7 +11,7 @@
 >
     <testsuites>
         <testsuite name="Plugin Unit Test Suite">
-            <directory>./tests/models</directory>
+            <directory>./tests/unit</directory>
         </testsuite>
     </testsuites>
     <php>

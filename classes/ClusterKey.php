@@ -45,10 +45,10 @@ class ClusterKey
 
         if (is_null($key)) {
             $cipher = Config::get('initbiz.cumuluscore::encryption.cipher');
-            $key = Encrypter::generateKey($cipher);
+            $key = bin2hex(Encrypter::generateKey($cipher));
         }
 
-        Storage::append($keysFilePath, $key);
+        Storage::prepend($keysFilePath, $clusterSlug . '=' . $key);
     }
 
     /**
@@ -59,23 +59,18 @@ class ClusterKey
      */
     public static function get(string $clusterSlug)
     {
-        $key = '';
-
         $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
         $content = Storage::get($keysFilePath);
 
-        $lines = explode('\n', $content);
-        if (!is_array($lines)) {
-            return $key;
-        }
-
+        $key = '';
+        $lines = explode("\n", $content);
         foreach ($lines as $line) {
             $parts = explode('=', $line);
             if (isset($parts[1]) && $parts[0] === $clusterSlug) {
+                $key = trim($parts[1]);
                 break;
             }
         }
-
         return $key;
     }
 }
