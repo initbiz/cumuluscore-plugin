@@ -8,6 +8,7 @@ use Illuminate\Encryption\Encrypter;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\ClusterKey;
 use Initbiz\CumulusCore\Tests\Classes\CumulusTestCase;
+use Initbiz\CumulusCore\Classes\Exceptions\CannotOverwriteKeyException;
 
 class ClusterKeyTest extends CumulusTestCase
 {
@@ -19,6 +20,9 @@ class ClusterKeyTest extends CumulusTestCase
 
         $content = Storage::get($keysFilePath);
         $this->assertEquals($content, 'cluster-slug=' . $key . "\n");
+
+        $this->expectException(CannotOverwriteKeyException::class);
+        ClusterKey::put('cluster-slug', $key);
     }
 
     public function testGet()
