@@ -170,7 +170,7 @@ class Plan extends Model
             $users = $users->concat($cluster->users()->get());
         }
         
-        return $users->unique();
+        return $users->unique('id');
     }
 }
 
