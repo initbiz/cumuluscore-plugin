@@ -16,6 +16,16 @@ class Plugin extends PluginBase
         'RainLab.Pages',
     ];
 
+    public function pluginDetails()
+    {
+        return [
+            'name' => 'initbiz.cumuluscore::lang.plugin.name',
+            'description' => 'initbiz.cumuluscore::lang.plugin.description',
+            'author' => 'Initbiz',
+            'icon' => 'oc-icon-cloud'
+        ];
+    }
+
     public function boot() {
         Event::subscribe(\Initbiz\CumulusCore\EventHandlers\AutoAssignHandler::class);
         Event::subscribe(\Initbiz\CumulusCore\EventHandlers\RainlabPagesHandler::class);

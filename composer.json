@@ -1,14 +1,33 @@
 {
-  "name": "initbiz/oc-cumuluscore-plugin",
-  "type": "october-plugin",
-  "description": "Create a multi-tenant SaaS application in OctoberCMS",
-  "homepage": "https://www.init.biz",
-  "keywords": ["october", "octobercms", "cumulus", "saas", "php", "subscription", "plan", "multi-tenant"],
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Tomasz Strojny",
-      "email": "tomasz@init.biz"
+    "name": "initbiz/cumuluscore-plugin",
+    "type": "october-plugin",
+    "description": "Create a multi-tenant SaaS application in OctoberCMS",
+    "homepage": "https://init.biz",
+    "keywords": [
+        "october",
+        "octobercms",
+        "cumulus",
+        "saas",
+        "php",
+        "subscription",
+        "plan",
+        "multi-tenant"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tomasz Strojny",
+            "email": "tomasz@init.biz"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "composer/installers": "~1.0",
+        "rainlab/user-plugin": "dev-master",
+        "rainlab/notify-plugin": "dev-master",
+        "initbiz/initdry-plugin": "dev-master",
+        "rainlab/location-plugin": "dev-master",
+        "rainlab/userplus-plugin": "dev-master",
+        "rainlab/pages-plugin": "dev-master"
     }
-  ]
 }
