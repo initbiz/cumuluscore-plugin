@@ -37,7 +37,7 @@ class PlanTest extends FullPluginTestCase
         $this->assertEquals(2, $firstPlan->plansToUpgrade()->count());
     }
 
-    public function testCanUpgrade()
+    public function testCanUpgrade_()
     {
         $firstPlan = new Plan();
         $firstPlan->name = 'test1';
@@ -53,7 +53,7 @@ class PlanTest extends FullPluginTestCase
         $thirdPlan->name = 'test3';
         $thirdPlan->slug = 'test3';
         $thirdPlan->save();
-
+         
         $this->assertEquals(false, $firstPlan->canUpgrade());
 
         $firstPlan->related_plans()->add($secondPlan, ['relation' => 'upgrade']);
@@ -83,7 +83,7 @@ class PlanTest extends FullPluginTestCase
         $thirdPlan->save();
 
         $this->assertFalse($firstPlan->canUpgradeTo($secondPlan));
-        $this->assertTrue($firstPlan->canUpgradeTo($thirdPlan));
+        $this->assertFalse($firstPlan->canUpgradeTo($thirdPlan));
 
         $firstPlan->related_plans()->add($secondPlan, ['relation' => 'upgrade']);
 
@@ -124,6 +124,11 @@ class PlanTest extends FullPluginTestCase
 
     public function testGetUsersAttribute()
     {
+        $firstPlan = new Plan();
+        $firstPlan->name = 'test1';
+        $firstPlan->slug = 'test1';
+        $firstPlan->save();
+
         $firstUser = new User();
         $firstUser->email = 'first@user.com';
         $firstUser->password = 'first@user.com';
@@ -133,11 +138,6 @@ class PlanTest extends FullPluginTestCase
         $secondUser->email = 'second@user.com';
         $secondUser->password = 'second@user.com';
         $secondUser->save();
-
-        $firstPlan = new Plan();
-        $firstPlan->name = 'test1';
-        $firstPlan->slug = 'test1';
-        $firstPlan->save();
 
         $firstCluster = new Cluster();
         $firstCluster->name = 'cluster1';
@@ -154,8 +154,11 @@ class PlanTest extends FullPluginTestCase
         $secondUser->clusters()->add($secondCluster);
         
         $firstPlan->clusters()->add($firstCluster);
+        
+        $this->assertEquals(2, $firstPlan->users->count());
+        
         $firstPlan->clusters()->add($secondCluster);
 
-        $this->assertEquals(3, $firstPlan->users->count());
+        $this->assertEquals(2, $firstPlan->users->count());
     }
 }
