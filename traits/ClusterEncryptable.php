@@ -138,10 +138,6 @@ trait ClusterEncryptable
      */
     protected function makeEncrypter()
     {
-        if ($this->encrypter !== null) {
-            return $this->encrypter;
-        }
-
         $cluster = $this->getCluster();
 
         if (!$cluster) {
@@ -149,10 +145,14 @@ trait ClusterEncryptable
             throw new CannotUseClusterEncrypterException();
         }
 
+        if ($this->encrypter !== null) {
+            return $this->encrypter;
+        }
+
         $cipherKey = ClusterKey::get($cluster->slug);
         $cipher = Config::get('initbiz.cumuluscore::encryption.cipher');
 
-        $this->encrypter = new Encrypter($cipherKey, $cipher);
+        $this->encrypter = new Encrypter(hex2bin($cipherKey), $cipher);
 
         return $this->encrypter;
     }

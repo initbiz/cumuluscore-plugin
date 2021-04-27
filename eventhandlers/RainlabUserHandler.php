@@ -8,6 +8,7 @@ use RainLab\User\Models\User;
 use RainLab\User\Controllers\Users;
 use RainLab\User\Components\Account;
 use Initbiz\CumulusCore\Models\Cluster;
+use Initbiz\CumulusCore\Classes\Helpers;
 
 class RainlabUserHandler
 {
@@ -50,7 +51,7 @@ class RainlabUserHandler
             if (!$widget->model instanceof User) {
                 return;
             }
-        
+
             $config = [];
             $config['clusters'] = [
                 'tab'       => 'initbiz.cumuluscore::lang.users.cluster_tab',
@@ -103,8 +104,7 @@ class RainlabUserHandler
     public function forgetClusterOnLogout($event)
     {
         $event->listen('rainlab.user.logout', function ($user) {
-            Session::pull('cumulus_clusterslug');
-            Cookie::queue(Cookie::forget('cumulus_clusterslug'));
+            Helpers::forgetCluster();
         }, 100);
     }
 }

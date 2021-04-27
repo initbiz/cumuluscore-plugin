@@ -49,6 +49,15 @@ class Helpers
     }
 
     /**
+     * Remove current cluster slug from the session and cookie
+     */
+    public static function forgetCluster()
+    {
+        Session::pull('cumulus_clusterslug');
+        Cookie::queue(Cookie::forget('cumulus_clusterslug'));
+    }
+
+    /**
      * Get cluster object using parameter in URL
      *
      * @param string $param
