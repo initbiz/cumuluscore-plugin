@@ -4,8 +4,6 @@ namespace Initbiz\CumulusCore\Tests\Models;
 
 use Config;
 use Storage;
-use Illuminate\Encryption\Encrypter;
-use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\ClusterKey;
 use Initbiz\CumulusCore\Tests\Classes\CumulusTestCase;
 use Initbiz\CumulusCore\Classes\Exceptions\CannotOverwriteKeyException;
