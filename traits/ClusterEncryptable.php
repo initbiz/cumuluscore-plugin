@@ -30,6 +30,13 @@ trait ClusterEncryptable
     protected $originalClusterEncryptableValues = [];
 
     /**
+     * Encrypter instance - local cache attribute
+     *
+     * @var Encrypter
+     */
+    private $encrypter;
+
+    /**
      * bootClusterEncryptable boots the clusterEncryptable trait for a model
      * @return void
      */
@@ -131,6 +138,10 @@ trait ClusterEncryptable
      */
     protected function makeEncrypter()
     {
+        if ($this->encrypter !== null) {
+            return $this->encrypter;
+        }
+
         $cluster = $this->getCluster();
 
         if (!$cluster) {
@@ -141,7 +152,9 @@ trait ClusterEncryptable
         $cipherKey = ClusterKey::get($cluster->slug);
         $cipher = Config::get('initbiz.cumuluscore::encryption.cipher');
 
-        return new Encrypter($cipherKey, $cipher);
+        $this->encrypter = new Encrypter($cipherKey, $cipher);
+
+        return $this->encrypter;
     }
 
     /**
