@@ -2,6 +2,7 @@
 
 namespace Initbiz\CumulusCore\Tests\Models;
 
+use Initbiz\CumulusCore\Classes\Exceptions\CannotUseClusterEncrypterException;
 use RainLab\User\Models\User;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Tests\Classes\CumulusTestCase;
@@ -31,6 +32,18 @@ class ClusterEncryptableTest extends CumulusTestCase
         $encryptableModel->save();
 
         $this->manager->login($user);
+
+        $encryptableModel->confidential_field = 'Confidential string';
+        $encryptableModel->save();
+
+        $this->assertEquals($encryptableModel->confidential_field, 'Confidential string');
+
+        $this->manager->logout($user);
+        $this->assertEquals($encryptableModel->confidential_field, 'Confidential string');
+
+        $this->expectException(CannotUseClusterEncrypterException::class);
+        $encryptableModel->confidential_field= 'Confidential string';
+        $encryptableModel->save();
     }
 }
 

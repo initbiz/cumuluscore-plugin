@@ -7,7 +7,13 @@ use Initbiz\Cumuluscore\Models\Cluster;
 
 class EncryptableModel extends Model
 {
+    use \Initbiz\CumulusCore\Traits\ClusterEncryptable;
+
     protected $guarded = ['*'];
+
+    protected $clusterEncryptable = [
+        'confidential_field'
+    ];
 
     /**
      * @var string The database table used by the model.

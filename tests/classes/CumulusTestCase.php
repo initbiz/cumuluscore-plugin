@@ -25,6 +25,7 @@ class CumulusTestCase extends FullPluginTestCase
             $table->increments('id')->unsigned();
             $table->string('name');
             $table->string('slug');
+            $table->string('confidential_field')->nullable();
             $table->integer('cluster_id')->unsigned()->nullable();
             $table->timestamps();
         });
