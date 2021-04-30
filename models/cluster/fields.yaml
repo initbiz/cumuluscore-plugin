@@ -22,7 +22,7 @@ fields:
         type: text
     description:
         label: 'initbiz.cumuluscore::lang.cluster.description'
-        size: ''
+        size: small
         span: full
         type: richeditor
 tabs:

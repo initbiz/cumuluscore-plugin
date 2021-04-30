@@ -5,7 +5,6 @@ namespace Initbiz\CumulusCore\Tests\Models;
 use RainLab\User\Models\User;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
-use Initbiz\CumulusCore\Classes\ClusterKey;
 use Initbiz\CumulusCore\Tests\Classes\CumulusTestCase;
 use Initbiz\CumulusCore\Tests\Classes\EncryptableModel;
 use Initbiz\CumulusCore\Classes\Exceptions\CannotUseClusterEncrypterException;
@@ -18,7 +17,6 @@ class ClusterEncryptableTest extends CumulusTestCase
         $cluster->name = 'Company';
         $cluster->slug= 'company';
         $cluster->save();
-        $cluster->afterCreate();
 
         $user = new User();
         $user->name = 'test';
