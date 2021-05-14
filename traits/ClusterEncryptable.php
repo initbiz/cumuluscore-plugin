@@ -3,12 +3,10 @@
 namespace Initbiz\CumulusCore\Traits;
 
 use App;
-use Config;
 use Exception;
-use Illuminate\Encryption\Encrypter;
+use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
-use Initbiz\CumulusCore\Classes\ClusterKey;
-use Initbiz\CumulusCore\Classes\Exceptions\CannotUseClusterEncrypterException;
+use Initbiz\CumulusCore\Classes\ClusterEncrypter;
 
 /**
  * Use this trait in models that you want to encrypt using the cluster's key
@@ -85,7 +83,7 @@ trait ClusterEncryptable
      */
     public function makeClusterEncryptableValue($key, $value)
     {
-        $encrypter = $this->makeEncrypter();
+        $encrypter = $this->getEncrypter();
 
         $this->originalClusterEncryptableValues[$key] = $value;
 
@@ -99,7 +97,7 @@ trait ClusterEncryptable
      */
     public function getClusterEncryptableValue($key)
     {
-        $encrypter = $this->makeEncrypter();
+        $encrypter = $this->getEncrypter();
 
         return $encrypter->decrypt($this->attributes[$key]);
     }
@@ -136,35 +134,18 @@ trait ClusterEncryptable
      *
      * @return Encrypter
      */
-    protected function makeEncrypter()
+    protected function getEncrypter()
     {
-        $cluster = $this->getCluster();
-
-        if (!$cluster) {
-            // If there's no cluster, we cannot get the key and encrypter as a consequence, as well
-            throw new CannotUseClusterEncrypterException();
-        }
-
-        if ($this->encrypter !== null) {
+        if ($this->encrypter instanceof ClusterEncrypter) {
             return $this->encrypter;
         }
 
-        $cipherKey = ClusterKey::get($cluster->slug);
-        $cipher = Config::get('initbiz.cumuluscore::encryption.cipher');
-
-        $this->encrypter = new Encrypter(hex2bin($cipherKey), $cipher);
-
-        return $this->encrypter;
-    }
-
-    /**
-     * Get the cluster the user is currently in, works only in the frontend
-     * @return Cluster|null
-     */
-    protected function getCluster()
-    {
         if (!App::runningInBackend()) {
-            return Helpers::getCluster();
+            $cluster = Helpers::getCluster();
+            if ($cluster instanceof Cluster) {
+                $this->encrypter = new ClusterEncrypter($cluster);
+                return $this->encrypter;
+            }
         }
     }
 }
