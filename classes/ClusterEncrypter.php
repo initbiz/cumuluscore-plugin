@@ -6,7 +6,6 @@ use Config;
 use Illuminate\Encryption\Encrypter;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\ClusterKey;
-use Initbiz\CumulusCore\Classes\Exceptions\CannotUseClusterEncrypterException;
 
 /**
  * Cluster encrypter
@@ -27,11 +26,10 @@ class ClusterEncrypter
      */
     protected $cluster;
 
-    public function __construct(Cluster $cluster)
+    public function __construct($cluster = null)
     {
-        if (!$cluster) {
-            // If there's no cluster, we cannot get the key and encrypter as a consequence, as well
-            throw new CannotUseClusterEncrypterException();
+        if (is_null($cluster)) {
+            $cluster = Helpers::getCluster();
         }
 
         $this->cluster = $cluster;
