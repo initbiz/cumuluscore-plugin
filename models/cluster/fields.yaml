@@ -1,6 +1,6 @@
 fields:
     name:
-        label: 'Full name'
+        label: 'initbiz.cumuluscore::lang.cluster.name'
         span: auto
         required: 1
         type: text
