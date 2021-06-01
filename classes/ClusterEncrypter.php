@@ -33,7 +33,7 @@ class ClusterEncrypter
         }
 
         $this->cluster = $cluster;
-        $this->encrypter = $this->makeEncrypter($cluster);
+        $this->encrypter = $this->makeEncrypter();
     }
 
     /**
