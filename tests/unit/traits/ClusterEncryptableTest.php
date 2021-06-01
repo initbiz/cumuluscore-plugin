@@ -47,9 +47,8 @@ class ClusterEncryptableTest extends CumulusTestCase
         $this->assertNotEmpty($record->confidential_field);
         $this->assertNotEquals($record->confidential_field, 'Confidential string');
 
-        $this->expectException(CannotUseClusterEncrypterException::class);
         $encryptableModel->confidential_field = 'Confidential string';
+        $this->expectException(CannotUseClusterEncrypterException::class);
         $encryptableModel->save();
     }
 }
-
