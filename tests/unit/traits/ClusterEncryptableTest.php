@@ -29,7 +29,7 @@ class ClusterEncryptableTest extends CumulusTestCase
 
         $encryptableModel = new EncryptableModel();
         $encryptableModel->name = 'Company';
-        $encryptableModel->slug= 'company';
+        $encryptableModel->slug = 'company';
         $encryptableModel->save();
         $encryptableModel->cluster()->add($cluster);
 

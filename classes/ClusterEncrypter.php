@@ -6,6 +6,7 @@ use Config;
 use Illuminate\Encryption\Encrypter;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\ClusterKey;
+use Initbiz\CumulusCore\Classes\Exceptions\CannotUseClusterEncrypterException;
 
 /**
  * Cluster encrypter
@@ -30,6 +31,10 @@ class ClusterEncrypter
     {
         if (is_null($cluster)) {
             $cluster = Helpers::getCluster();
+        }
+
+        if (is_null($cluster)) {
+            throw new CannotUseClusterEncrypterException();
         }
 
         $this->cluster = $cluster;

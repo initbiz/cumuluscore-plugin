@@ -7,6 +7,7 @@ use Exception;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Classes\ClusterEncrypter;
+use Initbiz\CumulusCore\Classes\Exceptions\CannotUseClusterEncrypterException;
 
 /**
  * Use this trait in models that you want to encrypt using the cluster's key
@@ -136,16 +137,18 @@ trait ClusterEncryptable
      */
     protected function getEncrypter()
     {
+        $cluster = Helpers::getCluster();
+        if (!$cluster instanceof Cluster) {
+            throw new CannotUseClusterEncrypterException();
+        }
+
         if ($this->encrypter instanceof ClusterEncrypter) {
             return $this->encrypter;
         }
 
         if (!App::runningInBackend()) {
-            $cluster = Helpers::getCluster();
-            if ($cluster instanceof Cluster) {
-                $this->encrypter = new ClusterEncrypter($cluster);
-                return $this->encrypter;
-            }
+            $this->encrypter = new ClusterEncrypter($cluster);
+            return $this->encrypter;
         }
     }
 }
