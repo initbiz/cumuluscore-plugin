@@ -2,10 +2,11 @@
 
 namespace Initbiz\CumulusCore\Tests\Unit\Models;
 
-use PHPUnit\TextUI\Help;
+use Cookie;
+use Session;
 use RainLab\User\Models\User;
 use Initbiz\CumulusCore\Models\Plan;
-use RainLab\User\Components\Session;
+use RainLab\User\Components\Session as UserSession;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\Cumuluscore\Models\ClusterFeatureLog;
@@ -287,9 +288,11 @@ class ClusterTest extends CumulusTestCase
         $cluster = Helpers::getCluster();
         $this->assertNotNull($cluster);
 
-        $session = new Session();
+        $session = new UserSession();
         $session->onLogout();
         $cluster = Helpers::getCluster();
         $this->assertNull($cluster);
+        $this->assertNull(Cookie::get('cumulus_clusterslug'));
+        $this->assertNull(Session::get('cumulus_clusterslug'));
     }
 }
