@@ -7,6 +7,7 @@ use Event;
 use Model;
 use RainLab\User\Models\User;
 use RainLab\Location\Models\Country;
+use Initbiz\CumulusCore\Classes\ClusterKey;
 use Initbiz\Cumuluscore\Models\ClusterFeatureLog;
 use Initbiz\CumulusCore\Classes\Exceptions\RegisterFeatureException;
 use Initbiz\CumulusCore\Classes\Exceptions\DeregisterFeatureException;
@@ -126,6 +127,11 @@ class Cluster extends Model
     public $attachOne = [
         'logo' => ['System\Models\File']
     ];
+
+    public function afterCreate()
+    {
+        ClusterKey::put($this->slug);
+    }
 
     public function beforeSave()
     {

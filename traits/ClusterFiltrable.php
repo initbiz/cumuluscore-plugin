@@ -1,9 +1,8 @@
-<?php namespace Initbiz\CumulusCore\Traits;
+<?php
+
+namespace Initbiz\CumulusCore\Traits;
 
 use App;
-use Cookie;
-use Session;
-use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
 
 /**
@@ -94,7 +93,7 @@ trait ClusterFiltrable
             $rule .= $this->table;
         }
 
-        $rule .= ','.$attribute.',NULL,'.$attribute.','.$columnName.','.$cluster->slug;
+        $rule .= ',' . $attribute . ',NULL,' . $attribute . ',' . $columnName . ',' . $cluster->slug;
 
         // For example: unique:initbiz_exampleplugin_table,email_address,NULL,email_address,cluster_slug,example-cluster
         // It will check if the cluster has the email_address unique or not
@@ -125,7 +124,7 @@ trait ClusterFiltrable
             $rule .= $this->table;
         }
 
-        $rule .= ','.$attribute.',NULL,'.$attribute.','.$columnName.','.$cluster->id;
+        $rule .= ',' . $attribute . ',NULL,' . $attribute . ',' . $columnName . ',' . $cluster->id;
 
         // For example: unique:initbiz_exampleplugin_table,email_address,NULL,email_address,cluster_slug,12
         // It will check if the cluster has the email_address unique or not
@@ -137,7 +136,7 @@ trait ClusterFiltrable
      * Returns true if the current cluster's id is in model's cluster_id property
      * or cluster's slug in cluster_slug property
      * or relation called cluster returns the same cluster as the current one
-     * 
+     *
      * for other logic, you have to override the method in the model
      *
      * @return bool
@@ -145,12 +144,13 @@ trait ClusterFiltrable
     public function clusterCanManage()
     {
         $can = false;
-        
+
         $cluster = Helpers::getCluster();
 
-        if (!empty($cluster) && 
+        if (
+            !empty($cluster) &&
             (
-               (!empty($this->cluster_id) && $this->cluster_id === $cluster->id) || 
+               (!empty($this->cluster_id) && (int) $this->cluster_id === $cluster->id) || 
                (!empty($this->cluster_slug) && $this->cluster_slug === $cluster->slug) ||
                (!empty($this->cluster) && $this->cluster()->first()->id === $cluster->id)
             )
