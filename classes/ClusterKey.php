@@ -73,4 +73,15 @@ class ClusterKey
         }
         return $key;
     }
+
+    /**
+     * Get the key in binary format
+     *
+     * @param string $clusterSlug
+     * @return string|false
+     */
+    public static function getBin(string $clusterSlug)
+    {
+        return hex2bin(Self::get($clusterSlug));
+    }
 }
