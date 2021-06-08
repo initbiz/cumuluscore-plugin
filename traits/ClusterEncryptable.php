@@ -117,7 +117,7 @@ trait ClusterEncryptable
      * getOriginalEncryptableValues returns the original values of any encrypted attributes
      * @return array
      */
-    public function getOriginalEncryptableValues()
+    public function getOriginalClusterEncryptableValues()
     {
         return $this->originalClusterEncryptableValues;
     }
