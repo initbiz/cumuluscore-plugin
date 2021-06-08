@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\Classes;
+<?php
+
+namespace Initbiz\CumulusCore\Classes;
 
 use App;
 use Event;
@@ -7,6 +9,7 @@ use Session;
 use Validator;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Models\GeneralSettings;
+use Initbiz\CumulusCore\Classes\ClusterEncrypter;
 use Initbiz\InitDry\Classes\Helpers as DryHelpers;
 
 class Helpers
@@ -46,6 +49,17 @@ class Helpers
 
         Session::put('cumulus_clusterslug', $cluster->slug);
         Cookie::queue(Cookie::forever('cumulus_clusterslug', $cluster->slug));
+    }
+
+    /**
+     * Remove current cluster slug from the session and cookie
+     */
+    public static function forgetCluster()
+    {
+        ClusterEncrypter::forgetInstance();
+
+        Session::pull('cumulus_clusterslug');
+        Cookie::queue(Cookie::forget('cumulus_clusterslug'));
     }
 
     /**

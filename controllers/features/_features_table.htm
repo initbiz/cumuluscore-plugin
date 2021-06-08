@@ -15,7 +15,7 @@
     </thead>
     <tbody>
     <?php foreach ($features as $featureCode => $featureDef): ?>
-        <tr title="<?= e(trans($featureDef['description'])) ?>">
+        <tr title="<?= e(trans($featureDef['description'] ?? '')) ?>">
             <td>
                 <?= e($featureCode) ?>
             </td>
