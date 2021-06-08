@@ -2,8 +2,12 @@
 
 namespace Initbiz\CumulusCore\Tests\Unit\Models;
 
+use PHPUnit\TextUI\Help;
+use RainLab\User\Models\User;
 use Initbiz\CumulusCore\Models\Plan;
+use RainLab\User\Components\Session;
 use Initbiz\CumulusCore\Models\Cluster;
+use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\Cumuluscore\Models\ClusterFeatureLog;
 use Initbiz\CumulusCore\Tests\Classes\CumulusTestCase;
 
@@ -256,10 +260,36 @@ class ClusterTest extends CumulusTestCase
 
         $this->assertEquals('registered', $log->action);
         sleep(1);
-
         $cluster->deregisterFeature('initbiz.cumulusdemo.basic.dashboard');
         $log = ClusterFeatureLog::where('cluster_slug', 'company')->where('feature_code', 'initbiz.cumulusdemo.basic.dashboard')->orderBy('timestamp', 'desc')->first();
 
         $this->assertEquals('deregistered', $log->action);
+    }
+
+    public function testForgetCluster()
+    {
+        $cluster = new Cluster;
+        $cluster->name = 'Company';
+        $cluster->slug = 'company';
+        $cluster->save();
+
+        $user = new User();
+        $user->name = 'test';
+        $user->email = 'test@test.com';
+        $user->password = 'test12345';
+        $user->password_confirmation = 'test12345';
+        $user->is_activated = 1;
+        $user->save();
+        $user->clusters()->add($cluster);
+
+        $this->manager->login($user);
+        Helpers::setCluster($cluster);
+        $cluster = Helpers::getCluster();
+        $this->assertNotNull($cluster);
+
+        $session = new Session();
+        $session->onLogout();
+        $cluster = Helpers::getCluster();
+        $this->assertNull($cluster);
     }
 }

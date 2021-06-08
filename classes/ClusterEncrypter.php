@@ -2,6 +2,7 @@
 
 namespace Initbiz\CumulusCore\Classes;
 
+use App;
 use Config;
 use Illuminate\Encryption\Encrypter;
 use Initbiz\CumulusCore\Models\Cluster;
@@ -13,6 +14,8 @@ use Initbiz\CumulusCore\Classes\Exceptions\CannotUseClusterEncrypterException;
  */
 class ClusterEncrypter
 {
+    use \October\Rain\Support\Traits\Singleton;
+
     /**
      * Encrypter instance to locally cache
      *
@@ -27,11 +30,13 @@ class ClusterEncrypter
      */
     protected $cluster;
 
-    public function __construct($cluster = null)
+    public function init()
     {
-        if (is_null($cluster)) {
-            $cluster = Helpers::getCluster();
+        if (App::runningInBackend()) {
+            throw new CannotUseClusterEncrypterException();
         }
+
+        $cluster = Helpers::getCluster();
 
         if (is_null($cluster)) {
             throw new CannotUseClusterEncrypterException();

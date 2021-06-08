@@ -84,7 +84,7 @@ trait ClusterEncryptable
      */
     public function makeClusterEncryptableValue($key, $value)
     {
-        $encrypter = $this->getEncrypter();
+        $encrypter = ClusterEncrypter::instance();
 
         $this->originalClusterEncryptableValues[$key] = $value;
 
@@ -98,7 +98,7 @@ trait ClusterEncryptable
      */
     public function getClusterEncryptableValue($key)
     {
-        $encrypter = $this->getEncrypter();
+        $encrypter = ClusterEncrypter::instance();
 
         return $encrypter->decrypt($this->attributes[$key]);
     }
@@ -128,27 +128,5 @@ trait ClusterEncryptable
     public function getOriginalClusterEncryptableValue($attribute)
     {
         return $this->originalClusterEncryptableValues[$attribute] ?? null;
-    }
-
-    /**
-     * Make encrypter instance using the currently using cluster
-     *
-     * @return Encrypter
-     */
-    protected function getEncrypter()
-    {
-        $cluster = Helpers::getCluster();
-        if (!$cluster instanceof Cluster) {
-            throw new CannotUseClusterEncrypterException();
-        }
-
-        if ($this->encrypter instanceof ClusterEncrypter) {
-            return $this->encrypter;
-        }
-
-        if (!App::runningInBackend()) {
-            $this->encrypter = new ClusterEncrypter($cluster);
-            return $this->encrypter;
-        }
     }
 }
