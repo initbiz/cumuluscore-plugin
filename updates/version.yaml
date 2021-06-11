@@ -171,3 +171,5 @@
     - 3_3_0_add_webiste_to_cluster.php
 3.4.0:
     - 'Cluster encryption has been added'
+3.4.1:
+    - 'Remove checking if running in the backend'
