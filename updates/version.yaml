@@ -173,3 +173,5 @@
     - 'Cluster encryption has been added'
 3.4.1:
     - 'Remove checking if running in the backend'
+3.4.2:
+    - 'Fix check if user have lost access to cluster during session'
