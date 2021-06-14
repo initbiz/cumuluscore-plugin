@@ -25,7 +25,11 @@ class Helpers
 
         $cluster = Cluster::where('slug', $clusterSlug)->first();
 
-        return $cluster;
+        $user = DryHelpers::getUser();
+
+        if ($user->canEnter($cluster)) {
+            return $cluster;
+        }
     }
 
     /**
