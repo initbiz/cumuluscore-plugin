@@ -31,7 +31,7 @@ class Helpers
 
         $user = DryHelpers::getUser();
 
-        if ($user->canEnter($cluster)) {
+        if ($user && $user->canEnter($cluster)) {
             return $cluster;
         }
     }
