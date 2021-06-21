@@ -1,12 +1,13 @@
-<?php namespace Initbiz\CumulusCore\Components;
+<?php
+
+namespace Initbiz\CumulusCore\Components;
 
 use Cms\Classes\ComponentBase;
 use Initbiz\CumulusCore\Classes\Helpers;
+use Initbiz\InitDry\Classes\Helpers as DryHelpers;
 
 class CumulusGuard extends ComponentBase
 {
-    use \Initbiz\CumulusCore\Traits\CumulusComponentProperties;
-
     public function componentDetails()
     {
         return [
@@ -15,16 +16,35 @@ class CumulusGuard extends ComponentBase
         ];
     }
 
+    public function defineProperties()
+    {
+        return [
+            'clusterUniq' => [
+                'title' => 'initbiz.cumuluscore::lang.component_properties.cluster_uniq',
+                'description' => 'initbiz.cumuluscore::lang.component_properties.cluster_uniq_desc',
+                'type' => 'string',
+                'default' => '{{ :cluster }}'
+            ]
+        ];
+    }
+
     public function onRun()
     {
         $cluster = Helpers::getClusterFromUrlParam($this->property('clusterUniq'));
 
         if (!$cluster) {
+            $this->setStatusCode(404);
+            return $this->controller->run('404');
+        }
+
+        $user = DryHelpers::getUser();
+
+        if (!$user || !$user->canEnter($cluster)) {
+            $this->setStatusCode(404);
             return $this->controller->run('404');
         }
 
         Helpers::setCluster($cluster);
-
         $this->page['cluster'] = Helpers::getCluster();
     }
 }

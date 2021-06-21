@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\Components;
+<?php
+
+namespace Initbiz\CumulusCore\Components;
 
 use Cms\Classes\ComponentBase;
 use Initbiz\CumulusCore\Classes\Helpers;
@@ -6,8 +8,6 @@ use Initbiz\CumulusCore\Classes\FeatureManager;
 
 class FeatureGuard extends ComponentBase
 {
-    use \Initbiz\CumulusCore\Traits\CumulusComponentProperties;
-
     public function componentDetails()
     {
         return [
@@ -18,8 +18,13 @@ class FeatureGuard extends ComponentBase
 
     public function defineProperties()
     {
-        return $this->defineClusterUniq() +
-        [
+        return [
+            'clusterUniq' => [
+                'title' => 'initbiz.cumuluscore::lang.component_properties.cluster_uniq',
+                'description' => 'initbiz.cumuluscore::lang.component_properties.cluster_uniq_desc',
+                'type' => 'string',
+                'default' => '{{ :cluster }}'
+            ],
             'cumulusFeatures' => [
                 'title' => 'initbiz.cumuluscore::lang.feature_guard.cumulus_features',
                 'description' => 'initbiz.cumuluscore::lang.feature_guard.cumulus_features_desc',

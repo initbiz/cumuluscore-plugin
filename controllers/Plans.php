@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\Controllers;
+<?php
+
+namespace Initbiz\CumulusCore\Controllers;
 
 use Lang;
 use Flash;
@@ -22,7 +24,7 @@ class Plans extends Controller
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
     public $relationConfig = 'config_relation.yaml';
-    
+
     /**
      * @var string HTML body tag class
      */
@@ -51,9 +53,9 @@ class Plans extends Controller
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
             $toForceDelete = Plan::onlyTrashed()->whereIn('id', $checkedIds)->get();
         }
-        
+
         $this->asExtension('ListController')->index_onDelete();
-        
+
         if ($toForceDelete) {
             foreach ($toForceDelete as $item) {
                 $item->forceDelete();
@@ -61,7 +63,7 @@ class Plans extends Controller
             Flash::forget();
             Flash::success(Lang::get('backend::lang.list.delete_selected_success'));
         }
-        
+
         return $this->listRefresh();
     }
 
@@ -70,7 +72,8 @@ class Plans extends Controller
      *
      * @return void
      */
-    public function index_onRestore() {
+    public function index_onRestore()
+    {
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
             $toRestore = Plan::onlyTrashed()->whereIn('id', $checkedIds)->get();
         } else {

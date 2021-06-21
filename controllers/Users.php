@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\Controllers;
+<?php
+
+namespace Initbiz\CumulusCore\Controllers;
 
 use BackendMenu;
 use RainLab\User\Controllers\Users as RainLabUsers;
@@ -17,7 +19,7 @@ class Users extends RainLabUsers
         $this->addViewPath($this->guessViewPathFrom(RainLabUsers::class));
 
         $this->viewPath = array_reverse($this->viewPath);
-        
+
         BackendMenu::setContext('Initbiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-users');
     }
 }

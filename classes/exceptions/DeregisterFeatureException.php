@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\Classes\Exceptions;
+<?php
+
+namespace Initbiz\CumulusCore\Classes\Exceptions;
 
 class DeregisterFeatureException extends CumulusException
 {

@@ -2,12 +2,8 @@
 
 namespace Initbiz\CumulusCore\Traits;
 
-use App;
 use Exception;
-use Initbiz\CumulusCore\Models\Cluster;
-use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Classes\ClusterEncrypter;
-use Initbiz\CumulusCore\Classes\Exceptions\CannotUseClusterEncrypterException;
 
 /**
  * Use this trait in models that you want to encrypt using the cluster's key

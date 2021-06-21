@@ -42,6 +42,11 @@ class UserClustersList extends ComponentBase
         }
     }
 
+    /**
+     * Get list of the cluster with URLs injected
+     *
+     * @return array
+     */
     public function clustersListWithUrl()
     {
         $user = Helpers::getUser();
@@ -61,6 +66,7 @@ class UserClustersList extends ComponentBase
             );
             $clusters[] = $cluster;
         }
+
         return $clusters;
     }
 }

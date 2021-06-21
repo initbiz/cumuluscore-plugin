@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\Controllers;
+<?php
+
+namespace Initbiz\CumulusCore\Controllers;
 
 use BackendMenu;
 use Backend\Classes\Controller;

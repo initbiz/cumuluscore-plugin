@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\Models;
+<?php
+
+namespace Initbiz\CumulusCore\Models;
 
 use Model;
 use RainLab\User\Models\UserGroup;

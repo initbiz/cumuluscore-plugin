@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\Classes;
+<?php
+
+namespace Initbiz\CumulusCore\Classes;
 
 use Url;
 use Cms\Classes\Theme;
