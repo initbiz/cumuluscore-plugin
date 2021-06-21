@@ -40,8 +40,8 @@ class CumulusGuard extends ComponentBase
         $user = DryHelpers::getUser();
 
         if (!$user || !$user->canEnter($cluster)) {
-            $this->setStatusCode(404);
-            return $this->controller->run('404');
+            $this->setStatusCode(403);
+            return $this->controller->run('403');
         }
 
         Helpers::setCluster($cluster);
