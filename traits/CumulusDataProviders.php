@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\Traits;
+<?php
+
+namespace Initbiz\CumulusCore\Traits;
 
 use \Faker\Factory as Faker;
 
@@ -58,8 +60,10 @@ trait CumulusDataProviders
         $cluster = $this->providerClusterData();
         $user  = $this->providerUserData();
         return [
-            ["userData" => $user[0]['userData'],
-                "clusterData" => $cluster[0]['clusterData']]
+            [
+                "userData" => $user[0]['userData'],
+                "clusterData" => $cluster[0]['clusterData']
+            ]
         ];
     }
 }

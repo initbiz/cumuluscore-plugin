@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\EventHandlers;
+<?php
+
+namespace Initbiz\CumulusCore\EventHandlers;
 
 use Initbiz\CumulusCore\Classes\MenuManager;
 use Initbiz\CumulusCore\Classes\FeatureManager;
@@ -80,7 +82,7 @@ class RainlabPagesHandler
             $featureFields = [];
 
             foreach ($features as $featureCode => $featureDef) {
-                $featureFields['viewBag[cumulusFeature-'.$featureCode.']'] = [
+                $featureFields['viewBag[cumulusFeature-' . $featureCode . ']'] = [
                     'tab' => 'initbiz.cumuluscore::lang.menu_item.cumulus_tab_label',
                     'label' => $featureDef[0],
                     'commentAbove' => $featureDef[1],

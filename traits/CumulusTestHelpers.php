@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\Traits;
+<?php
+
+namespace Initbiz\CumulusCore\Traits;
 
 trait CumulusTestHelpers
 {
@@ -7,13 +9,13 @@ trait CumulusTestHelpers
         $this->gotoBackend('initbiz/cumuluscore/users/create');
 
         $this->type($data['name'], 'Form-field-User-name')
-             ->type($data['surname'], 'Form-field-User-surname')
-             ->type($data['email'], 'Form-field-User-email')
-             ->type($data['password'], 'Form-field-User-password')
-             ->type($data['password'], 'Form-field-User-password_confirmation')
-             ->clickLabel('Send invitation by email')
-             ->press('Create')
-             ->waitForFlashMessage();
+            ->type($data['surname'], 'Form-field-User-surname')
+            ->type($data['email'], 'Form-field-User-email')
+            ->type($data['password'], 'Form-field-User-password')
+            ->type($data['password'], 'Form-field-User-password_confirmation')
+            ->clickLabel('Send invitation by email')
+            ->press('Create')
+            ->waitForFlashMessage();
         return $this;
     }
 
@@ -22,8 +24,8 @@ trait CumulusTestHelpers
         $this->gotoBackend('initbiz/cumuluscore/clusters/create');
 
         $this->type($data['name'], 'Form-field-Cluster-full_name')
-             ->press('Create')
-             ->waitForFlashMessage();
+            ->press('Create')
+            ->waitForFlashMessage();
         return $this;
     }
 
@@ -32,8 +34,8 @@ trait CumulusTestHelpers
         $this->gotoBackend('initbiz/cumuluscore/plans/create');
 
         $this->type($name, 'Form-field-Plan-name')
-             ->press('Create')
-             ->waitForFlashMessage();
+            ->press('Create')
+            ->waitForFlashMessage();
 
         return $this;
     }
@@ -43,11 +45,11 @@ trait CumulusTestHelpers
         $this->gotoBackend('initbiz/cumuluscore/users/create');
 
         $this->clickRowInBackendList($email)
-             ->clickLink('Activate this user manually')
-             ->waitForElementsWithClass('sweet-alert')
-             ->hold(1)
-             ->press('OK')
-             ->waitForFlashMessage();
+            ->clickLink('Activate this user manually')
+            ->waitForElementsWithClass('sweet-alert')
+            ->hold(1)
+            ->press('OK')
+            ->waitForFlashMessage();
         return $this;
     }
 
@@ -55,10 +57,10 @@ trait CumulusTestHelpers
     public function signInToFrontend($data, $url = "/")
     {
         $this->visit($url)
-             ->type($data['email'], 'login')
-             ->type($data['password'], 'password')
-             ->findAndClickElement("Login button", "//button[@type='submit']")
-             ->hold(2);
+            ->type($data['email'], 'login')
+            ->type($data['password'], 'password')
+            ->findAndClickElement("Login button", "//button[@type='submit']")
+            ->hold(2);
         return $this;
     }
 
@@ -67,8 +69,8 @@ trait CumulusTestHelpers
         $this->gotoBackend('initbiz/cumuluscore/clusters');
 
         $this->clickRowInBackendList($clusterName)
-             ->select2('select2-Form-field-Cluster-plan-container', $plan)
-             ->press('Save');
+            ->select2('select2-Form-field-Cluster-plan-container', $plan)
+            ->press('Save');
 
         return $this;
     }
@@ -77,12 +79,12 @@ trait CumulusTestHelpers
     {
         $this->gotoBackend('initbiz/cumuluscore/users');
         $this->clickRowInBackendList($userEmail)
-             ->findAndClickElement('Clusters', '//a[@title="Clusters"]')
-             ->hold(2)
-             ->clickLabel($clusterName)
-             ->hold(2)
-             ->press('Save')
-             ->waitForFlashMessage();
+            ->findAndClickElement('Clusters', '//a[@title="Clusters"]')
+            ->hold(2)
+            ->clickLabel($clusterName)
+            ->hold(2)
+            ->press('Save')
+            ->waitForFlashMessage();
         return $this;
     }
 
@@ -90,18 +92,18 @@ trait CumulusTestHelpers
     {
         $this->gotoBackend('initbiz/cumuluscore/plans');
         $this->clickRowInBackendList($plan)
-             ->clickLabel($feature);
+            ->clickLabel($feature);
         $this->hold(1)
-             ->press('Save')
-             ->waitForFlashMessage();
+            ->press('Save')
+            ->waitForFlashMessage();
         return $this;
     }
 
     public function clearCumulus()
     {
         $this->deleteAllUsers()
-             ->deleteAllCluster()
-             ->deleteAllPlans();
+            ->deleteAllCluster()
+            ->deleteAllPlans();
         return $this;
     }
 
@@ -109,14 +111,14 @@ trait CumulusTestHelpers
     {
         $this->gotoBackend('initbiz/cumuluscore/users');
         $this->typeInBackendSearch('', true)
-             ->hold(1)
-             ->findAndClickElement('check all', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[3]/div/table/thead/tr/th[1]")
-             ->press('Delete selected')
-             ->waitForElementsWithClass('sweet-alert')
-             ->hold(1)
-             ->press('OK')
-             ->waitForFlashMessage()
-             ->hold(2);
+            ->hold(1)
+            ->findAndClickElement('check all', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[3]/div/table/thead/tr/th[1]")
+            ->press('Delete selected')
+            ->waitForElementsWithClass('sweet-alert')
+            ->hold(1)
+            ->press('OK')
+            ->waitForFlashMessage()
+            ->hold(2);
         return $this;
     }
 
@@ -124,12 +126,12 @@ trait CumulusTestHelpers
     {
         $this->gotoBackend('initbiz/cumuluscore/clusters');
         $this->findAndClickElement('check all clusters', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[2]/div/table/thead/tr/th[1]")
-             ->press('Delete selected')
-             ->waitForElementsWithClass('sweet-alert')
-             ->hold(2)
-             ->press('OK')
-             ->waitForFlashMessage()
-             ->hold(2);
+            ->press('Delete selected')
+            ->waitForElementsWithClass('sweet-alert')
+            ->hold(2)
+            ->press('OK')
+            ->waitForFlashMessage()
+            ->hold(2);
         return $this;
     }
 
@@ -137,12 +139,12 @@ trait CumulusTestHelpers
     {
         $this->gotoBackend('initbiz/cumuluscore/plans');
         $this->findAndClickElement('check all plans', "/html/body/div[1]/div/div[2]/div/div[2]/div/div/div/div[2]/div/table/thead/tr/th[1]")
-             ->press('Delete selected')
-             ->waitForElementsWithClass('sweet-alert')
-             ->hold(2)
-             ->press('OK')
-             ->waitForFlashMessage()
-             ->hold(2);
+            ->press('Delete selected')
+            ->waitForElementsWithClass('sweet-alert')
+            ->hold(2)
+            ->press('OK')
+            ->waitForFlashMessage()
+            ->hold(2);
     }
 
     public function gotoCumulusBackend($sidenavLabel = "")
@@ -150,7 +152,7 @@ trait CumulusTestHelpers
         $this->gotoBackend('initbiz/cumuluscore/dashboard');
 
         if ($sidenavLabel !== "") {
-            $this->findAndClickElement($sidenavLabel, "//a[contains(., '". $sidenavLabel ."')]");
+            $this->findAndClickElement($sidenavLabel, "//a[contains(., '" . $sidenavLabel . "')]");
         }
     }
 

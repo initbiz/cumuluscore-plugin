@@ -150,10 +150,9 @@ trait ClusterFiltrable
         if (
             !empty($cluster) &&
             (
-               (!empty($this->cluster_id) && (int) $this->cluster_id === $cluster->id) || 
-               (!empty($this->cluster_slug) && $this->cluster_slug === $cluster->slug) ||
-               (!empty($this->cluster) && $this->cluster()->first()->id === $cluster->id)
-            )
+                (!empty($this->cluster_id) && (int) $this->cluster_id === $cluster->id) ||
+                (!empty($this->cluster_slug) && $this->cluster_slug === $cluster->slug) ||
+                (!empty($this->cluster) && $this->cluster()->first()->id === $cluster->id))
         ) {
             $can = true;
         }

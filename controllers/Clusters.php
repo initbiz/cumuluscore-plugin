@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\Controllers;
+<?php
+
+namespace Initbiz\CumulusCore\Controllers;
 
 use Lang;
 use Flash;
@@ -50,9 +52,9 @@ class Clusters extends Controller
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
             $toForceDelete = Cluster::onlyTrashed()->whereIn('id', $checkedIds)->get();
         }
-        
+
         $this->asExtension('ListController')->index_onDelete();
-        
+
         if ($toForceDelete) {
             foreach ($toForceDelete as $item) {
                 $item->forceDelete();
@@ -60,7 +62,7 @@ class Clusters extends Controller
             Flash::forget();
             Flash::success(Lang::get('backend::lang.list.delete_selected_success'));
         }
-        
+
         return $this->listRefresh();
     }
 
@@ -69,7 +71,8 @@ class Clusters extends Controller
      *
      * @return void
      */
-    public function index_onRestore() {
+    public function index_onRestore()
+    {
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
             $toRestore = Cluster::onlyTrashed()->whereIn('id', $checkedIds)->get();
         } else {

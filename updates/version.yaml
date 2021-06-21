@@ -175,3 +175,5 @@
     - 'Remove checking if running in the backend'
 3.4.2:
     - 'Fix check if user have lost access to cluster during session'
+3.4.3:
+    - 'Minor cleanup and CumulusGuard fix'

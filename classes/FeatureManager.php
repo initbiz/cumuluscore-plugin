@@ -1,8 +1,9 @@
-<?php namespace Initbiz\CumulusCore\Classes;
+<?php
+
+namespace Initbiz\CumulusCore\Classes;
 
 use Lang;
 use Cache;
-use Event;
 use October\Rain\Support\Singleton;
 use Initbiz\InitDry\Classes\PluginRegistrationManager;
 
@@ -54,7 +55,7 @@ class FeatureManager extends Singleton
      *        'description' => 'description'
      *    ]
      * ]
-     *  
+     *
      * @return array
      */
     public function getFeaturesOptions()

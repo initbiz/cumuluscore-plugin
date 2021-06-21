@@ -1,8 +1,8 @@
-<?php namespace Initbiz\CumulusCore\EventHandlers;
+<?php
+
+namespace Initbiz\CumulusCore\EventHandlers;
 
 use Lang;
-use Cookie;
-use Session;
 use Redirect;
 use RainLab\User\Models\User;
 use RainLab\User\Controllers\Users;
@@ -92,10 +92,11 @@ class RainlabUserHandler
         $event->listen('backend.list.extendColumns', function ($widget) {
             if ($widget->getController() instanceof Users) {
                 $widget->removeColumn('name');
-                $widget->addColumns(['full_name' => [
-                    'label' => Lang::get('initbiz.cumuluscore::lang.users.last_first_name'),
-                    'select' => 'concat(surname, \' \', name)'
-                ]
+                $widget->addColumns([
+                    'full_name' => [
+                        'label' => Lang::get('initbiz.cumuluscore::lang.users.last_first_name'),
+                        'select' => 'concat(surname, \' \', name)'
+                    ]
                 ]);
             }
         });
