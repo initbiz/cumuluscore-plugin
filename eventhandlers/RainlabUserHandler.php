@@ -55,8 +55,8 @@ class RainlabUserHandler
             $config = [];
             $config['clusters'] = [
                 'tab'       => 'initbiz.cumuluscore::lang.users.cluster_tab',
-                'type'      => 'relation',
-                'nameFrom'  => 'name',
+                'type'      => 'partial',
+                // 'path'      => '$/initbiz/cumuluscore/controllers/users/_clusters.htm',
             ];
 
             $widget->addTabFields($config);
@@ -91,13 +91,13 @@ class RainlabUserHandler
     {
         $event->listen('backend.list.extendColumns', function ($widget) {
             if ($widget->getController() instanceof Users) {
-                $widget->removeColumn('name');
-                $widget->addColumns([
-                    'full_name' => [
-                        'label' => Lang::get('initbiz.cumuluscore::lang.users.last_first_name'),
-                        'select' => 'concat(surname, \' \', name)'
-                    ]
-                ]);
+            //     $widget->removeColumn('name');
+            //     $widget->addColumns([
+            //         'full_name' => [
+            //             'label' => Lang::get('initbiz.cumuluscore::lang.users.last_first_name'),
+            //             'select' => 'concat(user.surname, \' \', user.name)'
+            //         ]
+            //     ]);
             }
         });
     }
