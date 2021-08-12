@@ -6,7 +6,7 @@ clusters:
     label: 'initbiz.cumuluscore::lang.cluster.cluster'
     view:
         list: $/initbiz/cumuluscore/models/cluster/columns.yaml
-        toolbarButtons: link|unlink
+        toolbarButtons: add|remove
         showSearch: true
     manage:
         list: $/initbiz/cumuluscore/models/cluster/columns.yaml
