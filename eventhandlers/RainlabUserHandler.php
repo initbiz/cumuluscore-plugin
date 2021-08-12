@@ -87,14 +87,13 @@ class RainlabUserHandler
             $model->addDynamicMethod('getFullNameAttribute', function ($user) use ($model) {
                 return $model->surname.' '.$model->name;
             });
-
         });
     }
 
     public function addFullNameColumn($event)
     {
         $event->listen('backend.list.extendColumns', function ($widget) {
-            if ($widget->getController() instanceof Users) {
+            if ($widget->getController() instanceof Users && $widget->model instanceof User) {
                 $widget->removeColumn('name');
                 $widget->addColumns([
                     'full_name' => [
