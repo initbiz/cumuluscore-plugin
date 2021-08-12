@@ -7,3 +7,10 @@ columns:
         label: 'initbiz.cumuluscore::lang.cluster.name'
         searchable: true
         sortable: true
+    slug:
+        label: 'initbiz.cumuluscore::lang.cluster.slug'
+        searchable: true
+        sortable: true
+    created_at:
+        label: 'initbiz.cumuluscore::lang.cluster.created_at'
+        sortable: true
