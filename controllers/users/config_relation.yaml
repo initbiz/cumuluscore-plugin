@@ -5,10 +5,6 @@
 clusters:
     label: 'initbiz.cumuluscore::lang.cluster.cluster'
     view:
-        list: $/initbiz/cumuluscore/models/cluster/columns.yaml
-        toolbarButtons: add|remove
+        list: $/initbiz/cumuluscore/models/cluster/related_columns.yaml
+        toolbarButtons: link|unlink
         showSearch: true
-    manage:
-        list: $/initbiz/cumuluscore/models/cluster/columns.yaml
-    pivot:
-        form: $/initbiz/cumuluscore/models/cluster/fields.yaml
