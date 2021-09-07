@@ -85,7 +85,7 @@ class RainlabUserHandler
             });
 
             $model->addDynamicMethod('getFullNameAttribute', function ($user) use ($model) {
-                return $model->surname.' '.$model->name;
+                return $model->surname . ' ' . $model->name;
             });
         });
     }

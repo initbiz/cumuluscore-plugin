@@ -6,5 +6,5 @@ clusters:
     label: 'initbiz.cumuluscore::lang.cluster.cluster'
     view:
         list: $/initbiz/cumuluscore/models/cluster/related_columns.yaml
-        toolbarButtons: link|unlink
+        toolbarButtons: add|remove
         showSearch: true
