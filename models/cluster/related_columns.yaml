@@ -13,8 +13,6 @@ columns:
         sortable: true
     plan[name]:
         label: 'initbiz.cumuluscore::lang.cluster.plan'
-        searchable: true
-        sortable: true
     created_at:
         label: 'initbiz.cumuluscore::lang.cluster.created_at'
         sortable: true
