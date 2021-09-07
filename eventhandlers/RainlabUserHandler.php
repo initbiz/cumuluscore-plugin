@@ -46,6 +46,26 @@ class RainlabUserHandler
 
     public function addClusterField($event)
     {
+        /**
+         * Extend the RainLab.Users controller to include the RelationController behavior too
+         */
+        Users::extend(function ($controller) {
+
+            // Implement the list controller behavior dynamically
+            if (!$controller->isClassExtendedWith('Backend.Behaviors.RelationController')) {
+                $controller->implement[] = 'Backend.Behaviors.RelationController';
+            }
+
+            // Declare the relationConfig property dynamically for the RelationController behavior to use
+            if (!isset($controller->relationConfig)) {
+                $controller->addDynamicProperty('relationConfig');
+            }
+
+            $relationConfigPath = '$/initbiz/cumuluscore/controllers/users/config_relation.yaml';
+
+            $controller->relationConfig = $controller->mergeConfig($controller->relationConfig, $relationConfigPath);
+        });
+
         Users::extendFormFields(function ($widget) {
             // Prevent extending of related form instead of the intended User form
             if (!$widget->model instanceof User) {
@@ -54,8 +74,9 @@ class RainlabUserHandler
 
             $config = [];
             $config['clusters'] = [
-                'tab'       => 'initbiz.cumuluscore::lang.users.cluster_tab',
-                'type'      => 'partial',
+                'tab'  => 'initbiz.cumuluscore::lang.users.cluster_tab',
+                'type' => 'partial',
+                'path' => '$/initbiz/cumuluscore/controllers/users/_clusters.htm'
             ];
 
             $widget->addTabFields($config);
