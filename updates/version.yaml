@@ -177,3 +177,5 @@
     - 'Fix check if user have lost access to cluster during session'
 3.4.3:
     - 'Minor cleanup and CumulusGuard fix'
+3.5.0:
+    - 'Relation controller in user's cluster list'
