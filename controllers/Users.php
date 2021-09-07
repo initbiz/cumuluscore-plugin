@@ -8,6 +8,17 @@ use RainLab\User\Controllers\Users as RainLabUsers;
 class Users extends RainLabUsers
 {
     /**
+     * @var array Extensions implemented by this controller.
+     */
+    public $implement = [
+        \Backend\Behaviors\FormController::class,
+        \Backend\Behaviors\RelationController::class,
+        \Backend\Behaviors\ListController::class
+    ];
+
+    public $relationConfig = 'config_relation.yaml';
+
+    /**
      * @var array Permissions required to view this page.
      */
     public $requiredPermissions = ['initbiz.cumuluscore.access_users'];

@@ -1,0 +1,18 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    name:
+        label: 'initbiz.cumuluscore::lang.cluster.name'
+        searchable: true
+        sortable: true
+    slug:
+        label: 'initbiz.cumuluscore::lang.cluster.slug'
+        searchable: true
+        sortable: true
+    plan[name]:
+        label: 'initbiz.cumuluscore::lang.cluster.plan'
+    created_at:
+        label: 'initbiz.cumuluscore::lang.cluster.created_at'
+        sortable: true
