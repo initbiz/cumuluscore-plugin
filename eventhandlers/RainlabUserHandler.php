@@ -55,8 +55,7 @@ class RainlabUserHandler
             $config = [];
             $config['clusters'] = [
                 'tab'       => 'initbiz.cumuluscore::lang.users.cluster_tab',
-                'type'      => 'relation',
-                'nameFrom'  => 'name',
+                'type'      => 'partial',
             ];
 
             $widget->addTabFields($config);
@@ -84,18 +83,21 @@ class RainlabUserHandler
             $model->addDynamicMethod('canEnter', function ($cluster) use ($model) {
                 return $model->clusters()->whereSlug($cluster->slug)->first() ? true : false;
             });
+
+            $model->addDynamicMethod('getFullNameAttribute', function ($user) use ($model) {
+                return $model->name . ' ' . $model->surname;
+            });
         });
     }
 
     public function addFullNameColumn($event)
     {
         $event->listen('backend.list.extendColumns', function ($widget) {
-            if ($widget->getController() instanceof Users) {
+            if ($widget->getController() instanceof Users && $widget->model instanceof User) {
                 $widget->removeColumn('name');
                 $widget->addColumns([
                     'full_name' => [
-                        'label' => Lang::get('initbiz.cumuluscore::lang.users.last_first_name'),
-                        'select' => 'concat(surname, \' \', name)'
+                        'label' => Lang::get('initbiz.cumuluscore::lang.users.last_first_name')
                     ]
                 ]);
             }
