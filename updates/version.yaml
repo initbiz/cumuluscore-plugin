@@ -178,4 +178,4 @@
 3.4.3:
     - 'Minor cleanup and CumulusGuard fix'
 3.5.0:
-    - 'Relation controller in user's cluster list'
+    - "Relation controller in user's cluster list"
