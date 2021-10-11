@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\Models;
+<?php
+
+namespace Initbiz\CumulusCore\Models;
 
 use Model;
 use October\Rain\Database\Collection;
@@ -6,10 +8,10 @@ use Initbiz\CumulusCore\Classes\FeatureManager;
 
 class Plan extends Model
 {
-    use \October\Rain\Database\Traits\Validation;
-    use \October\Rain\Database\Traits\Sluggable;
-    use \October\Rain\Database\Traits\SoftDelete;
     use \October\Rain\Database\Traits\Nullable;
+    use \October\Rain\Database\Traits\Sluggable;
+    use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\SoftDelete;
 
     /*
      * Disable timestamps by default.
@@ -107,7 +109,7 @@ class Plan extends Model
                 return $query;
         }
     }
-    
+
     /**
      * Return plans that this plan can upgrade to
      *
@@ -115,7 +117,7 @@ class Plan extends Model
      */
     public function plansToUpgrade()
     {
-       return $this->related_plans()->where('relation', 'upgrade')->get();
+        return $this->related_plans()->where('relation', 'upgrade')->get();
     }
 
     /**
@@ -166,11 +168,10 @@ class Plan extends Model
 
         $clusters = $this->clusters()->get();
 
-        foreach ($clusters as $cluster ) {
+        foreach ($clusters as $cluster) {
             $users = $users->concat($cluster->users()->get());
         }
-        
+
         return $users->unique('id');
     }
 }
-

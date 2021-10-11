@@ -2,7 +2,6 @@
 
 namespace Initbiz\CumulusCore\Classes;
 
-use App;
 use Config;
 use Illuminate\Encryption\Encrypter;
 use Initbiz\CumulusCore\Models\Cluster;
@@ -32,10 +31,6 @@ class ClusterEncrypter
 
     public function init()
     {
-        if (App::runningInBackend()) {
-            throw new CannotUseClusterEncrypterException();
-        }
-
         $cluster = Helpers::getCluster();
 
         if (is_null($cluster)) {
@@ -84,5 +79,4 @@ class ClusterEncrypter
 
         return new Encrypter(hex2bin($cipherKey), $cipher);
     }
-
 }

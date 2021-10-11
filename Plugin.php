@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore;
+<?php
+
+namespace Initbiz\CumulusCore;
 
 use Event;
 use Backend;
@@ -26,7 +28,8 @@ class Plugin extends PluginBase
         ];
     }
 
-    public function boot() {
+    public function boot()
+    {
         Event::subscribe(\Initbiz\CumulusCore\EventHandlers\AutoAssignHandler::class);
         Event::subscribe(\Initbiz\CumulusCore\EventHandlers\RainlabPagesHandler::class);
         Event::subscribe(\Initbiz\CumulusCore\EventHandlers\RainlabUserHandler::class);
@@ -101,7 +104,7 @@ class Plugin extends PluginBase
     {
         $cluster = Helpers::getCluster();
 
-        if (! $cluster) {
+        if (!$cluster) {
             return false;
         }
 
@@ -118,7 +121,7 @@ class Plugin extends PluginBase
     {
         $cluster = Helpers::getCluster();
 
-        if (! $cluster) {
+        if (!$cluster) {
             return false;
         }
 

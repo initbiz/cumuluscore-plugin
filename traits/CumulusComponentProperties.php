@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\Traits;
+<?php
+
+namespace Initbiz\CumulusCore\Traits;
 
 trait CumulusComponentProperties
 {

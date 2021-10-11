@@ -1,4 +1,6 @@
-<?php namespace Initbiz\Cumuluscore\Models;
+<?php
+
+namespace Initbiz\Cumuluscore\Models;
 
 use Model;
 
