@@ -28,6 +28,6 @@
         "rainlab/notify-plugin": "^1.0",
         "rainlab/location-plugin": "^1.1",
         "rainlab/userplus-plugin": "^1.1",
-        "initbiz/initdry-plugin": "dev-master"
+        "initbiz/initdry-plugin": "^1.0"
     }
 }
