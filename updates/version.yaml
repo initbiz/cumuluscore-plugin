@@ -180,4 +180,6 @@
 3.5.0:
     - "Relation controller in user's cluster list"
 3.5.1:
+    - "Fix docs"
+3.5.2:
     - "Fix composer dependencies"
