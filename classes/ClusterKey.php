@@ -4,6 +4,7 @@ namespace Initbiz\CumulusCore\Classes;
 
 use Config;
 use Storage;
+use Carbon\Carbon;
 use Illuminate\Encryption\Encrypter;
 use Initbiz\CumulusCore\Classes\Exceptions\CannotOverwriteKeyException;
 
@@ -66,12 +67,82 @@ class ClusterKey
         $lines = explode("\n", $content);
         foreach ($lines as $line) {
             $parts = explode('=', $line);
-            if (isset($parts[1]) && $parts[0] === $clusterSlug) {
+            if (isset($parts[1]) && trim($parts[0]) === $clusterSlug) {
                 $key = trim($parts[1]);
                 break;
             }
         }
+
         return $key;
+    }
+
+    /**
+     * Mark the key of the cluster as deleted
+     *
+     * @param string $clusterSlug
+     * @return void
+     */
+    public static function softDelete(string $clusterSlug, Carbon $timestamp = null)
+    {
+        if (is_null($timestamp)) {
+            $timestamp = Carbon::now();
+        }
+
+        $timestamp = $timestamp->format('Y-m-d-H-i');
+
+        $key = Self::get($clusterSlug);
+        Self::delete($clusterSlug);
+        Self::put($clusterSlug . '-deleted-at-' . $timestamp, $key);
+    }
+
+    /**
+     * Restore the key for the cluster
+     *
+     * @param string $clusterSlug
+     * @param Carbon $timestamp
+     * @return void
+     */
+    public static function restore(string $clusterSlug, Carbon $timestamp)
+    {
+        $timestamp = $timestamp->format('Y-m-d-H-i');
+        $keyWithTimestamp = $clusterSlug . '-deleted-at-' . $timestamp;
+
+        $key = Self::get($keyWithTimestamp);
+        if (!empty($key)) {
+            Self::delete($keyWithTimestamp);
+            Self::put($clusterSlug, $key);
+        }
+    }
+
+    /**
+     * Delete the key of the cluster
+     *
+     * @param string $clusterSlug
+     * @return bool status - if deleting was successful
+     */
+    public static function delete(string $clusterSlug)
+    {
+        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
+        $content = Storage::get($keysFilePath);
+
+        // Backup the file in case of some PHP process failure or exception
+        Self::backupFile();
+
+        try {
+            Storage::delete($keysFilePath);
+
+            $lines = explode("\n", $content);
+            foreach ($lines as $line) {
+                $parts = explode('=', $line);
+
+                if (isset($parts[1]) && trim($parts[0]) !== $clusterSlug) {
+                    Self::put(trim($parts[0]), trim($parts[1]));
+                }
+            }
+        } catch (\Throwable $th) {
+            Self::restoreFile();
+            throw $th;
+        }
     }
 
     /**
@@ -83,5 +154,32 @@ class ClusterKey
     public static function getBin(string $clusterSlug)
     {
         return hex2bin(Self::get($clusterSlug));
+    }
+
+    // Helpers
+
+    /**
+     * Restore the cluster keys file
+     *
+     * @return void
+     */
+    public static function restoreFile()
+    {
+        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
+        Storage::copy($keysFilePath . '-backup', $keysFilePath);
+    }
+
+    /**
+     * Backup the cluster keys file
+     *
+     * @return void
+     */
+    public static function backupFile()
+    {
+        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
+        if (Storage::exists($keysFilePath)) {
+            Storage::delete($keysFilePath . '-backup');
+        }
+        Storage::copy($keysFilePath, $keysFilePath . '-backup');
     }
 }
