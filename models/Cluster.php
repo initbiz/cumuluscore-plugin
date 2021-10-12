@@ -154,6 +154,16 @@ class Cluster extends Model
         }
     }
 
+    public function beforeDelete()
+    {
+        ClusterKey::softDelete($this->slug, $this->deleted_at);
+    }
+
+    public function beforeRestore()
+    {
+        ClusterKey::restore($this->slug, $this->deleted_at);
+    }
+
     // Scopes
 
     public function scopeApplyPlanFilter($query, $filtered)

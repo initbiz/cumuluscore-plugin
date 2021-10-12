@@ -180,6 +180,8 @@
 3.5.0:
     - "Relation controller in user's cluster list"
 3.5.1:
-    - "Fix docs"
+    - 'Fix docs'
 3.5.2:
-    - "Fix composer dependencies"
+    - 'Fix composer dependencies'
+3.5.3:
+    - 'Fix key management while deleting clusters'
