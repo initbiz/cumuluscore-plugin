@@ -136,8 +136,8 @@ class Cluster extends Model
     public function beforeSave()
     {
         $oldCluster = Self::with('plan')->where('id', $this->id)->first();
-        if ($oldCluster && $oldPlan = $oldCluster->plan()->first()) {
-            $plan = $this->plan()->first();
+        if ($oldCluster && $oldPlan = $oldCluster->getPlan()) {
+            $plan = $this->getPlan();
             if ($oldPlan->id !== $plan->id) {
                 Event::fire('initbiz.cumuluscore.planChanged', [$this, $oldPlan, $plan]);
             }
@@ -146,12 +146,22 @@ class Cluster extends Model
 
     public function afterSave()
     {
-        $plan = $this->plan()->first();
+        $plan = $this->getPlan();
 
         if ($plan && $plan->features) {
             $features = (array) $plan->features;
             $this->refreshRegisteredFeatures($features);
         }
+    }
+
+    public function beforeDelete()
+    {
+        ClusterKey::softDelete($this->slug, $this->deleted_at);
+    }
+
+    public function beforeRestore()
+    {
+        ClusterKey::restore($this->slug, $this->deleted_at);
     }
 
     // Scopes
@@ -244,7 +254,7 @@ class Cluster extends Model
      */
     public function getFeaturesAttribute(): array
     {
-        $plan = $this->plan()->first();
+        $plan = $this->getPlan();
 
         if ($plan) {
             $features = $plan->features;
@@ -360,5 +370,21 @@ class Cluster extends Model
         $logEntry->save();
 
         Db::commit();
+    }
+
+    // Helpers
+
+    /**
+     * Internal helper to get plan instance
+     *
+     * @return Plan
+     */
+    public function getPlan()
+    {
+        if (isset($this->plan)) {
+            return $this->plan;
+        }
+
+        return $this->plan = $this->plan()->first();
     }
 }

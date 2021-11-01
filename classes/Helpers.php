@@ -11,6 +11,7 @@ use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Models\GeneralSettings;
 use Initbiz\CumulusCore\Classes\ClusterEncrypter;
 use Initbiz\InitDry\Classes\Helpers as DryHelpers;
+use Initbiz\CumulusCore\Classes\ClusterCacheObject;
 
 class Helpers
 {
@@ -21,9 +22,8 @@ class Helpers
      */
     public static function getCluster()
     {
-        $clusterSlug = Session::get('cumulus_clusterslug', Cookie::get('cumulus_clusterslug'));
-
-        $cluster = Cluster::where('slug', $clusterSlug)->first();
+        $clusterCache = ClusterCacheObject::instance();
+        $cluster = $clusterCache->getCluster();
 
         if (!$cluster) {
             return;
