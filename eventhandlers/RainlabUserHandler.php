@@ -81,11 +81,20 @@ class RainlabUserHandler
             });
 
             $model->addDynamicMethod('canEnter', function ($cluster) use ($model) {
-                return $model->clusters()->whereSlug($cluster->slug)->first() ? true : false;
+                $userClusters = $model->getClusters();
+                return $userClusters->firstWhere('slug', $cluster->slug) ? true : false;
             });
 
             $model->addDynamicMethod('getFullNameAttribute', function ($user) use ($model) {
                 return $model->name . ' ' . $model->surname;
+            });
+
+            $model->addDynamicProperty('clusters');
+            $model->addDynamicMethod('getClusters', function () use ($model) {
+                if (isset($model->clusters)) {
+                    return $model->clusters;
+                }
+                return $model->clusters = $model->clusters()->get();
             });
         });
     }

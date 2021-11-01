@@ -185,3 +185,5 @@
     - 'Fix composer dependencies'
 3.5.3:
     - 'Fix key management while deleting clusters'
+3.5.4:
+    - 'Minor performance improvements'
