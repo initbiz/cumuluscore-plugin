@@ -22,6 +22,9 @@ class ClusterCacheObject extends Singleton
 
     public function getCluster()
     {
+        if (!isset($this->cluster)) {
+            $this->cluster = $this->fetchCluster();
+        }
         return $this->cluster;
     }
 
