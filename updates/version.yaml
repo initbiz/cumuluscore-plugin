@@ -187,3 +187,5 @@
     - 'Fix key management while deleting clusters'
 3.5.4:
     - 'Minor performance improvements'
+3.5.5:
+    - 'Fix tests for cluster cache instance'
