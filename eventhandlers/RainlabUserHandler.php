@@ -16,7 +16,7 @@ class RainlabUserHandler
     {
         $this->addOnRegirectMeAjaxHandler($event);
         $this->addClusterRelation($event);
-        $this->addClusterField($event);
+        // $this->addClusterField($event);
         $this->addMethodsToUser($event);
         $this->addFullNameColumn($event);
         $this->forgetClusterOnLogout($event);
@@ -41,24 +41,6 @@ class RainlabUserHandler
                 'key'      => 'user_id',
                 'otherKey' => 'cluster_id'
             ];
-        });
-    }
-
-    public function addClusterField($event)
-    {
-        Users::extendFormFields(function ($widget) {
-            // Prevent extending of related form instead of the intended User form
-            if (!$widget->model instanceof User) {
-                return;
-            }
-
-            $config = [];
-            $config['clusters'] = [
-                'tab'       => 'initbiz.cumuluscore::lang.users.cluster_tab',
-                'type'      => 'partial',
-            ];
-
-            $widget->addTabFields($config);
         });
     }
 
