@@ -40,7 +40,6 @@ class Users extends RainLabUsers
         $config['clusters'] = [
             'tab'       => 'initbiz.cumuluscore::lang.users.cluster_tab',
             'type'      => 'partial',
-            'path'      => 'plugins/initbiz/cumuluscore/controllers/users/_clusters.htm',
         ];
 
         $form->addTabFields($config);
