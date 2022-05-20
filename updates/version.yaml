@@ -193,3 +193,6 @@
     - 'Fix issue in RainLab.User backend controller'
 3.5.7:
     - 'Fix issue with clusters partial path'
+3.6.0:
+    - 'Add last visited to Cluster and fire firstClusterVisit event'
+    - 3_6_0_add_last_visited_at_to_cluster.php

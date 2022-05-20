@@ -55,6 +55,8 @@ class Helpers
             App::abort(403, 'Cannot access cluster');
         }
 
+        $cluster->touchLastVisited();
+
         Session::put('cumulus_clusterslug', $cluster->slug);
         Cookie::queue(Cookie::forever('cumulus_clusterslug', $cluster->slug));
     }

@@ -2,6 +2,7 @@
 
 namespace Initbiz\CumulusCore\Components;
 
+use Event;
 use Cms\Classes\ComponentBase;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\InitDry\Classes\Helpers as DryHelpers;
@@ -42,6 +43,10 @@ class CumulusGuard extends ComponentBase
         if (!$user || !$user->canEnter($cluster)) {
             $this->setStatusCode(403);
             return $this->controller->run('403');
+        }
+
+        if (empty($cluster->last_visited_at)) {
+            Event::fire('initbiz.cumuluscore.firstClusterVisit', [$cluster, $user]);
         }
 
         Helpers::setCluster($cluster);
