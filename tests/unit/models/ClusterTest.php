@@ -239,6 +239,7 @@ class ClusterTest extends CumulusTestCase
 
     public function testRegisterFeature()
     {
+        \Event::fake();
         $cluster = new Cluster;
         $cluster->name = 'Company';
         $cluster->slug = 'company';
@@ -252,6 +253,7 @@ class ClusterTest extends CumulusTestCase
 
     public function testDeregisterFeature()
     {
+        \Event::fake();
         $cluster = new Cluster;
         $cluster->name = 'Company';
         $cluster->slug = 'company';
