@@ -45,11 +45,13 @@ class CumulusGuard extends ComponentBase
             return $this->controller->run('403');
         }
 
-        if (empty($cluster->last_visited_at)) {
+        $firstVisit = empty($cluster->last_visited_at);
+        Helpers::setCluster($cluster);
+
+        if ($firstVisit) {
             Event::fire('initbiz.cumuluscore.firstClusterVisit', [$cluster, $user]);
         }
 
-        Helpers::setCluster($cluster);
         $this->page['cluster'] = Helpers::getCluster();
     }
 }
