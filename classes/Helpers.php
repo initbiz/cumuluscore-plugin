@@ -57,6 +57,9 @@ class Helpers
 
         $cluster->touchLastVisited();
 
+        $clusterCache = ClusterCacheObject::instance();
+        $clusterCache->setCluster($cluster);
+
         Session::put('cumulus_clusterslug', $cluster->slug);
         Cookie::queue(Cookie::forever('cumulus_clusterslug', $cluster->slug));
     }

@@ -20,17 +20,24 @@ class ClusterCacheObject extends Singleton
         $this->cluster = $this->fetchCluster();
     }
 
+    public function setCluster(Cluster $cluster)
+    {
+        $this->cluster = $cluster;
+    }
+
     public function getCluster()
     {
         if (!isset($this->cluster)) {
             $this->cluster = $this->fetchCluster();
         }
+
         return $this->cluster;
     }
 
     protected function fetchCluster()
     {
         $clusterSlug = Session::get('cumulus_clusterslug', Cookie::get('cumulus_clusterslug'));
+
         return Cluster::with('plan')->where('slug', $clusterSlug)->first();
     }
 }
