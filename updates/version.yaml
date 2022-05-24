@@ -198,3 +198,5 @@
     - 3_6_0_add_last_visited_at_to_cluster.php
 3.6.1:
     - 'Reorder setting cluster and triggering event'
+3.6.2:
+    - 'Fix issue with set cluster to cache current cluster in ClusterCacheObject'
