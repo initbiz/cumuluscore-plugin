@@ -7,6 +7,7 @@ use Event;
 use Model;
 use Carbon\Carbon;
 use RainLab\User\Models\User;
+use October\Rain\Database\Builder;
 use RainLab\Location\Models\Country;
 use Initbiz\CumulusCore\Classes\ClusterKey;
 use Initbiz\Cumuluscore\Models\ClusterFeatureLog;
@@ -187,6 +188,20 @@ class Cluster extends Model
             default:
                 return $query;
         }
+    }
+
+    /**
+     * Filter clusters that can access specified feature
+     *
+     * @param Builder $query
+     * @param string $feature
+     * @return Builder
+     */
+    public function scopeWithAccessToFeature(Builder $query, string $feature): Builder
+    {
+        return $query->whereHas('plan', function($q) use ($feature) {
+            $q->where('features', 'like', '%' . $feature . '%');
+        });
     }
 
     /**
