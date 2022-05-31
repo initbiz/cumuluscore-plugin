@@ -200,7 +200,7 @@ class Cluster extends Model
     public function scopeWithAccessToFeature(Builder $query, string $feature): Builder
     {
         return $query->whereHas('plan', function($q) use ($feature) {
-            $q->where('features', 'like', '%' . $feature . '%');
+            $q->where('features', 'like', '%"' . $feature . '"%');
         });
     }
 
