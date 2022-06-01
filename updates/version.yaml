@@ -200,3 +200,5 @@
     - 'Reorder setting cluster and triggering event'
 3.6.2:
     - 'Fix issue with set cluster to cache current cluster in ClusterCacheObject'
+3.7.0:
+    - 'Add scope withAccessToFeature to cluster model'

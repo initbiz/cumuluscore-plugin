@@ -314,4 +314,43 @@ class ClusterTest extends CumulusTestCase
         $cluster->restore();
         $this->assertEquals($key, ClusterKey::get($cluster->slug));
     }
+
+    public function testScopeGetWithAccessToFeature()
+    {
+        $cluster = new Cluster;
+        $cluster->name = 'Company';
+        $cluster->slug = 'company';
+        $cluster->save();
+
+        $plan = new Plan;
+        $plan->name = 'test plan';
+        $plan->slug = 'test-plan';
+        $plan->features = [
+            'initbiz.cumulusdemo.advanced.dashboard',
+            'initbiz.cumulusdemo.advanced.todo',
+        ];
+        $plan->save();
+
+        $cluster->plan()->add($plan);
+        $cluster->save();
+
+        $cluster2 = new Cluster;
+        $cluster2->name = 'Company';
+        $cluster2->slug = 'company';
+        $cluster2->save();
+
+        $plan2 = new Plan;
+        $plan2->name = 'test plan';
+        $plan2->slug = 'test-plan';
+        $plan2->features = [
+            'initbiz.cumulusdemo.advanced.dashboard',
+        ];
+        $plan2->save();
+
+        $cluster2->plan()->add($plan2);
+        $cluster2->save();
+
+        $this->assertEquals(2, Cluster::withAccessToFeature('initbiz.cumulusdemo.advanced.dashboard')->count());
+        $this->assertEquals(1, Cluster::withAccessToFeature('initbiz.cumulusdemo.advanced.todo')->count());
+    }
 }
