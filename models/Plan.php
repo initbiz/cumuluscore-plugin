@@ -147,17 +147,6 @@ class Plan extends Model
     }
 
     /**
-     * Returns true if the plan can be prolongated
-     *
-     * @return boolean
-     */
-    public function canProlongate()
-    {
-        return ($this->is_expiring && !$this->is_trial);
-    }
-
-
-    /**
      * Get users that belongs to clusters with this plan
      *
      * @return Collection
