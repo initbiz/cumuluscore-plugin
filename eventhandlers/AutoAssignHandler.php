@@ -60,7 +60,11 @@ class AutoAssignHandler
                 $cluster->tax_number     = (isset($data['tax_number']))     ? $data['tax_number'] : null;
                 $cluster->account_number = (isset($data['account_number'])) ? $data['account_number'] : null;
 
+                Event::fire('initbiz.cumuluscore.autoAssignBeforeClusterCreate', [&$cluster, $data]);
+
                 $cluster->save();
+
+                Event::fire('initbiz.cumuluscore.autoAssignAfterClusterCreate', [$cluster]);
             }
 
             try {

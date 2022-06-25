@@ -202,3 +202,5 @@
     - 'Fix issue with set cluster to cache current cluster in ClusterCacheObject'
 3.7.0:
     - 'Add scope withAccessToFeature to cluster model'
+3.8.0:
+    - 'Add auto assign cluster before and after events'
