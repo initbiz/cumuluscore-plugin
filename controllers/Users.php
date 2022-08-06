@@ -36,6 +36,8 @@ class Users extends RainLabUsers
 
     public function formExtendFields($form)
     {
+        parent::formExtendFields($form);
+
         $config = [];
         $config['clusters'] = [
             'tab'       => 'initbiz.cumuluscore::lang.users.cluster_tab',
