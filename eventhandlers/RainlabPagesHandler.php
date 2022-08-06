@@ -2,6 +2,7 @@
 
 namespace Initbiz\CumulusCore\EventHandlers;
 
+use System\Classes\PluginManager;
 use Initbiz\CumulusCore\Classes\MenuManager;
 use Initbiz\CumulusCore\Classes\FeatureManager;
 
@@ -9,6 +10,10 @@ class RainlabPagesHandler
 {
     public function subscribe($event)
     {
+        if (!PluginManager::instance()->hasPlugin('RainLab.Pages')) {
+            return;
+        }
+
         $this->addCumulusPageType($event);
         $this->getCumulusPageTypeInfo($event);
         $this->resolveCumulusPageItem($event);

@@ -193,3 +193,16 @@
     - 'Fix issue in RainLab.User backend controller'
 3.5.7:
     - 'Fix issue with clusters partial path'
+3.6.0:
+    - 'Add last visited to Cluster and fire firstClusterVisit event'
+    - 3_6_0_add_last_visited_at_to_cluster.php
+3.6.1:
+    - 'Reorder setting cluster and triggering event'
+3.6.2:
+    - 'Fix issue with set cluster to cache current cluster in ClusterCacheObject'
+3.7.0:
+    - 'Add scope withAccessToFeature to cluster model'
+3.8.0:
+    - 'Add auto assign cluster before and after events'
+3.9.0:
+    - 'Make RainLab.Pages optional'

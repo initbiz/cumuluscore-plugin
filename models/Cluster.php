@@ -5,7 +5,9 @@ namespace Initbiz\CumulusCore\Models;
 use Db;
 use Event;
 use Model;
+use Carbon\Carbon;
 use RainLab\User\Models\User;
+use October\Rain\Database\Builder;
 use RainLab\Location\Models\Country;
 use Initbiz\CumulusCore\Classes\ClusterKey;
 use Initbiz\Cumuluscore\Models\ClusterFeatureLog;
@@ -28,6 +30,7 @@ class Cluster extends Model
         'created_at',
         'updated_at',
         'deleted_at',
+        'last_visited_at',
     ];
 
     /**
@@ -55,7 +58,8 @@ class Cluster extends Model
         'email',
         'tax_number',
         'account_number',
-        'website'
+        'website',
+        'last_visited_at',
     ];
 
     protected $fillable = [
@@ -70,7 +74,8 @@ class Cluster extends Model
         'email',
         'tax_number',
         'account_number',
-        'website'
+        'website',
+        'last_visited_at',
     ];
 
     /*
@@ -185,6 +190,19 @@ class Cluster extends Model
         }
     }
 
+    /**
+     * Filter clusters that can access specified feature
+     *
+     * @param Builder $query
+     * @param string $feature
+     * @return Builder
+     */
+    public function scopeWithAccessToFeature(Builder $query, string $feature): Builder
+    {
+        return $query->whereHas('plan', function($q) use ($feature) {
+            $q->where('features', 'like', '%"' . $feature . '"%');
+        });
+    }
 
     /**
      * Check if cluster can enter feature
@@ -386,5 +404,15 @@ class Cluster extends Model
         }
 
         return $this->plan = $this->plan()->first();
+    }
+
+    /**
+     * Set last visited at to now
+     *
+     * @return void
+     */
+    public function touchLastVisited()
+    {
+        $this->update(['last_visited_at' => Carbon::now()]);
     }
 }

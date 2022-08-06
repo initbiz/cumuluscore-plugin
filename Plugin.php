@@ -15,7 +15,6 @@ class Plugin extends PluginBase
         'Initbiz.InitDry',
         'RainLab.Location',
         'RainLab.UserPlus',
-        'RainLab.Pages',
     ];
 
     public function pluginDetails()
