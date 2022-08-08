@@ -94,6 +94,7 @@ class Plan extends Model
             if ($this->features === "0") {
                 continue;
             }
+            $cluster->setRelation('plan', $this);
             $cluster->refreshRegisteredFeatures($this->features);
         }
     }
@@ -145,17 +146,6 @@ class Plan extends Model
 
         return false;
     }
-
-    /**
-     * Returns true if the plan can be prolongated
-     *
-     * @return boolean
-     */
-    public function canProlongate()
-    {
-        return ($this->is_expiring && !$this->is_trial);
-    }
-
 
     /**
      * Get users that belongs to clusters with this plan

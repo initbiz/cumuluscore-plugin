@@ -25,7 +25,7 @@ class ClusterFeatureLog extends Model
      * @var array Fillable fields
      */
     protected $fillable = [
-        'cluster_slug',
+        'cluster_id',
         'feature_code',
         'action',
     ];
@@ -39,8 +39,8 @@ class ClusterFeatureLog extends Model
         'cluster' => [
             Cluster::class,
             'table' => 'initbiz_cumuluscore_clusters',
-            'key' => 'slug',
-            'otherKey' => 'cluster_slug',
+            'key' => 'id',
+            'otherKey' => 'cluster_id',
         ]
     ];
 }
