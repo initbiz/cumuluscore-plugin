@@ -206,3 +206,6 @@
     - 'Add auto assign cluster before and after events'
 3.9.0:
     - 'Make RainLab.Pages optional'
+3.9.1:
+    - 'Performance fix, move cluster_slug to cluster_id in feature logs'
+    - 3_9_1_make_cluster_slug_cluster_id_in_feature_logs_table.php

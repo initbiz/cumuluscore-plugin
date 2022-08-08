@@ -94,6 +94,7 @@ class Plan extends Model
             if ($this->features === "0") {
                 continue;
             }
+            $cluster->setRelation('plan', $this);
             $cluster->refreshRegisteredFeatures($this->features);
         }
     }

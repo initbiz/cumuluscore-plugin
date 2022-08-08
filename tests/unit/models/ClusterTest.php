@@ -19,7 +19,7 @@ class ClusterTest extends CumulusTestCase
     {
         $cluster = new Cluster;
         $cluster->name = 'Company';
-        $cluster->slug= 'company';
+        $cluster->slug = 'company';
         $cluster->save();
 
         $plan = new Plan;
@@ -84,13 +84,25 @@ class ClusterTest extends CumulusTestCase
         $plan->save();
 
         $this->assertFalse($cluster->canEnterAnyFeature([]));
-        $this->assertFalse($cluster->canEnterAnyFeature(['initbiz.cumulusdemo.advanced.todo', 'initbiz.cumulusdemo.basic.dashboard']));
+        $this->assertFalse($cluster->canEnterAnyFeature([
+            'initbiz.cumulusdemo.advanced.todo',
+            'initbiz.cumulusdemo.basic.dashboard'
+        ]));
 
         $cluster->plan()->add($plan);
 
-        $this->assertTrue($cluster->canEnterAnyFeature(['initbiz.cumulusdemo.advanced.todo', 'initbiz.cumulusdemo.basic.dashboard']));
-        $this->assertTrue($cluster->canEnterAnyFeature(['initbiz.cumulusdemo.advanced.todo', 'initbiz.cumulusdemo.basic.todo']));
-        $this->assertFalse($cluster->canEnterAnyFeature(['initbiz.cumulusdemo.basic.todo', 'initbiz.cumulusdemo.basic.todo']));
+        $this->assertTrue($cluster->canEnterAnyFeature([
+            'initbiz.cumulusdemo.advanced.todo',
+            'initbiz.cumulusdemo.basic.dashboard'
+        ]));
+        $this->assertTrue($cluster->canEnterAnyFeature([
+            'initbiz.cumulusdemo.advanced.todo',
+            'initbiz.cumulusdemo.basic.todo'
+        ]));
+        $this->assertFalse($cluster->canEnterAnyFeature([
+            'initbiz.cumulusdemo.basic.todo',
+            'initbiz.cumulusdemo.basic.todo'
+        ]));
         $this->assertFalse($cluster->canEnterAnyFeature([]));
     }
 
@@ -246,7 +258,8 @@ class ClusterTest extends CumulusTestCase
         $cluster->save();
 
         $cluster->registerFeature('initbiz.cumulusdemo.basic.dashboard');
-        $log = ClusterFeatureLog::where('cluster_slug', 'company')->where('feature_code', 'initbiz.cumulusdemo.basic.dashboard')->first();
+        $log = ClusterFeatureLog::where('cluster_id', $cluster->id)
+            ->where('feature_code', 'initbiz.cumulusdemo.basic.dashboard')->first();
 
         $this->assertEquals('registered', $log->action);
     }
@@ -260,12 +273,15 @@ class ClusterTest extends CumulusTestCase
         $cluster->save();
 
         $cluster->registerFeature('initbiz.cumulusdemo.basic.dashboard');
-        $log = ClusterFeatureLog::where('cluster_slug', 'company')->where('feature_code', 'initbiz.cumulusdemo.basic.dashboard')->first();
+        $log = ClusterFeatureLog::where('cluster_id', $cluster->id)
+            ->where('feature_code', 'initbiz.cumulusdemo.basic.dashboard')->first();
 
         $this->assertEquals('registered', $log->action);
         sleep(1);
         $cluster->deregisterFeature('initbiz.cumulusdemo.basic.dashboard');
-        $log = ClusterFeatureLog::where('cluster_slug', 'company')->where('feature_code', 'initbiz.cumulusdemo.basic.dashboard')->orderBy('timestamp', 'desc')->first();
+        $log = ClusterFeatureLog::where('cluster_id', $cluster->id)
+            ->where('feature_code', 'initbiz.cumulusdemo.basic.dashboard')
+            ->orderBy('timestamp', 'desc')->first();
 
         $this->assertEquals('deregistered', $log->action);
     }

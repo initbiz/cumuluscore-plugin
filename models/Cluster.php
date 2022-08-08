@@ -124,8 +124,8 @@ class Cluster extends Model
         'featureLogs' => [
             ClusterFeatureLog::class,
             'table' => 'initbiz_cumuluscore_cluster_feature_logs',
-            'key' => 'cluster_slug',
-            'otherKey' => 'slug',
+            'key' => 'cluster_id',
+            'otherKey' => 'id',
         ]
     ];
 
@@ -293,7 +293,7 @@ class Cluster extends Model
      */
     public function getRegisteredFeaturesAttribute(): array
     {
-        $featureLogs = ClusterFeatureLog::clusterFiltered($this->slug)->get()->groupBy('feature_code');
+        $featureLogs = ClusterFeatureLog::clusterIdFiltered($this->id)->get()->groupBy('feature_code');
         $features = [];
 
         foreach ($featureLogs as $feature_code => $group) {
@@ -357,7 +357,7 @@ class Cluster extends Model
         }
 
         $logEntry = new ClusterFeatureLog();
-        $logEntry->cluster_slug = $this->slug;
+        $logEntry->cluster_id = $this->id;
         $logEntry->feature_code = $feature;
         $logEntry->action = 'registered';
         $logEntry->save();
@@ -382,7 +382,7 @@ class Cluster extends Model
         }
 
         $logEntry = new ClusterFeatureLog();
-        $logEntry->cluster_slug = $this->slug;
+        $logEntry->cluster_id = $this->id;
         $logEntry->feature_code = $feature;
         $logEntry->action = 'deregistered';
         $logEntry->save();
