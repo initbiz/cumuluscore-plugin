@@ -209,3 +209,5 @@
 3.9.1:
     - 'Performance fix, move cluster_slug to cluster_id in feature logs'
     - 3_9_1_make_cluster_slug_cluster_id_in_feature_logs_table.php
+3.9.2:
+    - Add link to cluster in users backend controller
