@@ -7,10 +7,12 @@ use Event;
 use Cookie;
 use Session;
 use Validator;
+use RainLab\User\Models\User;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Models\GeneralSettings;
 use Initbiz\CumulusCore\Classes\ClusterEncrypter;
 use Initbiz\InitDry\Classes\Helpers as DryHelpers;
+use Initbiz\CumulusCore\Classes\ClusterCacheObject;
 
 class Helpers
 {
@@ -21,9 +23,8 @@ class Helpers
      */
     public static function getCluster()
     {
-        $clusterSlug = Session::get('cumulus_clusterslug', Cookie::get('cumulus_clusterslug'));
-
-        $cluster = Cluster::where('slug', $clusterSlug)->first();
+        $clusterCache = ClusterCacheObject::instance();
+        $cluster = $clusterCache->getCluster();
 
         if (!$cluster) {
             return;
@@ -40,8 +41,9 @@ class Helpers
      * Set cluster object to session and cookie
      *
      * @param Cluster cluster to set
+     * @param User user to set cluster for
      */
-    public static function setCluster(Cluster $cluster)
+    public static function setCluster(Cluster $cluster, ?User $user = null)
     {
         $currentCluster = self::getCluster();
 
@@ -49,14 +51,25 @@ class Helpers
             return;
         }
 
-        $user = DryHelpers::getUser();
+        if ($user === null) {
+            $user = DryHelpers::getUser();
+        }
+
+        Event::fire('initbiz.cumuluscore.beforeSetCluster', [$cluster, $user]);
 
         if (!$user->canEnter($cluster)) {
             App::abort(403, 'Cannot access cluster');
         }
 
+        $cluster->touchLastVisited();
+
+        $clusterCache = ClusterCacheObject::instance();
+        $clusterCache->setCluster($cluster);
+
         Session::put('cumulus_clusterslug', $cluster->slug);
         Cookie::queue(Cookie::forever('cumulus_clusterslug', $cluster->slug));
+
+        Event::fire('initbiz.cumuluscore.afterSetCluster', [$cluster, $user]);
     }
 
     /**

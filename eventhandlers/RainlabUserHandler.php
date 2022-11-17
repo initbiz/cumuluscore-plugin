@@ -16,7 +16,7 @@ class RainlabUserHandler
     {
         $this->addOnRegirectMeAjaxHandler($event);
         $this->addClusterRelation($event);
-        $this->addClusterField($event);
+        // $this->addClusterField($event);
         $this->addMethodsToUser($event);
         $this->addFullNameColumn($event);
         $this->forgetClusterOnLogout($event);
@@ -44,24 +44,6 @@ class RainlabUserHandler
         });
     }
 
-    public function addClusterField($event)
-    {
-        Users::extendFormFields(function ($widget) {
-            // Prevent extending of related form instead of the intended User form
-            if (!$widget->model instanceof User) {
-                return;
-            }
-
-            $config = [];
-            $config['clusters'] = [
-                'tab'       => 'initbiz.cumuluscore::lang.users.cluster_tab',
-                'type'      => 'partial',
-            ];
-
-            $widget->addTabFields($config);
-        });
-    }
-
     public function addMethodsToUser($event)
     {
         User::extend(function ($model) {
@@ -81,11 +63,20 @@ class RainlabUserHandler
             });
 
             $model->addDynamicMethod('canEnter', function ($cluster) use ($model) {
-                return $model->clusters()->whereSlug($cluster->slug)->first() ? true : false;
+                $userClusters = $model->getClusters();
+                return $userClusters->firstWhere('slug', $cluster->slug) ? true : false;
             });
 
             $model->addDynamicMethod('getFullNameAttribute', function ($user) use ($model) {
                 return $model->name . ' ' . $model->surname;
+            });
+
+            $model->addDynamicProperty('clusters');
+            $model->addDynamicMethod('getClusters', function () use ($model) {
+                if (isset($model->clusters)) {
+                    return $model->clusters;
+                }
+                return $model->clusters = $model->clusters()->get();
             });
         });
     }

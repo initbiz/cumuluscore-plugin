@@ -179,3 +179,37 @@
     - 'Minor cleanup and CumulusGuard fix'
 3.5.0:
     - "Relation controller in user's cluster list"
+3.5.1:
+    - 'Fix docs'
+3.5.2:
+    - 'Fix composer dependencies'
+3.5.3:
+    - 'Fix key management while deleting clusters'
+3.5.4:
+    - 'Minor performance improvements'
+3.5.5:
+    - 'Fix tests for cluster cache instance'
+3.5.6:
+    - 'Fix issue in RainLab.User backend controller'
+3.5.7:
+    - 'Fix issue with clusters partial path'
+3.6.0:
+    - 'Add last visited to Cluster and fire firstClusterVisit event'
+    - 3_6_0_add_last_visited_at_to_cluster.php
+3.6.1:
+    - 'Reorder setting cluster and triggering event'
+3.6.2:
+    - 'Fix issue with set cluster to cache current cluster in ClusterCacheObject'
+3.7.0:
+    - 'Add scope withAccessToFeature to cluster model'
+3.8.0:
+    - 'Add auto assign cluster before and after events'
+3.9.0:
+    - 'Make RainLab.Pages optional'
+3.9.1:
+    - 'Performance fix, move cluster_slug to cluster_id in feature logs'
+    - 3_9_1_make_cluster_slug_cluster_id_in_feature_logs_table.php
+3.9.2:
+    - Add link to cluster in users backend controller
+3.10.0:
+    - New events for setCluster, before and after set

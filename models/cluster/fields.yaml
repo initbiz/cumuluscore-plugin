@@ -1,9 +1,11 @@
 fields:
+
     name:
         label: 'initbiz.cumuluscore::lang.cluster.name'
         span: auto
         required: 1
         type: text
+
     slug:
         label: 'initbiz.cumuluscore::lang.cluster.slug'
         span: auto
@@ -12,6 +14,7 @@ fields:
             field: name
             type: slug
         type: text
+
     username:
         label: 'initbiz.cumuluscore::lang.cluster.username'
         commentAbove: 'initbiz.cumuluscore::lang.cluster.username_comment'
@@ -19,12 +22,13 @@ fields:
         preset:
             field: name
             type: slug
-        type: text
+
     description:
         label: 'initbiz.cumuluscore::lang.cluster.description'
         size: small
         span: full
         type: richeditor
+
 tabs:
     fields:
         email:
@@ -32,26 +36,31 @@ tabs:
             span: auto
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
+
         phone:
             label: 'initbiz.cumuluscore::lang.cluster.phone'
             span: auto
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
+
         thoroughfare:
             label: 'initbiz.cumuluscore::lang.cluster.thoroughfare'
             span: full
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
+
         postal_code:
             label: 'initbiz.cumuluscore::lang.cluster.postal_code'
             span: auto
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
+
         city:
             label: 'initbiz.cumuluscore::lang.cluster.city'
             span: auto
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
+
         country:
             label: 'initbiz.cumuluscore::lang.cluster.country'
             nameFrom: name
@@ -60,27 +69,32 @@ tabs:
             span: auto
             type: relation
             tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
+
         website:
             label: 'initbiz.cumuluscore::lang.cluster.website'
             span: auto
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
+
         account_number:
             label: 'initbiz.cumuluscore::lang.cluster.account_number'
             span: full
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.accounting_details_tab'
+
         tax_number:
             label: 'initbiz.cumuluscore::lang.cluster.tax_number'
             span: auto
             type: text
             tab: 'initbiz.cumuluscore::lang.cluster.accounting_details_tab'
+
         users:
             label: ''
             nameFrom: email
             span: auto
             type: relation
             tab: 'initbiz.cumuluscore::lang.cluster.users'
+
 secondaryTabs:
     fields:
         logo:
@@ -94,6 +108,7 @@ secondaryTabs:
                 extension: auto
             span: full
             type: fileupload
+
         plan:
             label: 'initbiz.cumuluscore::lang.cluster.plan'
             nameFrom: name

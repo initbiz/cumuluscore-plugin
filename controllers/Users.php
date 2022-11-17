@@ -33,4 +33,17 @@ class Users extends RainLabUsers
 
         BackendMenu::setContext('Initbiz.CumulusCore', 'cumulus-main-menu', 'cumulus-side-menu-users');
     }
+
+    public function formExtendFields($form)
+    {
+        parent::formExtendFields($form);
+
+        $config = [];
+        $config['clusters'] = [
+            'tab'       => 'initbiz.cumuluscore::lang.users.cluster_tab',
+            'type'      => 'partial',
+        ];
+
+        $form->addTabFields($config);
+    }
 }
