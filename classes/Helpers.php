@@ -56,6 +56,7 @@ class Helpers
         }
 
         Event::fire('initbiz.cumuluscore.beforeSetCluster', [$cluster, $user]);
+
         if (!$user->canEnter($cluster)) {
             App::abort(403, 'Cannot access cluster');
         }
