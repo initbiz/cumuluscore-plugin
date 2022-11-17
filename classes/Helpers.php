@@ -41,7 +41,7 @@ class Helpers
      * Set cluster object to session and cookie
      *
      * @param Cluster cluster to set
-     * @param User user is trying to set it
+     * @param User user to set cluster for
      */
     public static function setCluster(Cluster $cluster, ?User $user = null)
     {
