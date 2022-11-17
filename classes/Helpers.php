@@ -7,6 +7,7 @@ use Event;
 use Cookie;
 use Session;
 use Validator;
+use RainLab\User\Models\User;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Models\GeneralSettings;
 use Initbiz\CumulusCore\Classes\ClusterEncrypter;
@@ -40,8 +41,9 @@ class Helpers
      * Set cluster object to session and cookie
      *
      * @param Cluster cluster to set
+     * @param User user is trying to set it
      */
-    public static function setCluster(Cluster $cluster)
+    public static function setCluster(Cluster $cluster, ?User $user = null)
     {
         $currentCluster = self::getCluster();
 
@@ -49,8 +51,11 @@ class Helpers
             return;
         }
 
-        $user = DryHelpers::getUser();
+        if ($user === null) {
+            $user = DryHelpers::getUser();
+        }
 
+        Event::fire('initbiz.cumuluscore.beforeSetCluster', [$cluster, $user]);
         if (!$user->canEnter($cluster)) {
             App::abort(403, 'Cannot access cluster');
         }
@@ -62,6 +67,8 @@ class Helpers
 
         Session::put('cumulus_clusterslug', $cluster->slug);
         Cookie::queue(Cookie::forever('cumulus_clusterslug', $cluster->slug));
+
+        Event::fire('initbiz.cumuluscore.afterSetCluster', [$cluster, $user]);
     }
 
     /**
