@@ -6,7 +6,6 @@ use Config;
 use Illuminate\Encryption\Encrypter;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\ClusterKey;
-use Initbiz\CumulusCore\Classes\Exceptions\CannotUseClusterEncrypterException;
 
 /**
  * Cluster encrypter
@@ -31,14 +30,12 @@ class ClusterEncrypter
 
     public function init()
     {
-        $cluster = Helpers::getCluster();
+        $this->cluster = Helpers::getCluster();
+    }
 
-        if (is_null($cluster)) {
-            throw new CannotUseClusterEncrypterException();
-        }
-
+    public function setCluster(Cluster $cluster): void
+    {
         $this->cluster = $cluster;
-        $this->encrypter = $this->makeEncrypter();
     }
 
     /**
@@ -49,7 +46,12 @@ class ClusterEncrypter
      */
     public function encrypt($value)
     {
-        return $this->encrypter->encrypt($value);
+        $encrypter = $this->getEncrypter();
+        if (is_null($encrypter)) {
+            return $value;
+        }
+
+        return $encrypter->encrypt($value);
     }
 
     /**
@@ -60,21 +62,48 @@ class ClusterEncrypter
      */
     public function decrypt($value)
     {
-        return $this->encrypter->decrypt($value);
+        $encrypter = $this->getEncrypter();
+        if (is_null($encrypter)) {
+            return $value;
+        }
+
+        return $encrypter->decrypt($value);
     }
 
     /**
-     * Make the encrypter instance for internal use
+     * Get Encrypter instance, only for internal use
+     * returns null, if can't resolve cluster
      *
-     * @return Encrypter encrypter with cluster's key set
+     * @param Cluster|null $cluster
+     * @return Encrypter|null
      */
-    private function makeEncrypter()
+    private function getEncrypter(?Cluster $cluster = null): ?Encrypter
     {
         if ($this->encrypter instanceof Encrypter) {
             return $this->encrypter;
         }
 
-        $cipherKey = ClusterKey::get($this->cluster->slug);
+        $cluster = $this->cluster;
+        if (!$cluster instanceof Cluster) {
+            $cluster = Helpers::getCluster();
+        }
+
+        if (is_null($cluster)) {
+            return null;
+        }
+
+        return $this->encrypter = $this->makeEncrypter($cluster);
+    }
+
+    /**
+     * Make the encrypter instance for internal use
+     *
+     * @param Cluster $cluster to make encrypter for
+     * @return Encrypter encrypter with cluster's key set
+     */
+    private function makeEncrypter(Cluster $cluster): Encrypter
+    {
+        $cipherKey = ClusterKey::get($cluster->slug);
         $cipher = Config::get('initbiz.cumuluscore::encryption.cipher');
 
         return new Encrypter(hex2bin($cipherKey), $cipher);

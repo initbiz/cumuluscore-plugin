@@ -6,6 +6,7 @@ use Cookie;
 use Session;
 use RainLab\User\Models\User;
 use Initbiz\CumulusCore\Models\Plan;
+use Illuminate\Support\Facades\Event;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Classes\ClusterKey;
@@ -251,7 +252,7 @@ class ClusterTest extends CumulusTestCase
 
     public function testRegisterFeature()
     {
-        \Event::fake();
+        Event::fake();
         $cluster = new Cluster;
         $cluster->name = 'Company';
         $cluster->slug = 'company';
@@ -266,7 +267,7 @@ class ClusterTest extends CumulusTestCase
 
     public function testDeregisterFeature()
     {
-        \Event::fake();
+        Event::fake();
         $cluster = new Cluster;
         $cluster->name = 'Company';
         $cluster->slug = 'company';
