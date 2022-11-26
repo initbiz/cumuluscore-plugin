@@ -29,7 +29,7 @@ trait ClusterEncryptable
      *
      * @var Encrypter
      */
-    private $encrypter;
+    private $clusterEncrypter;
 
     /**
      * bootClusterEncryptable boots the clusterEncryptable trait for a model
@@ -80,11 +80,11 @@ trait ClusterEncryptable
      */
     public function makeClusterEncryptableValue($key, $value)
     {
-        $encrypter = ClusterEncrypter::instance();
+        $clusterEncrypter = ClusterEncrypter::instance();
 
         $this->originalClusterEncryptableValues[$key] = $value;
 
-        return $encrypter->encrypt($value);
+        return $clusterEncrypter->encrypt($value);
     }
 
     /**
@@ -94,9 +94,9 @@ trait ClusterEncryptable
      */
     public function getClusterEncryptableValue($key)
     {
-        $encrypter = ClusterEncrypter::instance();
+        $clusterEncrypter = ClusterEncrypter::instance();
 
-        return $encrypter->decrypt($this->attributes[$key]);
+        return $clusterEncrypter->decrypt($this->attributes[$key]);
     }
 
     /**

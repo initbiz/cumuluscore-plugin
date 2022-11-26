@@ -8,7 +8,6 @@ use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Tests\Classes\CumulusTestCase;
 use Initbiz\CumulusCore\Tests\Classes\EncryptableModel;
-use Initbiz\CumulusCore\Classes\Exceptions\CannotUseClusterEncrypterException;
 
 class ClusterEncryptableTest extends CumulusTestCase
 {
@@ -48,9 +47,5 @@ class ClusterEncryptableTest extends CumulusTestCase
         $record = \Db::table('initbiz_cumuluscore_encryptable_model')->first();
         $this->assertNotEmpty($record->confidential_field);
         $this->assertNotEquals($record->confidential_field, 'Confidential string');
-
-        $this->expectException(CannotUseClusterEncrypterException::class);
-        $encryptableModel->confidential_field = 'Confidential string';
-        $encryptableModel->save();
     }
 }

@@ -213,3 +213,5 @@
     - Add link to cluster in users backend controller
 3.10.0:
     - New events for setCluster, before and after set
+3.11.0:
+    - Make clusterEncrypter more forgiving, it won't encrypt/decrypt value but won't throw exception
