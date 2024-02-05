@@ -1,6 +1,6 @@
 # Cumulus Core - create a SaaS (multi-tenant) application in OctoberCMS
-![Cumulus banner](https://raw.githubusercontent.com/initbizlab/initbizlab.github.io/master/cumuluscore/assets/images/cumulus-banner.png)
+![Cumulus banner](https://raw.githubusercontent.com/initbiz/cumuluscore-plugin/master/docs/cumulus-core.png)
 
-This is the Cumulus Core plugin for OctoberCMS by [InIT.biz](https://www.init.biz).
+This is the Cumulus Core plugin for OctoberCMS by [InIT.biz](https://init.biz/october-cms-developers).
 
-For full documentation visit [https://docs.init.biz/cumuluscore/](https://docs.init.biz/cumuluscore/) or go to [OctoberCMS's marketplace](https://octobercms.com/plugin/initbiz-cumuluscore).
+For full documentation visit [https://docs.init.biz/article/cumulus-core](https://docs.init.biz/article/cumulus-core) or go to [OctoberCMS's marketplace](https://octobercms.com/plugin/initbiz-cumuluscore).
