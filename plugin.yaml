@@ -37,12 +37,12 @@ navigation:
             cumulus-side-menu-clusters:
                 label: 'initbiz.cumuluscore::lang.navigation.clusters'
                 url: initbiz/cumuluscore/clusters
-                icon: icon-yelp
+                icon: icon-building
                 permissions:
                     0: 'initbiz.cumuluscore.access_clusters'
             cumulus-side-menu-plan:
                 label: 'initbiz.cumuluscore::lang.navigation.plans'
                 url: initbiz/cumuluscore/plans
-                icon: icon-codepen
+                icon: icon-map
                 permissions:
                     0: 'initbiz.cumuluscore.access_plans'
