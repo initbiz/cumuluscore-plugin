@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\Updates\Factories;
+<?php
+
+namespace Initbiz\CumulusCore\Updates\Factories;
 
 use Initbiz\CumulusCore\Classes\FeatureManager;
 use Initbiz\CumulusCore\Models\Plan;
@@ -18,7 +20,7 @@ class PlanFactory extends Factory
     public function definition()
     {
         $featureManager = FeatureManager::instance();
-        $name = fake()->shuffleArray(['Free', 'Pro', 'Plus'])[0]; 
+        $name = fake()->shuffleArray(['Free', 'Pro', 'Plus'])[0];
         $features = $featureManager->getFeaturesOptions();
 
         return [
