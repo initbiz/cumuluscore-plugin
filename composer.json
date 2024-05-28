@@ -28,5 +28,8 @@
         "rainlab/location-plugin": "^1.1",
         "rainlab/userplus-plugin": "^1.1",
         "initbiz/initdry-plugin": "^1.0"
+    },
+    "require-dev":{
+        "fakerphp/faker": "^1.23"
     }
 }

@@ -217,3 +217,5 @@
     - Make clusterEncrypter more forgiving, it won't encrypt/decrypt value but won't throw exception
 3.11.1:
     - Fix icons for October CMS 3.6
+3.12.0:
+    - Add factories for Plan and Cluster Model
