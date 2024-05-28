@@ -12,6 +12,7 @@ class Plan extends Model
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\SoftDelete;
+    use \October\Rain\Database\Factories\HasFactory;
 
     /*
      * Disable timestamps by default.
