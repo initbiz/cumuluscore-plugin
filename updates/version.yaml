@@ -223,3 +223,5 @@
     - Add NoAccessToFeature exception
 3.13.1:
     - Make it installable for newer version of RainLab plugins
+3.13.2:
+    - Fix foreign key restriction for new installations
