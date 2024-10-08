@@ -221,3 +221,5 @@
     - Add factories for Plan and Cluster Model
 3.13.0:
     - Add NoAccessToFeature exception
+3.13.1:
+    - "Lower case cipher name"
