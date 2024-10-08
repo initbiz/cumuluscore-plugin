@@ -227,3 +227,5 @@
     - Fix foreign key restriction for new installations
 3.13.3:
     - Make it installable for RainLab.User ^3.0
+3.13.4:
+    - "Lower case cipher name"
