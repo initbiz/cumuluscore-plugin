@@ -222,4 +222,8 @@
 3.13.0:
     - Add NoAccessToFeature exception
 3.13.1:
-    - "Lower case cipher name"
+    - Make it installable for newer version of RainLab plugins
+3.13.2:
+    - Fix foreign key restriction for new installations
+3.13.3:
+    - Make it installable for RainLab.User ^3.0
