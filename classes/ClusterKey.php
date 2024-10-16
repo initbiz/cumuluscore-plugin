@@ -136,9 +136,16 @@ class ClusterKey
         Self::backupFile();
 
         try {
-            $key = self::get($clusterSlug);
-            $content = str_replace($clusterSlug . '=' . $key, '', $content);
-            Storage::put($keysFilePath, $content);
+            $newContent = '';
+            $lines = explode("\n", $content);
+            foreach ($lines as $line) {
+                $parts = explode('=', $line);
+
+                if (isset($parts[1]) && trim($parts[0]) !== $clusterSlug) {
+                    $newContent .= $line . "\n";
+                }
+            }
+            Storage::put($keysFilePath, $newContent);
         } catch (\Throwable $th) {
             Self::restoreFile();
             throw $th;
