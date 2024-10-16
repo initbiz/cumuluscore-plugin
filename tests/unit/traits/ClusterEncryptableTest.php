@@ -2,8 +2,8 @@
 
 namespace Initbiz\CumulusCore\Tests\Models;
 
+use Auth;
 use RainLab\User\Models\User;
-use RainLab\User\Components\Session;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Tests\Classes\CumulusTestCase;
@@ -23,7 +23,6 @@ class ClusterEncryptableTest extends CumulusTestCase
         $user->email = 'test@test.com';
         $user->password = 'test12345';
         $user->password_confirmation = 'test12345';
-        $user->is_activated = 1;
         $user->save();
         $user->clusters()->add($cluster);
 
@@ -33,7 +32,7 @@ class ClusterEncryptableTest extends CumulusTestCase
         $encryptableModel->save();
         $encryptableModel->cluster()->add($cluster);
 
-        $this->manager->login($user);
+        Auth::login($user);
         Helpers::setCluster($cluster);
 
         $encryptableModel->confidential_field = 'Confidential string';
@@ -41,8 +40,7 @@ class ClusterEncryptableTest extends CumulusTestCase
 
         $this->assertEquals($encryptableModel->confidential_field, 'Confidential string');
 
-        $session = new Session();
-        $session->onLogout();
+        Auth::logout($user);
 
         $record = \Db::table('initbiz_cumuluscore_encryptable_model')->first();
         $this->assertNotEmpty($record->confidential_field);

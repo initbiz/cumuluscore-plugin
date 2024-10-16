@@ -219,3 +219,17 @@
     - Fix icons for October CMS 3.6
 3.12.0:
     - Add factories for Plan and Cluster Model
+3.13.0:
+    - Add NoAccessToFeature exception
+3.13.1:
+    - Make it installable for newer version of RainLab plugins
+3.13.2:
+    - Fix foreign key restriction for new installations
+3.13.3:
+    - Make it installable for RainLab.User ^3.0
+3.13.4:
+    - "Lower case cipher name"
+3.13.5:
+    - "Append instead of prepend"
+3.13.6:
+    - "Write tests ready for Rainlab.User 3"
