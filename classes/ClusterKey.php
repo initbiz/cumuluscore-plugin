@@ -49,7 +49,14 @@ class ClusterKey
             $key = bin2hex(Encrypter::generateKey($cipher));
         }
 
-        Storage::prepend($keysFilePath, $clusterSlug . '=' . $key);
+        Self::backupFile();
+
+        try {
+            Storage::append($keysFilePath, $clusterSlug . '=' . $key);
+        } catch (\Throwable $th) {
+            Self::restoreFile();
+            throw $th;
+        }
     }
 
     /**
@@ -129,16 +136,16 @@ class ClusterKey
         Self::backupFile();
 
         try {
-            Storage::delete($keysFilePath);
-
+            $newContent = '';
             $lines = explode("\n", $content);
             foreach ($lines as $line) {
                 $parts = explode('=', $line);
 
                 if (isset($parts[1]) && trim($parts[0]) !== $clusterSlug) {
-                    Self::put(trim($parts[0]), trim($parts[1]));
+                    $newContent .= $line . "\n";
                 }
             }
+            Storage::put($keysFilePath, $newContent);
         } catch (\Throwable $th) {
             Self::restoreFile();
             throw $th;

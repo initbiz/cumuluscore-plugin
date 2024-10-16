@@ -18,8 +18,16 @@ class ClusterKeyTest extends CumulusTestCase
         ClusterKey::put('cluster-slug', $key);
 
         $content = Storage::get($keysFilePath);
-        $this->assertEquals($content, 'cluster-slug=' . $key . "\n");
+        $this->assertEquals($content, "\ncluster-slug=" . $key);
 
+        $key = '3cc99ba0f00ab45b1526bc4c469495d6db07772659f964aa2c86c858a98932fe';
+        ClusterKey::put('cluster-slug-1', $key);
+
+        $content = Storage::get($keysFilePath);
+        $correctContent = "\ncluster-slug=" . $key . "\n";
+        $correctContent .= "cluster-slug-1=" . $key;
+
+        $this->assertEquals($content, $correctContent);
         $this->expectException(CannotOverwriteKeyException::class);
         ClusterKey::put('cluster-slug', $key);
     }
