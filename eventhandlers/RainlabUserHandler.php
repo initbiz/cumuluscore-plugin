@@ -5,6 +5,7 @@ namespace Initbiz\CumulusCore\EventHandlers;
 use Lang;
 use Redirect;
 use RainLab\User\Models\User;
+use Illuminate\Auth\Events\Logout;
 use RainLab\User\Controllers\Users;
 use RainLab\User\Components\Account;
 use Initbiz\CumulusCore\Models\Cluster;
@@ -100,5 +101,9 @@ class RainlabUserHandler
         $event->listen('rainlab.user.logout', function ($user) {
             Helpers::forgetCluster();
         }, 100);
+
+        $event->listen(Logout::class, function($user) {
+            Helpers::forgetCluster();
+        });
     }
 }

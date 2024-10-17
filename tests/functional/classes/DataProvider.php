@@ -41,8 +41,8 @@ class DataProvider
         $user = new User();
         $password = $faker->password(8, 20);
 
-        $user->name = $faker->firstName;
-        $user->surname = $faker->lastName;
+        $user->first_name = $faker->firstName;
+        $user->last_name = $faker->lastName;
         $user->email = $faker->email;
         $user->phone = $faker->phoneNumber;
         $user->mobile = $faker->phoneNumber;

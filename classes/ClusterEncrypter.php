@@ -106,6 +106,6 @@ class ClusterEncrypter
         $cipherKey = ClusterKey::get($cluster->slug);
         $cipher = Config::get('initbiz.cumuluscore::encryption.cipher');
 
-        return new Encrypter(hex2bin($cipherKey), $cipher);
+        return new Encrypter(hex2bin($cipherKey), strtolower($cipher));
     }
 }

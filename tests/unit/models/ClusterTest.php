@@ -2,6 +2,7 @@
 
 namespace Initbiz\CumulusCore\Tests\Unit\Models;
 
+use Auth;
 use Cookie;
 use Session;
 use RainLab\User\Models\User;
@@ -11,7 +12,6 @@ use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Classes\ClusterKey;
 use Initbiz\Cumuluscore\Models\ClusterFeatureLog;
-use RainLab\User\Components\Session as UserSession;
 use Initbiz\CumulusCore\Tests\Classes\CumulusTestCase;
 
 class ClusterTest extends CumulusTestCase
@@ -295,21 +295,19 @@ class ClusterTest extends CumulusTestCase
         $cluster->save();
 
         $user = new User();
-        $user->name = 'test';
+        $user->first_name = 'test';
         $user->email = 'test@test.com';
         $user->password = 'test12345';
         $user->password_confirmation = 'test12345';
-        $user->is_activated = 1;
         $user->save();
         $user->clusters()->add($cluster);
 
-        $this->manager->login($user);
+        Auth::login($user);
         Helpers::setCluster($cluster);
         $cluster = Helpers::getCluster();
         $this->assertNotNull($cluster);
 
-        $session = new UserSession();
-        $session->onLogout();
+        Auth::logout();
         $cluster = Helpers::getCluster();
         $this->assertNull($cluster);
         $this->assertNull(Cookie::get('cumulus_clusterslug'));
