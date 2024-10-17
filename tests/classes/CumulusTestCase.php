@@ -4,18 +4,10 @@ namespace Initbiz\CumulusCore\Tests\Classes;
 
 use Schema;
 use Storage;
-use RainLab\User\Classes\AuthManager;
 use Initbiz\InitDry\Tests\Classes\FullPluginTestCase;
 
 class CumulusTestCase extends FullPluginTestCase
 {
-    /**
-     * AuthManager used to login/logout the users
-     *
-     * @var AuthManager
-     */
-    protected $manager;
-
     public function setUp(): void
     {
         parent::setUp();
@@ -29,12 +21,5 @@ class CumulusTestCase extends FullPluginTestCase
             $table->integer('cluster_id')->unsigned()->nullable();
             $table->timestamps();
         });
-
-        app()->bind('user.auth', function () {
-            return AuthManager::instance();
-        });
-
-        $this->manager = AuthManager::instance();
-        $this->manager->logout();
     }
 }
