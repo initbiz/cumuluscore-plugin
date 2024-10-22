@@ -2,6 +2,7 @@
 
 namespace Initbiz\CumulusCore\Classes;
 
+use App;
 use Config;
 use Storage;
 use Carbon\Carbon;
@@ -23,7 +24,7 @@ class ClusterKey
      */
     public static function put(string $clusterSlug, string $key = null)
     {
-        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
+        $keysFilePath = self::getKeysFilePath();
 
         // Create the keys file if it doesn't exist
         // ensure that the file is only readable and writable by the user who
@@ -67,7 +68,7 @@ class ClusterKey
      */
     public static function get(string $clusterSlug)
     {
-        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
+        $keysFilePath = self::getKeysFilePath();
         $content = Storage::get($keysFilePath);
 
         $key = '';
@@ -129,7 +130,7 @@ class ClusterKey
      */
     public static function delete(string $clusterSlug)
     {
-        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
+        $keysFilePath = self::getKeysFilePath();
         $content = Storage::get($keysFilePath);
 
         // Backup the file in case of some PHP process failure or exception
@@ -172,7 +173,7 @@ class ClusterKey
      */
     public static function restoreFile()
     {
-        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
+        $keysFilePath = self::getKeysFilePath();
         Storage::copy($keysFilePath . '-backup', $keysFilePath);
     }
 
@@ -183,10 +184,27 @@ class ClusterKey
      */
     public static function backupFile()
     {
-        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
+        $keysFilePath = self::getKeysFilePath();
+
         if (Storage::exists($keysFilePath)) {
             Storage::delete($keysFilePath . '-backup');
         }
         Storage::copy($keysFilePath, $keysFilePath . '-backup');
+    }
+
+    /**
+     * Get path there keys are stored
+     *
+     * @return string
+     */
+    public static function getKeysFilePath(): string
+    {
+        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
+
+        if (App::runningUnitTests()) {
+            $keysFilePath .= '.testing';
+        }
+
+        return $keysFilePath;
     }
 }

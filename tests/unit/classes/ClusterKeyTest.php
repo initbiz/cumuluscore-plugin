@@ -13,7 +13,7 @@ class ClusterKeyTest extends CumulusTestCase
 {
     public function testPut()
     {
-        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
+        $keysFilePath = ClusterKey::getKeysFilePath();
         $key = '3cc99ba0f00ab45b1526bc4c469495d6db07772659f964aa2c86c858a98932fe';
         ClusterKey::put('cluster-slug', $key);
 
