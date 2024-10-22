@@ -231,3 +231,5 @@
     - "Lower case cipher name"
 3.13.5:
     - "Append instead of prepend"
+3.13.6:
+    - "Fix usage of cluster keys file in tests"
