@@ -232,4 +232,6 @@
 3.13.5:
     - "Append instead of prepend"
 3.13.6:
+    - "Write tests ready for Rainlab.User 3"
+3.13.7:
     - "Fix usage of cluster keys file in tests"
