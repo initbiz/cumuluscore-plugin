@@ -202,7 +202,7 @@ class ClusterKey
         $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
 
         if (App::runningUnitTests()) {
-            $keysFilePath .= 'testing';
+            $keysFilePath .= '.testing';
         }
 
         return $keysFilePath;
