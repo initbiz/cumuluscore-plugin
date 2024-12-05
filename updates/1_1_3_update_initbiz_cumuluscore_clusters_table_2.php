@@ -22,7 +22,7 @@ class UpdateInitbizCumuluscoreClustersTable2 extends Migration
         });
 
         Schema::table('initbiz_cumuluscore_clusters', function ($table) {
-            $table->bigInteger('country_id')->unsigned()->nullable();
+            $table->integer('country_id')->unsigned()->nullable();
             $table->foreign('country_id')->references('id')->on('rainlab_location_countries');
         });
     }
