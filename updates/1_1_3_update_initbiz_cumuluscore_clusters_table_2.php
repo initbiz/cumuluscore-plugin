@@ -1,4 +1,6 @@
-<?php namespace Initbiz\CumulusCore\Updates;
+<?php
+
+namespace Initbiz\CumulusCore\Updates;
 
 use Schema;
 use Illuminate\Support\Facades\DB;
@@ -12,8 +14,6 @@ class UpdateInitbizCumuluscoreClustersTable2 extends Migration
             $table->string('thoroughfare')->nullable();
             $table->string('city')->nullable();
             $table->string('phone')->nullable();
-            $table->integer('country_id')->unsigned()->nullable();
-            $table->foreign('country_id')->references('id')->on('rainlab_location_countries');
             $table->string('postal_code')->nullable();
             $table->text('description')->nullable();
             $table->string('email')->nullable();
@@ -22,7 +22,7 @@ class UpdateInitbizCumuluscoreClustersTable2 extends Migration
         });
 
         Schema::table('initbiz_cumuluscore_clusters', function ($table) {
-            $table->integer('country_id')->unsigned()->nullable();
+            $table->intteger('country_id')->unsigned()->nullable();
             $table->foreign('country_id')->references('id')->on('rainlab_location_countries');
         });
     }
