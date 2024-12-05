@@ -20,14 +20,11 @@ class UpdateInitbizCumuluscoreClustersTable2 extends Migration
             $table->string('tax_number')->nullable();
             $table->string('account_number')->nullable();
         });
-<<<<<<< Updated upstream
-=======
 
         Schema::table('initbiz_cumuluscore_clusters', function ($table) {
             $table->integer('country_id')->unsigned()->nullable();
             $table->foreign('country_id')->references('id')->on('rainlab_location_countries');
         });
->>>>>>> Stashed changes
     }
 
     public function down()
