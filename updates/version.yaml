@@ -237,3 +237,5 @@
     - "Fix usage of cluster keys file in tests"
 3.14.0:
     - "Add command to clear cluster keys file"
+3.15.0:
+    - "Extract cluster keys to separate files"

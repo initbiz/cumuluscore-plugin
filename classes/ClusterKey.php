@@ -25,9 +25,9 @@ class ClusterKey
      */
     public static function put(string $clusterSlug, string $key = null): void
     {
-        $key = Self::get($clusterSlug);
+        $currentKey = Self::get($clusterSlug);
 
-        if (!empty($key)) {
+        if (!empty($currentKey)) {
             throw new CannotOverwriteKeyException();
         }
 

@@ -22,6 +22,10 @@ class ExtractClusterKeysFile extends Command
         $lines = explode("\n", $content);
         foreach ($lines as $line) {
             $parts = explode('=', $line);
+            if (!isset($parts[1])) {
+                continue;
+            }
+
             try {
                 ClusterKey::put($parts[0], $parts[1]);
             } catch (CannotOverwriteKeyException $th) {
