@@ -13,21 +13,18 @@ class ClusterKeyTest extends CumulusTestCase
 {
     public function testPut()
     {
-        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
         $key = '3cc99ba0f00ab45b1526bc4c469495d6db07772659f964aa2c86c858a98932fe';
         ClusterKey::put('cluster-slug', $key);
 
-        $content = Storage::get($keysFilePath);
-        $this->assertEquals($content, "\ncluster-slug=" . $key);
+        $content = Storage::get(ClusterKey::keysPath('cluster-slug'));
+        $this->assertEquals($content, $key);
 
         $key = '3cc99ba0f00ab45b1526bc4c469495d6db07772659f964aa2c86c858a98932fe';
         ClusterKey::put('cluster-slug-1', $key);
 
-        $content = Storage::get($keysFilePath);
-        $correctContent = "\ncluster-slug=" . $key . "\n";
-        $correctContent .= "cluster-slug-1=" . $key;
+        $content = Storage::get(ClusterKey::keysPath('cluster-slug-1'));
+        $this->assertEquals($content, $key);
 
-        $this->assertEquals($content, $correctContent);
         $this->expectException(CannotOverwriteKeyException::class);
         ClusterKey::put('cluster-slug', $key);
     }
@@ -85,5 +82,14 @@ class ClusterKeyTest extends CumulusTestCase
         ClusterKey::restore('cluster-slug', $timestamp);
 
         $this->assertEquals($key, ClusterKey::get('cluster-slug'));
+    }
+
+    public function testKeysPath()
+    {
+        $this->assertEquals('cumulus/keys.testing', ClusterKey::keysPath());
+
+        // Ensure backward compatibility works - the directory will be the same as key in your previous configuration
+        Config::set('initbiz.cumuluscore::encryption.keys_file_path', 'other/directory/cluster_keys');
+        $this->assertEquals('other/directory.testing', ClusterKey::keysPath());
     }
 }
