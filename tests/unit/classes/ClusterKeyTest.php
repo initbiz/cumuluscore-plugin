@@ -2,7 +2,6 @@
 
 namespace Initbiz\CumulusCore\Tests\Models;
 
-use Config;
 use Storage;
 use Carbon\Carbon;
 use Initbiz\CumulusCore\Classes\ClusterKey;
