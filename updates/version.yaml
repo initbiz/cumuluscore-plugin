@@ -235,3 +235,5 @@
     - "Write tests ready for Rainlab.User 3"
 3.13.7:
     - "Fix usage of cluster keys file in tests"
+3.14.0:
+    - "Add command to clear cluster keys file"
