@@ -7,7 +7,6 @@ use Config;
 use Storage;
 use Carbon\Carbon;
 use Illuminate\Encryption\Encrypter;
-use Initbiz\CumulusCore\Classes\Exceptions\CannotRestoreKeyException;
 use Initbiz\CumulusCore\Classes\Exceptions\CannotOverwriteKeyException;
 
 /**
@@ -23,11 +22,26 @@ class ClusterKey
      * @param string $key
      * @return void
      */
-    public static function put(string $clusterSlug, string $key = null): void
+    public static function put(string $clusterSlug, string $key = null)
     {
-        $key = Self::get($clusterSlug);
+        $keysFilePath = self::getKeysFilePath();
 
-        if (!empty($key)) {
+        // Create the keys file if it doesn't exist
+        // ensure that the file is only readable and writable by the user who
+        // run the command - probably it's the webserver user
+
+        if (!Storage::exists($keysFilePath)) {
+            Storage::put($keysFilePath, '');
+            try {
+                chmod($keysFilePath, '600');
+            } catch (\Throwable $th) {
+                trace_log('Problems with setting chmod on clusters keys file - check the permissions manually');
+            }
+        }
+
+        $keyExists = Self::get($clusterSlug);
+
+        if ($keyExists) {
             throw new CannotOverwriteKeyException();
         }
 
@@ -36,13 +50,13 @@ class ClusterKey
             $key = bin2hex(Encrypter::generateKey($cipher));
         }
 
-        $keyPath = Self::keysPath($clusterSlug);
-        Storage::put($keyPath, $key);
+        Self::backupFile();
 
         try {
-            chmod($keyPath, '600');
+            Storage::append($keysFilePath, $clusterSlug . '=' . $key);
         } catch (\Throwable $th) {
-            trace_log('Problems with setting chmod on clusters keys directory - set permissions manually');
+            Self::restoreFile();
+            throw $th;
         }
     }
 
@@ -54,8 +68,20 @@ class ClusterKey
      */
     public static function get(string $clusterSlug)
     {
-        $keyPath = Self::keysPath($clusterSlug);
-        return Storage::get($keyPath);
+        $keysFilePath = self::getKeysFilePath();
+        $content = Storage::get($keysFilePath);
+
+        $key = '';
+        $lines = explode("\n", $content);
+        foreach ($lines as $line) {
+            $parts = explode('=', $line);
+            if (isset($parts[1]) && trim($parts[0]) === $clusterSlug) {
+                $key = trim($parts[1]);
+                break;
+            }
+        }
+
+        return $key;
     }
 
     /**
@@ -66,18 +92,15 @@ class ClusterKey
      */
     public static function softDelete(string $clusterSlug, Carbon $timestamp = null)
     {
-        $key = Self::get($clusterSlug);
-
-        if (empty($key)) {
-            return;
-        }
-
         if (is_null($timestamp)) {
             $timestamp = Carbon::now();
         }
 
-        $withTimestamp = $clusterSlug . '-deleted-at-' . $timestamp->format('Y-m-d-H-i');
-        Storage::move(Self::keysPath($clusterSlug), Self::keysPath($withTimestamp));
+        $timestamp = $timestamp->format('Y-m-d-H-i');
+
+        $key = Self::get($clusterSlug);
+        Self::delete($clusterSlug);
+        Self::put($clusterSlug . '-deleted-at-' . $timestamp, $key);
     }
 
     /**
@@ -89,19 +112,14 @@ class ClusterKey
      */
     public static function restore(string $clusterSlug, Carbon $timestamp)
     {
-        $withTimestamp = $clusterSlug . '-deleted-at-' . $timestamp->format('Y-m-d-H-i');
+        $timestamp = $timestamp->format('Y-m-d-H-i');
+        $keyWithTimestamp = $clusterSlug . '-deleted-at-' . $timestamp;
 
-        $key = Self::get($withTimestamp);
-        if (empty($key)) {
-            throw new CannotRestoreKeyException("Couldn't find key to restore: " . $withTimestamp);
-        }
-
-        $key = Self::get($clusterSlug);
+        $key = Self::get($keyWithTimestamp);
         if (!empty($key)) {
-            throw new CannotRestoreKeyException("Key name already taken when restoring key: " . $withTimestamp);
+            Self::delete($keyWithTimestamp);
+            Self::put($clusterSlug, $key);
         }
-
-        Storage::move(Self::keysPath($withTimestamp), Self::keysPath($clusterSlug));
     }
 
     /**
@@ -112,8 +130,27 @@ class ClusterKey
      */
     public static function delete(string $clusterSlug)
     {
-        $keyPath = Self::keysPath($clusterSlug);
-        return Storage::delete($keyPath);
+        $keysFilePath = self::getKeysFilePath();
+        $content = Storage::get($keysFilePath);
+
+        // Backup the file in case of some PHP process failure or exception
+        Self::backupFile();
+
+        try {
+            $newContent = '';
+            $lines = explode("\n", $content);
+            foreach ($lines as $line) {
+                $parts = explode('=', $line);
+
+                if (isset($parts[1]) && trim($parts[0]) !== $clusterSlug) {
+                    $newContent .= $line . "\n";
+                }
+            }
+            Storage::put($keysFilePath, $newContent);
+        } catch (\Throwable $th) {
+            Self::restoreFile();
+            throw $th;
+        }
     }
 
     /**
@@ -127,48 +164,47 @@ class ClusterKey
         return hex2bin(Self::get($clusterSlug));
     }
 
+    // Helpers
+
+    /**
+     * Restore the cluster keys file
+     *
+     * @return void
+     */
+    public static function restoreFile()
+    {
+        $keysFilePath = self::getKeysFilePath();
+        Storage::copy($keysFilePath . '-backup', $keysFilePath);
+    }
+
+    /**
+     * Backup the cluster keys file
+     *
+     * @return void
+     */
+    public static function backupFile()
+    {
+        $keysFilePath = self::getKeysFilePath();
+
+        if (Storage::exists($keysFilePath)) {
+            Storage::delete($keysFilePath . '-backup');
+        }
+        Storage::copy($keysFilePath, $keysFilePath . '-backup');
+    }
+
     /**
      * Get path there keys are stored
      *
-     * @param string $file to append to the path if provided
      * @return string
      */
-    public static function keysPath(string $file = ''): string
+    public static function getKeysFilePath(): string
     {
-        $keysDir = Config::get('initbiz.cumuluscore::encryption.keys_dir');
-
-        // Checking the file for backward compatibility
-        $keysFile = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
-        if ($keysFile !== 'cluster_keys') {
-            $parts = explode('/', $keysFile);
-            if (count($parts) > 1) {
-                array_pop($parts);
-                $keysDir = implode('/', $parts);
-            }
-        }
+        $keysFilePath = Config::get('initbiz.cumuluscore::encryption.keys_file_path');
 
         if (App::runningUnitTests()) {
-            $keysDir .= '.testing';
+            $keysFilePath .= '.testing';
         }
 
-        // Create the keys dir if it doesn't exist
-        // ensure that the directory is only readable and writable by the user who
-        // runs the command - probably the webserver user
-
-        if (!Storage::exists($keysDir)) {
-            Storage::makeDirectory($keysDir);
-            try {
-                chmod($keysDir, '700');
-            } catch (\Throwable $th) {
-                trace_log('Problems with setting chmod on clusters keys directory - set permissions manually');
-            }
-        }
-
-        if (!empty($file)) {
-            $file = ltrim($file, '/');
-            $keysDir .= '/' . $file;
-        }
-
-        return $keysDir;
+        return $keysFilePath;
     }
 }
