@@ -25,9 +25,9 @@ class ClusterKey
      */
     public static function put(string $clusterSlug, string $key = null): void
     {
-        $keyExists = Self::get($clusterSlug);
+        $key = Self::get($clusterSlug);
 
-        if (!empty($keyExists)) {
+        if (!empty($key)) {
             throw new CannotOverwriteKeyException();
         }
 
@@ -40,7 +40,7 @@ class ClusterKey
         Storage::put($keyPath, $key);
 
         try {
-            chmod($keyPath, '700');
+            chmod($keyPath, '600');
         } catch (\Throwable $th) {
             trace_log('Problems with setting chmod on clusters keys directory - set permissions manually');
         }
