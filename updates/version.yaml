@@ -239,3 +239,4 @@
     - "Add command to clear cluster keys file"
 3.15.0:
     - "Extract cluster keys to separate files"
+    - 3_15_0_extract_cluster_keys.php
