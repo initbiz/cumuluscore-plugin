@@ -34,12 +34,20 @@ class Plugin extends PluginBase
         Event::subscribe(\Initbiz\CumulusCore\EventHandlers\RainlabUserHandler::class);
     }
 
+    public function register()
+    {
+        $this->registerConsoleCommand(
+            'cumulus:clean-keys-file',
+            \Initbiz\CumulusCore\Console\CleanClusterKeysFile::class
+        );
+    }
+
     public function registerComponents()
     {
         return [
-            'Initbiz\CumulusCore\Components\FeatureGuard'      =>  'featureGuard',
-            'Initbiz\CumulusCore\Components\CumulusGuard'      =>  'cumulusGuard',
-            'Initbiz\CumulusCore\Components\UserClustersList'  =>  'clustersList',
+            \Initbiz\CumulusCore\Components\FeatureGuard::class =>  'featureGuard',
+            \Initbiz\CumulusCore\Components\CumulusGuard::class =>  'cumulusGuard',
+            \Initbiz\CumulusCore\Components\UserClustersList::class =>  'clustersList',
         ];
     }
 
@@ -51,7 +59,7 @@ class Plugin extends PluginBase
                 'description'   => 'initbiz.cumuluscore::lang.settings.general_description',
                 'category'      => 'initbiz.cumuluscore::lang.settings.menu_category',
                 'icon'          => 'icon-cogs',
-                'class'         => 'Initbiz\CumulusCore\Models\GeneralSettings',
+                'class'         => \Initbiz\CumulusCore\Models\GeneralSettings::class,
                 'permissions'   => ['initbiz.cumuluscore.settings_access_general'],
                 'order'         => 100
             ],
@@ -60,7 +68,7 @@ class Plugin extends PluginBase
                 'description'   => 'initbiz.cumuluscore::lang.settings.menu_auto_assign_description',
                 'category'      => 'initbiz.cumuluscore::lang.settings.menu_category',
                 'icon'          => 'icon-sitemap',
-                'class'         => 'Initbiz\CumulusCore\Models\AutoAssignSettings',
+                'class'         => \Initbiz\CumulusCore\Models\AutoAssignSettings::class,
                 'permissions'   => ['initbiz.cumuluscore.settings_access_auto_assign'],
                 'order'         => 110
             ],
@@ -89,7 +97,7 @@ class Plugin extends PluginBase
     public function registerCumulusAnnouncerTypes()
     {
         return [
-            '\Initbiz\CumulusCore\AnnouncerTypes\UserRegisterAnnouncerType',
+            \Initbiz\CumulusCore\AnnouncerTypes\UserRegisterAnnouncerType::class,
         ];
     }
 
