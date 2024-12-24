@@ -5,7 +5,7 @@ namespace Initbiz\CumulusCore\Updates;
 use October\Rain\Database\Updates\Migration;
 use Initbiz\CumulusCore\Console\ExtractClusterKeysFile;
 
-class MakeClusterSlugClusterIdInFeatureLogsTable extends Migration
+class ExtractClusterKeys extends Migration
 {
     public function up()
     {
