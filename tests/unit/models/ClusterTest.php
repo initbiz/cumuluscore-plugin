@@ -321,7 +321,8 @@ class ClusterTest extends CumulusTestCase
         $cluster->slug = 'company';
         $cluster->save();
 
-        $this->assertNotEmpty($key = ClusterKey::get($cluster->slug));
+        $key = ClusterKey::get($cluster->slug);
+        $this->assertNotEmpty($key);
 
         $cluster->delete();
         $this->assertEmpty(ClusterKey::get($cluster->slug));
