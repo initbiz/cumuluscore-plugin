@@ -40,7 +40,10 @@ class ClusterKey
         Storage::put($keyPath, $key);
 
         try {
-            chmod($keyPath, '600');
+            $chmodSucceeded = chmod($keyPath, '600');
+            if (!$chmodSucceeded) {
+                throw new \Exception("Chmod returned false - it didn't work");
+            }
         } catch (\Throwable $th) {
             trace_log('Problems with setting chmod on clusters keys directory - set permissions manually');
         }
@@ -158,7 +161,10 @@ class ClusterKey
         if (!Storage::exists($keysDir)) {
             Storage::makeDirectory($keysDir);
             try {
-                chmod($keysDir, '700');
+                $chmodSucceeded = chmod($keysDir, '700');
+                if (!$chmodSucceeded) {
+                    throw new \Exception("Chmod returned false - it didn't work");
+                }
             } catch (\Throwable $th) {
                 trace_log('Problems with setting chmod on clusters keys directory - set permissions manually');
             }
