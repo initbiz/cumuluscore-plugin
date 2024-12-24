@@ -40,6 +40,11 @@ class Plugin extends PluginBase
             'cumulus:clean-keys-file',
             \Initbiz\CumulusCore\Console\CleanClusterKeysFile::class
         );
+
+        $this->registerConsoleCommand(
+            'cumulus:extract-cluster-keys-file',
+            \Initbiz\CumulusCore\Console\ExtractClusterKeysFile::class
+        );
     }
 
     public function registerComponents()

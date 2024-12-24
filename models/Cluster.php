@@ -134,6 +134,14 @@ class Cluster extends Model
         'logo' => ['System\Models\File']
     ];
 
+    /**
+     * Workaround for beforeRestore event being dispatched twice
+     * To be removed when Laravel/October fixes the issue
+     *
+     * @var boolean
+     */
+    private $keyRestored = false;
+
     public function afterCreate()
     {
         ClusterKey::put($this->slug);
@@ -160,14 +168,18 @@ class Cluster extends Model
         }
     }
 
-    public function beforeDelete()
+    public function afterDelete()
     {
         ClusterKey::softDelete($this->slug, $this->deleted_at);
+        $this->keyRestored = false;
     }
 
     public function beforeRestore()
     {
-        ClusterKey::restore($this->slug, $this->deleted_at);
+        if (!$this->keyRestored) {
+            ClusterKey::restore($this->slug, $this->deleted_at);
+            $this->keyRestored = true;
+        }
     }
 
     // Scopes
