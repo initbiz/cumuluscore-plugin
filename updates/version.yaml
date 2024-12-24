@@ -242,3 +242,5 @@
     - 3_15_0_extract_cluster_keys.php
 3.15.1:
     - "Typo fix"
+3.15.2:
+    - "Fix permissions setting on cluster keys"
