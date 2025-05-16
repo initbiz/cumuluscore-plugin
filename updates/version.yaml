@@ -244,3 +244,5 @@
     - "Typo fix"
 3.15.2:
     - "Fix permissions setting on cluster keys"
+3.16.0:
+    - "Onboarding announcer type, a few minor fixes, and cleanup"

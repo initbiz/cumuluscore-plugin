@@ -64,20 +64,15 @@ class RainlabUserHandler
             });
 
             $model->addDynamicMethod('canEnter', function ($cluster) use ($model) {
-                $userClusters = $model->getClusters();
-                return $userClusters->firstWhere('slug', $cluster->slug) ? true : false;
+                return $model->clusters->firstWhere('slug', $cluster->slug) ? true : false;
             });
 
             $model->addDynamicMethod('getFullNameAttribute', function ($user) use ($model) {
                 return $model->name . ' ' . $model->surname;
             });
 
-            $model->addDynamicProperty('clusters');
             $model->addDynamicMethod('getClusters', function () use ($model) {
-                if (isset($model->clusters)) {
-                    return $model->clusters;
-                }
-                return $model->clusters = $model->clusters()->get();
+                return $model->clusters;
             });
         });
     }
