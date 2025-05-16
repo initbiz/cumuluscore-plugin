@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Tests\Models;
 
 use Auth;
@@ -15,7 +17,7 @@ class ClusterEncryptableTest extends CumulusTestCase
     {
         $cluster = new Cluster();
         $cluster->name = 'Company';
-        $cluster->slug= 'company';
+        $cluster->slug = 'company';
         $cluster->save();
 
         $user = new User();

@@ -1,8 +1,10 @@
 <?php
+
+declare(strict_types=1);
 use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
-class InactiveUserAccessPagesTest extends Ui2TestCase {
-
+class InactiveUserAccessPagesTest extends Ui2TestCase
+{
     use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
     use Initbiz\CumulusCore\Traits\CumulusDataProviders;
 
@@ -21,7 +23,6 @@ class InactiveUserAccessPagesTest extends Ui2TestCase {
             ->visit('/system/choose-cluster')
             ->hold(1)
             ->see('Forbidden');
-
 
     }
 

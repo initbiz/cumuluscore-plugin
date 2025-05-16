@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Updates\Factories;
 
 use Initbiz\CumulusCore\Models\Cluster;

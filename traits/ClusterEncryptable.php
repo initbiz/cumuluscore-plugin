@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Traits;
 
 use Exception;
@@ -52,7 +54,7 @@ trait ClusterEncryptable
 
             $model->bindEvent('model.beforeSetAttribute', function ($key, $value) use ($model, $clusterEncryptable) {
                 if (
-                    in_array($key, $clusterEncryptable) &&
+                    in_array($key, $clusterEncryptable, true) &&
                     $value !== null &&
                     $value !== ''
                 ) {
@@ -62,7 +64,7 @@ trait ClusterEncryptable
 
             $model->bindEvent('model.beforeGetAttribute', function ($key) use ($model, $clusterEncryptable) {
                 if (
-                    in_array($key, $clusterEncryptable) &&
+                    in_array($key, $clusterEncryptable, true) &&
                     array_get($model->attributes, $key) !== null &&
                     array_get($model->attributes, $key) !== ''
                 ) {

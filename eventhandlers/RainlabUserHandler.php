@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\EventHandlers;
 
 use Lang;
@@ -97,7 +99,7 @@ class RainlabUserHandler
             Helpers::forgetCluster();
         }, 100);
 
-        $event->listen(Logout::class, function($user) {
+        $event->listen(Logout::class, function ($user) {
             Helpers::forgetCluster();
         });
     }

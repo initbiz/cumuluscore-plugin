@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Classes;
 
 use App;
@@ -25,7 +27,7 @@ class ClusterKey
      */
     public static function put(string $clusterSlug, string $key = null): void
     {
-        $currentKey = Self::get($clusterSlug);
+        $currentKey = self::get($clusterSlug);
 
         if (!empty($currentKey)) {
             throw new CannotOverwriteKeyException();
@@ -36,7 +38,7 @@ class ClusterKey
             $key = bin2hex(Encrypter::generateKey($cipher));
         }
 
-        $keyPath = Self::keysPath($clusterSlug);
+        $keyPath = self::keysPath($clusterSlug);
         Storage::put($keyPath, $key);
 
         try {
@@ -57,7 +59,7 @@ class ClusterKey
      */
     public static function get(string $clusterSlug)
     {
-        $keyPath = Self::keysPath($clusterSlug);
+        $keyPath = self::keysPath($clusterSlug);
         return Storage::get($keyPath);
     }
 
@@ -69,7 +71,7 @@ class ClusterKey
      */
     public static function softDelete(string $clusterSlug, Carbon $timestamp = null)
     {
-        $key = Self::get($clusterSlug);
+        $key = self::get($clusterSlug);
 
         if (empty($key)) {
             return;
@@ -80,7 +82,7 @@ class ClusterKey
         }
 
         $withTimestamp = $clusterSlug . '-deleted-at-' . $timestamp->format('Y-m-d-H-i');
-        Storage::move(Self::keysPath($clusterSlug), Self::keysPath($withTimestamp));
+        Storage::move(self::keysPath($clusterSlug), self::keysPath($withTimestamp));
     }
 
     /**
@@ -94,17 +96,17 @@ class ClusterKey
     {
         $withTimestamp = $clusterSlug . '-deleted-at-' . $timestamp->format('Y-m-d-H-i');
 
-        $key = Self::get($withTimestamp);
+        $key = self::get($withTimestamp);
         if (empty($key)) {
             throw new CannotRestoreKeyException("Couldn't find key to restore: " . $withTimestamp);
         }
 
-        $key = Self::get($clusterSlug);
+        $key = self::get($clusterSlug);
         if (!empty($key)) {
             throw new CannotRestoreKeyException("Key name already taken when restoring key: " . $withTimestamp);
         }
 
-        Storage::move(Self::keysPath($withTimestamp), Self::keysPath($clusterSlug));
+        Storage::move(self::keysPath($withTimestamp), self::keysPath($clusterSlug));
     }
 
     /**
@@ -115,7 +117,7 @@ class ClusterKey
      */
     public static function delete(string $clusterSlug)
     {
-        $keyPath = Self::keysPath($clusterSlug);
+        $keyPath = self::keysPath($clusterSlug);
         return Storage::delete($keyPath);
     }
 
@@ -127,7 +129,7 @@ class ClusterKey
      */
     public static function getBin(string $clusterSlug)
     {
-        return hex2bin(Self::get($clusterSlug));
+        return hex2bin(self::get($clusterSlug));
     }
 
     /**

@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use Initbiz\Selenium2tests\Classes\Ui2TestCase ;
 
-class SingInToBackendTest extends Ui2TestCase {
-
+class SingInToBackendTest extends Ui2TestCase
+{
     /**
      * @test *
      * * @return void
@@ -13,6 +15,5 @@ class SingInToBackendTest extends Ui2TestCase {
         $this->signInToBackend()
              ->see('Dashboard');
     }
-
 
 }

@@ -1,7 +1,10 @@
-<?php namespace Initbiz\CumulusCore\Updates;
+<?php
+
+declare(strict_types=1);
+
+namespace Initbiz\CumulusCore\Updates;
 
 use Schema;
-use Initbiz\CumulusCore\Models\Cluster;
 use October\Rain\Database\Updates\Migration;
 
 class UpdateInitbizCumuluscoreClustersTable5 extends Migration

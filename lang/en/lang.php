@@ -1,4 +1,7 @@
-<?php return [
+<?php
+
+declare(strict_types=1);
+return [
     'plugin' => [
         'name' => 'CumulusCore',
         'description' => 'Plugin that helps with writing SaaS applications',

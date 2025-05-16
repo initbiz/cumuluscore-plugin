@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\EventHandlers;
 
 use System\Classes\PluginManager;
@@ -35,7 +37,7 @@ class RainlabPagesHandler
         $event->listen('pages.menuitem.getTypeInfo', function ($type) {
             $result = null;
 
-            if ($type == 'cumulus-page') {
+            if ($type === 'cumulus-page') {
                 $menuManager = MenuManager::instance();
                 $result = $menuManager->getCmsPages();
             }
