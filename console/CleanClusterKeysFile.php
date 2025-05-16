@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Console;
 
 use Config;
@@ -39,7 +41,7 @@ class CleanClusterKeysFile extends Command
                 $clusterSlug = substr($clusterSlug, 0, $position);
             }
 
-            if (isset($parts[1]) && in_array($clusterSlug, $clusterSlugs)) {
+            if (isset($parts[1]) && in_array($clusterSlug, $clusterSlugs, true)) {
                 $newContent .= $line . "\n";
             }
         }

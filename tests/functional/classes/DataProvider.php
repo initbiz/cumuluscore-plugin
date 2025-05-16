@@ -1,6 +1,10 @@
-<?php namespace Initbiz\CumulusCore\Tests\Classes;
+<?php
 
-use \Faker\Factory as Faker;
+declare(strict_types=1);
+
+namespace Initbiz\CumulusCore\Tests\Classes;
+
+use Faker\Factory as Faker;
 use RainLab\User\Models\User;
 use Initbiz\CumulusCore\Models\Cluster;
 

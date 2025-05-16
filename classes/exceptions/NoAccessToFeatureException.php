@@ -1,8 +1,8 @@
 <?php
 
-namespace Initbiz\CumulusCore\Classes\Exceptions;
+declare(strict_types=1);
 
-use Initbiz\CumulusCore\Classes\Exceptions\CumulusException;
+namespace Initbiz\CumulusCore\Classes\Exceptions;
 
 class NoAccessToFeatureException extends CumulusException
 {

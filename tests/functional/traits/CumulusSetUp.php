@@ -1,4 +1,8 @@
-<?php namespace Initbiz\CumulusCore\Tests\Traits;
+<?php
+
+declare(strict_types=1);
+
+namespace Initbiz\CumulusCore\Tests\Traits;
 
 use Initbiz\CumulusCore\Models\Plan;
 use Initbiz\CumulusCore\Models\Cluster;

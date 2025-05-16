@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Tests\Unit\Models;
 
 use Auth;
@@ -18,12 +20,12 @@ class ClusterTest extends CumulusTestCase
 {
     public function testCanEnterFeature()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
-        $plan = new Plan;
+        $plan = new Plan();
         $plan->name = 'test plan';
         $plan->slug = 'test-plan';
         $plan->features = [
@@ -42,12 +44,12 @@ class ClusterTest extends CumulusTestCase
 
     public function testHasFeature()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
-        $plan = new Plan;
+        $plan = new Plan();
         $plan->name = 'test plan';
         $plan->slug = 'test-plan';
         $plan->features = [
@@ -66,12 +68,12 @@ class ClusterTest extends CumulusTestCase
 
     public function testCanEnterAnyFeature()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
-        $plan = new Plan;
+        $plan = new Plan();
         $plan->name = 'test plan';
         $plan->slug = 'test-plan';
         $plan->features = [
@@ -109,12 +111,12 @@ class ClusterTest extends CumulusTestCase
 
     public function testFeatures()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
-        $plan = new Plan;
+        $plan = new Plan();
         $plan->name = 'test plan';
         $plan->slug = 'test-plan';
         $plan->features = [
@@ -152,12 +154,12 @@ class ClusterTest extends CumulusTestCase
 
     public function testRegisteredFeatures()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
-        $plan = new Plan;
+        $plan = new Plan();
         $plan->name = 'test plan';
         $plan->slug = 'test-plan';
         $plan->features = [
@@ -204,12 +206,12 @@ class ClusterTest extends CumulusTestCase
 
     public function testRefreshRegisteredFunctions()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
-        $plan = new Plan;
+        $plan = new Plan();
         $plan->name = 'test plan';
         $plan->slug = 'test-plan';
         $plan->features = [
@@ -253,7 +255,7 @@ class ClusterTest extends CumulusTestCase
     public function testRegisterFeature()
     {
         Event::fake();
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
@@ -268,7 +270,7 @@ class ClusterTest extends CumulusTestCase
     public function testDeregisterFeature()
     {
         Event::fake();
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
@@ -289,7 +291,7 @@ class ClusterTest extends CumulusTestCase
 
     public function testForgetCluster()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
@@ -316,7 +318,7 @@ class ClusterTest extends CumulusTestCase
 
     public function testKeyEvents()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
@@ -333,12 +335,12 @@ class ClusterTest extends CumulusTestCase
 
     public function testScopeGetWithAccessToFeature()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
-        $plan = new Plan;
+        $plan = new Plan();
         $plan->name = 'test plan';
         $plan->slug = 'test-plan';
         $plan->features = [
@@ -350,12 +352,12 @@ class ClusterTest extends CumulusTestCase
         $cluster->plan()->add($plan);
         $cluster->save();
 
-        $cluster2 = new Cluster;
+        $cluster2 = new Cluster();
         $cluster2->name = 'Company';
         $cluster2->slug = 'company';
         $cluster2->save();
 
-        $plan2 = new Plan;
+        $plan2 = new Plan();
         $plan2->name = 'test plan';
         $plan2->slug = 'test-plan';
         $plan2->features = [

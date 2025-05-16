@@ -1,4 +1,8 @@
-<?php namespace Initbiz\CumulusCore\Updates;
+<?php
+
+declare(strict_types=1);
+
+namespace Initbiz\CumulusCore\Updates;
 
 use Schema;
 use October\Rain\Database\Schema\Blueprint;
@@ -8,7 +12,7 @@ class CreateInitbizCumuluscoreRelatedPlansTable extends Migration
 {
     public function up()
     {
-        Schema::create('initbiz_cumuluscore_related_plans', function(Blueprint $table) {
+        Schema::create('initbiz_cumuluscore_related_plans', function (Blueprint $table) {
             $table->integer('plan_id')->unsigned();
             $table->integer('related_plan_id')->unsigned();
             $table->primary(['plan_id', 'related_plan_id'], 'initbiz_cumuluscore_related_plans_primary');

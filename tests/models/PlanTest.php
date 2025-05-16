@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Tests\Models;
 
 use RainLab\User\Models\User;
@@ -15,7 +17,7 @@ class PlanTest extends FullPluginTestCase
         $firstPlan->name = 'test1';
         $firstPlan->slug = 'test1';
         $firstPlan->save();
-        
+
         $secondPlan = new Plan();
         $secondPlan->name = 'test2';
         $secondPlan->slug = 'test2';
@@ -43,7 +45,7 @@ class PlanTest extends FullPluginTestCase
         $firstPlan->name = 'test1';
         $firstPlan->slug = 'test1';
         $firstPlan->save();
-        
+
         $secondPlan = new Plan();
         $secondPlan->name = 'test2';
         $secondPlan->slug = 'test2';
@@ -53,7 +55,7 @@ class PlanTest extends FullPluginTestCase
         $thirdPlan->name = 'test3';
         $thirdPlan->slug = 'test3';
         $thirdPlan->save();
-         
+
         $this->assertEquals(false, $firstPlan->canUpgrade());
 
         $firstPlan->related_plans()->add($secondPlan, ['relation' => 'upgrade']);
@@ -71,7 +73,7 @@ class PlanTest extends FullPluginTestCase
         $firstPlan->name = 'test1';
         $firstPlan->slug = 'test1';
         $firstPlan->save();
-        
+
         $secondPlan = new Plan();
         $secondPlan->name = 'test2';
         $secondPlan->slug = 'test2';
@@ -152,11 +154,11 @@ class PlanTest extends FullPluginTestCase
         $firstUser->clusters()->add($firstCluster);
         $secondUser->clusters()->add($firstCluster);
         $secondUser->clusters()->add($secondCluster);
-        
+
         $firstPlan->clusters()->add($firstCluster);
-        
+
         $this->assertEquals(2, $firstPlan->users->count());
-        
+
         $firstPlan->clusters()->add($secondCluster);
 
         $this->assertEquals(2, $firstPlan->users->count());

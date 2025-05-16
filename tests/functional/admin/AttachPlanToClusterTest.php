@@ -1,8 +1,10 @@
 <?php
+
+declare(strict_types=1);
 use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
-class AttachPlanToClusterTest extends Ui2TestCase {
-
+class AttachPlanToClusterTest extends Ui2TestCase
+{
     use Initbiz\CumulusCore\Traits\CumulusDataProviders;
     use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
 

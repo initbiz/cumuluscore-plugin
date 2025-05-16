@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Classes;
 
 use Url;
@@ -7,7 +9,6 @@ use Cms\Classes\Theme;
 use Cms\Classes\Layout;
 use Cms\Classes\Page as CmsPage;
 use October\Rain\Support\Singleton;
-use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\InitDry\Classes\Helpers as DryHelpers;
 
 class MenuManager extends Singleton
@@ -73,7 +74,7 @@ class MenuManager extends Singleton
         $pageUrl = Url::to($pageUrl);
         $result = [];
         $result['url'] = $pageUrl;
-        $result['isActive'] = $pageUrl == $url;
+        $result['isActive'] = $pageUrl === $url;
 
         return $result;
     }

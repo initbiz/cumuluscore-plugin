@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Traits;
 
-use \Faker\Factory as Faker;
+use Faker\Factory as Faker;
 
 /**
  * CumulusDataProviders is a trait with data providers for Testing

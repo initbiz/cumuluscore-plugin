@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
-class CreateUserTest extends Ui2TestCase {
-
+class CreateUserTest extends Ui2TestCase
+{
     use Initbiz\Selenium2tests\Traits\OctoberSeleniumHelpers;
     use Initbiz\CumulusCore\Traits\CumulusDataProviders;
     use Initbiz\CumulusCore\Traits\CumulusTestHelpers;

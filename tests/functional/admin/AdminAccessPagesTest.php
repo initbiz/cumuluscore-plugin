@@ -1,8 +1,10 @@
 <?php
+
+declare(strict_types=1);
 use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
-class AdminAccessPagesTest extends Ui2TestCase {
-
+class AdminAccessPagesTest extends Ui2TestCase
+{
     use Initbiz\CumulusCore\Traits\CumulusDataProviders;
     use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
 
@@ -12,13 +14,13 @@ class AdminAccessPagesTest extends Ui2TestCase {
      */
     public function admin_cannot_enter_choose_cluster_page()
     {
-            $this->signInToFrontend([
-                'email' => TEST_SELENIUM_USER,
-                'password' => TEST_SELENIUM_PASS,
-            ])
-            ->visit('/system/choose-cluster')
-            ->hold(1)
-            ->see('Forbidden');
+        $this->signInToFrontend([
+            'email' => TEST_SELENIUM_USER,
+            'password' => TEST_SELENIUM_PASS,
+        ])
+        ->visit('/system/choose-cluster')
+        ->hold(1)
+        ->see('Forbidden');
         //sign in to backend for clearCumulus
         $this->signInToBackend();
     }

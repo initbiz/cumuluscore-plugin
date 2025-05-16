@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
-class UserWithClusterAccessPagesTest extends Ui2TestCase {
-
+class UserWithClusterAccessPagesTest extends Ui2TestCase
+{
     use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
     use Initbiz\CumulusCore\Traits\CumulusDataProviders;
 
@@ -25,7 +27,7 @@ class UserWithClusterAccessPagesTest extends Ui2TestCase {
              ->addUserToCluster($userData['email'], $firstClusterData['name'])
              ->hold(1)
              ->signInToFrontend($userData)
-             ->visit('/system/' .$secondClusterSlug.'/dashboard')
+             ->visit('/system/' . $secondClusterSlug . '/dashboard')
              ->hold(2)
              ->see('Forbidden');
     }

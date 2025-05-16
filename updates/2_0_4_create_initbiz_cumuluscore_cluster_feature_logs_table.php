@@ -1,4 +1,8 @@
-<?php namespace Initbiz\Cumuluscore\Updates;
+<?php
+
+declare(strict_types=1);
+
+namespace Initbiz\Cumuluscore\Updates;
 
 use Schema;
 use October\Rain\Database\Schema\Blueprint;
