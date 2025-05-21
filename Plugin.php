@@ -105,7 +105,15 @@ class Plugin extends PluginBase
     {
         return [
             \Initbiz\CumulusCore\AnnouncerTypes\UserRegisterAnnouncerType::class,
+            \Initbiz\CumulusCore\AnnouncerTypes\OnboardingUsersAnnouncerType::class,
         ];
+    }
+
+    public function registerSchedule($schedule)
+    {
+        $schedule->call(function () {
+            Event::fire('initbiz.cumuluscore.sendOnboardingMessages');
+        })->dailyAt("10:00");
     }
 
     /**
