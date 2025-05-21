@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Classes;
 
 use App;
@@ -10,9 +12,7 @@ use Validator;
 use RainLab\User\Models\User;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Models\GeneralSettings;
-use Initbiz\CumulusCore\Classes\ClusterEncrypter;
 use Initbiz\InitDry\Classes\Helpers as DryHelpers;
-use Initbiz\CumulusCore\Classes\ClusterCacheObject;
 
 class Helpers
 {

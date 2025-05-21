@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
-class GuestAccessPagesTest extends Ui2TestCase {
-
+class GuestAccessPagesTest extends Ui2TestCase
+{
     use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
     use Initbiz\CumulusCore\Traits\CumulusDataProviders;
 
@@ -30,7 +32,7 @@ class GuestAccessPagesTest extends Ui2TestCase {
         $this->signInToBackend()
              ->createCluster($clusterData)
              ->visit('panel/backend/auth/signout')
-             ->visit('/system/'. $clusterSlug .'/dashboard')
+             ->visit('/system/' . $clusterSlug . '/dashboard')
              ->see('Forbidden');
         //sign in to backed for clearCumulus
         $this->signInToBackend();
@@ -52,12 +54,11 @@ class GuestAccessPagesTest extends Ui2TestCase {
              ->hold(2)
              ->visit('panel/backend/auth/signout')
              ->hold(2)
-             ->visit('/system/'. $clusterSlug .'/products')
+             ->visit('/system/' . $clusterSlug . '/products')
              ->see('Forbidden');
         //sign in to backed for clearCumulus
         $this->signInToBackend();
     }
-
 
     protected function afterTest()
     {

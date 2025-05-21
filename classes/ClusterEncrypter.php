@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Classes;
 
 use Config;
 use Illuminate\Encryption\Encrypter;
 use Initbiz\CumulusCore\Models\Cluster;
-use Initbiz\CumulusCore\Classes\ClusterKey;
 
 /**
  * Cluster encrypter

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Tests\Models;
 
 use Config;
@@ -9,7 +11,8 @@ use Initbiz\CumulusCore\Console\ExtractClusterKeysFile;
 
 class ExtractClusterKeysFileTest extends CumulusTestCase
 {
-    public function testHandle() {
+    public function testHandle()
+    {
         $filename =  'keys/some_cluster_keys_file';
         Config::set('initbiz.cumuluscore::encryption.keys_file_path', $filename);
 

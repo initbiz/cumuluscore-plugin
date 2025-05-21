@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\EventHandlers;
 
 use Db;
@@ -50,14 +52,14 @@ class AutoAssignHandler
             if (AutoAssignSettings::get('auto_assign_user') === 'new_cluster') {
                 $cluster = new Cluster();
                 $cluster->name           = $data[AutoAssignSettings::get('auto_assign_user_new_cluster')];
-                $cluster->thoroughfare   = (isset($data['thoroughfare']))   ? $data['thoroughfare'] : null;
-                $cluster->city           = (isset($data['city']))           ? $data['city'] : null;
-                $cluster->phone          = (isset($data['phone']))          ? $data['phone'] : null;
-                $cluster->country_id     = (isset($data['country_id']))     ? $data['country_id'] : null;
-                $cluster->postal_code    = (isset($data['postal_code']))    ? $data['postal_code'] : null;
-                $cluster->description    = (isset($data['description']))    ? $data['description'] : null;
-                $cluster->email          = (isset($data['cluster_email']))  ? $data['cluster_email'] : null;
-                $cluster->tax_number     = (isset($data['tax_number']))     ? $data['tax_number'] : null;
+                $cluster->thoroughfare   = (isset($data['thoroughfare'])) ? $data['thoroughfare'] : null;
+                $cluster->city           = (isset($data['city'])) ? $data['city'] : null;
+                $cluster->phone          = (isset($data['phone'])) ? $data['phone'] : null;
+                $cluster->country_id     = (isset($data['country_id'])) ? $data['country_id'] : null;
+                $cluster->postal_code    = (isset($data['postal_code'])) ? $data['postal_code'] : null;
+                $cluster->description    = (isset($data['description'])) ? $data['description'] : null;
+                $cluster->email          = (isset($data['cluster_email'])) ? $data['cluster_email'] : null;
+                $cluster->tax_number     = (isset($data['tax_number'])) ? $data['tax_number'] : null;
                 $cluster->account_number = (isset($data['account_number'])) ? $data['account_number'] : null;
 
                 Event::fire('initbiz.cumuluscore.autoAssignBeforeClusterCreate', [&$cluster, $data]);

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use InitBiz\Selenium2Tests\Classes\Ui2TestCase;
 
 class AutoAssignUserTest extends Ui2TestCase
 {
-
     use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
     use Initbiz\CumulusCore\Traits\CumulusDataProviders;
 
@@ -17,7 +18,7 @@ class AutoAssignUserTest extends Ui2TestCase
     {
 
         $this->signInToBackend()
-             ->visit( TEST_SELENIUM_BACKEND_URL.'/system/settings/update/initbiz/cumuluscore/auto_assign')
+             ->visit(TEST_SELENIUM_BACKEND_URL . '/system/settings/update/initbiz/cumuluscore/auto_assign')
              ->hold(2)
              ->checkSwitchOn('Form-field-Settings-enable_auto_assign_user')
              ->findAndClickElement('select2-Form-field-Settings-auto_assign_user-container')
@@ -30,8 +31,8 @@ class AutoAssignUserTest extends Ui2TestCase
              ->type($userData['password'], 'password')
              ->type($clusterData['name'], 'clustername')
              ->press('Register');
-        $userId = $this->getRecordID($userData['email'], TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users');
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users/preview/' . $userId)
+        $userId = $this->getRecordID($userData['email'], TEST_SELENIUM_BACKEND_URL . '/rainlab/user/users');
+        $this->visit(TEST_SELENIUM_BACKEND_URL . '/rainlab/user/users/preview/' . $userId)
              ->hold(2)
              ->findAndClickElement('Clusters', '//a[@title="Clusters"]')
              ->see($clusterData['name']);
@@ -46,7 +47,7 @@ class AutoAssignUserTest extends Ui2TestCase
     {
         $this->signInToBackend()
             ->createCluster($clusterData)
-            ->visit( TEST_SELENIUM_BACKEND_URL.'/system/settings/update/initbiz/cumuluscore/auto_assign')
+            ->visit(TEST_SELENIUM_BACKEND_URL . '/system/settings/update/initbiz/cumuluscore/auto_assign')
             ->checkSwitchOn('Form-field-Settings-enable_auto_assign_user')
             ->findAndClickElement('select2-Form-field-Settings-auto_assign_user-container')
             ->findAndClickElement('CreateNewCluster', "//li[contains(.,'Choose existing cluster')]")
@@ -58,8 +59,8 @@ class AutoAssignUserTest extends Ui2TestCase
             ->type($userData['email'], 'email')
             ->type($userData['password'], 'password')
             ->press('Register');
-        $userId = $this->getRecordID($userData['email'], TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users');
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users/preview/' . $userId)
+        $userId = $this->getRecordID($userData['email'], TEST_SELENIUM_BACKEND_URL . '/rainlab/user/users');
+        $this->visit(TEST_SELENIUM_BACKEND_URL . '/rainlab/user/users/preview/' . $userId)
             ->findAndClickElement('Clusters', '//a[@title="Clusters"]')
             ->see($clusterData['name']);
 
@@ -73,7 +74,7 @@ class AutoAssignUserTest extends Ui2TestCase
     public function user_auto_assign_to_group($userData)
     {
         $this->signInToBackend()
-             ->visit( TEST_SELENIUM_BACKEND_URL.'/system/settings/update/initbiz/cumuluscore/auto_assign')
+             ->visit(TEST_SELENIUM_BACKEND_URL . '/system/settings/update/initbiz/cumuluscore/auto_assign')
              ->checkSwitchOn('Form-field-Settings-enable_auto_assign_user_to_group')
              ->findAndClickElement('select2-Form-field-Settings-group_to_auto_assign_user-container')
              ->findAndClickElement('CreateNewCluster', "//li[contains(.,'Registered')]")
@@ -84,8 +85,8 @@ class AutoAssignUserTest extends Ui2TestCase
             ->type($userData['password'], 'password')
             ->press('Register')
              ->hold(1);
-        $userId = $this->getRecordID($userData['email'], TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users');
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users/preview/' . $userId)
+        $userId = $this->getRecordID($userData['email'], TEST_SELENIUM_BACKEND_URL . '/rainlab/user/users');
+        $this->visit(TEST_SELENIUM_BACKEND_URL . '/rainlab/user/users/preview/' . $userId)
             ->see('Registered');
     }
 
@@ -98,7 +99,7 @@ class AutoAssignUserTest extends Ui2TestCase
     {
         $this->signInToBackend()
             ->createCluster(['name' => 'Foo bar'])
-            ->visit( TEST_SELENIUM_BACKEND_URL.'/system/settings/update/initbiz/cumuluscore/auto_assign')
+            ->visit(TEST_SELENIUM_BACKEND_URL . '/system/settings/update/initbiz/cumuluscore/auto_assign')
             ->hold(2)
             ->checkSwitchOn('Form-field-Settings-enable_auto_assign_user')
             ->findAndClickElement('select2-Form-field-Settings-auto_assign_user-container')
@@ -111,8 +112,8 @@ class AutoAssignUserTest extends Ui2TestCase
             ->type($userData['password'], 'password')
             ->press('Register')
             ->hold(2);
-        $userId = $this->getRecordID($userData['email'], TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users');
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users/preview/' . $userId)
+        $userId = $this->getRecordID($userData['email'], TEST_SELENIUM_BACKEND_URL . '/rainlab/user/users');
+        $this->visit(TEST_SELENIUM_BACKEND_URL . '/rainlab/user/users/preview/' . $userId)
             ->hold(2)
             ->findAndClickElement('Clusters', '//a[@title="Clusters"]')
             ->see('Foo bar');
@@ -127,7 +128,7 @@ class AutoAssignUserTest extends Ui2TestCase
     {
 
         $this->signInToBackend()
-            ->visit( TEST_SELENIUM_BACKEND_URL.'/system/settings/update/initbiz/cumuluscore/auto_assign')
+            ->visit(TEST_SELENIUM_BACKEND_URL . '/system/settings/update/initbiz/cumuluscore/auto_assign')
             ->hold(2)
             ->checkSwitchOn('Form-field-Settings-enable_auto_assign_user')
             ->findAndClickElement('select2-Form-field-Settings-auto_assign_user-container')
@@ -147,17 +148,16 @@ class AutoAssignUserTest extends Ui2TestCase
             ->type($userData['password'], 'password')
             ->type($clusterData['name'], 'clustername')
             ->press('Register');
-        $userId = $this->getRecordID($userData['email'], TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users');
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users/preview/' . $userId)
+        $userId = $this->getRecordID($userData['email'], TEST_SELENIUM_BACKEND_URL . '/rainlab/user/users');
+        $this->visit(TEST_SELENIUM_BACKEND_URL . '/rainlab/user/users/preview/' . $userId)
             ->hold(2)
             ->findAndClickElement('Clusters', '//a[@title="Clusters"]')
             ->see($clusterData['name']);
-        $clusterId = $this->getRecordID($clusterData['name'], TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/clusters/');
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/clusters/preview/' . $clusterId)
+        $clusterId = $this->getRecordID($clusterData['name'], TEST_SELENIUM_BACKEND_URL . '/initbiz/cumuluscore/clusters/');
+        $this->visit(TEST_SELENIUM_BACKEND_URL . '/initbiz/cumuluscore/clusters/preview/' . $clusterId)
             ->see('Free plan');
 
     }
-
 
     /**
      * @test *
@@ -168,7 +168,7 @@ class AutoAssignUserTest extends Ui2TestCase
     {
 
         $this->signInToBackend()
-            ->visit( TEST_SELENIUM_BACKEND_URL.'/system/settings/update/initbiz/cumuluscore/auto_assign')
+            ->visit(TEST_SELENIUM_BACKEND_URL . '/system/settings/update/initbiz/cumuluscore/auto_assign')
             ->hold(2)
             ->checkSwitchOn('Form-field-Settings-enable_auto_assign_user')
             ->findAndClickElement('select2-Form-field-Settings-auto_assign_user-container')
@@ -186,13 +186,13 @@ class AutoAssignUserTest extends Ui2TestCase
             ->type($userData['password'], 'password')
             ->type($clusterData['name'], 'clustername')
             ->press('Register');
-        $userId = $this->getRecordID($userData['email'], TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users');
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/rainlab/user/users/preview/' . $userId)
+        $userId = $this->getRecordID($userData['email'], TEST_SELENIUM_BACKEND_URL . '/rainlab/user/users');
+        $this->visit(TEST_SELENIUM_BACKEND_URL . '/rainlab/user/users/preview/' . $userId)
             ->hold(2)
             ->findAndClickElement('Clusters', '//a[@title="Clusters"]')
             ->see($clusterData['name']);
-        $clusterId = $this->getRecordID($clusterData['name'], TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/clusters/');
-        $this->visit(TEST_SELENIUM_BACKEND_URL.'/initbiz/cumuluscore/clusters/preview/' . $clusterId)
+        $clusterId = $this->getRecordID($clusterData['name'], TEST_SELENIUM_BACKEND_URL . '/initbiz/cumuluscore/clusters/');
+        $this->visit(TEST_SELENIUM_BACKEND_URL . '/initbiz/cumuluscore/clusters/preview/' . $clusterId)
             ->see('Free plan');
 
     }

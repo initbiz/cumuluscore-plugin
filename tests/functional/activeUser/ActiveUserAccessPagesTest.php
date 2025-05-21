@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use Initbiz\Selenium2Tests\Classes\Ui2TestCase;
 
-class ActiveUserAccessPagesTest extends Ui2TestCase {
-
+class ActiveUserAccessPagesTest extends Ui2TestCase
+{
     use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
     use Initbiz\CumulusCore\Traits\CumulusDataProviders;
     use Initbiz\Selenium2tests\Traits\SeleniumHelpers;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Models;
 
 use Db;
@@ -149,7 +151,7 @@ class Cluster extends Model
 
     public function beforeSave()
     {
-        $oldCluster = Self::with('plan')->where('id', $this->id)->first();
+        $oldCluster = self::with('plan')->where('id', $this->id)->first();
         if ($oldCluster && $oldPlan = $oldCluster->getPlan()) {
             $plan = $this->getPlan();
             if ($oldPlan->id !== $plan->id) {
@@ -212,7 +214,7 @@ class Cluster extends Model
      */
     public function scopeWithAccessToFeature(Builder $query, string $feature): Builder
     {
-        return $query->whereHas('plan', function($q) use ($feature) {
+        return $query->whereHas('plan', function ($q) use ($feature) {
             $q->where('features', 'like', '%"' . $feature . '"%');
         });
     }

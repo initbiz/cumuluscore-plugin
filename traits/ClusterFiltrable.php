@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Traits;
 
 use App;
@@ -11,7 +13,6 @@ use Initbiz\CumulusCore\Classes\Helpers;
  */
 trait ClusterFiltrable
 {
-
     /**
      * get currently logged in cluster, works only in the frontend
      * or in backend for models that has cluster relation defined
@@ -152,7 +153,8 @@ trait ClusterFiltrable
             (
                 (!empty($this->cluster_id) && (int) $this->cluster_id === $cluster->id) ||
                 (!empty($this->cluster_slug) && $this->cluster_slug === $cluster->slug) ||
-                (!empty($this->cluster) && $this->cluster()->first()->id === $cluster->id))
+                (!empty($this->cluster) && $this->cluster()->first()->id === $cluster->id)
+            )
         ) {
             $can = true;
         }

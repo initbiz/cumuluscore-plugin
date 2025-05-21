@@ -1,8 +1,10 @@
 <?php
+
+declare(strict_types=1);
 use Initbiz\Selenium2tests\Classes\Ui2TestCase;
 
-class RegisterTest extends Ui2TestCase {
-
+class RegisterTest extends Ui2TestCase
+{
     use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
     use Initbiz\CumulusCore\Traits\CumulusDataProviders;
 
