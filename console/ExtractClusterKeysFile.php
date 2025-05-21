@@ -21,6 +21,10 @@ class ExtractClusterKeysFile extends Command
 
         $content = Storage::get($keysFile);
 
+        if (empty($content)) {
+            return;
+        }
+
         $lines = explode("\n", $content);
         foreach ($lines as $line) {
             $parts = explode('=', $line);

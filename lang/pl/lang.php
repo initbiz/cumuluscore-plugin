@@ -6,16 +6,19 @@ return [
         'name' => 'CumulusCore',
         'description' => 'Plugin do budowania aplikacji w architekturze SaaS',
     ],
+
     'navigation' => [
         'main' => 'Cumulus',
         'users' => 'Użytkownicy',
         'clusters' => 'Klastry',
         'plans' => 'Plany',
     ],
+
     'users' => [
         'last_first_name' => 'Imię i nazwisko',
         'cluster_tab' => 'Klastry',
     ],
+
     'settings' => [
         'menu_category' => 'Cumulus',
         'menu_features_label' => 'Funkcje',
@@ -54,6 +57,7 @@ return [
         'enable_usernames_in_urls' => 'Włącz używanie nazw użytkowników w adresach URL',
         'enable_usernames_in_urls_comment' => 'Używaj nazw użytkowników w adreach URL zamiast slugów',
     ],
+
     'permissions' => [
         'cumulus_tab' => 'Cumulus',
         'settings_access_general' => 'Zarządzaj ogólnymi ustawieniami Cumulusa',
@@ -63,34 +67,41 @@ return [
         'access_clusters' => 'Zarządzanie klastrami',
         'access_plans' => 'Zarządzanie planami',
     ],
+
     'backend_dashboard' => [
         'welcome' => 'Witaj',
         'welcome_message' => 'Niedługo będziesz w stanie oglądać w tym miejscu przydatne statystyki dotyczące Twojego systemu. <br /> Na obecną chwilę ta funkcja jest w budowie.',
     ],
+
     'menu_item' => [
         'cumulus_page' => 'Strona Cumulusowa',
         'cumulus_tab_label' => 'Cumulus',
     ],
+
     'component_properties' => [
         'cluster_uniq' => 'Unikalne ID klastra',
         'cluster_uniq_desc' => 'Zmienna, z której będzie wybrany unikalny identyfikator obecnego klastra',
     ],
+
     'cumulus_guard' => [
         'name' => 'Cumulus guard',
         'description' => 'Komponent sprawdzający czy użytkownik może wejść na stronę klastra',
     ],
+
     'feature_guard' => [
         'name' => 'Feature Guard',
         'description' => 'Komponent sprawdzający czy klaster może wejść do danej funkcji Cumulusa',
         'cumulus_features' => 'Funkcje Cumulusa',
         'cumulus_features_desc' => 'Wybierz funkcje Cumulusa, aby ograniczyć dostęp do strony',
     ],
+
     'user_clusters_list' => [
         'name' => 'Lista klastrów',
         'description' => 'Komponent pokazujący listę wszystkich klastrów, do których przypisany jest użytkownik',
         'cluster_dashboard_page' => 'Strona z ekranem powitalnym klastra',
         'cluster_dashboard_page_desc' => 'Strona, do której użytkownicy zostaną przekierowani po kliknięciu w klaster',
     ],
+
     'cluster' => [
         'list_title' => 'Zarządzaj klastrami',
         'cluster' => 'Klaster',
@@ -118,6 +129,7 @@ return [
         'plan_filter' => 'Wybierz plany',
         'users' => 'Użytkownicy',
     ],
+
     'plan' => [
         'plan' => 'Plan',
         'is_trial' => 'Plan trialowy',
@@ -134,22 +146,28 @@ return [
         'related_plan_upgrade' => 'Upgrade',
         'related_plan_alternative' => 'Alternatywny',
     ],
+
     'plan_list' => [
         'title' => 'Zarządzaj planami',
         'name' => 'Nazwa',
         'is_trial' => 'Trial',
         'is_registration_allowed' => 'Rejestracja dozwolona',
     ],
+
     'restore' => [
         'flash_success' => 'Pomyślnie przywrócono elementy',
         'flash_empty' => 'Lista elementów do przywrócenia nie może być pusta',
         'confirmation' => 'Czy na pewno przywrócić zaznaczone elementy?',
         'button' => 'Przywróć',
     ],
+
     'trashed' => [
         'filter_button' => 'Pokaż z kosza',
     ],
+
     'announcers' => [
         'register_user' => 'Nowy użytkownik zarejestrowany',
+        'welcome_messages' => 'Wiadomości powitalne',
+        'onboarding_users' => 'Wiadomości wdrożeniowe',
     ],
 ];
