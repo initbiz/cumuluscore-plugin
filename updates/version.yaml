@@ -246,3 +246,6 @@
     - "Fix permissions setting on cluster keys"
 3.16.0:
     - "Onboarding announcer type, a few minor fixes, and cleanup"
+3.17.0:
+    - "Reordering plans"
+    - 3_17_0_add_sort_order_to_plans_table.php
