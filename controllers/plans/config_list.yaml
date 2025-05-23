@@ -10,3 +10,8 @@ toolbar:
         prompt: 'backend::lang.list.search_prompt'
 recordUrl: 'initbiz/cumuluscore/plans/update/:id'
 filter: config_filter.yaml
+showSorting: false
+structure:
+    showTree: false
+    showReorder: true
+    showSorting: false
