@@ -15,8 +15,18 @@ class UpdateInitbizCumuluscoreModulesTable extends Migration
         Schema::table('initbiz_cumuluscore_modules', function (Blueprint $table) {
             $indexName = 'initbiz_cumuluscore_modules_slug__unique';
 
-            if (!Schema::hasIndex($table->getTable(), $indexName)) {
-                $table->unique('slug', $indexName);
+            $connection = Schema::getConnection();
+            // Laravel <11
+            if (method_exists($connection, 'getDoctrineSchemaManager')) {
+                $indexes = Schema::getConnection()->getDoctrineSchemaManager()->listTableIndexes($table->getTable());
+
+                if (!array_key_exists($$indexName, $indexes)) {
+                    $table->unique('slug', $indexName);
+                }
+            } else {
+                if (!Schema::hasIndex($table->getTable(), $indexName)) {
+                    $table->unique('slug', $indexName);
+                }
             }
         });
     }
@@ -25,8 +35,18 @@ class UpdateInitbizCumuluscoreModulesTable extends Migration
     {
         Schema::table('initbiz_cumuluscore_modules', function ($table) {
             $indexName = 'initbiz_cumuluscore_modules_slug__unique';
-            if (Schema::hasIndex($table->getTable(), $indexName)) {
-                $table->dropUnique($indexName);
+            $connection = Schema::getConnection();
+            // Laravel <11
+            if (method_exists($connection, 'getDoctrineSchemaManager')) {
+                $indexes = Schema::getConnection()->getDoctrineSchemaManager()->listTableIndexes($table->getTable());
+
+                if (array_key_exists($$indexName, $indexes)) {
+                    $table->unique('slug', $indexName);
+                }
+            } else {
+                if (Schema::hasIndex($table->getTable(), $indexName)) {
+                    $table->unique('slug', $indexName);
+                }
             }
         });
     }
