@@ -297,10 +297,17 @@ class ClusterTest extends CumulusTestCase
         $cluster->save();
 
         $user = new User();
-        $user->first_name = 'test';
+        // RainLab.User v2 compatibility
+        if (\Schema::hasColumn('users', 'first_name')) {
+            $user->first_name = 'test';
+        } else {
+            $user->name = 'test';
+            $user->surname = 'test';
+        }
         $user->email = 'test@test.com';
         $user->password = 'test12345';
         $user->password_confirmation = 'test12345';
+        $user->is_activated = true;
         $user->save();
         $user->clusters()->add($cluster);
 
