@@ -45,8 +45,15 @@ class DataProvider
         $user = new User();
         $password = $faker->password(8, 20);
 
-        $user->first_name = $faker->firstName;
-        $user->last_name = $faker->lastName;
+        // RainLab.User v2 compatibility
+        if (\Schema::hasColumn('users', 'first_name')) {
+            $user->first_name = $faker->firstName;
+            $user->last_name = $faker->lastName;
+        } else {
+            $user->name = $faker->firstName;
+            $user->surname = $faker->lastName;
+        }
+
         $user->email = $faker->email;
         $user->phone = $faker->phoneNumber;
         $user->mobile = $faker->phoneNumber;
