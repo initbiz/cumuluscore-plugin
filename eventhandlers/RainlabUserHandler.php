@@ -111,12 +111,22 @@ class RainlabUserHandler
     {
         // Legacy support for initbiz.cumuluscore.access_users permission
         $event->listen('backend.menu.extendItems', function (NavigationManager $manager) {
+
+            $mainMenuItem = $manager->getMainMenuItem('RainLab.User', 'user');
+            $config = $mainMenuItem->getConfig();
+            $config['permissions'][] = 'initbiz.cumuluscore.access_users';
+            //SideMenuItem object try use addPermissions or toArray()
+            // $config['']
+            $manager->removeMainMenuItem('RainLab.User', 'user');
+            $manager->addMainMenuItem('RainLab.User', 'user', $config);
+
             $sideMenuItem = $manager->getSideMenuItem('RainLab.User', 'user', 'users');
             $config = $sideMenuItem->getConfig();
             $config['order'] = 50;
             $config['permissions'][] = 'initbiz.cumuluscore.access_users';
             $manager->removeSideMenuItem('RainLab.User', 'user', 'users');
             $manager->addSideMenuItem('RainLab.User', 'user', 'users', $config);
+
         });
 
         Users::extend(function ($controller) {
