@@ -10,6 +10,7 @@ use RainLab\User\Models\User;
 use Illuminate\Auth\Events\Logout;
 use RainLab\User\Controllers\Users;
 use RainLab\User\Components\Account;
+use Backend\Classes\NavigationManager;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
 
@@ -19,10 +20,12 @@ class RainlabUserHandler
     {
         $this->addOnRegirectMeAjaxHandler($event);
         $this->addClusterRelation($event);
-        // $this->addClusterField($event);
         $this->addMethodsToUser($event);
         $this->addFullNameColumn($event);
         $this->forgetClusterOnLogout($event);
+        if (\App::runningInBackend()) {
+            $this->addPermissionsToUsersController($event);
+        }
     }
 
     public function addOnRegirectMeAjaxHandler($event)
@@ -101,6 +104,23 @@ class RainlabUserHandler
 
         $event->listen(Logout::class, function ($user) {
             Helpers::forgetCluster();
+        });
+    }
+
+    protected function addPermissionsToUsersController($event): void
+    {
+        // Legacy support for initbiz.cumuluscore.access_users permission
+        $event->listen('backend.menu.extendItems', function (NavigationManager $manager) {
+            $sideMenuItem = $manager->getSideMenuItem('RainLab.User', 'user', 'users');
+            $config = $sideMenuItem->getConfig();
+            $config['order'] = 50;
+            $config['permissions'][] = 'initbiz.cumuluscore.access_users';
+            $manager->removeSideMenuItem('RainLab.User', 'user', 'users');
+            $manager->addSideMenuItem('RainLab.User', 'user', 'users', $config);
+        });
+
+        Users::extend(function ($controller) {
+            $controller->requiredPermissions = array_merge($controller->requiredPermissions, ['initbiz.cumuluscore.access_users']);
         });
     }
 }
