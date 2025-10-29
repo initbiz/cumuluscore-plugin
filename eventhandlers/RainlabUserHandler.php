@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Initbiz\CumulusCore\EventHandlers;
 
+use App;
 use Lang;
 use Redirect;
 use RainLab\User\Models\User;
@@ -17,15 +18,20 @@ class RainlabUserHandler
 {
     public function subscribe($event)
     {
-        $this->addOnRegirectMeAjaxHandler($event);
         $this->addClusterRelation($event);
-        // $this->addClusterField($event);
         $this->addMethodsToUser($event);
-        $this->addFullNameColumn($event);
-        $this->forgetClusterOnLogout($event);
+
+        if (App::runningInFrontend()) {
+            $this->addOnRedirectMeAjaxHandler($event);
+            $this->forgetClusterOnLogout($event);
+        }
+
+        if (App::runningInBackend()) {
+            $this->addFullNameColumn($event);
+        }
     }
 
-    public function addOnRegirectMeAjaxHandler($event)
+    public function addOnRedirectMeAjaxHandler($event)
     {
         Account::extend(function ($component) {
             $component->addDynamicMethod('onRedirectMe', function () use ($component) {
