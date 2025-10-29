@@ -255,3 +255,5 @@
     - "Typo fix"
 3.17.3:
     - "Make fix working for RainLab v3 and v2"
+3.17.4:
+    - "Run handler in proper context only"
