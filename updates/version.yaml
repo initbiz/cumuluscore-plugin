@@ -257,3 +257,5 @@
     - "Make fix working for RainLab v3 and v2"
 3.17.4:
     - "Run handler in proper context only"
+3.17.5:
+    - "Run handlers only if CMS module loaded"

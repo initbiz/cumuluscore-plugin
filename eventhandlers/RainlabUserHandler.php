@@ -6,6 +6,7 @@ namespace Initbiz\CumulusCore\EventHandlers;
 
 use App;
 use Lang;
+use System;
 use Redirect;
 use RainLab\User\Models\User;
 use Illuminate\Auth\Events\Logout;
@@ -21,7 +22,7 @@ class RainlabUserHandler
         $this->addClusterRelation($event);
         $this->addMethodsToUser($event);
 
-        if (App::runningInFrontend()) {
+        if (App::runningInFrontend() && System::hasModule('Cms')) {
             $this->addOnRedirectMeAjaxHandler($event);
             $this->forgetClusterOnLogout($event);
         }
