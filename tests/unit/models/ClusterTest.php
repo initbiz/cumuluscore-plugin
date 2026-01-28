@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Tests\Unit\Models;
 
+use Auth;
 use Cookie;
 use Session;
 use RainLab\User\Models\User;
@@ -11,19 +14,18 @@ use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Classes\ClusterKey;
 use Initbiz\Cumuluscore\Models\ClusterFeatureLog;
-use RainLab\User\Components\Session as UserSession;
 use Initbiz\CumulusCore\Tests\Classes\CumulusTestCase;
 
 class ClusterTest extends CumulusTestCase
 {
     public function testCanEnterFeature()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
-        $plan = new Plan;
+        $plan = new Plan();
         $plan->name = 'test plan';
         $plan->slug = 'test-plan';
         $plan->features = [
@@ -42,12 +44,12 @@ class ClusterTest extends CumulusTestCase
 
     public function testHasFeature()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
-        $plan = new Plan;
+        $plan = new Plan();
         $plan->name = 'test plan';
         $plan->slug = 'test-plan';
         $plan->features = [
@@ -66,12 +68,12 @@ class ClusterTest extends CumulusTestCase
 
     public function testCanEnterAnyFeature()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
-        $plan = new Plan;
+        $plan = new Plan();
         $plan->name = 'test plan';
         $plan->slug = 'test-plan';
         $plan->features = [
@@ -109,12 +111,12 @@ class ClusterTest extends CumulusTestCase
 
     public function testFeatures()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
-        $plan = new Plan;
+        $plan = new Plan();
         $plan->name = 'test plan';
         $plan->slug = 'test-plan';
         $plan->features = [
@@ -152,12 +154,12 @@ class ClusterTest extends CumulusTestCase
 
     public function testRegisteredFeatures()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
-        $plan = new Plan;
+        $plan = new Plan();
         $plan->name = 'test plan';
         $plan->slug = 'test-plan';
         $plan->features = [
@@ -204,12 +206,12 @@ class ClusterTest extends CumulusTestCase
 
     public function testRefreshRegisteredFunctions()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
-        $plan = new Plan;
+        $plan = new Plan();
         $plan->name = 'test plan';
         $plan->slug = 'test-plan';
         $plan->features = [
@@ -253,7 +255,7 @@ class ClusterTest extends CumulusTestCase
     public function testRegisterFeature()
     {
         Event::fake();
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
@@ -268,7 +270,7 @@ class ClusterTest extends CumulusTestCase
     public function testDeregisterFeature()
     {
         Event::fake();
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
@@ -289,27 +291,32 @@ class ClusterTest extends CumulusTestCase
 
     public function testForgetCluster()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
         $user = new User();
-        $user->first_name = 'test';
+        // RainLab.User v2 compatibility
+        if (\Schema::hasColumn('users', 'first_name')) {
+            $user->first_name = 'test';
+        } else {
+            $user->name = 'test';
+            $user->surname = 'test';
+        }
         $user->email = 'test@test.com';
         $user->password = 'test12345';
         $user->password_confirmation = 'test12345';
-        $user->is_activated = 1;
+        $user->is_activated = true;
         $user->save();
         $user->clusters()->add($cluster);
 
-        $this->manager->login($user);
+        Auth::login($user);
         Helpers::setCluster($cluster);
         $cluster = Helpers::getCluster();
         $this->assertNotNull($cluster);
 
-        $session = new UserSession();
-        $session->onLogout();
+        Auth::logout();
         $cluster = Helpers::getCluster();
         $this->assertNull($cluster);
         $this->assertNull(Cookie::get('cumulus_clusterslug'));
@@ -318,12 +325,13 @@ class ClusterTest extends CumulusTestCase
 
     public function testKeyEvents()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
-        $this->assertNotEmpty($key = ClusterKey::get($cluster->slug));
+        $key = ClusterKey::get($cluster->slug);
+        $this->assertNotEmpty($key);
 
         $cluster->delete();
         $this->assertEmpty(ClusterKey::get($cluster->slug));
@@ -334,12 +342,12 @@ class ClusterTest extends CumulusTestCase
 
     public function testScopeGetWithAccessToFeature()
     {
-        $cluster = new Cluster;
+        $cluster = new Cluster();
         $cluster->name = 'Company';
         $cluster->slug = 'company';
         $cluster->save();
 
-        $plan = new Plan;
+        $plan = new Plan();
         $plan->name = 'test plan';
         $plan->slug = 'test-plan';
         $plan->features = [
@@ -351,12 +359,12 @@ class ClusterTest extends CumulusTestCase
         $cluster->plan()->add($plan);
         $cluster->save();
 
-        $cluster2 = new Cluster;
+        $cluster2 = new Cluster();
         $cluster2->name = 'Company';
         $cluster2->slug = 'company';
         $cluster2->save();
 
-        $plan2 = new Plan;
+        $plan2 = new Plan();
         $plan2->name = 'test plan';
         $plan2->slug = 'test-plan';
         $plan2->features = [

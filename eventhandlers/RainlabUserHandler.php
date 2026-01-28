@@ -1,10 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\EventHandlers;
 
+use App;
 use Lang;
+use System;
 use Redirect;
 use RainLab\User\Models\User;
+use Illuminate\Auth\Events\Logout;
 use RainLab\User\Controllers\Users;
 use RainLab\User\Components\Account;
 use Initbiz\CumulusCore\Models\Cluster;
@@ -14,15 +19,20 @@ class RainlabUserHandler
 {
     public function subscribe($event)
     {
-        $this->addOnRegirectMeAjaxHandler($event);
         $this->addClusterRelation($event);
-        // $this->addClusterField($event);
         $this->addMethodsToUser($event);
-        $this->addFullNameColumn($event);
-        $this->forgetClusterOnLogout($event);
+
+        if (App::runningInFrontend() && System::hasModule('Cms')) {
+            $this->addOnRedirectMeAjaxHandler($event);
+            $this->forgetClusterOnLogout($event);
+        }
+
+        if (App::runningInBackend()) {
+            $this->addFullNameColumn($event);
+        }
     }
 
-    public function addOnRegirectMeAjaxHandler($event)
+    public function addOnRedirectMeAjaxHandler($event)
     {
         Account::extend(function ($component) {
             $component->addDynamicMethod('onRedirectMe', function () use ($component) {
@@ -63,20 +73,17 @@ class RainlabUserHandler
             });
 
             $model->addDynamicMethod('canEnter', function ($cluster) use ($model) {
-                $userClusters = $model->getClusters();
-                return $userClusters->firstWhere('slug', $cluster->slug) ? true : false;
+                $model->loadMissing('clusters');
+                return $model->clusters->firstWhere('slug', $cluster->slug) ? true : false;
             });
 
             $model->addDynamicMethod('getFullNameAttribute', function ($user) use ($model) {
                 return $model->name . ' ' . $model->surname;
             });
 
-            $model->addDynamicProperty('clusters');
             $model->addDynamicMethod('getClusters', function () use ($model) {
-                if (isset($model->clusters)) {
-                    return $model->clusters;
-                }
-                return $model->clusters = $model->clusters()->get();
+                $model->loadMissing('clusters');
+                return $model->clusters;
             });
         });
     }
@@ -100,5 +107,9 @@ class RainlabUserHandler
         $event->listen('rainlab.user.logout', function ($user) {
             Helpers::forgetCluster();
         }, 100);
+
+        $event->listen(Logout::class, function ($user) {
+            Helpers::forgetCluster();
+        });
     }
 }

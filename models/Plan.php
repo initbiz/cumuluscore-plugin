@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Models;
 
 use Model;
@@ -9,6 +11,7 @@ use Initbiz\CumulusCore\Classes\FeatureManager;
 class Plan extends Model
 {
     use \October\Rain\Database\Traits\Nullable;
+    use \October\Rain\Database\Traits\Sortable;
     use \October\Rain\Database\Traits\Sluggable;
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\SoftDelete;

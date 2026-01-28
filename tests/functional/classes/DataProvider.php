@@ -1,6 +1,10 @@
-<?php namespace Initbiz\CumulusCore\Tests\Classes;
+<?php
 
-use \Faker\Factory as Faker;
+declare(strict_types=1);
+
+namespace Initbiz\CumulusCore\Tests\Classes;
+
+use Faker\Factory as Faker;
 use RainLab\User\Models\User;
 use Initbiz\CumulusCore\Models\Cluster;
 
@@ -41,8 +45,15 @@ class DataProvider
         $user = new User();
         $password = $faker->password(8, 20);
 
-        $user->first_name = $faker->firstName;
-        $user->last_name = $faker->lastName;
+        // RainLab.User v2 compatibility
+        if (\Schema::hasColumn('users', 'first_name')) {
+            $user->first_name = $faker->firstName;
+            $user->last_name = $faker->lastName;
+        } else {
+            $user->name = $faker->firstName;
+            $user->surname = $faker->lastName;
+        }
+
         $user->email = $faker->email;
         $user->phone = $faker->phoneNumber;
         $user->mobile = $faker->phoneNumber;

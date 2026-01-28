@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Traits;
 
 trait CumulusTestHelpers
@@ -52,7 +54,6 @@ trait CumulusTestHelpers
             ->waitForFlashMessage();
         return $this;
     }
-
 
     public function signInToFrontend($data, $url = "/")
     {

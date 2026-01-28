@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Models;
 
 use Model;
 use RainLab\User\Models\UserGroup;
-use Initbiz\CumulusCore\Models\Plan;
-use Initbiz\CumulusCore\Models\Cluster;
 
 class AutoAssignSettings extends Model
 {

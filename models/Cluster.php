@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Models;
 
 use Db;
@@ -134,6 +136,14 @@ class Cluster extends Model
         'logo' => ['System\Models\File']
     ];
 
+    /**
+     * Workaround for beforeRestore event being dispatched twice
+     * To be removed when Laravel/October fixes the issue
+     *
+     * @var boolean
+     */
+    private $keyRestored = false;
+
     public function afterCreate()
     {
         ClusterKey::put($this->slug);
@@ -141,7 +151,7 @@ class Cluster extends Model
 
     public function beforeSave()
     {
-        $oldCluster = Self::with('plan')->where('id', $this->id)->first();
+        $oldCluster = self::with('plan')->where('id', $this->id)->first();
         if ($oldCluster && $oldPlan = $oldCluster->getPlan()) {
             $plan = $this->getPlan();
             if ($oldPlan->id !== $plan->id) {
@@ -160,14 +170,18 @@ class Cluster extends Model
         }
     }
 
-    public function beforeDelete()
+    public function afterDelete()
     {
         ClusterKey::softDelete($this->slug, $this->deleted_at);
+        $this->keyRestored = false;
     }
 
     public function beforeRestore()
     {
-        ClusterKey::restore($this->slug, $this->deleted_at);
+        if (!$this->keyRestored) {
+            ClusterKey::restore($this->slug, $this->deleted_at);
+            $this->keyRestored = true;
+        }
     }
 
     // Scopes
@@ -200,7 +214,7 @@ class Cluster extends Model
      */
     public function scopeWithAccessToFeature(Builder $query, string $feature): Builder
     {
-        return $query->whereHas('plan', function($q) use ($feature) {
+        return $query->whereHas('plan', function ($q) use ($feature) {
             $q->where('features', 'like', '%"' . $feature . '"%');
         });
     }

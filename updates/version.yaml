@@ -1,151 +1,151 @@
 1.0.1:
-    - 'Initialize plugin.'
+    - "Initialize plugin."
 1.0.2:
-    - 'Created table initbiz_cumuluscore_clusters'
+    - "Created table initbiz_cumuluscore_clusters"
     - 1_0_2_create_initbiz_cumuluscore_clusters_table.php
 1.0.3:
-    - 'Created table initbiz_cumuluscore_cluster_user'
+    - "Created table initbiz_cumuluscore_cluster_user"
     - 1_0_3_create_initbiz_cumuluscore_cluster_user_table.php
 1.0.4:
-    - 'Created table initbiz_cumuluscore_modules'
+    - "Created table initbiz_cumuluscore_modules"
     - 1_0_4_create_initbiz_cumuluscore_modules_table.php
 1.0.5:
-    - 'Created table initbiz_cumuluscore_plans'
+    - "Created table initbiz_cumuluscore_plans"
     - 1_0_5_create_initbiz_cumuluscore_plans_table.php
 1.0.6:
-    - 'Created table initbiz_cumuluscore_plan_module'
+    - "Created table initbiz_cumuluscore_plan_module"
     - 1_0_6_create_initbiz_cumuluscore_plan_module_table.php
 1.0.7:
-    - 'After clean up, Cumulus is ready to be published on Marketplace'
+    - "After clean up, Cumulus is ready to be published on Marketplace"
 1.0.8:
-    - 'Fixed one to many relation between Plan and Cluster'
+    - "Fixed one to many relation between Plan and Cluster"
 1.0.9:
-    - 'Added dynamic method onRedirectMe for building login pages'
+    - "Added dynamic method onRedirectMe for building login pages"
 1.1.0:
-    - 'Added unique at slug in Modules table'
+    - "Added unique at slug in Modules table"
     - 1_1_0_update_initbiz_cumuluscore_modules_table.php
 1.1.1:
-    - 'Managing automatically adding users and clusters from settings view + cleanup and small fixes'
+    - "Managing automatically adding users and clusters from settings view + cleanup and small fixes"
 1.1.2:
-    - 'Fixed auto assigning with tests'
+    - "Fixed auto assigning with tests"
 1.1.3:
-    - 'Changed texts to strings, extended cluster table '
+    - "Changed texts to strings, extended cluster table "
     - 1_1_3_update_initbiz_cumuluscore_clusters_table.php
     - 1_1_3_update_initbiz_cumuluscore_plans_table.php
     - 1_1_3_update_initbiz_cumuluscore_clusters_table_2.php
 1.1.4:
-    - 'Moved Cluster slug property from all components to CumulusComponentProperties trait'
+    - "Moved Cluster slug property from all components to CumulusComponentProperties trait"
 1.1.5:
-    - 'Beautified cluster view in backend'
+    - "Beautified cluster view in backend"
 1.1.6:
-    - 'Fixed MySQL installation'
+    - "Fixed MySQL installation"
 1.1.7:
-    - 'Fixed MySQL refreshing plugin'
+    - "Fixed MySQL refreshing plugin"
 1.1.8:
-    - 'Small organizational fixes'
+    - "Small organizational fixes"
 1.1.9:
-    - 'Dropping foreign'
+    - "Dropping foreign"
 1.1.10:
-    - 'Firing events: addClusterToPlan and addUserToCluster'
+    - "Firing events: addClusterToPlan and addUserToCluster"
 1.1.11:
-    - 'Put current cluster slug to Session with key: initbiz.cumuluscore.currentClusterSlug'
+    - "Put current cluster slug to Session with key: initbiz.cumuluscore.currentClusterSlug"
 1.1.12:
-    - 'Changed the concept from session to cookie: cumulus_clusterslug'
+    - "Changed the concept from session to cookie: cumulus_clusterslug"
 1.1.13:
-    - 'Funny part here. Both session and cookie should have been used. They are named cumulus_clusterslug :)'
+    - "Funny part here. Both session and cookie should have been used. They are named cumulus_clusterslug :)"
 1.1.14:
-    - 'Added ClusterFiltrable trait for models to easy filter their data using cluster_slug property'
+    - "Added ClusterFiltrable trait for models to easy filter their data using cluster_slug property"
 1.1.15:
-    - 'Updated table initbiz_cumuluscore_modules -> added nullable description column'
+    - "Updated table initbiz_cumuluscore_modules -> added nullable description column"
     - 1_1_15_update_initbiz_cumuluscore_modules_table.php
 1.1.16:
-    - 'Cleanup modules creating and listing them in settings'
+    - "Cleanup modules creating and listing them in settings"
 1.1.17:
-    - 'Created plan repo and added some useful methods to existing ones'
+    - "Created plan repo and added some useful methods to existing ones"
 1.2.0:
-    - 'First Cumulus extension - Cumulus Announcements: octobercms.com/plugin/initbiz-cumulusannouncements'
+    - "First Cumulus extension - Cumulus Announcements: octobercms.com/plugin/initbiz-cumulusannouncements"
 1.2.1:
-    - 'Set event listeners priorities'
+    - "Set event listeners priorities"
 1.2.2:
-    - 'Fixed recurrent dependencies in repositories'
+    - "Fixed recurrent dependencies in repositories"
 1.3.0:
-    - '!!! Removed cumulusDashboard and cumulusSettings components. They have been moved to CumulusPlus extension'
+    - "!!! Removed cumulusDashboard and cumulusSettings components. They have been moved to CumulusPlus extension"
 1.3.1:
-    - '!!! Changed method getClusterModulesName to getClusterModulesSlugs + optimized cluster repo'
+    - "!!! Changed method getClusterModulesName to getClusterModulesSlugs + optimized cluster repo"
 1.3.2:
-    - 'Fixed typo'
+    - "Fixed typo"
 1.3.3:
-    - '!!! Updated repository interface. Temporarily removed validation. Refactored cluster repository + minor fixes'
+    - "!!! Updated repository interface. Temporarily removed validation. Refactored cluster repository + minor fixes"
 1.3.4:
-    - 'Added handling transactions on user register'
+    - "Added handling transactions on user register"
 1.3.5:
-    - 'Added unique in cluster scope validation rule + minor fixes'
+    - "Added unique in cluster scope validation rule + minor fixes"
 1.3.6:
-    - 'Removing cookie and session cluster_slug on logout + small fix'
+    - "Removing cookie and session cluster_slug on logout + small fix"
 1.3.7:
-    - 'Fixed extending RainLab.User backend menu by other plugins'
+    - "Fixed extending RainLab.User backend menu by other plugins"
 1.3.8:
-    - 'Added empty cluster dashboard for better permissions managing'
+    - "Added empty cluster dashboard for better permissions managing"
 1.3.9:
-    - 'Added backend permissions to restrict access to controllers and settings.'
+    - "Added backend permissions to restrict access to controllers and settings."
 1.3.10:
-    - 'Cleaned registering and extending views'
+    - "Cleaned registering and extending views"
 1.3.11:
-    - 'View fixes, translations and plan filter in cluster list'
+    - "View fixes, translations and plan filter in cluster list"
 1.3.12:
-    - 'User-cluster relation fixed'
+    - "User-cluster relation fixed"
     - 1_3_12_update_initbiz_cumuluscore_cluster_user_table.php
 1.3.13:
-    - 'Added helper getFileListToDropdown'
+    - "Added helper getFileListToDropdown"
 2.0.0:
-    - '!!! Before upgrading to 2.0.0 read the upgrade guide'
+    - "!!! Before upgrading to 2.0.0 read the upgrade guide"
     - 2_0_0_drop_initbiz_cumuluscore_modules_table.php
     - 2_0_0_drop_initbiz_cumuluscore_plan_modules_table.php
     - 2_0_0_update_initbiz_cumuluscore_clusters_table_3.php
     - 2_0_0_update_initbiz_cumuluscore_plans_table_2.php
 2.0.1:
-    - 'Dropping foreign for MySQL fixed'
+    - "Dropping foreign for MySQL fixed"
 2.0.2:
-    - 'Better fix for the previous drop'
+    - "Better fix for the previous drop"
 2.0.3:
-    - '!!! Username for cluster added. Read the upgrade guide.'
+    - "!!! Username for cluster added. Read the upgrade guide."
     - 2_0_3_update_initbiz_cumuluscore_clusters_table_4.php
 2.0.4:
-    - 'Registration of clusters features support added'
-    - '2_0_4_create_initbiz_cumuluscore_cluster_feature_logs_table.php'
+    - "Registration of clusters features support added"
+    - "2_0_4_create_initbiz_cumuluscore_cluster_feature_logs_table.php"
 2.0.5:
-    - '!!! Moved some helpers to Initbiz.InitDry plugin. Install the plugin if want to proceed.'
+    - "!!! Moved some helpers to Initbiz.InitDry plugin. Install the plugin if want to proceed."
 2.0.6:
-    - 'Small fix with registering cluster features'
+    - "Small fix with registering cluster features"
 2.0.7:
-    - 'Small fix of auto assigning'
+    - "Small fix of auto assigning"
 2.0.8:
-    - 'Cleaned translations and added Polish translation'
+    - "Cleaned translations and added Polish translation"
 2.0.9:
-    - 'Fixed assigning clusters to empty plans'
+    - "Fixed assigning clusters to empty plans"
 2.0.10:
-    - 'Now working with Cumulus Theme again'
+    - "Now working with Cumulus Theme again"
 2.0.11:
-    - 'Fixed buggy migration'
+    - "Fixed buggy migration"
 2.1.0:
-    - 'Added softDelete trait for Cluster Model'
+    - "Added softDelete trait for Cluster Model"
     - 2_1_0_update_initbiz_cumuluscore_clusters_table_5.php
 2.1.1:
-    - 'Added softDelete trait for Plan Model'
+    - "Added softDelete trait for Plan Model"
     - 2_1_1_update_initbiz_cumuluscore_plans_table_3.php
 2.1.2:
-    - 'Fixed typo'
+    - "Fixed typo"
 2.1.3:
-    - 'Fixed seeding after soft deletion'
+    - "Fixed seeding after soft deletion"
 2.2.0:
-    - 'Added allow user registration checkbox to plans'
+    - "Added allow user registration checkbox to plans"
     - 2_2_0_update_initbiz_cumuluscore_plans_table_4.php
 2.3.0:
-    - 'Add related plans for downgrading and upgrading paths'
+    - "Add related plans for downgrading and upgrading paths"
     - 2_3_0_create_initbiz_cumuluscore_related_plans_table.php
     - 2_3_0_update_initbiz_cumuluscore_plans_table_5.php
 3.0.0:
-    - '!!! Upgrade to v.3, check upgrade guide'
+    - "!!! Upgrade to v.3, check upgrade guide"
 3.0.1:
     - "Fix the buggy migration"
 3.0.2:
@@ -153,61 +153,61 @@
 3.0.3:
     - "Shorten primary name"
 3.1.0:
-    - 'Add timestamps, fix slugs and validation'
+    - "Add timestamps, fix slugs and validation"
     - 3_1_0_add_timestamps_to_clusters_and_plans.php
 3.1.1:
-    - 'Bug fixes'
+    - "Bug fixes"
 3.2.0:
-    - 'Deregistering cluster features'
+    - "Deregistering cluster features"
 3.2.1:
-    - 'Small fixes, preparing for new features'
+    - "Small fixes, preparing for new features"
 3.2.2:
-    - 'Small cluster model fix and add additional_data'
+    - "Small cluster model fix and add additional_data"
     - 3_2_2_add_additional_data_to_cluster.php
 3.2.3:
-    - 'Static pages and debug info fix'
+    - "Static pages and debug info fix"
 3.3.0:
-    - 'Add website to cluster'
+    - "Add website to cluster"
     - 3_3_0_add_webiste_to_cluster.php
 3.4.0:
-    - 'Cluster encryption has been added'
+    - "Cluster encryption has been added"
 3.4.1:
-    - 'Remove checking if running in the backend'
+    - "Remove checking if running in the backend"
 3.4.2:
-    - 'Fix check if user have lost access to cluster during session'
+    - "Fix check if user have lost access to cluster during session"
 3.4.3:
-    - 'Minor cleanup and CumulusGuard fix'
+    - "Minor cleanup and CumulusGuard fix"
 3.5.0:
     - "Relation controller in user's cluster list"
 3.5.1:
-    - 'Fix docs'
+    - "Fix docs"
 3.5.2:
-    - 'Fix composer dependencies'
+    - "Fix composer dependencies"
 3.5.3:
-    - 'Fix key management while deleting clusters'
+    - "Fix key management while deleting clusters"
 3.5.4:
-    - 'Minor performance improvements'
+    - "Minor performance improvements"
 3.5.5:
-    - 'Fix tests for cluster cache instance'
+    - "Fix tests for cluster cache instance"
 3.5.6:
-    - 'Fix issue in RainLab.User backend controller'
+    - "Fix issue in RainLab.User backend controller"
 3.5.7:
-    - 'Fix issue with clusters partial path'
+    - "Fix issue with clusters partial path"
 3.6.0:
-    - 'Add last visited to Cluster and fire firstClusterVisit event'
+    - "Add last visited to Cluster and fire firstClusterVisit event"
     - 3_6_0_add_last_visited_at_to_cluster.php
 3.6.1:
-    - 'Reorder setting cluster and triggering event'
+    - "Reorder setting cluster and triggering event"
 3.6.2:
-    - 'Fix issue with set cluster to cache current cluster in ClusterCacheObject'
+    - "Fix issue with set cluster to cache current cluster in ClusterCacheObject"
 3.7.0:
-    - 'Add scope withAccessToFeature to cluster model'
+    - "Add scope withAccessToFeature to cluster model"
 3.8.0:
-    - 'Add auto assign cluster before and after events'
+    - "Add auto assign cluster before and after events"
 3.9.0:
-    - 'Make RainLab.Pages optional'
+    - "Make RainLab.Pages optional"
 3.9.1:
-    - 'Performance fix, move cluster_slug to cluster_id in feature logs'
+    - "Performance fix, move cluster_slug to cluster_id in feature logs"
     - 3_9_1_make_cluster_slug_cluster_id_in_feature_logs_table.php
 3.9.2:
     - Add link to cluster in users backend controller
@@ -231,3 +231,33 @@
     - "Lower case cipher name"
 3.13.5:
     - "Append instead of prepend"
+3.13.6:
+    - "Write tests ready for Rainlab.User 3"
+3.13.7:
+    - "Fix usage of cluster keys file in tests"
+3.14.0:
+    - "Add command to clear cluster keys file"
+3.15.0:
+    - "Extract cluster keys to separate files"
+    - 3_15_0_extract_cluster_keys.php
+3.15.1:
+    - "Typo fix"
+3.15.2:
+    - "Fix permissions setting on cluster keys"
+3.16.0:
+    - "Onboarding announcer type, a few minor fixes, and cleanup"
+3.17.0:
+    - "Reordering plans"
+    - 3_17_0_add_sort_order_to_plans_table.php
+3.17.1:
+    - "Replacing a non-existent index checking method"
+3.17.2:
+    - "Typo fix"
+3.17.3:
+    - "Make fix working for RainLab v3 and v2"
+3.17.4:
+    - "Run handler in proper context only"
+3.17.5:
+    - "Run handlers only if CMS module loaded"
+3.18.0:
+    - "Add loadMissing for canEnter and getClusters method in the User model"

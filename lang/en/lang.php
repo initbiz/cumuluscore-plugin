@@ -1,18 +1,24 @@
-<?php return [
+<?php
+
+declare(strict_types=1);
+return [
     'plugin' => [
         'name' => 'CumulusCore',
         'description' => 'Plugin that helps with writing SaaS applications',
     ],
+
     'navigation' => [
         'main' => 'Cumulus',
         'users' => 'Users',
         'clusters' => 'Clusters',
         'plans' => 'Plans',
     ],
+
     'users' => [
         'last_first_name' => 'Last and first name',
         'cluster_tab' => 'Clusters',
     ],
+
     'settings' => [
         'menu_category' => 'Cumulus',
         'menu_features_label' => 'Features',
@@ -51,6 +57,7 @@
         'enable_usernames_in_urls' => 'Enable clusters\' usernames in URLs',
         'enable_usernames_in_urls_comment' => 'Get clusters\' usernames from URL instead of slugs',
     ],
+
     'permissions' => [
         'cumulus_tab' => 'Cumulus',
         'settings_access_general' => 'Manage general Cumulus settings',
@@ -60,34 +67,41 @@
         'access_clusters' => 'Manage clusters',
         'access_plans' => 'Manage plans',
     ],
+
     'backend_dashboard' => [
         'welcome' => 'Welcome',
         'welcome_message' => 'You will be able to see some useful statistics about your Cumulus system here soon. <br> Right now the feature is under construction.',
     ],
+
     'menu_item' => [
         'cumulus_page' => 'Cumulus page',
         'cumulus_tab_label' => 'Cumulus',
     ],
+
     'component_properties' => [
         'cluster_uniq' => 'Cluster unique id',
         'cluster_uniq_desc' => 'Variable from URL with unique identifier of the current cluster',
     ],
+
     'cumulus_guard' => [
         'name' => 'Cumulus guard',
         'description' => 'Component checking if user can enter cluster page',
     ],
+
     'feature_guard' => [
         'name' => 'Feature Guard',
         'description' => 'Guard component that allows cluster enter the feature',
         'cumulus_features' => 'Cumulus features',
         'cumulus_features_desc' => 'Pick features to restrict user access',
     ],
+
     'user_clusters_list' => [
         'name' => 'Clusters list',
         'description' => 'Component showing all clusters that user is assigned to',
         'cluster_dashboard_page' => 'Cluster dashboard page',
         'cluster_dashboard_page_desc' => 'Page where users are going to be redirected after clicking cluster url',
     ],
+
     'cluster' => [
         'list_title' => 'Manage clusters',
         'cluster' => 'Cluster',
@@ -115,6 +129,7 @@
         'plan_filter' => 'Select plans',
         'users' => 'Users',
     ],
+
     'plan' => [
         'plan' => 'Plan',
         'is_trial' => 'Trial plan',
@@ -131,22 +146,31 @@
         'related_plan_upgrade' => 'Upgrade',
         'related_plan_alternative' => 'Alternative',
     ],
+
     'plan_list' => [
         'title' => 'Manage plans',
         'name' => 'Name',
         'is_trial' => 'Trial',
         'is_registration_allowed' => 'Registration allowed',
     ],
+
     'restore' => [
         'flash_success' => 'Items successfully restored',
         'flash_empty' => 'The list to restore cannot be empty',
         'confirmation' => 'Are you sure you want to restore the selected items?',
         'button' => 'Restore',
     ],
+
     'trashed' => [
         'filter_button' => 'Show trashed',
     ],
+
     'announcers' => [
         'register_user' => 'New user registered',
+        'welcome_messages' => 'Welcome messages',
+        'onboarding_users' => 'Onboarding users',
+        'onboarding_users' => 'Onboarding users',
+        'registered_days_ago_label' => 'Registered days ago',
+        'plans_label' => 'Plans',
     ],
 ];

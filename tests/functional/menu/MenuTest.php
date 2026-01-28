@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use InitBiz\Selenium2Tests\Classes\Ui2TestCase;
 
-class MenuTest extends Ui2TestCase {
-
+class MenuTest extends Ui2TestCase
+{
     use Initbiz\CumulusCore\Traits\CumulusTestHelpers;
     use Initbiz\CumulusCore\Traits\CumulusDataProviders;
 
@@ -68,7 +70,7 @@ class MenuTest extends Ui2TestCase {
             ->addUserToCluster($userData['email'], $clusterData['name'])
             ->signInToFrontend($userData)
             ->notSee('Products');
-            $this->notSee('E-Learning');
+        $this->notSee('E-Learning');
     }
 
     protected function afterTest()

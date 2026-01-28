@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Updates;
 
 use Schema;
@@ -22,7 +24,12 @@ class UpdateInitbizCumuluscoreClustersTable2 extends Migration
         });
 
         Schema::table('initbiz_cumuluscore_clusters', function ($table) {
-            $table->bigInteger('country_id')->unsigned()->nullable();
+            $type = DB::getSchemaBuilder()->getColumnType('rainlab_location_countries', 'id');
+            if ($type === 'integer') {
+                $table->integer('country_id')->unsigned()->nullable();
+            } else {
+                $table->bigInteger('country_id')->unsigned()->nullable();
+            }
             $table->foreign('country_id')->references('id')->on('rainlab_location_countries');
         });
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\Controllers;
 
 use Lang;
@@ -11,9 +13,9 @@ use Initbiz\CumulusCore\Models\Plan;
 class Plans extends Controller
 {
     public $implement = [
-        'Backend\Behaviors\ListController',
-        'Backend\Behaviors\FormController',
-        'Backend\Behaviors\RelationController'
+        \Backend\Behaviors\ListController::class,
+        \Backend\Behaviors\FormController::class,
+        \Backend\Behaviors\RelationController::class,
     ];
 
     /**
