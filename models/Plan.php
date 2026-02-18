@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Initbiz\CumulusCore\Models;
 
 use Model;
+use Event;
 use October\Rain\Database\Collection;
 use Initbiz\CumulusCore\Classes\FeatureManager;
 
@@ -122,7 +123,8 @@ class Plan extends Model
      */
     public function plansToUpgrade()
     {
-        return $this->related_plans()->where('relation', 'upgrade')->get();
+        $relatedPlans = $this->getRelatedPlans();
+        return $relatedPlans->where('relation', 'upgrade');
     }
 
     /**
@@ -149,6 +151,29 @@ class Plan extends Model
         }
 
         return false;
+    }
+
+    /**
+     * Easy way to get all related plans with "relation" attribute
+     *
+     * @return Collection
+     */
+    public function getRelatedPlans(): Collection
+    {
+        $originalRelatedPlans = $this->related_plans;
+
+        if (empty($originalRelatedPlans)) {
+            return new Collection();
+        }
+
+        $relatedPlans = $originalRelatedPlans->map(function ($plan) {
+            $plan->relation = $plan->pivot->relation;
+            return $plan;
+        });
+
+        Event::fire('initbiz.cumuluscore.getRelatedPlans', [$this, &$relatedPlans]);
+
+        return $relatedPlans;
     }
 
     /**
