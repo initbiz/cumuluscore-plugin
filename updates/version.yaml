@@ -261,3 +261,5 @@
     - "Run handlers only if CMS module loaded"
 3.18.0:
     - "Add loadMissing for canEnter and getClusters method in the User model"
+3.19.0:
+    - "Getting related plans is extendable and using eager loaded values"
