@@ -73,6 +73,7 @@ class RainlabUserHandler
             });
 
             $model->addDynamicMethod('canEnter', function ($cluster) use ($model) {
+                $model->loadMissing('clusters');
                 return $model->clusters->firstWhere('slug', $cluster->slug) ? true : false;
             });
 
@@ -81,6 +82,7 @@ class RainlabUserHandler
             });
 
             $model->addDynamicMethod('getClusters', function () use ($model) {
+                $model->loadMissing('clusters');
                 return $model->clusters;
             });
         });
