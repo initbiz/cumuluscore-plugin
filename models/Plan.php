@@ -48,7 +48,8 @@ class Plan extends Model
     ];
 
     protected $jsonable = [
-        'features'
+        'description',
+        'features',
     ];
 
     /**
@@ -114,6 +115,28 @@ class Plan extends Model
             default:
                 return $query;
         }
+    }
+
+    /**
+     * Description is an array of context => value pairs, where context is easy reference for
+     * front-end to get correct description
+     *
+     * @param string $context
+     * @return string
+     */
+    public function getDescriptionByContext(string $context): string
+    {
+        if (empty($this->description)) {
+            return '';
+        }
+
+        foreach ($this->description as $repeaterItem) {
+            if ($repeaterItem['context'] === $context) {
+                return $repeaterItem['value'];
+            }
+        }
+
+        return '';
     }
 
     /**

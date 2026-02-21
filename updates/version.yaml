@@ -263,3 +263,6 @@
     - "Add loadMissing for canEnter and getClusters method in the User model"
 3.19.0:
     - "Getting related plans is extendable and using eager loaded values"
+3.20.0:
+    - "Add description to plans"
+    - 3_20_0_add_description_plans_table.php

@@ -3,13 +3,13 @@ fields:
     name:
         label: 'initbiz.cumuluscore::lang.cluster.name'
         span: auto
-        required: 1
+        required: true
         type: text
 
     slug:
         label: 'initbiz.cumuluscore::lang.cluster.slug'
         span: auto
-        required: 1
+        required: true
         preset:
             field: name
             type: slug
