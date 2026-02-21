@@ -266,3 +266,5 @@
 3.20.0:
     - "Add description to plans"
     - 3_20_0_add_description_plans_table.php
+3.20.1:
+    - "Remove logs when cluster is removed"
