@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 return [
     'plugin' => [
         'name' => 'CumulusCore',
@@ -136,6 +137,9 @@ return [
         'is_registration_allowed' => 'Zezwalaj na rejestrację nowych użytkowników do tego planu',
         'name' => 'Nazwa',
         'slug' => 'Slug',
+        'description' => 'Opis',
+        'description_context' => 'Kontekst opisu',
+        'description_context_comment' => 'Kod, po którym łatwo się odnieść na froncie do tego opisu',
         'features' => 'Funkcje Cumulusa',
         'delete_confirm' => 'Czy jesteś pewny, że chcesz usunąć ten plan?',
         'related_plans_tab' => 'Upgrade / downgrade',
@@ -169,5 +173,7 @@ return [
         'register_user' => 'Nowy użytkownik zarejestrowany',
         'welcome_messages' => 'Wiadomości powitalne',
         'onboarding_users' => 'Wiadomości wdrożeniowe',
+        'registered_days_ago_label' => 'Zarejestrowano dni temu',
+        'plans_label' => 'Plany',
     ],
 ];
