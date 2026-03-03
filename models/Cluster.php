@@ -85,9 +85,9 @@ class Cluster extends Model
      * Validation
      */
     public $rules = [
-        'name'      => 'required|between:1,255',
-        'email'     => 'nullable|between:6,255|email',
-        'logo'      => 'nullable|image',
+        'name' => 'required|between:1,255',
+        'email' => 'nullable|between:6,255|email',
+        'logo' => 'nullable|image',
     ];
 
     protected $jsonable = ['additional_data'];
@@ -109,6 +109,7 @@ class Cluster extends Model
             Plan::class,
             'table' => 'initbiz_cumuluscore_plans',
         ],
+
         'country' => [
             Country::class,
             'table' => 'rainlab_location_countries',
@@ -129,6 +130,7 @@ class Cluster extends Model
             'table' => 'initbiz_cumuluscore_cluster_feature_logs',
             'key' => 'cluster_id',
             'otherKey' => 'id',
+            'delete' => true,
         ]
     ];
 
