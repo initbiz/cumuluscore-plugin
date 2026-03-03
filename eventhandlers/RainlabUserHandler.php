@@ -12,6 +12,7 @@ use RainLab\User\Models\User;
 use Illuminate\Auth\Events\Logout;
 use RainLab\User\Controllers\Users;
 use RainLab\User\Components\Account;
+use Backend\Classes\NavigationManager;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
 
@@ -110,6 +111,25 @@ class RainlabUserHandler
 
         $event->listen(Logout::class, function ($user) {
             Helpers::forgetCluster();
+        });
+    }
+
+    protected function addPermissionsToUsersController($event): void
+    {
+        // Legacy support for initbiz.cumuluscore.access_users permission
+        $event->listen('backend.menu.extendItems', function (NavigationManager $manager) {
+
+            if ($sideItem = $manager->getSideMenuItem('RainLab.User', 'user', 'users')) {
+                $config = $sideItem->getConfig();
+
+                $config['permissions'][] = 'initbiz.cumuluscore.access_users';
+
+                $manager->addSideMenuItem('RainLab.User', 'user', 'users', $config);
+            }
+        });
+
+        Users::extend(function ($controller) {
+            $controller->requiredPermissions = array_merge($controller->requiredPermissions, ['initbiz.cumuluscore.access_users']);
         });
     }
 }
