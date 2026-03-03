@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Initbiz\CumulusCore\Tests\Models;
 
 use Auth;
+use Carbon\Carbon;
 use RainLab\User\Models\User;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
@@ -31,7 +32,12 @@ class ClusterEncryptableTest extends CumulusTestCase
         $user->email = 'test@test.com';
         $user->password = 'test12345';
         $user->password_confirmation = 'test12345';
-        $user->is_activated = true;
+
+        if (\Schema::hasColumn('users', 'is_activated')) {
+            $user->is_activated = 1;
+        } else {
+            $user->activated_at = Carbon::now()->subDays(1);
+        }
         $user->save();
         $user->clusters()->add($cluster);
 
