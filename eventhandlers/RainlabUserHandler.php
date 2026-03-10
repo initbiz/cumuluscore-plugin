@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Initbiz\CumulusCore\EventHandlers;
 
+use App;
 use Lang;
+use System;
 use Redirect;
 use RainLab\User\Models\User;
 use Illuminate\Auth\Events\Logout;
@@ -17,15 +19,20 @@ class RainlabUserHandler
 {
     public function subscribe($event)
     {
-        $this->addOnRegirectMeAjaxHandler($event);
         $this->addClusterRelation($event);
-        // $this->addClusterField($event);
         $this->addMethodsToUser($event);
-        $this->addFullNameColumn($event);
-        $this->forgetClusterOnLogout($event);
+
+        if (App::runningInFrontend() && System::hasModule('Cms')) {
+            $this->addOnRedirectMeAjaxHandler($event);
+            $this->forgetClusterOnLogout($event);
+        }
+
+        if (App::runningInBackend()) {
+            $this->addFullNameColumn($event);
+        }
     }
 
-    public function addOnRegirectMeAjaxHandler($event)
+    public function addOnRedirectMeAjaxHandler($event)
     {
         Account::extend(function ($component) {
             $component->addDynamicMethod('onRedirectMe', function () use ($component) {
@@ -66,6 +73,7 @@ class RainlabUserHandler
             });
 
             $model->addDynamicMethod('canEnter', function ($cluster) use ($model) {
+                $model->loadMissing('clusters');
                 return $model->clusters->firstWhere('slug', $cluster->slug) ? true : false;
             });
 
@@ -74,6 +82,7 @@ class RainlabUserHandler
             });
 
             $model->addDynamicMethod('getClusters', function () use ($model) {
+                $model->loadMissing('clusters');
                 return $model->clusters;
             });
         });
