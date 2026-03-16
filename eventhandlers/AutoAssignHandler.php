@@ -6,18 +6,20 @@ namespace Initbiz\CumulusCore\EventHandlers;
 
 use Db;
 use Event;
-use RainLab\User\Models\User;
-use RainLab\User\Models\UserGroup;
-use Initbiz\CumulusCore\Models\Plan;
+use Initbiz\CumulusCore\Models\AutoAssignSettings;
 use Initbiz\CumulusCore\Models\Cluster;
 use October\Rain\Exception\ApplicationException;
-use Initbiz\CumulusCore\Models\AutoAssignSettings;
+use RainLab\User\Models\User;
+use RainLab\User\Models\UserGroup;
 
 class AutoAssignHandler
 {
+    protected $input;
+
     public function subscribe($event)
     {
         $this->beginTransactionBefore($event);
+        $this->storeInput($event);
         $this->autoAssignUserCluster($event);
         $this->autoAssignUserToGroup($event);
         $this->commitTransactionOnSuccess($event);
@@ -30,10 +32,20 @@ class AutoAssignHandler
         }, 1000);
     }
 
+    public function storeInput($event)
+    {
+        $event->listen('rainlab.user.beforeRegister', function ($component, &$input) {
+            $this->input = $input;
+        }, 900);
+    }
+
     public function autoAssignUserCluster($event)
     {
-        $event->listen('rainlab.user.register', function ($user, $data) {
-            if (!AutoAssignSettings::get('enable_auto_assign_user')) {
+        $event->listen('rainlab.user.register', function ($component, $user) {
+
+            $data = $this->input;
+
+            if (! AutoAssignSettings::get('enable_auto_assign_user')) {
                 return true;
             }
 
@@ -50,17 +62,18 @@ class AutoAssignHandler
             }
 
             if (AutoAssignSettings::get('auto_assign_user') === 'new_cluster') {
-                $cluster = new Cluster();
-                $cluster->name           = $data[AutoAssignSettings::get('auto_assign_user_new_cluster')];
-                $cluster->thoroughfare   = (isset($data['thoroughfare'])) ? $data['thoroughfare'] : null;
-                $cluster->city           = (isset($data['city'])) ? $data['city'] : null;
-                $cluster->phone          = (isset($data['phone'])) ? $data['phone'] : null;
-                $cluster->country_id     = (isset($data['country_id'])) ? $data['country_id'] : null;
-                $cluster->postal_code    = (isset($data['postal_code'])) ? $data['postal_code'] : null;
-                $cluster->description    = (isset($data['description'])) ? $data['description'] : null;
-                $cluster->email          = (isset($data['cluster_email'])) ? $data['cluster_email'] : null;
-                $cluster->tax_number     = (isset($data['tax_number'])) ? $data['tax_number'] : null;
-                $cluster->account_number = (isset($data['account_number'])) ? $data['account_number'] : null;
+
+                $cluster = new Cluster;
+                $cluster->name = $data[AutoAssignSettings::get('auto_assign_user_new_cluster')];
+                $cluster->thoroughfare = $data['thoroughfare'] ?? null;
+                $cluster->city = $data['city'] ?? null;
+                $cluster->phone = $data['phone'] ?? null;
+                $cluster->country_id = $data['country_id'] ?? null;
+                $cluster->postal_code = $data['postal_code'] ?? null;
+                $cluster->description = $data['description'] ?? null;
+                $cluster->email = $data['cluster_email'] ?? null;
+                $cluster->tax_number = $data['tax_number'] ?? null;
+                $cluster->account_number = $data['account_number'] ?? null;
 
                 Event::fire('initbiz.cumuluscore.autoAssignBeforeClusterCreate', [&$cluster, $data]);
 
@@ -70,47 +83,27 @@ class AutoAssignHandler
             }
 
             try {
-                $user->clusters()->syncWithoutDetaching($cluster);
+                $user->clusters()->syncWithoutDetaching([$cluster->id]);
+
                 Event::fire('initbiz.cumuluscore.autoAssignUserToCluster', [$user, $cluster]);
             } catch (\Exception $e) {
+
                 Db::rollback();
+
                 if (env('APP_DEBUG', true)) {
                     throw $e;
-                } else {
-                    trace_log($e);
-                    throw new \Exception("Error auto assigning user to cluster", 1);
-                }
-            }
-
-            if (AutoAssignSettings::get('auto_assign_user') === 'new_cluster' && AutoAssignSettings::get('enable_auto_assign_cluster')) {
-                Event::fire('initbiz.cumuluscore.beforeAutoAssignClusterToPlan', [&$data]);
-
-                if (AutoAssignSettings::get('auto_assign_cluster') === 'get_plan') {
-                    $planSlug = $data[AutoAssignSettings::get('auto_assign_cluster_get_plan')];
-                    $plan = Plan::where('slug', $planSlug)->first();
                 }
 
-                if (AutoAssignSettings::get('auto_assign_cluster') === 'concrete_plan') {
-                    $planSlug = AutoAssignSettings::get('auto_assign_cluster_concrete_plan');
-                    $plan = Plan::where('slug', $planSlug)->first();
-                }
-
-                if ($plan->is_registration_allowed) {
-                    $cluster->plan()->associate($plan);
-                    $cluster->save();
-                    Event::fire('initbiz.cumuluscore.autoAssignClusterToPlan', [$cluster, $plan]);
-                } else {
-                    Db::rollback();
-                    throw new \Exception("Error auto assigning cluster to plan", 1);
-                }
+                trace_log($e);
+                throw new \Exception('Error auto assigning user to cluster');
             }
         }, 100);
     }
 
     public function autoAssignUserToGroup($event)
     {
-        $event->listen('rainlab.user.register', function ($user, $data) {
-            if (!AutoAssignSettings::get('enable_auto_assign_user_to_group')) {
+        $event->listen('rainlab.user.register', function ($component, $user) {
+            if (! AutoAssignSettings::get('enable_auto_assign_user_to_group')) {
                 return true;
             }
 
@@ -123,7 +116,7 @@ class AutoAssignHandler
 
     public function commitTransactionOnSuccess($event)
     {
-        $event->listen('rainlab.user.register', function ($user, $data) {
+        $event->listen('rainlab.user.register', function ($component, $user) {
             // Place to test if everything went as expected
 
             $dbUser = User::find($user->id);
@@ -131,7 +124,7 @@ class AutoAssignHandler
                 $state = Event::fire('initbiz.cumuluscore.registrationComplete', [$dbUser], true);
                 if ($state === false) {
                     Db::rollback();
-                    throw new ApplicationException("Registration failed");
+                    throw new ApplicationException('Registration failed');
                 } else {
                     Db::commit();
                 }

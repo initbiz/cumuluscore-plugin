@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Initbiz\CumulusCore\EventHandlers;
 
 use App;
-use Lang;
-use System;
-use Redirect;
-use RainLab\User\Models\User;
-use Illuminate\Auth\Events\Logout;
-use RainLab\User\Controllers\Users;
-use RainLab\User\Components\Account;
 use Backend\Classes\NavigationManager;
-use Initbiz\CumulusCore\Models\Cluster;
+use Illuminate\Auth\Events\Logout;
 use Initbiz\CumulusCore\Classes\Helpers;
+use Initbiz\CumulusCore\Models\Cluster;
+use Lang;
+use RainLab\User\Components\Account;
+use RainLab\User\Controllers\Users;
+use RainLab\User\Models\User;
+use Redirect;
+use System;
 
 class RainlabUserHandler
 {
@@ -30,6 +30,7 @@ class RainlabUserHandler
 
         if (App::runningInBackend()) {
             $this->addFullNameColumn($event);
+            $this->extendUsersController($event);
         }
     }
 
@@ -49,8 +50,8 @@ class RainlabUserHandler
                 Cluster::class,
                 'table' => 'initbiz_cumuluscore_cluster_user',
                 'order' => 'name',
-                'key'      => 'user_id',
-                'otherKey' => 'cluster_id'
+                'key' => 'user_id',
+                'otherKey' => 'cluster_id',
             ];
         });
     }
@@ -58,11 +59,11 @@ class RainlabUserHandler
     public function addMethodsToUser($event)
     {
         User::extend(function ($model) {
-            $model->addDynamicMethod('scopeActivated', function ($query) use ($model) {
-                return $query->where("is_activated", true);
+            $model->addDynamicMethod('scopeActivated', function ($query) {
+                return $query->where('is_activated', true);
             });
 
-            $model->addDynamicMethod('scopeApplyTrashedFilter', function ($query, $type) use ($model) {
+            $model->addDynamicMethod('scopeApplyTrashedFilter', function ($query, $type) {
                 switch ($type) {
                     case '1':
                         return $query->withTrashed();
@@ -75,15 +76,17 @@ class RainlabUserHandler
 
             $model->addDynamicMethod('canEnter', function ($cluster) use ($model) {
                 $model->loadMissing('clusters');
+
                 return $model->clusters->firstWhere('slug', $cluster->slug) ? true : false;
             });
 
             $model->addDynamicMethod('getFullNameAttribute', function ($user) use ($model) {
-                return $model->name . ' ' . $model->surname;
+                return $model->first_name.' '.$model->last_name;
             });
 
             $model->addDynamicMethod('getClusters', function () use ($model) {
                 $model->loadMissing('clusters');
+
                 return $model->clusters;
             });
         });
@@ -96,8 +99,8 @@ class RainlabUserHandler
                 $widget->removeColumn('name');
                 $widget->addColumns([
                     'full_name' => [
-                        'label' => Lang::get('initbiz.cumuluscore::lang.users.last_first_name')
-                    ]
+                        'label' => Lang::get('initbiz.cumuluscore::lang.users.last_first_name'),
+                    ],
                 ]);
             }
         });
@@ -130,6 +133,34 @@ class RainlabUserHandler
 
         Users::extend(function ($controller) {
             $controller->requiredPermissions = array_merge($controller->requiredPermissions, ['initbiz.cumuluscore.access_users']);
+        });
+    }
+
+    public function extendUsersController($event)
+    {
+        $event->listen('rainlab.user.view.extendPreviewTabs', function () {
+            return ['Clusters' => '$/initbiz/cumuluscore/partials/_user_clusters.php'];
+        });
+
+        Users::extendFormFields(function ($form, $model, $context) {
+            if (! $model instanceof User) {
+                return;
+            }
+
+            $form->addTabFields([
+                'clusters' => [
+                    'label' => 'Clusters',
+                    'tab' => 'Clusters',
+                    'type' => 'relation',
+                    'controller' => [
+                        'label' => 'Clusters',
+                        'list' => '$/initbiz/cumuluscore/models/cluster/columns.yaml',
+                        'fields' => '$/initbiz/cumuluscore/models/cluster/fields.yaml',
+                    ],
+                    'nameFrom' => 'name',
+                    'select' => 'name',
+                ],
+            ]);
         });
     }
 }

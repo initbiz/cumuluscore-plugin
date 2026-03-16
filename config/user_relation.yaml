@@ -1,0 +1,8 @@
+clusters:
+    label: Clusters
+    manage:
+        list: $/initbiz/cumuluscore/models/cluster/columns.yaml
+        form: $/initbiz/cumuluscore/models/cluster/fields.yaml
+    view:
+        list: $/initbiz/cumuluscore/models/cluster/columns.yaml
+    pivot: $/initbiz/cumuluscore/models/cluster/fields.yaml
