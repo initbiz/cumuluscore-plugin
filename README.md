@@ -63,7 +63,7 @@ The easiest way to get the idea is to imagine an example pricing table with plan
 
 Cumulus Features (or just features) are parts of the whole functionality of our application. Access to them is given to clusters by assigning them to plans. Every plugin of yours can [register its own features](#registering-cumulus-features).
 
-![Example plan](assets/img/example-plan.png)
+![Example plan](docs/example-plan.png)
 
 ### Clusters' usernames
 
@@ -99,7 +99,7 @@ As a consequence, if you want to check if the user is:
 
 you have to embed all the components (`Session`, `CumulusGuard` and `FeatureGuard`) on one page (or its layout):
 
-![Feature guard](assets/img/feature-guard.png)
+![Feature guard](docs/feature-guard.png)
 
 ### Registering Cumulus features
 
@@ -125,7 +125,7 @@ If you select the type then the cluster's username or slug will be automatically
 
 What is more, you can select features that will be required to show the entry in the menu. Remember that only one feature is enough to show the menu (more like logical "or" than "and"). If no feature is selected then everybody will see the menu entry.
 
-![Static menu in Cumulus](assets/img/menu-static-pages.png)
+![Static menu in Cumulus](docs/menu-static-pages.png)
 
 ### Components
 
@@ -133,7 +133,7 @@ What is more, you can select features that will be required to show the entry in
 
 The component is rendering a view for a user to select the cluster he/she wants to enter. If the user is assigned to only one cluster then the component will transparently redirect browser as it was clicked.
 
-![Clusters list component](assets/img/user-cluster-list-component.png)
+![Clusters list component](docs/user-cluster-list-component.png)
 
 #### `CumulusGuard`
 
@@ -149,7 +149,7 @@ The feature guard is checking if the current cluster can see the page based on f
 
 > If you want to filter content on one page based on features, use [`canEnterFeature Twig function`](https://docs.init.biz/cumuluscore#canenterfeature-twig-function).
 
-![Feature guard](assets/img/feature-guard.png)
+![Feature guard](docs/feature-guard.png)
 
 ### `ClusterFiltrable` trait
 
@@ -207,7 +207,7 @@ Auto assigning is a Cumulus function that automatically assigns users and cluste
 
 #### Auto assign users
 
-![Auto assign users](assets/img/auto-assign-users.png)
+![Auto assign users](docs/auto-assign-users.png)
 
 While auto assigning users to clusters you can decide whether you want to:
 
@@ -219,7 +219,7 @@ You can also decide whether you want to add a user to a group (`RainLab.UserGrou
 
 #### Auto assign clusters
 
-![Auto assign clusters](assets/img/auto-assign-clusters.png)
+![Auto assign clusters](docs/auto-assign-clusters.png)
 
 While auto assigning clusters to plans you can decide if you want to:
 
