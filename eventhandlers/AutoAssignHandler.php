@@ -6,11 +6,11 @@ namespace Initbiz\CumulusCore\EventHandlers;
 
 use Db;
 use Event;
-use Initbiz\CumulusCore\Models\AutoAssignSettings;
-use Initbiz\CumulusCore\Models\Cluster;
-use October\Rain\Exception\ApplicationException;
 use RainLab\User\Models\User;
 use RainLab\User\Models\UserGroup;
+use Initbiz\CumulusCore\Models\Cluster;
+use October\Rain\Exception\ApplicationException;
+use Initbiz\CumulusCore\Models\AutoAssignSettings;
 
 class AutoAssignHandler
 {

@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Initbiz\CumulusCore\EventHandlers;
 
 use App;
-use Backend\Classes\NavigationManager;
-use Illuminate\Auth\Events\Logout;
-use Initbiz\CumulusCore\Classes\Helpers;
-use Initbiz\CumulusCore\Models\Cluster;
 use Lang;
-use RainLab\User\Components\Account;
-use RainLab\User\Controllers\Users;
-use RainLab\User\Models\User;
-use Redirect;
 use System;
+use Redirect;
+use RainLab\User\Models\User;
+use Illuminate\Auth\Events\Logout;
+use RainLab\User\Controllers\Users;
+use RainLab\User\Components\Account;
+use Backend\Classes\NavigationManager;
+use Initbiz\CumulusCore\Models\Cluster;
+use Initbiz\CumulusCore\Classes\Helpers;
 
 class RainlabUserHandler
 {
@@ -60,7 +60,7 @@ class RainlabUserHandler
     {
         User::extend(function ($model) {
             $model->addDynamicMethod('scopeActivated', function ($query) {
-                return $query->where('is_activated', true);
+                return $query->where('activated_at', true);
             });
 
             $model->addDynamicMethod('scopeApplyTrashedFilter', function ($query, $type) {

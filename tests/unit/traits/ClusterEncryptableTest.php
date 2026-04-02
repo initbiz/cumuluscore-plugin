@@ -22,22 +22,12 @@ class ClusterEncryptableTest extends CumulusTestCase
         $cluster->save();
 
         $user = new User();
-        // RainLab.User v2 compatibility
-        if (\Schema::hasColumn('users', 'first_name')) {
-            $user->first_name = 'test';
-        } else {
-            $user->name = 'test';
-            $user->surname = 'test';
-        }
+        $user->first_name = 'test';
+        $user->last_name = 'test';
         $user->email = 'test@test.com';
         $user->password = 'test12345';
         $user->password_confirmation = 'test12345';
-
-        if (\Schema::hasColumn('users', 'is_activated')) {
-            $user->is_activated = 1;
-        } else {
-            $user->activated_at = Carbon::now()->subDays(1);
-        }
+        $user->activated_at = Carbon::now()->subDays(1);
         $user->save();
         $user->clusters()->add($cluster);
 
