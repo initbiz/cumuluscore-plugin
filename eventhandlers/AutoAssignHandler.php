@@ -97,6 +97,29 @@ class AutoAssignHandler
                 trace_log($e);
                 throw new \Exception('Error auto assigning user to cluster');
             }
+
+            if (AutoAssignSettings::get('auto_assign_user') === 'new_cluster' && AutoAssignSettings::get('enable_auto_assign_cluster')) {
+                Event::fire('initbiz.cumuluscore.beforeAutoAssignClusterToPlan', [&$data]);
+
+                if (AutoAssignSettings::get('auto_assign_cluster') === 'get_plan') {
+                    $planSlug = $data[AutoAssignSettings::get('auto_assign_cluster_get_plan')];
+                    $plan = Plan::where('slug', $planSlug)->first();
+                }
+
+                if (AutoAssignSettings::get('auto_assign_cluster') === 'concrete_plan') {
+                    $planSlug = AutoAssignSettings::get('auto_assign_cluster_concrete_plan');
+                    $plan = Plan::where('slug', $planSlug)->first();
+                }
+
+                if ($plan->is_registration_allowed) {
+                    $cluster->plan()->associate($plan);
+                    $cluster->save();
+                    Event::fire('initbiz.cumuluscore.autoAssignClusterToPlan', [$cluster, $plan]);
+                } else {
+                    Db::rollback();
+                    throw new \Exception("Error auto assigning cluster to plan", 1);
+                }
+            }
         }, 100);
     }
 
