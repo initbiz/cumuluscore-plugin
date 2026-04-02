@@ -8,6 +8,7 @@ use Db;
 use Event;
 use RainLab\User\Models\User;
 use RainLab\User\Models\UserGroup;
+use Initbiz\CumulusCore\Models\Plan;
 use Initbiz\CumulusCore\Models\Cluster;
 use October\Rain\Exception\ApplicationException;
 use Initbiz\CumulusCore\Models\AutoAssignSettings;
