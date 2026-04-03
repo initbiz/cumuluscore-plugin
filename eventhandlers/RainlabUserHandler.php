@@ -60,7 +60,7 @@ class RainlabUserHandler
     {
         User::extend(function ($model) {
             $model->addDynamicMethod('scopeActivated', function ($query) {
-                return $query->where('activated_at', true);
+                return $query->whereNotNull('activated_at');
             });
 
             $model->addDynamicMethod('scopeApplyTrashedFilter', function ($query, $type) {
