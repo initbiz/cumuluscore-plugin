@@ -64,7 +64,7 @@ class AutoAssignHandler
 
             if (AutoAssignSettings::get('auto_assign_user') === 'new_cluster') {
 
-                $cluster = new Cluster;
+                $cluster = new Cluster();
                 $cluster->name = $data[AutoAssignSettings::get('auto_assign_user_new_cluster')];
                 $cluster->thoroughfare = $data['thoroughfare'] ?? null;
                 $cluster->city = $data['city'] ?? null;
@@ -127,7 +127,7 @@ class AutoAssignHandler
     public function autoAssignUserToGroup($event)
     {
         $event->listen('rainlab.user.register', function ($component, $user) {
-            if (! AutoAssignSettings::get('enable_auto_assign_user_to_group')) {
+            if (!AutoAssignSettings::get('enable_auto_assign_user_to_group')) {
                 return true;
             }
 

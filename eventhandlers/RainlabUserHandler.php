@@ -81,7 +81,7 @@ class RainlabUserHandler
             });
 
             $model->addDynamicMethod('getFullNameAttribute', function ($user) use ($model) {
-                return $model->first_name.' '.$model->last_name;
+                return $model->first_name . ' ' . $model->last_name;
             });
 
             $model->addDynamicMethod('getClusters', function () use ($model) {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Initbiz\CumulusCore\Models;
 
-use Model;
 use Event;
+use Model;
 use October\Rain\Database\Collection;
 use Initbiz\CumulusCore\Classes\FeatureManager;
 

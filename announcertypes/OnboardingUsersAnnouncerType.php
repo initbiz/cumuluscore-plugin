@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Initbiz\CumulusCore\AnnouncerTypes;
 
 use Event;
@@ -70,7 +72,7 @@ class OnboardingUsersAnnouncerType extends AnnouncerTypeBase
 
                 $found = false;
                 foreach ($user->clusters as $userCluster) {
-                    if (in_array($userCluster->plan->id, $additionalData['plans'])) {
+                    if (in_array($userCluster->plan->id, $additionalData['plans'], true)) {
                         // For nicer messages - we're rewriting the relation with this single cluster that matches
                         $user->setRelation('clusters', collect([$userCluster]));
                         $found = true;
