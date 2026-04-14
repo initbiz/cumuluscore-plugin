@@ -9,6 +9,7 @@ use Lang;
 use System;
 use Redirect;
 use RainLab\User\Models\User;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Auth\Events\Logout;
 use RainLab\User\Controllers\Users;
 use RainLab\User\Components\Account;
@@ -22,10 +23,10 @@ class RainlabUserHandler
     {
         $this->addClusterRelation($event);
         $this->addMethodsToUser($event);
+        $this->forgetClusterOnLogout($event);
 
         if (App::runningInFrontend() && System::hasModule('Cms')) {
             $this->addOnRedirectMeAjaxHandler($event);
-            $this->forgetClusterOnLogout($event);
         }
 
         if (App::runningInBackend()) {
@@ -106,9 +107,9 @@ class RainlabUserHandler
         });
     }
 
-    public function forgetClusterOnLogout($event)
+    public function forgetClusterOnLogout(Dispatcher $event)
     {
-        $event->listen('rainlab.user.logout', function ($user) {
+        $event->listen('rainlab.user.logout', function () {
             Helpers::forgetCluster();
         }, 100);
 

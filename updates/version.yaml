@@ -268,5 +268,5 @@
     - 3_20_0_add_description_plans_table.php
 3.20.1:
     - "Remove logs when cluster is removed"
-4.0.0:
-    - "Make plugin compatible with RainLab.User v3.x, break compatibility with version 2.x and older"
+3.21.0:
+    - "Make plugin compatible with RainLab.User v3.x"

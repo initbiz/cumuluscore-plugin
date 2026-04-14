@@ -10,6 +10,7 @@ use RainLab\User\Models\User;
 use RainLab\User\Models\UserGroup;
 use Initbiz\CumulusCore\Models\Plan;
 use Initbiz\CumulusCore\Models\Cluster;
+use RainLab\User\Components\Registration;
 use October\Rain\Exception\ApplicationException;
 use Initbiz\CumulusCore\Models\AutoAssignSettings;
 
@@ -42,9 +43,15 @@ class AutoAssignHandler
 
     public function autoAssignUserCluster($event)
     {
-        $event->listen('rainlab.user.register', function ($component, $user) {
+        $event->listen('rainlab.user.register', function ($param1, $param2) {
 
-            $data = $this->input;
+            if ($param1 instanceof Registration) {
+                $data = $this->input;
+                $user = $param2;
+            } else {
+                $user = $param1;
+                $data = $param2;
+            }
 
             if (! AutoAssignSettings::get('enable_auto_assign_user')) {
                 return true;
@@ -126,7 +133,14 @@ class AutoAssignHandler
 
     public function autoAssignUserToGroup($event)
     {
-        $event->listen('rainlab.user.register', function ($component, $user) {
+        $event->listen('rainlab.user.register', function ($param1, $param2) {
+
+            if ($param1 instanceof Registration) {
+                $user = $param2;
+            } else {
+                $user = $param1;
+            }
+
             if (!AutoAssignSettings::get('enable_auto_assign_user_to_group')) {
                 return true;
             }
@@ -140,8 +154,14 @@ class AutoAssignHandler
 
     public function commitTransactionOnSuccess($event)
     {
-        $event->listen('rainlab.user.register', function ($component, $user) {
+        $event->listen('rainlab.user.register', function ($param1, $param2) {
             // Place to test if everything went as expected
+
+            if ($param1 instanceof Registration) {
+                $user = $param2;
+            } else {
+                $user = $param1;
+            }
 
             $dbUser = User::find($user->id);
             if ($dbUser) {
