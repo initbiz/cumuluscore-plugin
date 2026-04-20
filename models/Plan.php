@@ -216,4 +216,22 @@ class Plan extends Model
 
         return $users->unique('id');
     }
+
+    // Webhooks
+
+    public function toWebhookEventArray(array $data): array
+    {
+        $relatedPlans = $this->getRelatedPlans();
+
+        if (!empty($relatedPlans)) {
+            $relatedPlansArray = [];
+            foreach ($relatedPlans as $relatedPlan) {
+                $relatedPlansArray[] = $relatedPlan->toArray();
+            }
+
+            $data['related_plans'] = $relatedPlansArray;
+        }
+
+        return $data;
+    }
 }
