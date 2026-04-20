@@ -268,3 +268,5 @@
     - 3_20_0_add_description_plans_table.php
 3.20.1:
     - "Remove logs when cluster is removed"
+3.21.0:
+    - "Add basic Initbiz.Webhooks support"
