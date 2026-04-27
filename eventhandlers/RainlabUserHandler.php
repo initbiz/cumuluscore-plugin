@@ -9,9 +9,11 @@ use Lang;
 use System;
 use Redirect;
 use RainLab\User\Models\User;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Auth\Events\Logout;
 use RainLab\User\Controllers\Users;
 use RainLab\User\Components\Account;
+use Backend\Classes\NavigationManager;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
 
@@ -21,14 +23,15 @@ class RainlabUserHandler
     {
         $this->addClusterRelation($event);
         $this->addMethodsToUser($event);
+        $this->forgetClusterOnLogout($event);
 
         if (App::runningInFrontend() && System::hasModule('Cms')) {
             $this->addOnRedirectMeAjaxHandler($event);
-            $this->forgetClusterOnLogout($event);
         }
 
         if (App::runningInBackend()) {
             $this->addFullNameColumn($event);
+            $this->extendUsersController($event);
         }
     }
 
@@ -48,8 +51,8 @@ class RainlabUserHandler
                 Cluster::class,
                 'table' => 'initbiz_cumuluscore_cluster_user',
                 'order' => 'name',
-                'key'      => 'user_id',
-                'otherKey' => 'cluster_id'
+                'key' => 'user_id',
+                'otherKey' => 'cluster_id',
             ];
         });
     }
@@ -57,11 +60,14 @@ class RainlabUserHandler
     public function addMethodsToUser($event)
     {
         User::extend(function ($model) {
-            $model->addDynamicMethod('scopeActivated', function ($query) use ($model) {
-                return $query->where("is_activated", true);
+            $model->addDynamicMethod('scopeActivated', function ($query) {
+                if (\Schema::hasColumn('users', 'is_activated')) {
+                    return $query->where('is_activated', true);
+                }
+                return $query->whereNotNull('activated_at');
             });
 
-            $model->addDynamicMethod('scopeApplyTrashedFilter', function ($query, $type) use ($model) {
+            $model->addDynamicMethod('scopeApplyTrashedFilter', function ($query, $type) {
                 switch ($type) {
                     case '1':
                         return $query->withTrashed();
@@ -74,15 +80,17 @@ class RainlabUserHandler
 
             $model->addDynamicMethod('canEnter', function ($cluster) use ($model) {
                 $model->loadMissing('clusters');
+
                 return $model->clusters->firstWhere('slug', $cluster->slug) ? true : false;
             });
 
             $model->addDynamicMethod('getFullNameAttribute', function ($user) use ($model) {
-                return $model->name . ' ' . $model->surname;
+                return $model->first_name . ' ' . $model->last_name;
             });
 
             $model->addDynamicMethod('getClusters', function () use ($model) {
                 $model->loadMissing('clusters');
+
                 return $model->clusters;
             });
         });
@@ -95,21 +103,68 @@ class RainlabUserHandler
                 $widget->removeColumn('name');
                 $widget->addColumns([
                     'full_name' => [
-                        'label' => Lang::get('initbiz.cumuluscore::lang.users.last_first_name')
-                    ]
+                        'label' => Lang::get('initbiz.cumuluscore::lang.users.last_first_name'),
+                    ],
                 ]);
             }
         });
     }
 
-    public function forgetClusterOnLogout($event)
+    public function forgetClusterOnLogout(Dispatcher $event)
     {
-        $event->listen('rainlab.user.logout', function ($user) {
+        $event->listen('rainlab.user.logout', function () {
             Helpers::forgetCluster();
         }, 100);
 
         $event->listen(Logout::class, function ($user) {
             Helpers::forgetCluster();
+        });
+    }
+
+    protected function addPermissionsToUsersController($event): void
+    {
+        // Legacy support for initbiz.cumuluscore.access_users permission
+        $event->listen('backend.menu.extendItems', function (NavigationManager $manager) {
+
+            if ($sideItem = $manager->getSideMenuItem('RainLab.User', 'user', 'users')) {
+                $config = $sideItem->getConfig();
+
+                $config['permissions'][] = 'initbiz.cumuluscore.access_users';
+
+                $manager->addSideMenuItem('RainLab.User', 'user', 'users', $config);
+            }
+        });
+
+        Users::extend(function ($controller) {
+            $controller->requiredPermissions = array_merge($controller->requiredPermissions, ['initbiz.cumuluscore.access_users']);
+        });
+    }
+
+    public function extendUsersController($event)
+    {
+        $event->listen('rainlab.user.view.extendPreviewTabs', function () {
+            return ['Clusters' => '$/initbiz/cumuluscore/partials/_user_clusters.php'];
+        });
+
+        Users::extendFormFields(function ($form, $model, $context) {
+            if (!$model instanceof User) {
+                return;
+            }
+
+            $form->addTabFields([
+                'clusters' => [
+                    'label' => 'initbiz.cumuluscore::lang.users.label',
+                    'tab' => 'initbiz.cumuluscore::lang.users.clusters_tab',
+                    'type' => 'relation',
+                    'controller' => [
+                        'label' => 'initbiz.cumuluscore::lang.users.controller',
+                        'list' => '$/initbiz/cumuluscore/models/cluster/columns.yaml',
+                        'fields' => '$/initbiz/cumuluscore/models/cluster/fields.yaml',
+                    ],
+                    'nameFrom' => 'name',
+                    'select' => 'name',
+                ],
+            ]);
         });
     }
 }

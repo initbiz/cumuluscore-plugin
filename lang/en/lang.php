@@ -16,8 +16,10 @@ return [
     ],
 
     'users' => [
+        'label' => 'Clusters',
         'last_first_name' => 'Last and first name',
         'cluster_tab' => 'Clusters',
+        'controller' => 'Clusters',
     ],
 
     'settings' => [

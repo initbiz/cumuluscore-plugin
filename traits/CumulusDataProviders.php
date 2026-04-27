@@ -15,8 +15,8 @@ trait CumulusDataProviders
     {
         $faker = Faker::create();
         $data = [
-            'name' => $faker->firstName,
-            'surname' => $faker->lastName,
+            'first_name' => $faker->firstName,
+            'last_name' => $faker->lastName,
             'email' => $faker->email,
             'phone_no' => $faker->phoneNumber,
             'password' => $faker->password,
