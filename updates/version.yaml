@@ -269,4 +269,6 @@
 3.20.1:
     - "Remove logs when cluster is removed"
 3.21.0:
+    - "Add basic Initbiz.Webhooks support"
+3.22.0:
     - "Make plugin compatible with RainLab.User v3.x"
