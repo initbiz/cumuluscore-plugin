@@ -53,7 +53,7 @@ class AutoAssignHandler
                 $data = $param2;
             }
 
-            if (! AutoAssignSettings::get('enable_auto_assign_user')) {
+            if (!AutoAssignSettings::get('enable_auto_assign_user')) {
                 return true;
             }
 

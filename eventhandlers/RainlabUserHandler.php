@@ -61,6 +61,9 @@ class RainlabUserHandler
     {
         User::extend(function ($model) {
             $model->addDynamicMethod('scopeActivated', function ($query) {
+                if (\Schema::hasColumn('users', 'is_activated')) {
+                    return $query->where('is_activated', true);
+                }
                 return $query->whereNotNull('activated_at');
             });
 
@@ -144,7 +147,7 @@ class RainlabUserHandler
         });
 
         Users::extendFormFields(function ($form, $model, $context) {
-            if (! $model instanceof User) {
+            if (!$model instanceof User) {
                 return;
             }
 
