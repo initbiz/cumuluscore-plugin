@@ -16,6 +16,7 @@ use RainLab\User\Components\Account;
 use Backend\Classes\NavigationManager;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
+use October\Rain\Events\PriorityDispatcher;
 
 class RainlabUserHandler
 {
@@ -110,7 +111,7 @@ class RainlabUserHandler
         });
     }
 
-    public function forgetClusterOnLogout(Dispatcher $event)
+    public function forgetClusterOnLogout(Dispatcher|PriorityDispatcher $event)
     {
         $event->listen('rainlab.user.logout', function () {
             Helpers::forgetCluster();
