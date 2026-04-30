@@ -1,5 +1,9 @@
 include:
-    - component: $CI_SERVER_FQDN/operational/gitlab-ci-components/setup-project-playground-user-3@1.4.2
+    - component: $CI_SERVER_FQDN/operational/gitlab-ci-components/setup-project-playground@1
+      inputs:
+          octobercms_license_key: "${PLAYGROUND_LICENSE_KEY}"
+          github_machine_user_token: ${GITHUB_MACHINE_USER_TOKEN}
+    - component: $CI_SERVER_FQDN/operational/gitlab-ci-components/setup-project-playground-october-3@1
       inputs:
           octobercms_license_key: "${PLAYGROUND_LICENSE_KEY}"
           github_machine_user_token: ${GITHUB_MACHINE_USER_TOKEN}
@@ -10,6 +14,14 @@ Tests:
     extends:
         - .rules-mr-events
         - .setup-project-playground
+    script:
+        - composer require initbiz/cumuluscore-plugin:dev-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}
+        - vendor/bin/pest --parallel --ci --bail
+
+Tests-october-3:
+    extends:
+        - .rules-mr-events
+        - .setup-project-playground-october-3
     script:
         - composer require initbiz/cumuluscore-plugin:dev-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}
         - vendor/bin/pest --parallel --ci --bail
