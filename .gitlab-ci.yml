@@ -15,7 +15,7 @@ Tests:
         - .rules-mr-events
         - .setup-project-playground
     script:
-        - composer require initbiz/cumuluscore-plugin:dev-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME} as 3.22.1
+        - composer require "initbiz/cumuluscore-plugin:dev-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME} as 3.22.1"
         - vendor/bin/pest --parallel --ci --bail
 
 Tests-october-3:
@@ -23,7 +23,7 @@ Tests-october-3:
         - .rules-mr-events
         - .setup-project-playground-october-3
     script:
-        - composer require initbiz/cumuluscore-plugin:dev-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME} as 3.22.1
+        - composer require "initbiz/cumuluscore-plugin:dev-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME} as 3.22.1"
         - vendor/bin/pest --parallel --ci --bail
 
 Linter:
@@ -31,7 +31,7 @@ Linter:
         - .rules-mr-events
         - .setup-project-playground
     script:
-        - composer require initbiz/cumuluscore-plugin:dev-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME} as 3.22.1
+        - composer require "initbiz/cumuluscore-plugin:dev-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME} as 3.22.1"
         - php artisan linter:code -b plugins/initbiz/cumuluscore
 
 Danger-PHP:
