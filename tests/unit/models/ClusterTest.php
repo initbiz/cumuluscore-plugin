@@ -309,7 +309,12 @@ class ClusterTest extends CumulusTestCase
         $user->email = 'test@test.com';
         $user->password = 'test12345';
         $user->password_confirmation = 'test12345';
-        $user->activated_at = Carbon::now()->subDays(1);
+        if (\Schema::hasColumn('users', 'is_activated')) {
+            $user->is_activated = 1;
+        } else {
+            $user->activated_at = Carbon::now()->subDays(1);
+        }
+        
         $user->save();
         $user->clusters()->add($cluster);
 
