@@ -30,8 +30,6 @@ class ClusterEncryptableTest extends CumulusTestCase
             $user->surname = 'test';
         }
 
-        $user->first_name = 'test';
-        $user->last_name = 'test';
         $user->email = 'test@test.com';
         $user->password = 'test12345';
         $user->password_confirmation = 'test12345';
