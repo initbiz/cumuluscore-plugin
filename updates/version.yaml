@@ -272,3 +272,5 @@
     - "Add basic Initbiz.Webhooks support"
 3.22.0:
     - "Make plugin compatible with RainLab.User v3.x"
+3.22.1:
+    - "Fix langs, remove unnecessary buttons from cluster relation controller"

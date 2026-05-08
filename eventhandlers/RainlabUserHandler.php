@@ -153,13 +153,15 @@ class RainlabUserHandler
 
             $form->addTabFields([
                 'clusters' => [
-                    'label' => 'initbiz.cumuluscore::lang.users.label',
-                    'tab' => 'initbiz.cumuluscore::lang.users.clusters_tab',
+                    'tab' => Lang::get('initbiz.cumuluscore::lang.users.cluster_tab'),
                     'type' => 'relation',
                     'controller' => [
                         'label' => 'initbiz.cumuluscore::lang.users.controller',
                         'list' => '$/initbiz/cumuluscore/models/cluster/columns.yaml',
                         'fields' => '$/initbiz/cumuluscore/models/cluster/fields.yaml',
+                        'view' => [
+                            'toolbarButtons' => 'add|remove',
+                        ],
                     ],
                     'nameFrom' => 'name',
                     'select' => 'name',
