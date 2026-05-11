@@ -274,3 +274,5 @@
     - "Make plugin compatible with RainLab.User v3.x"
 3.22.1:
     - "Fix langs, remove unnecessary buttons from cluster relation controller"
+3.22.2:
+    - "Fix incorrect event type issues in RainlabUserHandler"
