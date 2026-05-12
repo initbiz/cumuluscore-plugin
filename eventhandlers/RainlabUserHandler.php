@@ -144,7 +144,7 @@ class RainlabUserHandler
     public function extendUsersController($event)
     {
         $event->listen('rainlab.user.view.extendPreviewTabs', function () {
-            return ['Clusters' => '$/initbiz/cumuluscore/partials/_user_clusters.php'];
+            return [Lang::get('initbiz.cumuluscore::lang.users.cluster_tab') => '$/initbiz/cumuluscore/partials/_user_clusters.php'];
         });
 
         Users::extendFormFields(function ($form, $model, $context) {
