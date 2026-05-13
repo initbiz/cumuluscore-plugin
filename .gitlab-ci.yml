@@ -16,17 +16,14 @@ Tests:
         - .setup-project-playground-4
     script:
         - mkdir tests
-        - composer require initbiz/cumulusroles-plugin:dev-feature/3869-oc-4
         - composer require "initbiz/cumuluscore-plugin:dev-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME} as 3.22.3"
         - vendor/bin/pest --parallel --ci --bail
 
 Tests-october-3:
     extends:
         - .rules-mr-events
-        - .setup-project-playground-4
+        - .setup-project-playground-3
     script:
-        - mkdir tests
-        - composer require initbiz/cumulusroles-plugin:dev-feature/3869-oc-4
         - composer require "initbiz/cumuluscore-plugin:dev-${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME} as 3.22.3"
         - vendor/bin/pest --parallel --ci --bail
 
