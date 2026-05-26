@@ -54,7 +54,7 @@ class AutoAssignHandler
             }
 
             if (!AutoAssignSettings::get('enable_auto_assign_user')) {
-                return true;
+                return;
             }
 
             Event::fire('initbiz.cumuluscore.beforeAutoAssignUserToCluster', [&$data]);
@@ -142,7 +142,7 @@ class AutoAssignHandler
             }
 
             if (!AutoAssignSettings::get('enable_auto_assign_user_to_group')) {
-                return true;
+                return;
             }
 
             $group = UserGroup::where('code', AutoAssignSettings::get('group_to_auto_assign_user'))->first();

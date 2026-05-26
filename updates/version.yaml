@@ -280,3 +280,5 @@
     - "Fix clusters relation controller displayed in users controller"
 3.22.4:
     - "Fix UserRegisterAnnouncerType"
+3.22.5:
+    - "Fix register when autoassign is disabled"
