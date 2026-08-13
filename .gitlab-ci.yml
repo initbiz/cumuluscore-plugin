@@ -1,14 +1,24 @@
 include:
+    - component: $CI_SERVER_FQDN/operational/gitlab-ci-components/rules-mr-events@1
+    - component: $CI_SERVER_FQDN/operational/gitlab-ci-components/danger@1
+
     - component: $CI_SERVER_FQDN/operational/gitlab-ci-components/setup-project-playground-4@1
       inputs:
           octobercms_license_key: "${PLAYGROUND_LICENSE_KEY}"
           github_machine_user_token: ${GITHUB_MACHINE_USER_TOKEN}
+
     - component: $CI_SERVER_FQDN/operational/gitlab-ci-components/setup-project-playground-3@1
       inputs:
           octobercms_license_key: "${PLAYGROUND_LICENSE_KEY}"
           github_machine_user_token: ${GITHUB_MACHINE_USER_TOKEN}
-    - component: $CI_SERVER_FQDN/operational/gitlab-ci-components/rules-mr-events@1
-    - component: $CI_SERVER_FQDN/operational/gitlab-ci-components/danger@1
+
+    - component: $CI_SERVER_FQDN/operational/gitlab-ci-components/push-branch-to-github@1
+      inputs:
+          github_repo_url: "https://initbiz-machine-user:${GITHUB_MACHINE_USER_TOKEN}@github.com/initbiz/cumuluscore-plugin.git"
+
+    - component: $CI_SERVER_FQDN/operational/gitlab-ci-components/push-tags-to-github@1
+      inputs:
+          github_repo_url: "https://initbiz-machine-user:${GITHUB_MACHINE_USER_TOKEN}@github.com/initbiz/cumuluscore-plugin.git"
 
 Tests:
     extends:
@@ -31,3 +41,15 @@ Danger-PHP:
     extends:
         - .danger
         - .rules-mr-events
+
+Push-To-GitHub:
+    # extends:
+        # - .push-branch-to-github
+        # - .push-tags-to-github
+    rules:
+        - if: $CI_COMMIT_BRANCH == "master"
+    script:
+        - git remote add github https://initbiz-machine-user:${GITHUB_MACHINE_USER_TOKEN}@github.com/initbiz/cumuluscore-plugin.git
+        - git push github $CI_COMMIT_BRANCH
+
+
