@@ -51,6 +51,7 @@ Push-To-GitHub:
     script:
         - git fetch origin $CI_COMMIT_BRANCH
         - git checkout $CI_COMMIT_BRANCH
+        - echo "https://initbiz-machine-user:${GITHUB_MACHINE_USER_TOKEN}@github.com/initbiz/cumuluscore-plugin.git"
         - git remote add github "https://initbiz-machine-user:${GITHUB_MACHINE_USER_TOKEN}@github.com/initbiz/cumuluscore-plugin.git"
         - git push github $CI_COMMIT_BRANCH:$CI_COMMIT_BRANCH
 
