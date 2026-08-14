@@ -282,3 +282,5 @@
     - "Fix UserRegisterAnnouncerType"
 3.22.5:
     - "Fix register when autoassign is disabled"
+3.23.0:
+    - "Updating code in GitHub using CI pipeline"
