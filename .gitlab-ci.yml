@@ -42,7 +42,7 @@ Danger-PHP:
         - .danger
         - .rules-mr-events
 
-Push-Master-To-GitHub:
+Push-Branches-To-GitHub:
     rules:
         - if: $CI_COMMIT_BRANCH == "master"
         - if: $CI_COMMIT_BRANCH == "develop"
