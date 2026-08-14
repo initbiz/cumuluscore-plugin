@@ -16,9 +16,9 @@ include:
       inputs:
           github_repo_url: "https://initbiz-machine-user:${GITHUB_MACHINE_USER_WRITE_TOKEN}@github.com/initbiz/cumuluscore-plugin.git"
 
-    # - component: $CI_SERVER_FQDN/operational/gitlab-ci-components/push-tags-to-github@1
-    #   inputs:
-    #       github_repo_url: "https://initbiz-machine-user:${GITHUB_MACHINE_USER_TOKEN}@github.com/initbiz/cumuluscore-plugin.git"
+    - component: $CI_SERVER_FQDN/operational/gitlab-ci-components/push-tags-to-github@1
+      inputs:
+          github_repo_url: "https://initbiz-machine-user:${GITHUB_MACHINE_USER_WRITE_TOKEN}@github.com/initbiz/cumuluscore-plugin.git"
 
 Tests:
     extends:
@@ -47,4 +47,4 @@ Push-To-GitHub:
         - if: $CI_COMMIT_BRANCH == "master"
     extends:
         - .push-branch-to-github
-        # - .push-tags-to-github
+        - .push-tags-to-github
