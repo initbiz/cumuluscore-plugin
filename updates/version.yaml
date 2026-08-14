@@ -284,3 +284,5 @@
     - "Fix register when autoassign is disabled"
 3.23.0:
     - "Updating code in GitHub using CI pipeline"
+3.23.1:
+    - "Split branches and tags"
