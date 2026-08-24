@@ -23,4 +23,5 @@ columns:
         searchable: true
         sortable: false
         relation: plan
-        valueFrom: name
+        select: name
+        relationWith: plan

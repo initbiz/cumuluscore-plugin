@@ -286,3 +286,5 @@
     - "Updating code in GitHub using CI pipeline"
 3.23.1:
     - "Split branches and tags"
+3.23.2:
+    - "Fix plan display in RelationController"
