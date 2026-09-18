@@ -288,3 +288,5 @@
     - "Split branches and tags"
 3.23.2:
     - "Fix plan display in RelationController"
+3.23.3:
+    - "Remove FullPluginTestCase"
