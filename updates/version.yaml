@@ -282,3 +282,13 @@
     - "Fix UserRegisterAnnouncerType"
 3.22.5:
     - "Fix register when autoassign is disabled"
+3.23.0:
+    - "Updating code in GitHub using CI pipeline"
+3.23.1:
+    - "Split branches and tags"
+3.23.2:
+    - "Fix plan display in RelationController"
+3.23.3:
+    - "Remove FullPluginTestCase"
+3.23.4:
+    - "Add country_id validation rule to Cluster model"
