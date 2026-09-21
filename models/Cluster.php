@@ -89,6 +89,7 @@ class Cluster extends Model
         'name' => 'required|between:1,255',
         'email' => 'nullable|between:6,255|email',
         'logo' => 'nullable|image',
+        'country_id' => 'nullable|exists:rainlab_location_countries,id',
     ];
 
     protected $jsonable = ['additional_data'];

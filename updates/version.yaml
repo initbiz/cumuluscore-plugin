@@ -290,3 +290,5 @@
     - "Fix plan display in RelationController"
 3.23.3:
     - "Remove FullPluginTestCase"
+3.23.4:
+    - "Add country_id validation rule to Cluster model"
