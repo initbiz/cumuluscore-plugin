@@ -13,6 +13,7 @@ use October\Rain\Database\Builder;
 use RainLab\Location\Models\Country;
 use Initbiz\CumulusCore\Classes\ClusterKey;
 use Initbiz\Cumuluscore\Models\ClusterFeatureLog;
+use Initbiz\Webhooks\WebhookEvents\UpdateModelEvent;
 use Initbiz\CumulusCore\Classes\Exceptions\RegisterFeatureException;
 use Initbiz\CumulusCore\Classes\Exceptions\DeregisterFeatureException;
 
@@ -85,9 +86,10 @@ class Cluster extends Model
      * Validation
      */
     public $rules = [
-        'name'      => 'required|between:1,255',
-        'email'     => 'nullable|between:6,255|email',
-        'logo'      => 'nullable|image',
+        'name' => 'required|between:1,255',
+        'email' => 'nullable|between:6,255|email',
+        'logo' => 'nullable|image',
+        'country_id' => 'nullable|exists:rainlab_location_countries,id',
     ];
 
     protected $jsonable = ['additional_data'];
@@ -109,6 +111,7 @@ class Cluster extends Model
             Plan::class,
             'table' => 'initbiz_cumuluscore_plans',
         ],
+
         'country' => [
             Country::class,
             'table' => 'rainlab_location_countries',
@@ -129,6 +132,7 @@ class Cluster extends Model
             'table' => 'initbiz_cumuluscore_cluster_feature_logs',
             'key' => 'cluster_id',
             'otherKey' => 'id',
+            'delete' => true,
         ]
     ];
 
@@ -429,5 +433,37 @@ class Cluster extends Model
     public function touchLastVisited()
     {
         $this->update(['last_visited_at' => Carbon::now()]);
+    }
+
+    // Webhooks
+
+    public function toWebhookEventArray(array $data): array
+    {
+        $this->loadMissing(['plan', 'country']);
+
+        if (!empty($this->plan)) {
+            $data['plan'] = $this->plan->toArray();
+        }
+
+        if (!empty($this->country)) {
+            $data['country'] = $this->country->toArray();
+        }
+
+        return $data;
+    }
+
+    public function toUpdateWebhookEventArray(array $data): array
+    {
+        $originalValues = $data[UpdateModelEvent::ORIGINAL_VALUES_KEY];
+        if (empty($originalValues['plan_id'] ?? null)) {
+            return $data;
+        }
+
+        $oldPlan = Plan::where('id', $originalValues['plan_id'])->first();
+        if ($oldPlan) {
+            $data[UpdateModelEvent::ORIGINAL_VALUES_KEY]['old_plan'] = $oldPlan->toArray();
+        }
+
+        return $data;
     }
 }

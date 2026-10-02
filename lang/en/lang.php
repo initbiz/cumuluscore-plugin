@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 return [
     'plugin' => [
         'name' => 'CumulusCore',
@@ -15,8 +16,10 @@ return [
     ],
 
     'users' => [
+        'label' => 'Clusters',
         'last_first_name' => 'Last and first name',
         'cluster_tab' => 'Clusters',
+        'controller' => 'Clusters',
     ],
 
     'settings' => [
@@ -136,6 +139,9 @@ return [
         'is_registration_allowed' => 'Allow users registration for this plan',
         'name' => 'Name',
         'slug' => 'Slug',
+        'description' => 'Description',
+        'description_context' => 'Description context',
+        'description_context_comment' => 'Code to easily reference it in the front-end',
         'features' => 'Features',
         'delete_confirm' => 'Are you sure you want to delete this plan?',
         'related_plans_tab' => 'Upgrade / downgrade',
@@ -168,7 +174,6 @@ return [
     'announcers' => [
         'register_user' => 'New user registered',
         'welcome_messages' => 'Welcome messages',
-        'onboarding_users' => 'Onboarding users',
         'onboarding_users' => 'Onboarding users',
         'registered_days_ago_label' => 'Registered days ago',
         'plans_label' => 'Plans',

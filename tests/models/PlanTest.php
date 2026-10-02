@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Initbiz\CumulusCore\Tests\Models;
 
+use PluginTestCase;
 use RainLab\User\Models\User;
 use Initbiz\CumulusCore\Models\Plan;
 use Initbiz\CumulusCore\Models\Cluster;
-use Initbiz\InitDry\Tests\Classes\FullPluginTestCase;
 
-class PlanTest extends FullPluginTestCase
+class PlanTest extends PluginTestCase
 {
     public function testPlansToUpgrade()
     {

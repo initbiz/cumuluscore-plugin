@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Initbiz\CumulusCore\Models;
 
+use Event;
 use Model;
 use October\Rain\Database\Collection;
 use Initbiz\CumulusCore\Classes\FeatureManager;
@@ -47,7 +48,8 @@ class Plan extends Model
     ];
 
     protected $jsonable = [
-        'features'
+        'description',
+        'features',
     ];
 
     /**
@@ -116,13 +118,36 @@ class Plan extends Model
     }
 
     /**
+     * Description is an array of context => value pairs, where context is easy reference for
+     * front-end to get correct description
+     *
+     * @param string $context
+     * @return string
+     */
+    public function getDescriptionByContext(string $context): string
+    {
+        if (empty($this->description)) {
+            return '';
+        }
+
+        foreach ($this->description as $repeaterItem) {
+            if ($repeaterItem['context'] === $context) {
+                return $repeaterItem['value'];
+            }
+        }
+
+        return '';
+    }
+
+    /**
      * Return plans that this plan can upgrade to
      *
      * @return Collection
      */
     public function plansToUpgrade()
     {
-        return $this->related_plans()->where('relation', 'upgrade')->get();
+        $relatedPlans = $this->getRelatedPlans();
+        return $relatedPlans->where('relation', 'upgrade');
     }
 
     /**
@@ -152,6 +177,29 @@ class Plan extends Model
     }
 
     /**
+     * Easy way to get all related plans with "relation" attribute
+     *
+     * @return Collection
+     */
+    public function getRelatedPlans(): Collection
+    {
+        $originalRelatedPlans = $this->related_plans;
+
+        if (empty($originalRelatedPlans)) {
+            return new Collection();
+        }
+
+        $relatedPlans = $originalRelatedPlans->map(function ($plan) {
+            $plan->relation = $plan->pivot->relation;
+            return $plan;
+        });
+
+        Event::fire('initbiz.cumuluscore.getRelatedPlans', [$this, &$relatedPlans]);
+
+        return $relatedPlans;
+    }
+
+    /**
      * Get users that belongs to clusters with this plan
      *
      * @return Collection
@@ -167,5 +215,23 @@ class Plan extends Model
         }
 
         return $users->unique('id');
+    }
+
+    // Webhooks
+
+    public function toWebhookEventArray(array $data): array
+    {
+        $relatedPlans = $this->getRelatedPlans();
+
+        if (!empty($relatedPlans)) {
+            $relatedPlansArray = [];
+            foreach ($relatedPlans as $relatedPlan) {
+                $relatedPlansArray[] = $relatedPlan->toArray();
+            }
+
+            $data['related_plans'] = $relatedPlansArray;
+        }
+
+        return $data;
     }
 }

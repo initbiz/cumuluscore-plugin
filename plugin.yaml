@@ -26,23 +26,19 @@ navigation:
         icon: icon-cloud
         permissions:
             0: 'initbiz.cumuluscore.access*'
-        order: '700'
+        order: 700
         sideMenu:
-            cumulus-side-menu-users:
-                label: 'initbiz.cumuluscore::lang.navigation.users'
-                url: initbiz/cumuluscore/users
-                icon: icon-users
-                permissions:
-                    0: 'initbiz.cumuluscore.access_users'
             cumulus-side-menu-clusters:
                 label: 'initbiz.cumuluscore::lang.navigation.clusters'
                 url: initbiz/cumuluscore/clusters
                 icon: icon-building
                 permissions:
                     0: 'initbiz.cumuluscore.access_clusters'
+                order: 200
             cumulus-side-menu-plan:
                 label: 'initbiz.cumuluscore::lang.navigation.plans'
                 url: initbiz/cumuluscore/plans
                 icon: icon-map
                 permissions:
                     0: 'initbiz.cumuluscore.access_plans'
+                order: 300

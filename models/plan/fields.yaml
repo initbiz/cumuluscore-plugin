@@ -2,34 +2,58 @@ fields:
     name:
         label: 'initbiz.cumuluscore::lang.plan.name'
         span: left
-        required: 1
+        required: true
+
     slug:
         label: 'initbiz.cumuluscore::lang.plan.slug'
         span: right
-        required: 1
+        required: true
         preset:
             field: name
             type: slug
+
 tabs:
     fields:
+        description:
+            label: ''
+            tab: 'initbiz.cumuluscore::lang.plan.description'
+            type: repeater
+            form:
+                fields:
+                    context:
+                        label: 'initbiz.cumuluscore::lang.plan.description_context'
+                        commentAbove: 'initbiz.cumuluscore::lang.plan.description_context_comment'
+                        type: text
+                        span: left
+
+                    value:
+                        label: ''
+                        type: richeditor
+                        span: full
+                        size: large
+
         features:
             tab: 'initbiz.cumuluscore::lang.plan.features'
             nameFrom: name
             descriptionFrom: description
             type: checkboxlist
+
         related_plans:
-            label: ""
-            tab: "initbiz.cumuluscore::lang.plan.related_plans_tab"
+            label: ''
+            tab: 'initbiz.cumuluscore::lang.plan.related_plans_tab'
             context: [update]
             type: partial
+
 secondaryTabs:
     fields:
         is_registration_allowed:
             label: 'initbiz.cumuluscore::lang.plan.is_registration_allowed'
             type: switch
+
         is_trial:
             label: 'initbiz.cumuluscore::lang.plan.is_trial'
             type: switch
+
         priority:
             label: 'initbiz.cumuluscore::lang.plan.priority'
             type: number

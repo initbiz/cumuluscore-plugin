@@ -10,8 +10,8 @@ trait CumulusTestHelpers
     {
         $this->gotoBackend('initbiz/cumuluscore/users/create');
 
-        $this->type($data['name'], 'Form-field-User-name')
-            ->type($data['surname'], 'Form-field-User-surname')
+        $this->type($data['first_name'], 'Form-field-User-first_name')
+            ->type($data['last_name'], 'Form-field-User-last_name')
             ->type($data['email'], 'Form-field-User-email')
             ->type($data['password'], 'Form-field-User-password')
             ->type($data['password'], 'Form-field-User-password_confirmation')

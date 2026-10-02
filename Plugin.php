@@ -153,4 +153,12 @@ class Plugin extends PluginBase
 
         return $cluster->canEnterAnyFeature($featureCodes);
     }
+
+    public function registerWebhookEventsModels(): array
+    {
+        return [
+            \Initbiz\CumulusCore\Models\Cluster::class,
+            \Initbiz\CumulusCore\Models\Plan::class,
+        ];
+    }
 }
