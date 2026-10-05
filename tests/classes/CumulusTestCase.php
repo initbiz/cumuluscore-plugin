@@ -6,10 +6,9 @@ namespace Initbiz\CumulusCore\Tests\Classes;
 
 use Schema;
 use Storage;
+use PluginTestCase;
 
-use Initbiz\InitDry\Tests\Classes\FullPluginTestCase;
-
-class CumulusTestCase extends FullPluginTestCase
+class CumulusTestCase extends PluginTestCase
 {
     public function setUp(): void
     {
