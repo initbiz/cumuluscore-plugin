@@ -292,3 +292,5 @@
     - "Remove FullPluginTestCase"
 3.23.4:
     - "Add country_id validation rule to Cluster model"
+3.23.5:
+    - "Update documentation"
