@@ -294,3 +294,5 @@
     - "Add country_id validation rule to Cluster model"
 3.23.5:
     - "Update documentation"
+3.23.6:
+    - "Cast boolean and date columns"
