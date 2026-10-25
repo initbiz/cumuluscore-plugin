@@ -24,6 +24,11 @@ class Plan extends Model
      */
     public $timestamps = false;
 
+    protected $casts = [
+        'is_registration_allowed' => 'boolean',
+        'is_trial' => 'boolean',
+    ];
+
     /*
      * Validation
      */

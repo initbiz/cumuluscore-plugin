@@ -34,6 +34,10 @@ class ClusterFeatureLog extends Model
 
     public $timestamps = false;
 
+    protected $dates = [
+        'timestamp',
+    ];
+
     /**
      * @var array Relations
      */
