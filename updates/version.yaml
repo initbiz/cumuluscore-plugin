@@ -296,3 +296,5 @@
     - "Update documentation"
 3.23.6:
     - "Cast boolean and date columns"
+3.23.7:
+    - "Fix static analysis issues, roll back registration on auto assign errors and run tests and linter for MR branches in CI"

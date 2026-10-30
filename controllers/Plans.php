@@ -52,6 +52,8 @@ class Plans extends Controller
      */
     public function index_onDelete()
     {
+        $toForceDelete = null;
+
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
             $toForceDelete = Plan::onlyTrashed()->whereIn('id', $checkedIds)->get();
         }
@@ -76,6 +78,8 @@ class Plans extends Controller
      */
     public function index_onRestore()
     {
+        $toRestore = null;
+
         if (($checkedIds = post('checked')) && is_array($checkedIds) && count($checkedIds)) {
             $toRestore = Plan::onlyTrashed()->whereIn('id', $checkedIds)->get();
         } else {

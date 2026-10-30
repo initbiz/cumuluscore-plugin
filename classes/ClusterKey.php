@@ -25,7 +25,7 @@ class ClusterKey
      * @param string $key
      * @return void
      */
-    public static function put(string $clusterSlug, string $key = null): void
+    public static function put(string $clusterSlug, ?string $key = null): void
     {
         $currentKey = self::get($clusterSlug);
 
@@ -69,7 +69,7 @@ class ClusterKey
      * @param string $clusterSlug
      * @return void
      */
-    public static function softDelete(string $clusterSlug, Carbon $timestamp = null)
+    public static function softDelete(string $clusterSlug, ?Carbon $timestamp = null)
     {
         $key = self::get($clusterSlug);
 

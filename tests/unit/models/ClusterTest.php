@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Event;
 use Initbiz\CumulusCore\Models\Cluster;
 use Initbiz\CumulusCore\Classes\Helpers;
 use Initbiz\CumulusCore\Classes\ClusterKey;
-use Initbiz\Cumuluscore\Models\ClusterFeatureLog;
+use Initbiz\CumulusCore\Models\ClusterFeatureLog;
 use Initbiz\CumulusCore\Tests\Classes\CumulusTestCase;
 
 class ClusterTest extends CumulusTestCase

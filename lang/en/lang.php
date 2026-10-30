@@ -178,4 +178,8 @@ return [
         'registered_days_ago_label' => 'Registered days ago',
         'plans_label' => 'Plans',
     ],
+
+    'auto_assign' => [
+        'registration_failed' => 'Registration failed',
+    ],
 ];

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Initbiz\Cumuluscore\Models;
+namespace Initbiz\CumulusCore\Models;
 
 use Model;
 

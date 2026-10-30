@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     backupGlobals="false"
     bootstrap="../../../modules/system/tests/bootstrap.php"
     colors="true"
     processIsolation="false"
     stopOnFailure="false"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/12.5/phpunit.xsd"
     cacheDirectory=".phpunit.cache"
     backupStaticProperties="false"
 >
@@ -18,7 +17,9 @@
 
     <php>
         <env name="APP_ENV" value="testing" />
+        <env name="CACHE_PATH" value="storage/testing" />
         <env name="CACHE_DRIVER" value="array" />
+        <env name="CACHE_STORE" value="array" />
         <env name="SESSION_DRIVER" value="array" />
         <env name="CONVERT_LINE_ENDINGS" value="true" />
         <env name="CMS_ROUTE_CACHE" value="true" />
@@ -29,5 +30,4 @@
         <env name="PLUGINS_PATH" value="plugins" />
         <env name="THEMES_PATH" value="themes" />
     </php>
-
 </phpunit>

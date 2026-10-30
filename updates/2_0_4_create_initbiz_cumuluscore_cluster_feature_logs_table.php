@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Initbiz\Cumuluscore\Updates;
+namespace Initbiz\CumulusCore\Updates;
 
 use Schema;
 use October\Rain\Database\Schema\Blueprint;
