@@ -65,7 +65,7 @@ tabs:
             label: 'initbiz.cumuluscore::lang.cluster.country'
             nameFrom: name
             descriptionFrom: description
-            emptyOption: none
+            emptyOption: 'initbiz.cumuluscore::lang.cluster.empty_option'
             span: auto
             type: relation
             tab: 'initbiz.cumuluscore::lang.cluster.contact_details_tab'
@@ -113,6 +113,6 @@ secondaryTabs:
             label: 'initbiz.cumuluscore::lang.cluster.plan'
             nameFrom: name
             descriptionFrom: description
-            emptyOption: none
+            emptyOption: 'initbiz.cumuluscore::lang.cluster.empty_option'
             span: full
             type: relation
