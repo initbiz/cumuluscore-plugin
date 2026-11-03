@@ -96,6 +96,6 @@ class OnboardingUsersAnnouncerType extends AnnouncerTypeBase
 
     public function getPlansOptions()
     {
-        return Plan::all()->pluck('name', 'id');
+        return Plan::pluck('name', 'id');
     }
 }

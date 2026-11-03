@@ -7,7 +7,7 @@ namespace Initbiz\CumulusCore\Updates;
 use Schema;
 use Initbiz\CumulusCore\Models\Cluster;
 use October\Rain\Database\Updates\Migration;
-use Initbiz\Cumuluscore\Models\ClusterFeatureLog;
+use Initbiz\CumulusCore\Models\ClusterFeatureLog;
 
 class MakeClusterSlugClusterIdInFeatureLogsTable extends Migration
 {

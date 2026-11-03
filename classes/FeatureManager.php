@@ -6,6 +6,7 @@ namespace Initbiz\CumulusCore\Classes;
 
 use Lang;
 use Cache;
+use Config;
 use October\Rain\Support\Singleton;
 use Initbiz\InitDry\Classes\PluginRegistrationManager;
 
@@ -33,7 +34,7 @@ class FeatureManager extends Singleton
      */
     public function getFeatures()
     {
-        if (env('APP_DEBUG', false)) {
+        if (Config::get('app.debug')) {
             Cache::forget(self::CACHEKEY); // clear cache for development purposes
         }
 

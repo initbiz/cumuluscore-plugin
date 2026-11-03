@@ -19,15 +19,15 @@ class Helpers
     /**
      * Get cluster object using session or cookie data
      *
-     * @return Cluster
+     * @return Cluster|null
      */
-    public static function getCluster()
+    public static function getCluster(): ?Cluster
     {
         $clusterCache = ClusterCacheObject::instance();
         $cluster = $clusterCache->getCluster();
 
         if (!$cluster) {
-            return;
+            return null;
         }
 
         $user = DryHelpers::getUser();
@@ -35,6 +35,8 @@ class Helpers
         if ($user && $user->canEnter($cluster)) {
             return $cluster;
         }
+
+        return null;
     }
 
     /**

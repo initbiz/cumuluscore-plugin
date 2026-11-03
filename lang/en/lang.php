@@ -10,13 +10,11 @@ return [
 
     'navigation' => [
         'main' => 'Cumulus',
-        'users' => 'Users',
         'clusters' => 'Clusters',
         'plans' => 'Plans',
     ],
 
     'users' => [
-        'label' => 'Clusters',
         'last_first_name' => 'Last and first name',
         'cluster_tab' => 'Clusters',
         'controller' => 'Clusters',
@@ -30,14 +28,12 @@ return [
         'features_page_title' => 'Manage Cumulus features',
         'features_list_code' => 'Code',
         'features_list_name' => 'Name',
-        'features_list_description' => 'Description',
         'menu_auto_assign_label' => 'Auto assign',
         'menu_auto_assign_description' => 'Auto assigning users and clusters',
         'tab_auto_assign_user' => 'Auto assign users',
         'enable_auto_assign_user' => 'Enable auto assigning users to cluster',
         'enable_auto_assign_user_comment' => 'This will take effect only for users registered using onRegister',
         'auto_assign_user_label' => 'How users are assigned',
-        'tab_auto_assign_cluster' => 'Auto assign clusters',
         'new_cluster' => 'Create new cluster',
         'concrete_cluster' => 'Choose existing cluster',
         'get_cluster' => 'Get cluster from a variable',
@@ -126,7 +122,7 @@ return [
         'tax_number' => 'Tax number',
         'account_number' => 'Bank account number',
         'country' => 'Country',
-        'additional_details' => 'Additional details',
+        'empty_option' => 'None',
         'accounting_details_tab' => 'Accounting details',
         'contact_details_tab' => 'Contact details',
         'plan_filter' => 'Select plans',
@@ -177,5 +173,9 @@ return [
         'onboarding_users' => 'Onboarding users',
         'registered_days_ago_label' => 'Registered days ago',
         'plans_label' => 'Plans',
+    ],
+
+    'auto_assign' => [
+        'registration_failed' => 'Registration failed',
     ],
 ];

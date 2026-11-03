@@ -190,10 +190,6 @@ class Plan extends Model
     {
         $originalRelatedPlans = $this->related_plans;
 
-        if (empty($originalRelatedPlans)) {
-            return new Collection();
-        }
-
         $relatedPlans = $originalRelatedPlans->map(function ($plan) {
             $plan->relation = $plan->pivot->relation;
             return $plan;
@@ -213,10 +209,10 @@ class Plan extends Model
     {
         $users = collect();
 
-        $clusters = $this->clusters()->get();
+        $clusters = $this->clusters;
 
         foreach ($clusters as $cluster) {
-            $users = $users->concat($cluster->users()->get());
+            $users = $users->concat($cluster->users);
         }
 
         return $users->unique('id');
@@ -228,14 +224,12 @@ class Plan extends Model
     {
         $relatedPlans = $this->getRelatedPlans();
 
-        if (!empty($relatedPlans)) {
-            $relatedPlansArray = [];
-            foreach ($relatedPlans as $relatedPlan) {
-                $relatedPlansArray[] = $relatedPlan->toArray();
-            }
-
-            $data['related_plans'] = $relatedPlansArray;
+        $relatedPlansArray = [];
+        foreach ($relatedPlans as $relatedPlan) {
+            $relatedPlansArray[] = $relatedPlan->toArray();
         }
+
+        $data['related_plans'] = $relatedPlansArray;
 
         return $data;
     }

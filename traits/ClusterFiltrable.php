@@ -25,7 +25,7 @@ trait ClusterFiltrable
                 return $cluster;
             }
         } else {
-            if ($cluster = $this->cluster()->first()) {
+            if ($cluster = $this->cluster) {
                 return $cluster;
             }
         }
@@ -153,7 +153,7 @@ trait ClusterFiltrable
             (
                 (!empty($this->cluster_id) && (int) $this->cluster_id === $cluster->id) ||
                 (!empty($this->cluster_slug) && $this->cluster_slug === $cluster->slug) ||
-                (!empty($this->cluster) && $this->cluster()->first()->id === $cluster->id)
+                (!empty($this->cluster) && $this->cluster->id === $cluster->id)
             )
         ) {
             $can = true;

@@ -12,7 +12,6 @@ use RainLab\User\Models\User;
 use October\Rain\Database\Builder;
 use RainLab\Location\Models\Country;
 use Initbiz\CumulusCore\Classes\ClusterKey;
-use Initbiz\Cumuluscore\Models\ClusterFeatureLog;
 use Initbiz\Webhooks\WebhookEvents\UpdateModelEvent;
 use Initbiz\CumulusCore\Classes\Exceptions\RegisterFeatureException;
 use Initbiz\CumulusCore\Classes\Exceptions\DeregisterFeatureException;
@@ -418,11 +417,7 @@ class Cluster extends Model
      */
     public function getPlan()
     {
-        if (isset($this->plan)) {
-            return $this->plan;
-        }
-
-        return $this->plan = $this->plan()->first();
+        return $this->plan;
     }
 
     /**
