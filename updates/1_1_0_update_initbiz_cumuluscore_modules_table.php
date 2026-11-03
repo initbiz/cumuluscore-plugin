@@ -40,12 +40,12 @@ class UpdateInitbizCumuluscoreModulesTable extends Migration
             if (method_exists($connection, 'getDoctrineSchemaManager')) {
                 $indexes = Schema::getConnection()->getDoctrineSchemaManager()->listTableIndexes($table->getTable());
 
-                if (array_key_exists($$indexName, $indexes)) {
-                    $table->unique('slug', $indexName);
+                if (array_key_exists($indexName, $indexes)) {
+                    $table->dropUnique($indexName);
                 }
             } else {
                 if (Schema::hasIndex($table->getTable(), $indexName)) {
-                    $table->unique('slug', $indexName);
+                    $table->dropUnique($indexName);
                 }
             }
         });

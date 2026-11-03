@@ -10,13 +10,11 @@ return [
 
     'navigation' => [
         'main' => 'Cumulus',
-        'users' => 'Użytkownicy',
         'clusters' => 'Klastry',
         'plans' => 'Plany',
     ],
 
     'users' => [
-        'label' => 'Klastry',
         'last_first_name' => 'Imię i nazwisko',
         'cluster_tab' => 'Klastry',
         'controller' => 'Klastry',
@@ -30,14 +28,12 @@ return [
         'features_page_title' => 'Zarządzaj funkcjami Cumulusa',
         'features_list_code' => 'Kod',
         'features_list_name' => 'Nazwa',
-        'features_list_description' => 'Opis',
         'menu_auto_assign_label' => 'Automatyczne przypisywanie',
-        'menu_auto_assign_description' => 'Automatyczne przywpisywanie użytkowników i klastrów',
+        'menu_auto_assign_description' => 'Automatyczne przypisywanie użytkowników i klastrów',
         'tab_auto_assign_user' => 'Automatyczne przypisywanie użytkowników',
         'enable_auto_assign_user' => 'Włącz automatyczne przypisywanie użytkowników',
-        'enable_auto_assign_user_comment' => 'To zadziała wyłącznie dla użytowników zarejestrowanych z użyciem onRegister',
+        'enable_auto_assign_user_comment' => 'To zadziała wyłącznie dla użytkowników zarejestrowanych z użyciem onRegister',
         'auto_assign_user_label' => 'Przypisywanie użytkowników',
-        'tab_auto_assign_cluster' => 'Automatyczne przypisywanie klastrów',
         'new_cluster' => 'Stwórz nowy klaster',
         'concrete_cluster' => 'Wybierz istniejący klaster',
         'get_cluster' => 'Weź klaster ze zmiennej',
@@ -87,12 +83,12 @@ return [
     ],
 
     'cumulus_guard' => [
-        'name' => 'Cumulus guard',
+        'name' => 'Strażnik Cumulusa',
         'description' => 'Komponent sprawdzający czy użytkownik może wejść na stronę klastra',
     ],
 
     'feature_guard' => [
-        'name' => 'Feature Guard',
+        'name' => 'Strażnik funkcji',
         'description' => 'Komponent sprawdzający czy klaster może wejść do danej funkcji Cumulusa',
         'cumulus_features' => 'Funkcje Cumulusa',
         'cumulus_features_desc' => 'Wybierz funkcje Cumulusa, aby ograniczyć dostęp do strony',
@@ -126,7 +122,7 @@ return [
         'tax_number' => 'NIP',
         'account_number' => 'Numer konta bankowego',
         'country' => 'Państwo',
-        'additional_details' => 'Dodatkowe szczegóły',
+        'empty_option' => 'Brak',
         'accounting_details_tab' => 'Dane finansowe',
         'contact_details_tab' => 'Dane kontaktowe',
         'plan_filter' => 'Wybierz plany',
@@ -144,19 +140,19 @@ return [
         'description_context_comment' => 'Kod, po którym łatwo się odnieść na froncie do tego opisu',
         'features' => 'Funkcje Cumulusa',
         'delete_confirm' => 'Czy jesteś pewny, że chcesz usunąć ten plan?',
-        'related_plans_tab' => 'Upgrade / downgrade',
+        'related_plans_tab' => 'Zmiana planu',
         'related_plans' => 'powiązany plan',
         'priority' => 'Priorytet',
         'related_plan_relation' => 'Powiązanie',
-        'related_plan_downgrade' => 'Downgrade',
-        'related_plan_upgrade' => 'Upgrade',
+        'related_plan_downgrade' => 'Niższy plan',
+        'related_plan_upgrade' => 'Wyższy plan',
         'related_plan_alternative' => 'Alternatywny',
     ],
 
     'plan_list' => [
         'title' => 'Zarządzaj planami',
         'name' => 'Nazwa',
-        'is_trial' => 'Trial',
+        'is_trial' => 'Okres próbny',
         'is_registration_allowed' => 'Rejestracja dozwolona',
     ],
 
@@ -177,5 +173,9 @@ return [
         'onboarding_users' => 'Wiadomości wdrożeniowe',
         'registered_days_ago_label' => 'Zarejestrowano dni temu',
         'plans_label' => 'Plany',
+    ],
+
+    'auto_assign' => [
+        'registration_failed' => 'Rejestracja nie powiodła się',
     ],
 ];

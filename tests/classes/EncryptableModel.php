@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Initbiz\CumulusCore\Tests\Classes;
 
 use Model;
-use Initbiz\Cumuluscore\Models\Cluster;
+use Initbiz\CumulusCore\Models\Cluster;
 
 class EncryptableModel extends Model
 {

@@ -1,5 +1,5 @@
 clusters:
-    label: Clusters
+    label: 'initbiz.cumuluscore::lang.navigation.clusters'
     manage:
         list: $/initbiz/cumuluscore/models/cluster/columns.yaml
         form: $/initbiz/cumuluscore/models/cluster/fields.yaml

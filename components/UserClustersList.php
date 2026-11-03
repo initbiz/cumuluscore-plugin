@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Initbiz\CumulusCore\Components;
 
-use Cms\Classes\Page;
 use Cms\Classes\ComponentBase;
 use Initbiz\InitDry\Classes\Helpers;
 use Initbiz\CumulusCore\Models\GeneralSettings;
@@ -34,7 +33,7 @@ class UserClustersList extends ComponentBase
 
     public function getClusterDashboardPageOptions()
     {
-        return Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
+        return Helpers::getFileListToDropdown();
     }
 
     public function onRun()
